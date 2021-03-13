@@ -8,32 +8,22 @@ public class AgentNPC : Agent
     private SteeringBehaviour[] SteeringList;
     [SerializeField]
     private Steering steer;
-
     [SerializeField]
     public float blendWeight;
-    private float Rotation = 0;
-
 
     void Awake(){
         SteeringList = this.gameObject.GetComponents<SteeringBehaviour>();
     }
-
-
     void LateUpdate(){
         foreach (SteeringBehaviour s in SteeringList)
         {
             steer = s.GetSteering(this);
         }
     }
-
-
-
-
     void Update(){
         applySteering(steer);
 
     }
-    
     public void applySteering(Steering s)
     {
       
@@ -57,10 +47,10 @@ public class AgentNPC : Agent
        **/
 
         Vector3 Acceleration = s.linear/mass;       // A = F/masa
-        float AngularSpeed = s.angular;
+        Rotation = s.angular;
 
         Position += Velocity * Time.deltaTime; // Fórmulas de Newton
-        Orientation += (Rotation * Mathf.Deg2Rad) * Time.deltaTime; //Radianes
+        Orientation += Rotation * Time.deltaTime; //Radianes
 
         /**if(Acceleration == Vector3.zero)
         {
@@ -68,13 +58,10 @@ public class AgentNPC : Agent
         }
         else**/
         Velocity += Acceleration* Time.deltaTime;  // Aceleracion usando el tiempo            
-        
-        Rotation += AngularSpeed*Time.deltaTime;
-        
         //Debug.Log(Orientation);
         // Pasar los valores Position y Orientation a Unity. Por ejemplo
-        //transform.rotation = new Quaternion(); //Quaternion.identity;
-       // transform.Rotate(Vector3.up, Orientation); 
+        transform.rotation = new Quaternion(); //Quaternion.identity;
+        transform.Rotate(Vector3.up, Orientation); 
 
 
     }
