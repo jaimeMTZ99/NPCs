@@ -13,19 +13,19 @@ public class SeekAcceleration : SteeringBehaviour
         float distancia = Mathf.Sqrt(Mathf.Pow((target.transform.position.x - this.transform.position.x),2) + 
         0 +
         Mathf.Pow((target.transform.position.z - this.transform.position.z),2));
-        //Si la distancia es mayor que el radio interior del target estable la
-        //magnitud vectorial del steering como el vector cuya magnitud es la
-        //velocidad máxima del agente y cuya dirección va del agente hacia el
-        //target
-        if(distancia > target.intRadius){
-            steer.linear = agent.directionToTarget(target.transform.position) ;
-            steer.linear.Normalize();
-            steer.linear *=agent.maxAcceleration;
-            steer.angular = 0;
+        //Calculamos la direccion del agente al target
+        steer.linear = agent.directionToTarget(target.transform.position) ;
+        //Si la distancia es menor que el radio interior, entonces ponemos la velocidad en sentido contrario para contrarrestar el mov uniforme
+        if(distancia < target.intRadius){
+            steer.linear = -agent.Velocity;
         }
-        else{
-            steer.linear = Vector3.zero;
-        }
+        
+        steer.linear.Normalize();
+        steer.linear *=agent.maxAcceleration;
+        steer.angular = 0;
         return steer;
+
+       
+
     }
 }

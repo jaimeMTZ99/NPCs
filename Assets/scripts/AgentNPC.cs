@@ -11,8 +11,6 @@ public class AgentNPC : Agent
 
     [SerializeField]
     public float blendWeight;
-
-    private Vector3 Velocity = Vector3.zero;
     private float Rotation = 0;
 
 
@@ -64,19 +62,19 @@ public class AgentNPC : Agent
         Position += Velocity * Time.deltaTime; // Fórmulas de Newton
         Orientation += (Rotation * Mathf.Deg2Rad) * Time.deltaTime; //Radianes
 
-        if(Acceleration == Vector3.zero)
+        /**if(Acceleration == Vector3.zero)
         {
             Velocity = Vector3.zero;
         }
-        else
-            Velocity += Acceleration* Time.deltaTime;  // Aceleracion usando el tiempo            
+        else**/
+        Velocity += Acceleration* Time.deltaTime;  // Aceleracion usando el tiempo            
         
         Rotation += AngularSpeed*Time.deltaTime;
         
         //Debug.Log(Orientation);
         // Pasar los valores Position y Orientation a Unity. Por ejemplo
-        transform.rotation = new Quaternion(); //Quaternion.identity;
-        transform.Rotate(Vector3.up, Orientation); 
+        //transform.rotation = new Quaternion(); //Quaternion.identity;
+       // transform.Rotate(Vector3.up, Orientation); 
 
 
     }

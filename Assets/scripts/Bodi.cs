@@ -12,6 +12,7 @@ public class Bodi : MonoBehaviour
     public float maxRotation;
     public float maxAcceleration;
 
+    [SerializeField]
     private float orientation;
 
     public Vector3 velocity;
@@ -19,7 +20,7 @@ public class Bodi : MonoBehaviour
 
     public float Orientation
     {
-        get {return orientation;}
+        get => orientation;
         set {
             if (value > Mathf.PI)
             {
@@ -33,11 +34,30 @@ public class Bodi : MonoBehaviour
             }
     }
 
+    public Vector3 Velocity {
+        get {
+            if (velocity.magnitude > maxSpeed) {
+                velocity = velocity.normalized * maxSpeed; 
+            }
+                
+            if (velocity.magnitude < 0.1) 
+                velocity = Vector3.zero;
+            return velocity;
+        }
+        set {
+            velocity = value;
+            if (velocity.magnitude > maxSpeed) {
+                velocity = velocity.normalized * maxSpeed; 
+            }
+            if (velocity.magnitude < 0.1)
+                velocity = Vector3.zero;
+        }
+    }
 
     public Vector3 Position
     {
-        get {return transform.position;}
-        set {transform.position = value;}
+        get => transform.position;
+        set => transform.position = value;
     }
 
 
@@ -45,12 +65,6 @@ public class Bodi : MonoBehaviour
     void Start()
     {
         
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
     }
 
     public float PositionToAngle(Vector3 pos)

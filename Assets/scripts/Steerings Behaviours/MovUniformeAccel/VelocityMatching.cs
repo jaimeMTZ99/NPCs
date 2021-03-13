@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class VelocityMatching : SteeringBehaviour
 {
-    public float TimeToTarget = 1;
+    public float TimeToTarget = 1f;
     override public Steering GetSteering(AgentNPC agent)
     {
         //establecer a valores nulos el steering que se debe retornar,
@@ -19,7 +19,7 @@ public class VelocityMatching : SteeringBehaviour
         //velocidad máxima del agente y cuya dirección va del agente hacia el
         //target
 
-            steer.linear = agent.velocity-target.velocity;
+            steer.linear = target.velocity-agent.velocity;
             steer.linear /= TimeToTarget;
 
             if (distancia > agent.maxAcceleration)
