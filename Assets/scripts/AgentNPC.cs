@@ -47,22 +47,11 @@ public class AgentNPC : Agent
        **/
 
         Vector3 Acceleration = s.linear/mass;       // A = F/masa
-        Rotation = s.angular;
-
         Position += Velocity * Time.deltaTime; // Fórmulas de Newton
         Orientation += Rotation * Time.deltaTime; //Radianes
-
-        /**if(Acceleration == Vector3.zero)
-        {
-            Velocity = Vector3.zero;
-        }
-        else**/
+        Rotation += steer.angular * Time.deltaTime;
         Velocity += Acceleration* Time.deltaTime;  // Aceleracion usando el tiempo            
-        //Debug.Log(Orientation);
-        // Pasar los valores Position y Orientation a Unity. Por ejemplo
         transform.rotation = new Quaternion(); //Quaternion.identity;
-        transform.Rotate(Vector3.up, Orientation); 
-
-
+        transform.Rotate(Vector3.up, Orientation*Mathf.Rad2Deg); 
     }
 }

@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Align : SteeringBehaviour
+public class AntiAlign : SteeringBehaviour
 {
-    [Header("Align")]
+    [Header("Anti-Align")]
     [SerializeField]
     private float _timeToTarget = 0.1f;
     override public Steering GetSteering(AgentNPC agent){
@@ -12,9 +12,9 @@ public class Align : SteeringBehaviour
         steer.linear = Vector3.zero;
         //Rotación deseada.
         float targetRotation;
-        // Restamos las orientaciones para calcular el angulo de rotación hacía el target.
+        // Restamos las orientaciones para calcular el angulo de rotación hacía el target y le sumamos 180 grados.
         Debug.Log("Orientacion target" + this.target.orientation*Mathf.Rad2Deg);
-        float rotation = this.target.Orientation - agent.Orientation;
+        float rotation = this.target.Orientation - agent.Orientation + Mathf.PI;
 
         Debug.Log("Rotation:" + rotation*Mathf.Rad2Deg);
 
