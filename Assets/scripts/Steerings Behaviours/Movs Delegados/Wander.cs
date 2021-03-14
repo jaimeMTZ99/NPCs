@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WanderAcceleration : SteeringBehaviour
+public class Wander : SteeringBehaviour
 {
     override public Steering GetSteering(AgentNPC agent)
     {
