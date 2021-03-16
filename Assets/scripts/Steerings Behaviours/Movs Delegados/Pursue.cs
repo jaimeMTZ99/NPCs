@@ -1,12 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-/**
+
 public class Pursue : SeekAcceleration
 {
 
     public float maxPredict;
-
+    private Agent aux;
     public override Steering GetSteering(AgentNPC agent) {
 
         // Calculamos la distancia y la direccion hacia el objetivo
@@ -32,12 +32,11 @@ public class Pursue : SeekAcceleration
         }
 
         // Put the target together
-        SeekAcceleration.target = Pursued.Position;
-        SeekAcceleration.target.transform.position += target.Velocity * prediction;
+        target.transform.position = aux.transform.position;
+        target.transform.position += aux.Velocity * prediction;
         
         // Delegate to seek
-        return SeekAcceleration.GetSteering(agent);
+        return base.GetSteering(agent);
         
     }
 }
-*/
