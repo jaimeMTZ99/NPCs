@@ -50,3 +50,4 @@ crashlytics-build.properties
 *.json
 Packages/manifest.json
 *.txt
+Packages/manifest.json

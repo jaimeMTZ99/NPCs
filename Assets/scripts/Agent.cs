@@ -57,17 +57,23 @@ public class Agent : Bodi
         }
 
         if(gizmosIntAngle){
+            Quaternion intRot1 = Quaternion.Euler(0, intAngle*Mathf.Rad2Deg, 0);
+            Quaternion intRot2 = Quaternion.Euler(0, -intAngle*Mathf.Rad2Deg, 0);
             Gizmos.color = Color.blue;
-            Gizmos.DrawLine(transform.position, new Vector3(Mathf.Sin((intAngle/2)*Mathf.Deg2Rad),transform.position.y,Mathf.Cos((intAngle/2)*Mathf.Deg2Rad)));
-
-            Gizmos.DrawLine(transform.position, new Vector3(-(Mathf.Sin((intAngle/2)*Mathf.Deg2Rad)),transform.position.y,Mathf.Cos((intAngle/2)*Mathf.Deg2Rad)));
+            var position = transform.position;
+            var forward = transform.forward;
+            Gizmos.DrawLine(position, position + intRot1 * forward);
+            Gizmos.DrawLine(position, position + intRot2 * forward);
         }
 
         if(gizmosExtAngle){
-            Gizmos.color = Color.black;
-            Gizmos.DrawLine(transform.position, new Vector3(Mathf.Sin((extAngle/2)*Mathf.Deg2Rad),transform.position.y,Mathf.Cos((extAngle/2)*Mathf.Deg2Rad)));
-
-            Gizmos.DrawLine(transform.position, new Vector3(-(Mathf.Sin((extAngle/2)*Mathf.Deg2Rad)),transform.position.y,Mathf.Cos((extAngle/2)*Mathf.Deg2Rad)));
+            Quaternion extRot1 = Quaternion.Euler(0, extAngle*Mathf.Rad2Deg, 0);
+            Quaternion extRot2 = Quaternion.Euler(0, -extAngle*Mathf.Rad2Deg, 0);
+            Gizmos.color = Color.red;
+            var position = transform.position;
+            var forward = transform.forward;
+            Gizmos.DrawLine(position, position + extRot1 * forward);
+            Gizmos.DrawLine(position, position + extRot2 * forward);
         }
 
     }
