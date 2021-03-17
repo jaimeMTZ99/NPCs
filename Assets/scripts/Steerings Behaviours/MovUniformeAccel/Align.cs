@@ -7,6 +7,7 @@ public class Align : SteeringBehaviour
     [Header("Align")]
     [SerializeField]
     private float timeToTarget = 0.1f;
+
     public float MapToRange (float rotation) {
     rotation %=  Mathf.PI * 2;
     if (Mathf.Abs(rotation) >  Mathf.PI) {
@@ -28,17 +29,23 @@ public class Align : SteeringBehaviour
         // Map the result to the (-pi, pi) interval
         rotation = MapToRange(rotation) ;
         float rotationSize = Mathf.Abs(rotation);
-        Debug.Log("Rotacion absoluta " + rotationSize);
-        Debug.Log("Angulo del agetne " + agent.intAngle);
         //Si el agente ya esta rotado en la misma direccion del target paramos.
         if (rotationSize <= agent.intAngle) {
             // Return "none"
-            Debug.Log("Primer condicion");
+            Debug.Log("Entrar con rotacion menos que el angulo " + rotationSize);
             steer.angular = -agent.Rotation;
-            if (steer.angular > 0) {
-                steer.angular /= Mathf.Abs(steer.angular);
+            if (steer.angular >  0){
                 steer.angular *= agent.MaxAngularAcc;
             }
+            /*if (steer.angular > 0.0f) {
+                steer.angular -= agent.MaxAngularAcc;
+                if (steer.angular < 0)
+                    steer.angular = 0;
+            }else if (steer.angular < 0.0f){
+                steer.angular += agent.MaxAngularAcc;
+                if (steer.angular > 0)
+                    steer.angular = 0;
+            }*/
             return steer;
         }
         //Si el el radio exterior del NPC no está rotado todavía hacia el agentPlayer giramos a maxima velocidad de rotación.

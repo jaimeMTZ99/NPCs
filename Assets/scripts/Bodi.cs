@@ -22,7 +22,9 @@ public class Bodi : MonoBehaviour
         get => orientation;
         set
         {
-            orientation = value ;
+            orientation = value;
+            transform.rotation = new Quaternion(); //Quaternion.identity;
+            transform.Rotate(Vector3.up, orientation * Mathf.Rad2Deg);
         }
     }
 
@@ -77,11 +79,6 @@ public class Bodi : MonoBehaviour
     public float MaxAngularAcc => maxAngularAcc;
 
     public float MaxRotation => maxRotation;
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
 
     public float PositionToAngle(Vector3 pos)
     {

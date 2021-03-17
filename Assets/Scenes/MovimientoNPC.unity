@@ -918,7 +918,7 @@ MonoBehaviour:
   maxSpeed: 3
   maxRotation: 3
   maxAcceleration: 0.9
-  maxAngularAcc: 1.2
+  maxAngularAcc: 0.9
   orientation: 0
   velocity: {x: 0, y: 0, z: 0}
   acceleration: {x: 0, y: 0, z: 0}
@@ -1241,13 +1241,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1213825579}
-  m_LocalRotation: {x: 0, y: 0.83867055, z: 0, w: 0.54463917}
+  m_LocalRotation: {x: 0, y: 0.95881975, z: 0, w: 0.2840153}
   m_LocalPosition: {x: 12.44, y: 0, z: 39.27}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 114, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 147, z: 0}
 --- !u!114 &1213825584
 MonoBehaviour:
   m_ObjectHideFlags: 0

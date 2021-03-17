@@ -35,8 +35,5 @@ public class AgentNPC : Agent
         Position += Velocity * Time.deltaTime; // Fórmulas de Newton
         Orientation += Rotation * Time.deltaTime; //Radianes
         Velocity += Acceleration * Time.deltaTime;  // Aceleracion usando el tiempo            
-        transform.rotation = new Quaternion(); //Quaternion.identity;
-        transform.Rotate(Vector3.up, Orientation * Mathf.Rad2Deg);
-        
     }
 }
