@@ -6,28 +6,35 @@ public class AntiAlign : SteeringBehaviour
 {
     [Header("Anti-Align")]
     [SerializeField]
-    private float _timeToTarget = 0.1f;
+    private float timeToTarget = 0.1f;
+
+    public float MapToRange (float rotation) {
+    rotation %=  Mathf.PI * 2;
+    if (Mathf.Abs(rotation) >  Mathf.PI) {
+        if (rotation < 0.0f)
+            rotation += Mathf.PI * 2;
+        else
+            rotation -=  Mathf.PI * 2;
+    }
+    return rotation;
+    }
+
     override public Steering GetSteering(AgentNPC agent){
         Steering steer = this.gameObject.GetComponent<Steering>(); 
         steer.linear = Vector3.zero;
         //Rotación deseada.
         float targetRotation;
-        // Restamos las orientaciones para calcular el angulo de rotación hacía el target y le sumamos 180 grados.
-        Debug.Log("Orientacion target" + this.target.orientation*Mathf.Rad2Deg);
+        // Restamos las orientaciones para calcular el angulo de rotación hacía el target.
         float rotation = this.target.Orientation - agent.Orientation + Mathf.PI;
-
-        Debug.Log("Rotation:" + rotation*Mathf.Rad2Deg);
-
         // Map the result to the (-pi, pi) interval
-        rotation = -Mathf.PI + Mathf.Repeat(rotation + Mathf.PI, 2*Mathf.PI);
-        Debug.Log("Rotation mapeada" + rotation*Mathf.Rad2Deg);
+        rotation = MapToRange(rotation) ;
         float rotationSize = Mathf.Abs(rotation);
         //Si el agente ya esta rotado en la misma direccion del target paramos.
         if (rotationSize <= agent.intAngle) {
             // Return "none"
+            Debug.Log("Entrar con rotacion menos que el angulo " + rotationSize);
             steer.angular = -agent.Rotation;
-            if (steer.angular > 0) {
-                steer.angular /= Mathf.Abs(steer.angular);
+            if (steer.angular >  0){
                 steer.angular *= agent.MaxAngularAcc;
             }
             return steer;
@@ -46,14 +53,14 @@ public class AntiAlign : SteeringBehaviour
 
         // Se intenta coger la rotación deseada.
         steer.angular = targetRotation - agent.Rotation;
-        steer.angular /= _timeToTarget;
-
+        steer.angular /= timeToTarget;
         //Si la acceleración angular es mayor que la permitida se corrige.
         float angularAcceleration = Mathf.Abs(steer.angular);
-        if (angularAcceleration >= agent.MaxAngularAcc){
+        if (angularAcceleration > agent.MaxAngularAcc){
             steer.angular /= angularAcceleration;
             steer.angular *= agent.MaxAngularAcc;
         }
+        Debug.Log("ultima linea");
         return steer;
     }
 }
