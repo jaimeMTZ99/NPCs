@@ -6,15 +6,15 @@ public class Pursue : SeekAcceleration
 {
 
     public float maxPredict;
-    private Agent aux;
+    public Agent aux;
     public override Steering GetSteering(AgentNPC agent) {
 
         // Calculamos la distancia y la direccion hacia el objetivo
-        Vector3 direction = target.transform.position - agent.transform.position;
+        Vector3 direction = aux.transform.position - agent.transform.position;
 
-        float distancia = Mathf.Sqrt(Mathf.Pow((target.transform.position.x - this.transform.position.x),2) + 
+        float distancia = Mathf.Sqrt(Mathf.Pow((aux.transform.position.x - this.transform.position.x),2) + 
         0 +
-        Mathf.Pow((target.transform.position.z - this.transform.position.z),2));
+        Mathf.Pow((aux.transform.position.z - this.transform.position.z),2));
 
         // Obtenemos la velocidad que lleva
         float speed = agent.Velocity.magnitude;
@@ -32,8 +32,9 @@ public class Pursue : SeekAcceleration
         }
 
         // Put the target together
-        target.transform.position = aux.transform.position;
-        target.transform.position += aux.Velocity * prediction;
+        this.target = aux;
+        this.target.transform.position += aux.Velocity * prediction;
+        Debug.Log(this.target.transform.position);
         
         // Delegate to seek
         return base.GetSteering(agent);

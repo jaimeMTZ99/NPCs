@@ -31,7 +31,6 @@ public class AgentNPC : Agent
     {
         Vector3 Acceleration = s.linear / mass;       // A = F/masa
         Rotation = s.angular;
-        Debug.Log("Rotacion del agenNPC" + Rotation);
         Position += Velocity * Time.deltaTime; // Fórmulas de Newton
         Orientation += Rotation * Time.deltaTime; //Radianes
         Velocity += Acceleration * Time.deltaTime;  // Aceleracion usando el tiempo            
