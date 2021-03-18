@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Align : SteeringBehaviour
 {
-    [Header("Align")]
+
     [SerializeField]
     private float timeToTarget = 0.1f;
 
@@ -32,7 +32,6 @@ public class Align : SteeringBehaviour
         //Si el agente ya esta rotado en la misma direccion del target paramos.
         if (rotationSize <= agent.intAngle) {
             // Return "none"
-            Debug.Log("Entrar con rotacion menos que el angulo " + rotationSize);
             steer.angular = -agent.Rotation;
             if (steer.angular >  0){
                 steer.angular *= agent.MaxAngularAcc;
@@ -69,7 +68,6 @@ public class Align : SteeringBehaviour
             steer.angular /= angularAcceleration;
             steer.angular *= agent.MaxAngularAcc;
         }
-        Debug.Log("ultima linea");
         return steer;
     }
 }

@@ -33,8 +33,7 @@ public class Pursue : SeekAcceleration
 
         // Put the target together
         this.target = aux;
-        this.target.transform.position += aux.Velocity * prediction;
-        Debug.Log(this.target.transform.position);
+        agent.transform.position += aux.Velocity * prediction;
         
         // Delegate to seek
         return base.GetSteering(agent);
