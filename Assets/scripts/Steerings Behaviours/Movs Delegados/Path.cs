@@ -14,12 +14,13 @@ public class Path : MonoBehaviour
 
 
     public Vector3 GetPosition(float param) {
-
+        Vector3 position = Vector3.zero;
+        return position;
 
     }
 
 
-    public int GetParam(Vector3 characterPosition, int currentPosition) {
-
+    public float GetParam(Vector3 charPosition, float currentPosition) {
+        return 0;
     }
 }

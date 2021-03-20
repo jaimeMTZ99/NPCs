@@ -48,12 +48,12 @@ public class Agent : Bodi
     {
         if(gizmosIntRadius){
             Gizmos.color = Color.yellow;
-            Gizmos.DrawSphere(transform.position, intRadius);
+            Gizmos.DrawWireSphere(transform.position, intRadius);
         }
 
         if(gizmosExtRadius){
             Gizmos.color = Color.red;
-            Gizmos.DrawSphere(transform.position, extRadius);
+            Gizmos.DrawWireSphere(transform.position, extRadius);
         }
 
         if(gizmosIntAngle){
