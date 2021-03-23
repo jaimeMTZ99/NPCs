@@ -14,8 +14,6 @@ public class Agent : Bodi
     public bool gizmosIntAngle;
     public bool gizmosExtAngle;
     
-
-
     // Update is called once per frame
     void Update()
     {

@@ -13,6 +13,7 @@ public class SeekAcceleration : SteeringBehaviour
         float distancia = Mathf.Sqrt(Mathf.Pow((target.transform.position.x - this.transform.position.x),2) + 
         0 +
         Mathf.Pow((target.transform.position.z - this.transform.position.z),2));
+        Debug.Log("Distancia seek" + distancia);
         //Calculamos la direccion del agente al target
         steer.linear = agent.directionToTarget(target.transform.position) ;
         //Si la distancia es menor que el radio interior, entonces ponemos la velocidad en sentido contrario para contrarrestar el mov uniforme
