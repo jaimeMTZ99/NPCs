@@ -7,7 +7,8 @@ public class Align : SteeringBehaviour
 
     [SerializeField]
     private float timeToTarget = 0.1f;
-
+    //Rotación deseada.
+    public float targetRotation;
     public float MapToRange (float rotation) {
     rotation %=  Mathf.PI * 2;
     if (Mathf.Abs(rotation) >  Mathf.PI) {
@@ -22,8 +23,6 @@ public class Align : SteeringBehaviour
     override public Steering GetSteering(AgentNPC agent){
         Steering steer = this.gameObject.GetComponent<Steering>(); 
         steer.linear = Vector3.zero;
-        //Rotación deseada.
-        float targetRotation;
         // Restamos las orientaciones para calcular el angulo de rotación hacía el target.
         float rotation = this.target.Orientation - agent.Orientation;
         // Map the result to the (-pi, pi) interval

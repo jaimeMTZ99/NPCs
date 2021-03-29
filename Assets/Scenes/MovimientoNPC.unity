@@ -217,6 +217,7 @@ MonoBehaviour:
   target: {fileID: 0}
   weight: 0
   timeToTarget: 0.1
+  targetRotation: 0
   aux: {fileID: 988225561}
 --- !u!114 &78279106
 MonoBehaviour:
@@ -1699,6 +1700,7 @@ MonoBehaviour:
   target: {fileID: 1213825584}
   weight: 0
   timeToTarget: 0.1
+  targetRotation: 0
 --- !u!114 &982697189
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1822,6 +1824,7 @@ GameObject:
   - component: {fileID: 988225562}
   - component: {fileID: 988225561}
   - component: {fileID: 988225560}
+  - component: {fileID: 988225566}
   m_Layer: 0
   m_Name: PersonajeNPCstalker Seek
   m_TagString: NPC
@@ -1874,6 +1877,7 @@ MonoBehaviour:
   gizmosExtAngle: 0
   SteeringList:
   - {fileID: 988225560}
+  - {fileID: 988225566}
   steer: {fileID: 988225562}
   blendWeight: 0
 --- !u!114 &988225562
@@ -1945,13 +1949,30 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 988225559}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -16.81, y: -0, z: 5}
+  m_LocalPosition: {x: -7.7, y: -0, z: -7.4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 713267476}
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &988225566
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 988225559}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d7ee6350d31eec42bf704f6d123f41b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  weight: 0
+  timeToTarget: 0.1
+  targetRotation: 0
+  externalTarget: {fileID: 0}
 --- !u!1 &1151459227
 GameObject:
   m_ObjectHideFlags: 0
@@ -1988,9 +2009,10 @@ MonoBehaviour:
   target: {fileID: 0}
   weight: 0
   timeToTarget: 0.1
-  aux: {fileID: 1151459229}
-  wanderOffset: 30
-  wanderRadius: 10
+  targetRotation: 0
+  aux: {fileID: 0}
+  wanderOffset: 10
+  wanderRadius: 1
   wanderRate: 1
   wanderOrientation: 0
 --- !u!114 &1151459229

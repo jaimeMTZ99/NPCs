@@ -23,7 +23,7 @@ public class Face : Align {
         }
         //Establecemos como objetivo el agent que nos interesa y cambiamos la orientacion del agente
         this.target = aux;
-        agent.Orientation = Mathf.Atan2(direction.x, direction.z);
+        targetRotation = Mathf.Atan2(direction.x, direction.z);
         // Devolvemos el control al align
         return base.GetSteering(agent);
     }
