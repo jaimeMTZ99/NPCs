@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Face : Align {
 
-    public AgentNPC aux;
+    public Agent aux;
 
     public override Steering GetSteering(AgentNPC agent) {
         //Establecemos un steer que sera completamente sin resultados para devolverlo en caso de que la distancia sea 0

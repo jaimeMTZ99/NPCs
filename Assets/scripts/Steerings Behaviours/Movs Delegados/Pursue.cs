@@ -19,10 +19,10 @@ public class Pursue : SeekAcceleration
         float distancia = Mathf.Sqrt(Mathf.Pow(aux.transform.position.x - this.transform.position.x,2) + 
         0 +
         Mathf.Pow(aux.transform.position.z - this.transform.position.z,2));
-        Debug.Log("Distancia pursue" + distancia);
+        
         // Obtenemos la velocidad que lleva
         float speed = agent.Velocity.magnitude;
-        Debug.Log(speed + "Velocidad");
+        
         // Comprobamos la velocidad en funcion de la prediccion que hemos hecho
         
         float prediction;
@@ -34,12 +34,12 @@ public class Pursue : SeekAcceleration
         else {
             prediction = distancia / speed;
         }
-        Debug.Log(prediction);
+        
         // Put the target together
         this.target = invisible;
         invisible.transform.position = aux.transform.position;
         invisible.transform.position += aux.Velocity * prediction;
-        Debug.Log("Posicion invisible" + invisible.transform.position);
+        
     
         //agent.transform.position += aux.Velocity * prediction;
         
