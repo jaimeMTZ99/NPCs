@@ -1989,7 +1989,7 @@ MonoBehaviour:
   weight: 0
   timeToTarget: 0.1
   aux: {fileID: 1151459229}
-  wanderOffset: 2
+  wanderOffset: 30
   wanderRadius: 10
   wanderRate: 1
   wanderOrientation: 0
@@ -2023,7 +2023,7 @@ MonoBehaviour:
   gizmosIntAngle: 0
   gizmosExtAngle: 0
   SteeringList:
-  - {fileID: 1151459228}
+  - {fileID: 0}
   steer: {fileID: 1151459230}
   blendWeight: 0
 --- !u!114 &1151459230
@@ -3377,7 +3377,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1893880040}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -167.3, y: -0, z: 3.3}
+  m_LocalPosition: {x: -150.18, y: -0, z: -12.7}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1820454432}
