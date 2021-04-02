@@ -6,19 +6,22 @@ public class Pursue : SeekAcceleration
 {
 
     public float maxPredict;
-    public Agent aux = null;
-
-    private Agent invisible; 
+    public Agent aux;
+    private GameObject goPursue;
     void Start(){
-       invisible=  Instantiate(aux, aux.transform);
+        goPursue = new GameObject("Pursue");
+        Agent invisible = goPursue.AddComponent<Agent>() as Agent;
+        aux = target;
+        this.target = invisible;
+        target.intRadius = aux.intRadius;
+        target.extRadius = aux.extRadius;
     }
     public override Steering GetSteering(AgentNPC agent) {
         // Calculamos la distancia y la direccion hacia el objetivo
         Vector3 direction = aux.transform.position - agent.transform.position;
-        invisible.enabled = false;
-        float distancia = Mathf.Sqrt(Mathf.Pow(aux.transform.position.x - this.transform.position.x,2) + 
+        float distancia = Mathf.Sqrt(Mathf.Pow(aux.transform.position.x - agent.transform.position.x,2) + 
         0 +
-        Mathf.Pow(aux.transform.position.z - this.transform.position.z,2));
+        Mathf.Pow(aux.transform.position.z - agent.transform.position.z,2));
         
         // Obtenemos la velocidad que lleva
         float speed = agent.Velocity.magnitude;
@@ -36,10 +39,8 @@ public class Pursue : SeekAcceleration
         }
         
         // Put the target together
-        this.target = invisible;
-        invisible.transform.position = aux.transform.position;
-        invisible.transform.position += aux.Velocity * prediction;
-        
+        target.transform.position = aux.transform.position;
+        target.transform.position += aux.Velocity * prediction;
     
         //agent.transform.position += aux.Velocity * prediction;
         

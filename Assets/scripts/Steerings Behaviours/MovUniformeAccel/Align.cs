@@ -9,6 +9,7 @@ public class Align : SteeringBehaviour
     private float timeToTarget = 0.1f;
     //Rotación deseada.
     public float targetRotation;
+    public bool face;
     public float MapToRange (float rotation) {
     rotation %=  Mathf.PI * 2;
     if (Mathf.Abs(rotation) >  Mathf.PI) {
@@ -25,6 +26,8 @@ public class Align : SteeringBehaviour
         steer.linear = Vector3.zero;
         // Restamos las orientaciones para calcular el angulo de rotación hacía el target.
         float rotation = this.target.Orientation - agent.Orientation;
+        /*if (face)
+            Debug.Log("Align delegado" +rotation);*/
         // Map the result to the (-pi, pi) interval
         rotation = MapToRange(rotation) ;
         float rotationSize = Mathf.Abs(rotation);
@@ -35,19 +38,10 @@ public class Align : SteeringBehaviour
             if (steer.angular >  0){
                 steer.angular *= agent.MaxAngularAcc;
             }
-            /*if (steer.angular > 0.0f) {
-                steer.angular -= agent.MaxAngularAcc;
-                if (steer.angular < 0)
-                    steer.angular = 0;
-            }else if (steer.angular < 0.0f){
-                steer.angular += agent.MaxAngularAcc;
-                if (steer.angular > 0)
-                    steer.angular = 0;
-            }*/
             return steer;
         }
         //Si el el radio exterior del NPC no está rotado todavía hacia el agentPlayer giramos a maxima velocidad de rotación.
-        if (rotationSize > agent.extAngle) {
+        if (rotationSize > agent.extAngle ) {
             targetRotation = agent.MaxRotation;
         }
         else {

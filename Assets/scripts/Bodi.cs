@@ -23,8 +23,6 @@ public class Bodi : MonoBehaviour
         set
         {
             orientation = value;
-            transform.rotation = new Quaternion(); //Quaternion.identity;
-            transform.Rotate(Vector3.up, orientation * Mathf.Rad2Deg);
         }
     }
 
@@ -84,7 +82,6 @@ public class Bodi : MonoBehaviour
     {
         return Mathf.Atan2(pos.x, pos.z) * Mathf.Rad2Deg;
     }
-
     public Vector3 AngleToPosition(float angle)
     {
         //TODO quitar redondeo 

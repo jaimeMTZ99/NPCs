@@ -5,14 +5,28 @@ using UnityEngine;
 public class Face : Align {
 
     public Agent aux;
-
+    private GameObject goFace;
+    public bool wander ;
+    void Start(){
+        goFace = new GameObject("Face");
+        Agent invisible = goFace.AddComponent<Agent>() as Agent;
+        aux = target;
+        this.target = invisible;
+    }
+    void Awake(){
+        goFace = new GameObject("Face");
+        Agent invisible = goFace.AddComponent<Agent>() as Agent;
+        aux = target;
+        this.target = invisible;
+    }
     public override Steering GetSteering(AgentNPC agent) {
         //Establecemos un steer que sera completamente sin resultados para devolverlo en caso de que la distancia sea 0
         Steering steer= this.gameObject.GetComponent<Steering>(); 
         steer.linear = Vector3.zero;
         steer.angular = 0;
         // Sacamos la direccion y la distancia
-        float distancia = Mathf.Sqrt(Mathf.Pow((aux.transform.position.x - this.transform.position.x),2) + 
+        aux = target;
+        float distancia = Mathf.Sqrt(Mathf.Pow((aux.transform.position.x - agent.transform.position.x),2) + 
         0 +
         Mathf.Pow((aux.transform.position.z - this.transform.position.z),2));
         Vector3 direction = aux.transform.position - agent.transform.position;
@@ -22,8 +36,8 @@ public class Face : Align {
             return steer;
         }
         //Establecemos como objetivo el agent que nos interesa y cambiamos la orientacion del agente
-        this.target = aux;
-        targetRotation = Mathf.Atan2(direction.x, direction.z);
+        target.Orientation = Mathf.Atan2(direction.x, direction.z);
+        face = true;
         // Devolvemos el control al align
         return base.GetSteering(agent);
     }

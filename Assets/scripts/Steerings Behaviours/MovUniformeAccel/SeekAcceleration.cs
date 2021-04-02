@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SeekAcceleration : SteeringBehaviour
 {
-
+    
     override public Steering GetSteering(AgentNPC agent)
     {
         //establecer a valores nulos el steering que se debe retornar,
