@@ -1,157 +1,180 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-
-/*
- * L. Daniel Hernández. 2018. Copyleft
- * 
- * Una propuesta para dar órdenes a un grupo de agentes sin formación.
- * 
- * Recursos:
- * Los rayos de Cámara: https://docs.unity3d.com/es/current/Manual/CameraRays.html
- * "Percepción" mediante Physics.Raycast: https://docs.unity3d.com/ScriptReference/Physics.Raycast.html
- * SendMessage to external functions: https://www.youtube.com/watch?v=4j-lh3C_w1Q
- * 
- * */
 
 public class Seleccion : MonoBehaviour
 {
-    private struct Unit {
-        public Agent agent;
-        public SeekAcceleration seek;
-        public ArriveAcceleration arrive;
-        public Outline outline;
-    }
 
-    // Inspector elements
-    public List<Transform> SelectableUnits;
-    public Color SelectionColor;
-    public Color SelectionBorderColor;
-    public float BorderThickness;
-    public Collider Floor;
-    
-    // Private elements
-    private List<Unit> selectedUnits;
-    private RaycastHit hit;
-    private bool isDragging = false;
-    private Vector3 clickPosition;
-    private bool multipleSelection = false;
-
-    // Start is called before the first frame update
-    void Start() {
-        selectedUnits = new List<Unit>();
-    }
+    public List<GameObject> selectedUnits;
+    public GameObject selectedUnit;
+    private GameObject goSel;
+    private bool mult = false;
+    private Agent t;
+    private Agent t1;
 
     // Update is called once per frame
-    void Update() {
-        EntradaRaton();
-    }
-    private void EntradaRaton() {
-        multipleSelection = Input.GetKey(KeyCode.LeftShift); // Left SHIFT for multiple selection
+    void Update()
+    {
+        //Si pulsamos Control, sera para coger varios individuos para moverse
+        mult = Input.GetKey(KeyCode.LeftControl);
+        // si clickamos el boton izq del raton, es para seleccionar individiuos.
+        if (Input.GetMouseButtonUp(0))
+        {
 
-        // Left click to select units
-        if (Input.GetMouseButtonDown(0)) {
+            // Comprobamos si el ratón golpea a algo en el escenario.
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-            // Update elements
-            clickPosition = Input.mousePosition;
-            Ray cameraRay = Camera.main.ScreenPointToRay(Input.mousePosition);
-            if (Physics.Raycast(cameraRay, out hit)) {
-                // If so, add it to the selected units list
-                if (hit.transform.CompareTag("Unit")) {
-                    SeleccionarNPC(hit.transform, multipleSelection);
-                } else {
-                    // Otherwise, begin drag selection
-                    isDragging = true;
-                }
-            }
-        } else if (Input.GetMouseButtonUp(0) && isDragging) {
-            // Clear the previous selection if SHIFT isn't being pressed down
-            if (!multipleSelection) {
-                QuitarNPCSeleccionados();
-            }
+            RaycastHit hitInfo;
+            if (Physics.Raycast(ray, out hitInfo))
+            {
 
-            // Check if any of our selectable units is within the rectangle selection
-            foreach (Transform unit in SelectableUnits) {
-                // Ignore disabled objects
-                if (!unit.gameObject.activeSelf)
-                    continue;
-                
-                if (IsWithinSelectionBounds(unit))
-                    SeleccionarNPC(unit, true);
-            }
-            isDragging = false; 
-        }
-        // Right click while having selected units to make them go the right click position
-        if (Input.GetMouseButtonDown(1) && selectedUnits.Count > 0) {
-            Ray cameraRay = Camera.main.ScreenPointToRay(Input.mousePosition);
-            if (Floor.Raycast(cameraRay, out hit, 1000)) {
+                // Si lo que golpea es un punto del terreno entonces da la orden a todas las unidades NPC
+                if (hitInfo.collider != null && hitInfo.collider.CompareTag("NPC") && mult)
+                {
 
-                // Ignore the Y Axis
-                Vector3 twoAxis = hit.point;
-                twoAxis.y = 0.5f;
-
-                foreach (Unit unit in selectedUnits) {
-                    if (unit.seek != null) {
-                        unit.seek.target.Position = twoAxis;
+                    selectedUnits.Add(hitInfo.collider.gameObject);
+                    foreach (GameObject u in selectedUnits)
+                    {
+                        GameObject p = u.transform.Find("Sel").gameObject;
+                        p.SetActive(true);
                     }
-                    if (unit.arrive != null) {
-                        unit.arrive.target.Position = twoAxis;
+                    if(selectedUnit != null){
+                        GameObject s = selectedUnit.transform.Find("Sel").gameObject;
+                        s.SetActive(false);                        
                     }
-                    /*if (unit.pathFinding != null) {
-                        unit.pathFinding.FindPathToPosition(unit.agent.Position, twoAxis);
-                    }*/
+                    selectedUnit=null;  //poner a false el outline
                 }
-            }
-        }
+                else if(hitInfo.collider != null && hitInfo.collider.CompareTag("NPC")){
+                    if (selectedUnit != null){
+                        GameObject g = selectedUnit.transform.Find("Sel").gameObject;
+                        g.SetActive(false);
+                        selectedUnit=null;
+                    }
+                    selectedUnit = hitInfo.collider.gameObject;
+                    GameObject s = selectedUnit.transform.Find("Sel").gameObject;
+                    s.SetActive(true);
 
-    }
-    private void SeleccionarNPC(Transform target, bool multipleSelection) {
-        // Reset the current selection if SHIFT isn't being pressed down and something is already selected
-        if (!multipleSelection && selectedUnits.Count > 0) {
-            QuitarNPCSeleccionados();
-        }
-
-        // Enable the outline highlight
-        Outline outline = target.GetComponent<Outline>();
-        if (outline.enabled)
-            return; // Unit already selected
-        outline.enabled = true;
-
-        // Very inefficient but it is only used for the demo scenes
-        Unit unit = new Unit();
-        unit.outline = outline;
-        unit.seek = target.GetComponent<SeekAcceleration>();
-        unit.arrive = target.GetComponent<ArriveAcceleration>();
-       // unit.pathFinding = target.GetComponent<PathFinding>();
-        unit.agent = target.GetComponent<Agent>();
-
-        selectedUnits.Add(unit);
-    }
-    private void QuitarNPCSeleccionados() {
-        foreach (Unit unit in selectedUnits) {
-            unit.outline.enabled = false;
-        }
-        selectedUnits.Clear();
-    }
-
-    /*private void OnGUI() {
-        // Draw the rectangle on dragging
-        if (isDragging) {
-            Rect rect = ScreenHelper.GetScreenRect(_clickPosition, Input.mousePosition);
-            ScreenHelper.DrawScreenRect(rect, SelectionColor);
-            ScreenHelper.DrawScreenRectBorder(rect, BorderThickness, SelectionBorderColor);
-        }
-    }*/
-    
-    // Helper function to check whether a transform is within our rectangle selection or not
-    private bool IsWithinSelectionBounds(Transform transform) {
-        if (!isDragging)
-            return false;
+                    if(selectedUnits.Count>0){
+                        foreach (GameObject u in selectedUnits)
+                        {
+                            GameObject p = u.transform.Find("Sel").gameObject;
+                            p.SetActive(false);
+                        }
+                    }
+                    selectedUnits.Clear();  
+                    
+                }
+                else if (hitInfo.collider != null && !hitInfo.collider.CompareTag("NPC")){
+                    if(selectedUnit != null){
+                        GameObject s = selectedUnit.transform.Find("Sel").gameObject;
+                        s.SetActive(false);                        
+                    }
+                    if(selectedUnits.Count>0){
+                        foreach (GameObject u in selectedUnits)
+                        {
+                            GameObject p = u.transform.Find("Sel").gameObject;
+                            p.SetActive(false);
+                        }
+                    }                    
+                    selectedUnits.Clear();
+                    selectedUnit=null;
+                    
+                }
         
-        Camera cam = Camera.main;
-        //Bounds bounds = ScreenHelper.GetViewportBounds(cam, clickPosition, Input.mousePosition);
-        //return bounds.Contains(cam.WorldToViewportPoint(transform.position));
-        return false;
+            }
+        }
+        if (Input.GetMouseButtonUp(1)){
+
+
+            // Comprobamos si el ratón golpea a algo en el escenario.
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+            RaycastHit hitInfo;
+            if (Physics.Raycast(ray, out hitInfo))
+            {
+
+                // Si lo que golpea es un punto del terreno entonces da la orden a todas las unidades NPC
+                if (hitInfo.collider != null && hitInfo.collider.CompareTag("Terrain") && (selectedUnit != null || selectedUnits.Count > 0))
+                {
+
+
+                    if(selectedUnits.Count>0){
+                        goSel = new GameObject("Seleccion");
+                        Agent invisible = goSel.AddComponent<Agent>();
+                        t = invisible;
+                        Vector3 newTarget = hitInfo.point;
+                        t.transform.position = newTarget;
+                        t.transform.position += new Vector3 (0,1.3f,0);
+                        t.extRadius=1;
+                        t.intRadius=1;
+                        foreach (GameObject npc in selectedUnits)
+                        {
+                            
+                            SeekAcceleration d = npc.GetComponent<SeekAcceleration>();
+                            if(d == null){
+                                npc.AddComponent<SeekAcceleration>();
+                                d = npc.GetComponent<SeekAcceleration>();
+                                d.target = t;
+                            }
+                            else
+                            {
+                                d.target = t;
+                            }
+
+                            AgentNPC n = npc.GetComponent<AgentNPC>();
+                            bool esta = false;
+                            foreach (SteeringBehaviour i in n.SteeringList)
+                            {
+                                if (i == d)
+                                {
+                                    esta = true;
+                                }
+                            } 
+                            if(!esta){
+                                n.SteeringList= npc.GetComponents<SteeringBehaviour>();
+                            }
+                            
+                        }                    
+                    } else{
+                            goSel = new GameObject("Seleccion");
+                            Agent invisible = goSel.AddComponent<Agent>();
+                            t1 = invisible;
+                            Vector3 newTarget1 = hitInfo.point;
+                            t1.transform.position = newTarget1;
+                            t1.transform.position += new Vector3 (0,1.3f,0);
+                            t1.extRadius=1;
+                            t1.intRadius=1;
+                            SeekAcceleration e = selectedUnit.GetComponent<SeekAcceleration>();
+
+                            if(e == null){
+                                selectedUnit.AddComponent<SeekAcceleration>();
+                                e = selectedUnit.GetComponent<SeekAcceleration>();
+
+                                e.target = t1;
+
+                            }
+                            else
+                            {
+                                e.target = t1;
+
+                            }
+                            AgentNPC n = selectedUnit.GetComponent<AgentNPC>();
+                            bool esta = false;
+                            foreach (SteeringBehaviour i in n.SteeringList)
+                            {
+                                if (i == e)
+                                {
+                                    esta = true;
+                                }
+                            } 
+                            if(!esta){
+                                n.SteeringList= selectedUnit.GetComponents<SteeringBehaviour>();
+                            }
+                    }
+                }
+        
+            }
+        }
+
     }
 }

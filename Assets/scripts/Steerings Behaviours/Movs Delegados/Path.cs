@@ -6,7 +6,7 @@ public class Path : MonoBehaviour
 {
     [SerializeField] 
     private float radio; 
-    [SerializeField] private List<GameObject> nodos;
+    [SerializeField] private List<GameObject> nodos = new List<GameObject>();
             
     public void AppendPointToPath(GameObject go) {
             nodos.Add(go);

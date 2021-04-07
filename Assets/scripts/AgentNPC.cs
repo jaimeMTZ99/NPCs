@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class AgentNPC : Agent
 {
-    [SerializeField]
-    private SteeringBehaviour[] SteeringList;
+
+    public SteeringBehaviour[] SteeringList;
     [SerializeField]
     private Steering steer;
     [SerializeField]

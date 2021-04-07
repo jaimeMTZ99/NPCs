@@ -7,11 +7,11 @@ public class CollisionAvoidance : SeekAcceleration
 
 
     [SerializeField]
-    private float avoidDistance;
+    private float avoidDistance = 1;
     [SerializeField]
-    private float frontaLookAhead;
+    private float frontaLookAhead = 3;
     [SerializeField]    
-    private float whiskersLookahead;
+    private float whiskersLookahead = 3;
     [SerializeField]
     private float whiskersAngle = 15f;
     private GameObject goCollision;
@@ -27,7 +27,7 @@ public class CollisionAvoidance : SeekAcceleration
         target.extRadius = aux.extRadius;
     }
     public override Steering GetSteering(AgentNPC agent) {
-        Steering steering = new Steering();;
+        Steering steering = this.gameObject.GetComponent<Steering>();
         Vector3 frontalVector = agent.Velocity.normalized * frontaLookAhead;
         Vector3 leftWhiskerVector = Quaternion.Euler(0, -whiskersAngle, 0) * frontalVector;
         Vector3 rightWhiskerVector = Quaternion.Euler(0, whiskersAngle, 0) * frontalVector;

@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class SeekAcceleration : SteeringBehaviour
 {
-    public bool path_foll;
     override public Steering GetSteering(AgentNPC agent)
     {
         //establecer a valores nulos el steering que se debe retornar,
         Steering steer = this.gameObject.GetComponent<Steering>();
+        steer.angular = 0;
         //calculamos la distancia entre objetivo y el agente player (de un punto a otro)
         float distancia = Mathf.Sqrt(Mathf.Pow((target.transform.position.x - this.transform.position.x),2) + 
         0 +
@@ -19,13 +19,11 @@ public class SeekAcceleration : SteeringBehaviour
         //Si la distancia es menor que el radio interior, entonces ponemos la velocidad en sentido contrario para contrarrestar el mov uniforme
         if(distancia < target.intRadius){
             steer.linear = Vector3.zero;
-            if(path_foll)
-                Debug.Log("llegando");
+            agent.Velocity = Vector3.zero;
         }
         
         steer.linear.Normalize();
         steer.linear *=agent.maxAcceleration;
-        steer.angular = 0;
         return steer;
 
        

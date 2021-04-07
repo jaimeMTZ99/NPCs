@@ -42,14 +42,12 @@ public class PathFollowing : SeekAcceleration
     public override Steering GetSteering(AgentNPC agent){
         //Actual posición en el camino
         currentParam = path.GetParam(agent.transform.position, currentPos);
-        Debug.Log(currentParam + "Posicion en el camino");
         //Actualizamos la posición actual
         currentPos = currentParam;
         //Calculamos la posición del target en el camino.
         targetParam = currentParam + pathOffset;
         //Calculamos la posición del keypoint target.
         base.target.transform.position = path.GetPosition(targetParam);
-        path_foll = true;
         return base.GetSteering(agent);
     }
 
