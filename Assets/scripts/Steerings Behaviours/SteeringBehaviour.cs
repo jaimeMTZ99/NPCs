@@ -7,7 +7,7 @@ public abstract class SteeringBehaviour : MonoBehaviour
 
 
     public Agent target;
-    public int weight;
+    public float weight = 1f;
 
     public abstract Steering GetSteering(AgentNPC agent);
 }

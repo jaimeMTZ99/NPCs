@@ -13,12 +13,12 @@ public class Face : Align {
         aux = target;
         this.target = invisible;
     }
-    void Awake(){
+    /**void Awake(){
         goFace = new GameObject("Face");
         Agent invisible = goFace.AddComponent<Agent>() as Agent;
         aux = target;
         this.target = invisible;
-    }
+    }**/
     public override Steering GetSteering(AgentNPC agent) {
         //Establecemos un steer que sera completamente sin resultados para devolverlo en caso de que la distancia sea 0
         Steering steer= this.gameObject.GetComponent<Steering>(); 
