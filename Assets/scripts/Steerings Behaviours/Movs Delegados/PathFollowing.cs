@@ -6,7 +6,7 @@ public class PathFollowing : SeekAcceleration
 {
 
     [SerializeField]
-    private Path path;
+    private Path path =null;
 
     private int targetParam;
 

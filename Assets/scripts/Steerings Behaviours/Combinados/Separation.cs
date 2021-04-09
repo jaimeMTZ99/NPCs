@@ -18,7 +18,7 @@ public class Separation : SteeringBehaviour {
     // Hold the constant coefficient of decay for 
     // the inverse square law force
     [SerializeField]
-    private float decayCoefficient;
+    private float decayCoefficient = 1f;
 
     [SerializeField]
     private float strength;
