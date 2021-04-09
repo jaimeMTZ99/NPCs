@@ -13,6 +13,7 @@ public class Wander : Face
     void Start(){
         go = new GameObject("Wander");
         Agent invisible = go.AddComponent<Agent>() as Agent;
+        aux = target;
         target = invisible;
     }
     private Vector3 AsVector(float o) {
@@ -24,6 +25,7 @@ public class Wander : Face
     }
     override public Steering GetSteering(AgentNPC agent)
     {
+        aux = target;
         //Calcular el ángulo random para hacer face
         wanderOrientation += wanderRate * RandomBinomial(); // Random.Range(-1.0f, 1.0f);
         //Orientación futura del agente.
@@ -33,7 +35,6 @@ public class Wander : Face
         targetPosition += wanderRadius * AsVector(target.Orientation);
         target.transform.position = targetPosition;
         Steering steer;
-        wander = true;
         steer = base.GetSteering(agent);
         //Acelerar al agente
         steer.linear = target.transform.position - agent.transform.position;

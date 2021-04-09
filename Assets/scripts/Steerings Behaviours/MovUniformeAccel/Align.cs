@@ -9,7 +9,6 @@ public class Align : SteeringBehaviour
     private float timeToTarget = 0.1f;
     //Rotación deseada.
     public float targetRotation;
-    public bool face;
     public float MapToRange (float rotation) {
     rotation %=  Mathf.PI * 2;
     if (Mathf.Abs(rotation) >  Mathf.PI) {

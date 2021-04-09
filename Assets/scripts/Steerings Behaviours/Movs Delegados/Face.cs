@@ -6,30 +6,24 @@ public class Face : Align {
 
     public Agent aux;
     private GameObject goFace;
-    public bool wander ;
     void Start(){
         goFace = new GameObject("Face");
         Agent invisible = goFace.AddComponent<Agent>() as Agent;
         aux = target;
+        invisible.transform.position = Vector3.zero;
         this.target = invisible;
     }
-    /**void Awake(){
-        goFace = new GameObject("Face");
-        Agent invisible = goFace.AddComponent<Agent>() as Agent;
-        aux = target;
-        this.target = invisible;
-    }**/
     public override Steering GetSteering(AgentNPC agent) {
         //Establecemos un steer que sera completamente sin resultados para devolverlo en caso de que la distancia sea 0
         Steering steer= this.gameObject.GetComponent<Steering>(); 
         steer.linear = Vector3.zero;
         steer.angular = 0;
+        target.transform.position = aux.transform.position;
         // Sacamos la direccion y la distancia
-        aux = target;
-        float distancia = Mathf.Sqrt(Mathf.Pow((aux.transform.position.x - agent.transform.position.x),2) + 
+        float distancia = Mathf.Sqrt(Mathf.Pow((target.transform.position.x - agent.transform.position.x),2) + 
         0 +
-        Mathf.Pow((aux.transform.position.z - this.transform.position.z),2));
-        Vector3 direction = aux.transform.position - agent.transform.position;
+        Mathf.Pow((target.transform.position.z - agent.transform.position.z),2));
+        Vector3 direction = target.transform.position - agent.transform.position;
 
         // Si la distancia es 0 devolvemos lo que tenemos del steering "vacio"
         if (distancia == 0) {
@@ -37,7 +31,6 @@ public class Face : Align {
         }
         //Establecemos como objetivo el agent que nos interesa y cambiamos la orientacion del agente
         target.Orientation = Mathf.Atan2(direction.x, direction.z);
-        face = true;
         // Devolvemos el control al align
         return base.GetSteering(agent);
     }

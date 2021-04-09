@@ -6,27 +6,21 @@ public class BlendedSteering : SteeringBehaviour
 {
     [SerializeField]
     private List<SteeringBehaviour> behaviours;
-
-
+    private Steering steer;
     public override Steering GetSteering(AgentNPC agent) {
-        Steering steer = this.gameObject.GetComponent<Steering>();
-        steer.linear = Vector3.zero;
-        steer.angular = 0;
-
+        Vector3 multAux = Vector3.zero;
+        steer = new Steering();
         foreach (SteeringBehaviour s in behaviours) {
             Steering m = s.GetSteering(agent);
-            
-            steer.linear += s.weight * m.linear;
-
-            steer.angular += s.weight * m.angular;
-
+            multAux = (s.weight * m.linear);
+            steer.linear = steer.linear + multAux;
+            steer.angular += (s.weight * m.angular);
         }
  
-
-        float t= Mathf.Max(steer.linear.magnitude,agent.maxAcceleration);
+        float t= Mathf.Min(steer.linear.magnitude,agent.maxAcceleration);
         steer.linear = steer.linear * t;
-        steer.angular = Mathf.Max(steer.angular, agent.maxAngularAcc);
-
+        Debug.Log("Rotation" + steer.angular);
+        //steer.angular = Mathf.Min(steer.angular, agent.maxAngularAcc);
         return steer;
     }
 }
