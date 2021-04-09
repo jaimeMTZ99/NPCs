@@ -8,7 +8,8 @@ public class Align : SteeringBehaviour
     [SerializeField]
     private float timeToTarget = 0.1f;
     //Rotación deseada.
-    public float targetRotation;
+    private float targetRotation;
+    
     public float MapToRange (float rotation) {
     rotation %=  Mathf.PI * 2;
     if (Mathf.Abs(rotation) >  Mathf.PI) {
@@ -25,8 +26,6 @@ public class Align : SteeringBehaviour
         steer.linear = Vector3.zero;
         // Restamos las orientaciones para calcular el angulo de rotación hacía el target.
         float rotation = this.target.Orientation - agent.Orientation;
-        /*if (face)
-            Debug.Log("Align delegado" +rotation);*/
         // Map the result to the (-pi, pi) interval
         rotation = MapToRange(rotation) ;
         float rotationSize = Mathf.Abs(rotation);
