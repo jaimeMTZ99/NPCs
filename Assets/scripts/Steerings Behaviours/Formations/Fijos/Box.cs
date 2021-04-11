@@ -44,8 +44,8 @@ public class Box : MonoBehaviour
             // Set the position with seek
             GameObject ForC = new GameObject("FC");
             Agent invisible = ForC.AddComponent<Agent>() as Agent;
-            invisible.extRadius=1f;
-            invisible.intRadius=1f;
+            invisible.extRadius=0.5f;
+            invisible.intRadius=0.5f;
             invisible.transform.position =lider.transform.position + result;
             invisible.orientation =-(lider.orientation + ori);
             asignaciones[i].GetComponent<SeekAcceleration>().target = invisible;
