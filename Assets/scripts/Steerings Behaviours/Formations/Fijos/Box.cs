@@ -26,7 +26,9 @@ public class Box : MonoBehaviour
         }
         UpdateSlots();
     }
-
+    void Update(){
+        UpdateSlots();
+    }
     public void UpdateSlots() {
 
         AgentNPC lider = asignaciones[0];
@@ -47,7 +49,7 @@ public class Box : MonoBehaviour
             invisible.extRadius=0.5f;
             invisible.intRadius=0.5f;
             invisible.transform.position =lider.transform.position + result;
-            invisible.orientation =-(lider.orientation + ori);
+            invisible.orientation =-(ori);
             asignaciones[i].GetComponent<SeekAcceleration>().target = invisible;
             // Set the orientation
             asignaciones[i].GetComponent<Align>().target = invisible;
@@ -59,10 +61,10 @@ public class Box : MonoBehaviour
 
         float resultado;
         if (numero == 0) {
-            resultado = 0;
+            resultado = - (Mathf.PI/2 + Mathf.PI);;
         }
         else if (numero == 1) {
-            resultado = 0;
+            resultado = Mathf.PI / 2 + Mathf.PI;
         }
         else if (numero == 2) {
             resultado = - (Mathf.PI/4 + Mathf.PI/2);

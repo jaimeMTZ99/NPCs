@@ -48,11 +48,8 @@ public class Circle : MonoBehaviour
             invisible.intRadius=0.5f;
             invisible.transform.position =lider.transform.position + result;
             invisible.orientation =-(lider.orientation + ori);
-            if( i != 0 ){
-            asignaciones[i].GetComponent<OffsetPursuit>().target = invisible;
-            }else{
-                asignaciones[i].GetComponent<SeekAcceleration>().target = invisible;
-            }
+            asignaciones[i].GetComponent<Align>().target = invisible;
+            asignaciones[i].GetComponent<SeekAcceleration>().target = invisible;
             // Set the orientation
             asignaciones[i].GetComponent<Align>().target = invisible;
         }
