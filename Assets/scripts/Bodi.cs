@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Bodi : MonoBehaviour
 {
-
+    public bool form;
     public float speed;
     public float mass;
     public float maxSpeed;

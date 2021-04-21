@@ -22,12 +22,22 @@ public class Box : MonoBehaviour
         foreach (AgentNPC a in agentes) {
             if (asignaciones.Count<ranuras){
                 asignaciones.Add(a);
+                GameObject ForC = new GameObject("FB " + asignaciones.Count);
+                Agent invisible = ForC.AddComponent<Agent>() as Agent;
+                invisible.extRadius=1.6f;
+                invisible.intRadius=1.6f;
+                a.form = true;
             }
         }
         UpdateSlots();
     }
     void Update(){
-        UpdateSlots();
+        foreach (AgentNPC a in asignaciones)
+        {
+            if(asignaciones[0].Velocity != Vector3.zero){
+               UpdateSlots();
+            }
+        }
     }
     public void UpdateSlots() {
 
@@ -38,20 +48,23 @@ public class Box : MonoBehaviour
         for (int i = 0; i < asignaciones.Count; i++) {
             Vector3 pos = GetPosition(i);
             float ori = GetOrientation(i);
-            // Transform by the anchor point position and orientation.
+
             var result = new Vector3(Mathf.Cos(lider.orientation) * pos.x -  Mathf.Sin(lider.orientation) * pos.z,
                 0,
                 Mathf.Sin(lider.orientation) * pos.x + Mathf.Cos(lider.orientation) * pos.z);
 
-            // Set the position with seek
-            GameObject ForC = new GameObject("FC");
-            Agent invisible = ForC.AddComponent<Agent>() as Agent;
-            invisible.extRadius=0.5f;
-            invisible.intRadius=0.5f;
-            invisible.transform.position =lider.transform.position + result;
-            invisible.orientation =-(ori);
+            GameObject a = GameObject.Find("FB " + (i+1));
+            Agent invisible = a.GetComponent<Agent>();
+
+            if(lider.GetComponent<SeekAcceleration>().target != null){
+                invisible.transform.position =lider.GetComponent<SeekAcceleration>().target.transform.position + result;
+            }
+            else{
+                invisible.transform.position =lider.transform.position + result;
+            }
+            invisible.orientation =-(lider.orientation + ori);
+
             asignaciones[i].GetComponent<SeekAcceleration>().target = invisible;
-            // Set the orientation
             asignaciones[i].GetComponent<Align>().target = invisible;
         }
     }
@@ -95,5 +108,6 @@ public class Box : MonoBehaviour
 
         return resultado;
     }
+
 
 }
