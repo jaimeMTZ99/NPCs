@@ -22,6 +22,10 @@ public class AntiAlign : SteeringBehaviour
     override public Steering GetSteering(AgentNPC agent){
         Steering steer = this.gameObject.GetComponent<Steering>(); 
         steer.linear = Vector3.zero;
+        if (target == null){
+            steer.angular = 0;
+            return steer;
+        }
         //Rotación deseada.
         float targetRotation;
         // Restamos las orientaciones para calcular el angulo de rotación hacía el target.

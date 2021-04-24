@@ -24,6 +24,10 @@ public class Align : SteeringBehaviour
     override public Steering GetSteering(AgentNPC agent){
         Steering steer = this.gameObject.GetComponent<Steering>(); 
         steer.linear = Vector3.zero;
+        if (target == null){
+            steer.angular = 0;
+            return steer;
+        }
         // Restamos las orientaciones para calcular el angulo de rotación hacía el target.
         float rotation = this.target.Orientation - agent.Orientation;
         // Map the result to the (-pi, pi) interval
@@ -31,7 +35,6 @@ public class Align : SteeringBehaviour
         float rotationSize = Mathf.Abs(rotation);
         //Si el agente ya esta rotado en la misma direccion del target paramos.
         if (rotationSize <= agent.intAngle) {
-            Debug.Log("Soy el align");
             // Return "none"
             //steer.angular = -agent.Rotation;
             if (steer.angular >  0){

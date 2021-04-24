@@ -19,15 +19,17 @@ public class AgentNPC : Agent
     {
         BlendedSteering arbitro = this.gameObject.GetComponent<BlendedSteering>();
         if (arbitro == null) {
+
             foreach (SteeringBehaviour s in SteeringList)
             {
                 steer = s.GetSteering(this);
                 applySteering(steer);
             }
         }
-        else 
+        else {
             steer = arbitro.GetSteering(this);
             applySteering(steer);
+        }
     }
     public void applySteering(Steering s)
     {

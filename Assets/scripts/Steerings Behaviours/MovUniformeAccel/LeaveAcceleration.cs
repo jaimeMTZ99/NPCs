@@ -10,6 +10,10 @@ public class LeaveAcceleration : SteeringBehaviour
         //establecer a valores nulos el steering que se debe retornar,
         Steering steer = this.gameObject.GetComponent<Steering>();
         steer.angular = 0;   
+        if (target == null){
+            steer.linear = Vector3.zero;
+            return steer;
+        }
         //calculamos la distancia entre objetivo y el agente player (de un punto a otro)
         //float distancia = Mathf.Sqrt(Mathf.Pow((target.transform.position.x - this.transform.position.x),2) + 0 + Mathf.Pow((target.transform.position.z - this.transform.position.z),2));
         Vector3 direction = target.directionToTarget(agent.transform.position);
