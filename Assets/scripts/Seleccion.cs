@@ -117,6 +117,7 @@ public class Seleccion : MonoBehaviour
                             SeekAcceleration d = npc.GetComponent<SeekAcceleration>();
                             AgentNPC x = npc.GetComponent<AgentNPC>();
                             if (x.form){
+                                x.llegar = true;
                                 d = npc.GetComponent<SeekAcceleration>();
                                 d.target = t;
                                 Align c = npc.GetComponent<Align>();
@@ -159,6 +160,7 @@ public class Seleccion : MonoBehaviour
                             SeekAcceleration e = selectedUnit.GetComponent<SeekAcceleration>();
                             AgentNPC x = selectedUnit.GetComponent<AgentNPC>();
                             if (x.form){
+                                x.llegar = true;
                                 e = selectedUnit.GetComponent<SeekAcceleration>();
                                 e.target = t1;
                                 Align c = selectedUnit.GetComponent<Align>();

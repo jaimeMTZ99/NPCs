@@ -13,12 +13,13 @@ public class V : MonoBehaviour
     //lista de los agentes seleccionados
     [SerializeField]
     private List<AgentNPC> agentes = new List<AgentNPC>();
-
+    private GameObject centro;
     private List<AgentNPC> asignaciones;
 
     void Start() {
         asignaciones = new List<AgentNPC>();
-
+        centro = new GameObject("CenterV");
+        centro.AddComponent<AgentNPC>();
         //metemos los agentes que podemos para la formacion
         foreach (AgentNPC a in agentes) {
             if (asignaciones.Count<ranuras){
@@ -35,8 +36,9 @@ public class V : MonoBehaviour
     void Update(){
         foreach (AgentNPC a in asignaciones)
         {
-            if(asignaciones[0].Velocity != Vector3.zero){
-               UpdateSlots();
+            if(a.GetComponent<SeekAcceleration>().target.transform.position == a.transform.position && a.llegar){
+                UpdateSlots();
+                a.llegar = false;
             }
         }
     }
@@ -57,12 +59,7 @@ public class V : MonoBehaviour
             GameObject a = GameObject.Find("V " + (i+1));
             Agent invisible = a.GetComponent<Agent>();
 
-            if(asignaciones[0].GetComponent<SeekAcceleration>().target != null){
-                invisible.transform.position =asignaciones[0].GetComponent<SeekAcceleration>().target.transform.position + result;
-            }
-            else{
-                invisible.transform.position =anchor.transform.position + result;
-            }
+            invisible.transform.position =anchor.transform.position + result;
             invisible.orientation =-(anchor.orientation + ori);
 
             asignaciones[i].GetComponent<SeekAcceleration>().target = invisible;
@@ -91,8 +88,7 @@ public class V : MonoBehaviour
         return resultado;
     }
     public AgentNPC GetAnchor(){
-        GameObject centro = new GameObject("CenterV");
-        AgentNPC anchor = centro.AddComponent<AgentNPC>();
+        AgentNPC anchor = centro.GetComponent<AgentNPC>();
         anchor.transform.position = Vector3.zero;
         anchor.orientation =0;
 

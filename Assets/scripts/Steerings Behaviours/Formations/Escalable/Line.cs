@@ -13,12 +13,13 @@ public class Line : MonoBehaviour
     //lista de los agentes seleccionados
     [SerializeField]
     private List<AgentNPC> agentes = new List<AgentNPC>();
-
+    private GameObject centro;
     private List<AgentNPC> asignaciones;
 
     void Start() {
         asignaciones = new List<AgentNPC>();
-
+        centro = new GameObject("Center");
+        centro.AddComponent<AgentNPC>();
         //metemos los agentes que podemos para la formacion
         foreach (AgentNPC a in agentes) {
             if (asignaciones.Count<ranuras){
@@ -33,12 +34,7 @@ public class Line : MonoBehaviour
         UpdateSlots();
     }
     void Update(){
-        foreach (AgentNPC a in asignaciones)
-        {
-            if(asignaciones[0].Velocity != Vector3.zero){
-               UpdateSlots();
-            }
-        }
+
     }
     public void UpdateSlots() {
 
@@ -57,12 +53,12 @@ public class Line : MonoBehaviour
             GameObject a = GameObject.Find("FLE " + (i+1));
             Agent invisible = a.GetComponent<Agent>();
 
-            if(asignaciones[0].GetComponent<SeekAcceleration>().target != null){
-                invisible.transform.position =asignaciones[0].GetComponent<SeekAcceleration>().target.transform.position + result;
-            }
-            else{
-                invisible.transform.position =anchor.transform.position + result;
-            }
+            //if(asignaciones[0].GetComponent<SeekAcceleration>().target != null){
+             //   invisible.transform.position =asignaciones[0].GetComponent<SeekAcceleration>().target.transform.position + result;
+            //}
+            //else{
+            invisible.transform.position =anchor.transform.position + result;
+            //}
             invisible.orientation =-(anchor.orientation + ori);
 
             asignaciones[i].GetComponent<SeekAcceleration>().target = invisible;
@@ -79,8 +75,7 @@ public class Line : MonoBehaviour
         return resultado;
     }
     public AgentNPC GetAnchor(){
-        GameObject centro = new GameObject("Center");
-        AgentNPC anchor = centro.AddComponent<AgentNPC>();
+        AgentNPC anchor = centro.GetComponent<AgentNPC>();
         anchor.transform.position = Vector3.zero;
         anchor.orientation =0;
 

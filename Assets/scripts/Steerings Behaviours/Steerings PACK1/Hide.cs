@@ -2,23 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Evade))]
-[RequireComponent(typeof(ArriveAcceleration))]
-public class Hide : SteeringBehaviour
+public class Hide : ArriveAcceleration
 {
 
-    ArriveAcceleration arrive;
-    Evade evade;
-
+    private GameObject hide;
+    
     public List<Agent> listaObstaculos;
     public float seguro = 0.6f;
 
+    void Start(){
+        hide = new GameObject("Hide");
+        hide.AddComponent<AgentNPC>();
+    }
     override public Steering GetSteering(AgentNPC agent){
         Steering steer = this.gameObject.GetComponent<Steering>();
 
         float cercano = Mathf.Infinity;
-        GameObject hide = new GameObject("Hide");
-        AgentNPC mejorEscondite = hide.AddComponent<AgentNPC>();
+        AgentNPC mejorEscondite = hide.GetComponent<AgentNPC>();
         foreach (AgentNPC a in listaObstaculos)
         {
             Vector3 escondite = GetHiding(a);
@@ -31,12 +31,9 @@ public class Hide : SteeringBehaviour
                 mejorEscondite = a;
             }
         }
-        if (cercano == Mathf.Infinity)
-        {
-            return evade.GetSteering(agent);
-        }
 
-        return arrive.GetSteering(mejorEscondite);
+
+        return base.GetSteering(mejorEscondite);
     }
 
 
