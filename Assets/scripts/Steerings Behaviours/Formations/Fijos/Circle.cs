@@ -14,14 +14,11 @@ public class Circle : MonoBehaviour
     private List<AgentNPC> agentes = new List<AgentNPC>();
 
     private List<AgentNPC> asignaciones;
-    
-    private Vector3 pri = new Vector3(0,0,1);
-    private Vector3 seg = new Vector3(1,0,0);
-    private Vector3 ter = new Vector3(0,0,-1);
-    private Vector3 cua = new Vector3(-1,0,0);
-
+    [SerializeField]
     private int[] oriGrid;
+    [SerializeField]
     private Vector3[] posGrid;
+    private Vector3[] posGridInicial;
     private float ori1 =0;
     private float ori2 =-Mathf.PI/2;
     private float ori3 =Mathf.PI;
@@ -36,21 +33,21 @@ public class Circle : MonoBehaviour
         centroAnt = Vector3.zero;
         asignaciones = new List<AgentNPC>();
         oriGrid = new int[4];
-        posGrid = new Vector3[4];
+        //posGrid = new Vector3[4];
 
-        posGrid[0] = pri;
-        posGrid[1] = seg;
-        posGrid[2] = ter;
-        posGrid[3] = cua;
-        
+        /*posGrid[0] = new Vector3(0,0,1);
+        posGrid[1] = new Vector3(1,0,0);
+        posGrid[2] = new Vector3(0,0,-1);
+        posGrid[3] = new Vector3(-1,0,0);*/
+        posGridInicial = (Vector3[])posGrid.Clone();
         //metemos los agentes que podemos para la formacion
         foreach (AgentNPC a in agentes) {
             if (asignaciones.Count<ranuras){
                 asignaciones.Add(a);
                 GameObject ForC = new GameObject("FC " + asignaciones.Count);
                 Agent invisible = ForC.AddComponent<Agent>() as Agent;
-                invisible.extRadius=1f;
-                invisible.intRadius=1f;
+                invisible.extRadius=2f;
+                invisible.intRadius=2f;
                 a.form = true;
             }
         }
@@ -74,7 +71,7 @@ public class Circle : MonoBehaviour
 
         AgentNPC lider = asignaciones[0];
 
-        lider.orientation *= -1; 
+         
         for (int i = 0; i < asignaciones.Count; i++) {
             Vector3 pos = GetPosition(i);
             int oriReal = oriGrid[i];
@@ -85,7 +82,7 @@ public class Circle : MonoBehaviour
 
 
             invisible.transform.position =pos;
-            invisible.orientation =-(lider.orientation + ori);
+            invisible.orientation =ori;
 
             asignaciones[i].GetComponent<SeekAcceleration>().target = invisible;
             asignaciones[i].GetComponent<Align>().target = invisible;
@@ -99,83 +96,90 @@ public class Circle : MonoBehaviour
             resultado = 0;
         }
         else if (numero == 1) {
-            resultado = -Mathf.PI/2;
+            resultado = Mathf.PI/2;
         }
         else if (numero == 2) {
             resultado = Mathf.PI;
         }
         else {
-            resultado = Mathf.PI/2;
-        }
-        /**
-            if ( new Vector3 (Mathf.Round(asignaciones[numero].transform.position.x/radio - centro.x), 0 ,Mathf.Round(asignaciones[numero].transform.position.z/radio - centro.z)) == pri){
-                resultado = ori1;
-
-            } else if(new Vector3 (Mathf.Round(asignaciones[numero].transform.position.x/radio - centro.x), 0 ,Mathf.Round(asignaciones[numero].transform.position.z/radio - centro.z)) == seg){
-                resultado = ori2;
-
-            } else if(new Vector3 (Mathf.Round(asignaciones[numero].transform.position.x/radio - centro.x), 0 ,Mathf.Round(asignaciones[numero].transform.position.z/radio - centro.z)) == ter){
-                resultado = ori3;
-
-            } else {
-                resultado = ori4;
-            }
-              **/  
+            resultado = -Mathf.PI/2;
+        }  
         return resultado;
     }
 
     public void GirarIzq(){
+        Vector3 aux1 = posGrid[0];
+        Vector3 aux2 = posGrid[1];
+        Vector3 aux3 = posGrid[2];
+        Vector3 aux4 =posGrid[3];
 
-        posGrid[0] = seg;
-        posGrid[1]= ter;
-        posGrid[2] = cua;
-        posGrid[3] = pri;
+        posGrid[0] = aux2;
+        posGrid[1]= aux3;
+        posGrid[2] = aux4;
+        posGrid[3] = aux1;
 
     }
 
     public void GirarDer(){
-
-        posGrid[0] = cua;
-        posGrid[1]= pri;
-        posGrid[2] = ter;
-        posGrid[3] = seg;
+        Vector3 aux1 = posGrid[0];
+        Vector3 aux2 = posGrid[1];
+        Vector3 aux3 = posGrid[2];
+        Vector3 aux4 =posGrid[3];
+        posGrid[0] = aux4;
+        posGrid[1]= aux1;
+        posGrid[2] = aux2;
+        posGrid[3] = aux3;
 
     }
 
     public void GirarMatriz(){
-        Vector3 pri1 = new Vector3(0,0,1);
+       /* Vector3 pri1 = new Vector3(0,0,1);
         Vector3 seg1 = new Vector3(1,0,0);
         Vector3 ter1 = new Vector3(0,0,-1);
-        Vector3 cua1 = new Vector3(-1,0,0);
-
-        if (centro.magnitude - asignaciones[0].transform.position.magnitude >0)
-            while (posGrid[0] != new Vector3(1,0,0)){
+        Vector3 cua1 = new Vector3(-1,0,0);*/
+        if (centro.z - asignaciones[0].transform.position.z > radio*4 ){
+            Debug.Log("Arriba");
+            while(posGrid[0] != posGridInicial[0]){
                 GirarDer();
             }
-        else
-            while (posGrid[0] != new Vector3(-1,0,0)){
+        }else if (centro.z - asignaciones[0].transform.position.z < -radio*4){
+             Debug.Log("Abajo");
+            while(posGrid[0] != posGridInicial[2]){
                 GirarIzq();
             }
+        }
+        else if (centro.x - asignaciones[0].transform.position.x >0){
+            Debug.Log("Derecha");
+            while (posGrid[0] != posGridInicial[1]){
+                GirarDer();
+            }
+        }
+        else{
+            Debug.Log("Izquierda");
+            while (posGrid[0] != posGridInicial[3]){
+                GirarIzq();
+            }
+        }
         
-
-        if(pri == pri1 ){
+        Debug.Log(posGrid[0]);
+        if(posGrid[0] == posGridInicial[0] ){
             for(int i = 0; i< 4; i++)
             {
                 oriGrid[i] = i;
             }
         }
-        else if (pri == seg1){
+        else if (posGrid[0] == posGridInicial[1]){
             oriGrid[0] = 1;
             oriGrid[1] = 2;
             oriGrid[2] = 3;
             oriGrid[3] = 0;
         }
-        else if (pri == ter1){
+        else if (posGrid[0] == posGridInicial[2]){
             oriGrid[0] = 2;
             oriGrid[1] = 3;
             oriGrid[2] = 0;
             oriGrid[3] = 1;
-        } else{
+        } else if (posGrid[0] == posGridInicial[3]){
             oriGrid[0] = 3;
             oriGrid[1] = 0;
             oriGrid[2] = 1;

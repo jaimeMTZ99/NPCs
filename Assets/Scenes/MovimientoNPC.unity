@@ -2038,6 +2038,12 @@ MonoBehaviour:
   - {fileID: 976685557}
   - {fileID: 1264733053}
   - {fileID: 835003274}
+  oriGrid: 
+  posGrid:
+  - {x: 1, y: 0, z: 1}
+  - {x: 1, y: 0, z: -1}
+  - {x: -1, y: 0, z: -1}
+  - {x: -1, y: 0, z: 1}
   centro: {x: 0, y: 0, z: 0}
 --- !u!4 &319532908
 Transform:
