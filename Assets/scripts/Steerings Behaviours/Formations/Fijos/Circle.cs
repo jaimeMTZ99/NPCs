@@ -21,6 +21,7 @@ public class Circle : MonoBehaviour
     private Vector3 cua = new Vector3(-1,0,0);
 
     private int[] oriGrid;
+    private Vector3[] posGrid;
     private float ori1 =0;
     private float ori2 =-Mathf.PI/2;
     private float ori3 =Mathf.PI;
@@ -29,9 +30,19 @@ public class Circle : MonoBehaviour
     [SerializeField]
     private Vector3 centro;
 
+    private Vector3 centroAnt;
+
     void Start() {
+        centroAnt = Vector3.zero;
         asignaciones = new List<AgentNPC>();
         oriGrid = new int[4];
+        posGrid = new Vector3[4];
+
+        posGrid[0] = pri;
+        posGrid[1] = seg;
+        posGrid[2] = ter;
+        posGrid[3] = cua;
+        
         //metemos los agentes que podemos para la formacion
         foreach (AgentNPC a in agentes) {
             if (asignaciones.Count<ranuras){
@@ -50,6 +61,7 @@ public class Circle : MonoBehaviour
         foreach (AgentNPC a in asignaciones)
         {
             if (a.llegar){
+                centroAnt = centro;
                 centro = a.GetComponent<SeekAcceleration>().target.transform.position;
                 GirarMatriz();
                 UpdateSlots();
@@ -113,26 +125,20 @@ public class Circle : MonoBehaviour
     }
 
     public void GirarIzq(){
-        Vector3 aux1 = pri;
-        Vector3 aux2 = seg;
-        Vector3 aux3 = ter;
-        Vector3 aux4 = cua;
-        pri = aux2;
-        seg= aux3;
-        ter = aux4;
-        cua = aux1;
+
+        posGrid[0] = seg;
+        posGrid[1]= ter;
+        posGrid[2] = cua;
+        posGrid[3] = pri;
 
     }
 
     public void GirarDer(){
-        Vector3 aux1 = pri;
-        Vector3 aux2 = seg;
-        Vector3 aux3 = ter;
-        Vector3 aux4 = cua;
-        seg = aux1;
-        ter= aux2;
-        cua = aux3;
-        pri = aux4;
+
+        posGrid[0] = cua;
+        posGrid[1]= pri;
+        posGrid[2] = ter;
+        posGrid[3] = seg;
 
     }
 
@@ -142,16 +148,16 @@ public class Circle : MonoBehaviour
         Vector3 ter1 = new Vector3(0,0,-1);
         Vector3 cua1 = new Vector3(-1,0,0);
 
-
-
         if (centro.magnitude - asignaciones[0].transform.position.magnitude >0)
-            GirarDer();
+            while (posGrid[0] != new Vector3(1,0,0)){
+                GirarDer();
+            }
         else
-            GirarIzq();
+            while (posGrid[0] != new Vector3(-1,0,0)){
+                GirarIzq();
+            }
         
 
-
-        Debug.Log(pri);
         if(pri == pri1 ){
             for(int i = 0; i< 4; i++)
             {
@@ -180,18 +186,8 @@ public class Circle : MonoBehaviour
     public Vector3 GetPosition(int numero) {
 
         Vector3 resultado;
-        if (numero == 0) {
-            resultado = pri * radio + centro;
-        }
-        else if (numero == 1) {
-            resultado = seg * radio + centro;
-        }
-        else if (numero == 2) {
-            resultado = ter * radio + centro;
-        }
-        else {
-            resultado = cua * radio + centro;
-        }
+        resultado = posGrid[numero] * radio + centro;
+
         return resultado;
     }
 
