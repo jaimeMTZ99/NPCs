@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class lrta : MonoBehaviour
 {
-
+/**
 
     public class Nodo{
 
@@ -156,7 +156,7 @@ public class lrta : MonoBehaviour
     }
 
 
-
+*/
 
 
 

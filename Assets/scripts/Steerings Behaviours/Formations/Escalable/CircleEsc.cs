@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class CircleEsc : MonoBehaviour
 {
+
     [SerializeField]
     private float radio;
 
@@ -12,9 +13,9 @@ public class CircleEsc : MonoBehaviour
     //lista de los agentes seleccionados
     [SerializeField]
     private List<AgentNPC> agentes = new List<AgentNPC>();
-
     private List<AgentNPC> asignaciones;
     private GameObject centro;
+    
     void Start() {
         asignaciones = new List<AgentNPC>();
         centro = new GameObject("CenterCir");

@@ -33,6 +33,7 @@ public class V : MonoBehaviour
         }
         UpdateSlots();
     }
+    
     void Update(){
         foreach (AgentNPC a in asignaciones)
         {

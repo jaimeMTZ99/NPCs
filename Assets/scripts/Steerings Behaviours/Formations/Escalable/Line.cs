@@ -26,8 +26,8 @@ public class Line : MonoBehaviour
                 asignaciones.Add(a);
                 GameObject ForC = new GameObject("FLE " + asignaciones.Count);
                 Agent invisible = ForC.AddComponent<Agent>() as Agent;
-                invisible.extRadius=1.5f;
-                invisible.intRadius=1.5f;
+                invisible.extRadius=1f;
+                invisible.intRadius=1f;
                 a.form = true;
             }
         }

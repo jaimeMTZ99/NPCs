@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class pathfinding : MonoBehaviour
 {
-    Nodo nodoActual;
+  /**  Nodo nodoActual;
     Nodo nodoFinal;
     GameObject nodoEnd; //Objeto visual
     lrta lrtaStar = new lrta();
@@ -56,5 +56,5 @@ public class pathfinding : MonoBehaviour
 
         return null;
     }
-
+*/
 }
