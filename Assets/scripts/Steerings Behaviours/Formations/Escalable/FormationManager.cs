@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class FormationManager : MonoBehaviour {
-    
+    /*
     [SerializeField]
     private float radio;
 
@@ -82,4 +82,5 @@ public abstract class FormationManager : MonoBehaviour {
 
 
     public abstract bool SupportsSlots(int slotCount);
+    */
 }

@@ -1630,7 +1630,7 @@ GameObject:
   - component: {fileID: 197566156}
   - component: {fileID: 197566155}
   m_Layer: 0
-  m_Name: FixedFormation (2)
+  m_Name: FormacionCuadrado
   m_TagString: Formation
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1654,12 +1654,16 @@ MonoBehaviour:
   - {fileID: 2094445025}
   - {fileID: 245803615}
   - {fileID: 1147587483}
-  oriGrid: 
   posGrid:
   - {x: 1, y: 0, z: 1}
   - {x: 1, y: 0, z: -1}
   - {x: -1, y: 0, z: -1}
   - {x: -1, y: 0, z: 1}
+  oriGridInicial:
+  - 0
+  - 0
+  - 0
+  - 0
   centro: {x: -30, y: 0, z: 0}
 --- !u!4 &197566156
 Transform:
@@ -2797,12 +2801,12 @@ GameObject:
   - component: {fileID: 319532908}
   - component: {fileID: 319532907}
   m_Layer: 0
-  m_Name: FixedFormation
+  m_Name: FormacionCirculo
   m_TagString: Formation
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &319532907
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2821,12 +2825,16 @@ MonoBehaviour:
   - {fileID: 976685557}
   - {fileID: 1264733053}
   - {fileID: 835003274}
-  oriGrid: 
   posGrid:
   - {x: 0, y: 0, z: 1}
   - {x: 1, y: 0, z: 0}
   - {x: 0, y: 0, z: -1}
   - {x: -1, y: 0, z: 0}
+  oriGridInicial:
+  - 0
+  - 1.57
+  - 3.14
+  - 4.71
   centro: {x: 0, y: 0, z: 0}
 --- !u!4 &319532908
 Transform:
@@ -7922,7 +7930,7 @@ GameObject:
   - component: {fileID: 798556910}
   - component: {fileID: 798556909}
   m_Layer: 0
-  m_Name: FixedFormation (3)
+  m_Name: FormacionV
   m_TagString: Formation
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7946,12 +7954,16 @@ MonoBehaviour:
   - {fileID: 1299847376}
   - {fileID: 618058506}
   - {fileID: 119958151}
-  oriGrid: 
   posGrid:
   - {x: 0, y: 0, z: 0}
   - {x: 1, y: 0, z: 1}
   - {x: 2, y: 0, z: 2}
   - {x: -1, y: 0, z: 1}
+  oriGridInicial:
+  - 3.14
+  - 3.14
+  - 3.14
+  - 3.14
   centro: {x: -30, y: 0, z: 30}
 --- !u!4 &798556910
 Transform:
@@ -8323,6 +8335,7 @@ GameObject:
   - component: {fileID: 835003278}
   - component: {fileID: 835003277}
   - component: {fileID: 835003276}
+  - component: {fileID: 835003282}
   m_Layer: 0
   m_Name: Fixed4
   m_TagString: NPC
@@ -8362,8 +8375,9 @@ MonoBehaviour:
   gizmosIntAngle: 0
   gizmosExtAngle: 0
   SteeringList:
-  - {fileID: 835003277}
   - {fileID: 835003276}
+  - {fileID: 835003277}
+  - {fileID: 835003282}
   steer: {fileID: 835003275}
   blendWeight: 0
 --- !u!114 &835003275
@@ -8486,6 +8500,22 @@ Transform:
   m_Father: {fileID: 319532908}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &835003282
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 835003273}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e930a7f47f9b4e45b623407a9e719e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  weight: 1
+  timeToTarget: 0.1
+  aux: {fileID: 0}
 --- !u!1 &838033795
 GameObject:
   m_ObjectHideFlags: 0
@@ -9792,6 +9822,7 @@ GameObject:
   - component: {fileID: 976685561}
   - component: {fileID: 976685560}
   - component: {fileID: 976685559}
+  - component: {fileID: 976685565}
   m_Layer: 0
   m_Name: Fixed2
   m_TagString: NPC
@@ -9831,8 +9862,9 @@ MonoBehaviour:
   gizmosIntAngle: 0
   gizmosExtAngle: 0
   SteeringList:
-  - {fileID: 976685560}
-  - {fileID: 976685559}
+  - {fileID: 835003276}
+  - {fileID: 835003277}
+  - {fileID: 835003282}
   steer: {fileID: 976685558}
   blendWeight: 0
 --- !u!114 &976685558
@@ -9955,6 +9987,22 @@ Transform:
   m_Father: {fileID: 319532908}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &976685565
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 976685556}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e930a7f47f9b4e45b623407a9e719e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  weight: 1
+  timeToTarget: 0.1
+  aux: {fileID: 0}
 --- !u!1 &981086717
 GameObject:
   m_ObjectHideFlags: 0
@@ -11956,6 +12004,7 @@ GameObject:
   - component: {fileID: 1264733057}
   - component: {fileID: 1264733056}
   - component: {fileID: 1264733055}
+  - component: {fileID: 1264733061}
   m_Layer: 0
   m_Name: Fixed3
   m_TagString: NPC
@@ -11995,8 +12044,9 @@ MonoBehaviour:
   gizmosIntAngle: 0
   gizmosExtAngle: 0
   SteeringList:
-  - {fileID: 1264733056}
-  - {fileID: 1264733055}
+  - {fileID: 835003276}
+  - {fileID: 835003277}
+  - {fileID: 835003282}
   steer: {fileID: 1264733054}
   blendWeight: 0
 --- !u!114 &1264733054
@@ -12119,6 +12169,22 @@ Transform:
   m_Father: {fileID: 319532908}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1264733061
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1264733052}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e930a7f47f9b4e45b623407a9e719e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  weight: 1
+  timeToTarget: 0.1
+  aux: {fileID: 0}
 --- !u!1 &1269578481
 GameObject:
   m_ObjectHideFlags: 0
@@ -13718,7 +13784,7 @@ GameObject:
   - component: {fileID: 1356312536}
   - component: {fileID: 1356312535}
   m_Layer: 0
-  m_Name: FixedFormation (1)
+  m_Name: FormacionLinea
   m_TagString: Formation
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -13742,12 +13808,16 @@ MonoBehaviour:
   - {fileID: 552316622}
   - {fileID: 429366876}
   - {fileID: 38678793}
-  oriGrid: 00000000000000000000000000000000
   posGrid:
   - {x: 0, y: 0, z: 0}
   - {x: 1, y: 0, z: 0}
   - {x: -1, y: 0, z: 0}
   - {x: 2, y: 0, z: 0}
+  oriGridInicial:
+  - 0
+  - 0
+  - 0
+  - 0
   centro: {x: 0, y: 0, z: 30}
 --- !u!4 &1356312536
 Transform:
@@ -17754,6 +17824,7 @@ GameObject:
   - component: {fileID: 1823096622}
   - component: {fileID: 1823096624}
   - component: {fileID: 1823096623}
+  - component: {fileID: 1823096628}
   m_Layer: 0
   m_Name: Fixed1
   m_TagString: NPC
@@ -17793,8 +17864,9 @@ MonoBehaviour:
   gizmosIntAngle: 0
   gizmosExtAngle: 0
   SteeringList:
-  - {fileID: 1823096622}
-  - {fileID: 1823096623}
+  - {fileID: 835003276}
+  - {fileID: 835003277}
+  - {fileID: 835003282}
   steer: {fileID: 1823096621}
   blendWeight: 0
 --- !u!114 &1823096621
@@ -17917,6 +17989,22 @@ Transform:
   m_Father: {fileID: 319532908}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1823096628
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1823096619}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e930a7f47f9b4e45b623407a9e719e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  weight: 1
+  timeToTarget: 0.1
+  aux: {fileID: 0}
 --- !u!1 &1848858605
 GameObject:
   m_ObjectHideFlags: 0

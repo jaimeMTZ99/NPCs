@@ -42,4 +42,33 @@ public class AgentNPC : Agent
         transform.rotation = new Quaternion(); //Quaternion.identity;
         transform.Rotate(Vector3.up, Orientation * Mathf.Rad2Deg);
     }
+    public void removeSteering(SteeringBehaviour steer){
+        bool encontrado = false;
+        for (int k = 0 ;  k < this.SteeringList.Length; k++){
+            if (SteeringList[k] == steer){
+                encontrado = true;
+            }
+        }
+        if (encontrado){
+            SteeringBehaviour[] SteeringListAux = new SteeringBehaviour[SteeringList.Length-1];
+            int j = 0;
+            for (int i = 0; i < this.SteeringList.Length;i++){
+                if (SteeringList[i] != steer){
+                    Debug.Log("i: " + i + " j: " + j);
+                    SteeringListAux[j] = SteeringList[i];
+                    j++;
+                }
+            }
+            this.SteeringList = SteeringListAux;
+        }
+    }
+    public void addSteering(SteeringBehaviour steer){
+        int nuevoTamaño = SteeringList.Length+1;
+        SteeringBehaviour[] SteeringListAux = new SteeringBehaviour[nuevoTamaño];
+        for (int i = 0; i < this.SteeringList.Length;i++){
+            SteeringListAux[i] = SteeringList[i];
+        }
+        SteeringListAux[nuevoTamaño-1] = steer;
+        this.SteeringList = SteeringListAux;
+    }
 }
