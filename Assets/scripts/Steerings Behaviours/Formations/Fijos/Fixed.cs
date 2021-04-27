@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Circle : MonoBehaviour
+public class Fixed : MonoBehaviour
 {
 
     [SerializeField]
@@ -19,36 +19,31 @@ public class Circle : MonoBehaviour
     [SerializeField]
     private Vector3[] posGrid;
     private Vector3[] posGridInicial;
-    private float ori1 =0;
-    private float ori2 =-Mathf.PI/2;
-    private float ori3 =Mathf.PI;
-    private float ori4 =Mathf.PI/2;
+
+    private GameObject[] invisibles;
 
     [SerializeField]
     private Vector3 centro;
 
-    private Vector3 centroAnt;
+
 
     void Start() {
-        centroAnt = Vector3.zero;
         asignaciones = new List<AgentNPC>();
         oriGrid = new int[4];
-        //posGrid = new Vector3[4];
-
-        /*posGrid[0] = new Vector3(0,0,1);
-        posGrid[1] = new Vector3(1,0,0);
-        posGrid[2] = new Vector3(0,0,-1);
-        posGrid[3] = new Vector3(-1,0,0);*/
+        invisibles = new GameObject[4];
         posGridInicial = (Vector3[])posGrid.Clone();
         //metemos los agentes que podemos para la formacion
+        int i = 0;
         foreach (AgentNPC a in agentes) {
             if (asignaciones.Count<ranuras){
                 asignaciones.Add(a);
                 GameObject ForC = new GameObject("FC " + asignaciones.Count);
                 Agent invisible = ForC.AddComponent<Agent>() as Agent;
+                invisibles[i] = ForC;
                 invisible.extRadius=2f;
                 invisible.intRadius=2f;
                 a.form = true;
+                i++;
             }
         }
         UpdateSlots();
@@ -58,7 +53,6 @@ public class Circle : MonoBehaviour
         foreach (AgentNPC a in asignaciones)
         {
             if (a.llegar){
-                centroAnt = centro;
                 centro = a.GetComponent<SeekAcceleration>().target.transform.position;
                 GirarMatriz();
                 UpdateSlots();
@@ -77,7 +71,7 @@ public class Circle : MonoBehaviour
             int oriReal = oriGrid[i];
             float ori = GetOrientation(oriReal);
 
-            GameObject a = GameObject.Find("FC " + (i+1));
+            GameObject a = invisibles[i];
             Agent invisible = a.GetComponent<Agent>();
 
 
