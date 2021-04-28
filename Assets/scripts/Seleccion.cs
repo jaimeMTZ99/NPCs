@@ -114,18 +114,18 @@ public class Seleccion : MonoBehaviour
                         t.intRadius=2;
                         foreach (GameObject npc in selectedUnits)
                         {
-                            SeekAcceleration d = npc.GetComponent<SeekAcceleration>();
+                            ArriveAcceleration d = npc.GetComponent<ArriveAcceleration>();
                             AgentNPC x = npc.GetComponent<AgentNPC>();
                             if (x.form){
                                 x.llegar = true;
-                                d = npc.GetComponent<SeekAcceleration>();
+                                d = npc.GetComponent<ArriveAcceleration>();
                                 d.target = t;
                                 Align c = npc.GetComponent<Align>();
                                 c.target = t;
                             }
                             if(d == null){
-                                npc.AddComponent<SeekAcceleration>();
-                                d = npc.GetComponent<SeekAcceleration>();
+                                npc.AddComponent<ArriveAcceleration>();
+                                d = npc.GetComponent<ArriveAcceleration>();
                                 d.target = t;
                             }
                             else
@@ -134,18 +134,11 @@ public class Seleccion : MonoBehaviour
                             }
 
                             AgentNPC n = npc.GetComponent<AgentNPC>();
-                            bool esta = false;
-                            foreach (SteeringBehaviour i in n.SteeringList)
+
+                            if(!n.SteeringList.Contains(d))
                             {
-                                if (i == d)
-                                {
-                                    esta = true;
-                                }
-                            } 
-                            if(!esta){
-                                n.SteeringList= npc.GetComponents<SteeringBehaviour>();
+                                n.SteeringList.Add(d);
                             }
-                            
                         }                
                     } else{
                             goSel = new GameObject("Seleccion Solo");
@@ -157,19 +150,19 @@ public class Seleccion : MonoBehaviour
                             t1.extRadius=2;
                             t1.intRadius=2;
 
-                            SeekAcceleration e = selectedUnit.GetComponent<SeekAcceleration>();
+                            ArriveAcceleration e = selectedUnit.GetComponent<ArriveAcceleration>();
                             AgentNPC x = selectedUnit.GetComponent<AgentNPC>();
                             if (x.form){
                                 x.llegar = true;
-                                e = selectedUnit.GetComponent<SeekAcceleration>();
+                                e = selectedUnit.GetComponent<ArriveAcceleration>();
                                 e.target = t1;
                                 Align c = selectedUnit.GetComponent<Align>();
                                 c.target = t1;
                             }
 
                             if(e == null){
-                                selectedUnit.AddComponent<SeekAcceleration>();
-                                e = selectedUnit.GetComponent<SeekAcceleration>();
+                                selectedUnit.AddComponent<ArriveAcceleration>();
+                                e = selectedUnit.GetComponent<ArriveAcceleration>();
 
                                 e.target = t1;
 
@@ -180,17 +173,11 @@ public class Seleccion : MonoBehaviour
 
                             }
                             AgentNPC n = selectedUnit.GetComponent<AgentNPC>();
-                            bool esta = false;
-                            foreach (SteeringBehaviour i in n.SteeringList)
+                            if(!n.SteeringList.Contains(e))
                             {
-                                if (i == e)
-                                {
-                                    esta = true;
-                                }
-                            } 
-                            if(!esta){
-                                n.SteeringList= selectedUnit.GetComponents<SteeringBehaviour>();
+                                n.SteeringList.Add(e);
                             }
+
                     }
                 }
         

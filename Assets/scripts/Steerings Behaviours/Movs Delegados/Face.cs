@@ -14,8 +14,11 @@ public class Face : Align {
         this.target = invisible;
     }
     public override Steering GetSteering(AgentNPC agent) {
-        //Establecemos un steer que sera completamente sin resultados para devolverlo en caso de que la distancia sea 0
-        Steering steer= this.gameObject.GetComponent<Steering>(); 
+        Steering steer= this.gameObject.GetComponent<Steering>();
+        if (aux == null || target == null){
+            return base.GetSteering(agent);
+        }
+        //Establecemos un steer que sera completamente sin resultados para devolverlo en caso de que la distancia sea 0 
         steer.linear = Vector3.zero;
         steer.angular = 0;
         target.transform.position = aux.transform.position;

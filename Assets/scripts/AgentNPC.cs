@@ -5,7 +5,7 @@ using UnityEngine;
 public class AgentNPC : Agent
 {
 
-    public SteeringBehaviour[] SteeringList;
+    public List<SteeringBehaviour> SteeringList;
     [SerializeField]
     private Steering steer;
     [SerializeField]
@@ -13,7 +13,11 @@ public class AgentNPC : Agent
 
     void Awake()
     {
-        SteeringList = this.gameObject.GetComponents<SteeringBehaviour>();
+        foreach (SteeringBehaviour s in this.gameObject.GetComponents<SteeringBehaviour>())
+        {
+            SteeringList.Add(s);
+        }
+        //SteeringList = this.gameObject.GetComponents<SteeringBehaviour>();
     }
     void FixedUpdate()
     {
@@ -42,7 +46,7 @@ public class AgentNPC : Agent
         transform.rotation = new Quaternion(); //Quaternion.identity;
         transform.Rotate(Vector3.up, Orientation * Mathf.Rad2Deg);
     }
-    public void removeSteering(SteeringBehaviour steer){
+    /**public void removeSteering(SteeringBehaviour steer){
         bool encontrado = false;
         for (int k = 0 ;  k < this.SteeringList.Length; k++){
             if (SteeringList[k] == steer){
@@ -61,8 +65,8 @@ public class AgentNPC : Agent
             }
             this.SteeringList = SteeringListAux;
         }
-    }
-    public void addSteering(SteeringBehaviour steer){
+    }**/
+    /**public void addSteering(SteeringBehaviour steer){
         int nuevoTamaño = SteeringList.Length+1;
         SteeringBehaviour[] SteeringListAux = new SteeringBehaviour[nuevoTamaño];
         for (int i = 0; i < this.SteeringList.Length;i++){
@@ -70,5 +74,5 @@ public class AgentNPC : Agent
         }
         SteeringListAux[nuevoTamaño-1] = steer;
         this.SteeringList = SteeringListAux;
-    }
+    }**/
 }

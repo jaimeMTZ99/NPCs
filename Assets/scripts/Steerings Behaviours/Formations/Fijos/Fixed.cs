@@ -1,36 +1,38 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
+using System.Collections;
+
 
 public class Fixed : MonoBehaviour
 {
-    private const int V = 0;
     [SerializeField]
     private float radio;
-
     private float ranuras = 4;
     //lista de los agentes seleccionados
     [SerializeField]
     private List<AgentNPC> agentes = new List<AgentNPC>();
-
     private List<AgentNPC> asignaciones;
-    
+    [SerializeField]
     private int[] oriGrid;
     [SerializeField]
     private Vector3[] posGrid;
     private Vector3[] posGridInicial;
-     [SerializeField]
-    private float[] oriGridInicial;
+
     private GameObject[] invisibles;
 
     [SerializeField]
     private Vector3 centro;
+    private bool llegado;
+    private Align align;
+    private Face face;
 
-
-
+    private GameObject f;
     void Start() {
+        f = new GameObject("F");
+        f.AddComponent<Agent>();
         asignaciones = new List<AgentNPC>();
         oriGrid = new int[4]{0,1,2,3};
+
         invisibles = new GameObject[4];
         posGridInicial = (Vector3[])posGrid.Clone();
         //metemos los agentes que podemos para la formacion
@@ -43,97 +45,116 @@ public class Fixed : MonoBehaviour
                 invisibles[i] = ForC;
                 invisible.extRadius=2f;
                 invisible.intRadius=2f;
-                asignaciones[i].GetComponent<Face>().aux = invisible;
                 a.form = true;
                 i++;
-                
+                face = a.GetComponent<Face>();
+                a.SteeringList.Remove(face);
             }
         }
         UpdateSlots();
-
     }
+
     void Update(){
-        int i = 0;
-        Agent invisible;
-        SteeringBehaviour face;
         foreach (AgentNPC a in asignaciones)
         {
-            invisible = invisibles[i].GetComponent<Agent>();
             if (a.llegar){
-                face = a.GetComponent<Face>();
-                a.addSteering(face);
-                Face fCast = (Face) face;
-                fCast.aux =  invisibles[i].GetComponent<Agent>();
-                centro = a.GetComponent<SeekAcceleration>().target.transform.position;
+                
+                centro = a.GetComponent<ArriveAcceleration>().target.transform.position;
+                f.GetComponent<Agent>().transform.position = centro;
+                for(int i=0;i<4;i++){
+
+                    align = this.transform.GetChild(i).gameObject.GetComponent<Align>();
+                    if(asignaciones[i].SteeringList.Contains(align))
+                        asignaciones[i].SteeringList.Remove(align);
+
+                    face = asignaciones[i].GetComponent<Face>();
+                    asignaciones[i].GetComponent<Face>().aux = f.GetComponent<Agent>();
+                    asignaciones[i].GetComponent<Face>().target = f.GetComponent<Agent>();
+                    if(!asignaciones[i].SteeringList.Contains(face))
+                        asignaciones[i].SteeringList.Add(face);
+                }
+                Move();
+
+                if((Mathf.Abs(a.transform.position.x) - Mathf.Abs(f.transform.position.x) < a.intRadius) && (Mathf.Abs(a.transform.position.z) - Mathf.Abs(f.transform.position.z) < a.intRadius))
+                {
+                    llegado =true;
+                    a.llegar = false;
+                }
+
+            } else if(asignaciones[0].Velocity.magnitude == 0 && llegado == true){
+                for(int i=0;i<4;i++){
+                    align = asignaciones[i].GetComponent<Align>();
+                    if(!asignaciones[i].SteeringList.Contains(align))
+                        asignaciones[i].SteeringList.Add(align);
+
+                    face = asignaciones[i].GetComponent<Face>();
+                    if(asignaciones[i].SteeringList.Contains(face))
+                        asignaciones[i].SteeringList.Remove(face);
+                }
                 GirarMatriz();
                 UpdateSlots();
-            }else if (a.velocity.magnitude == 0){
-                int oriReal = oriGrid[i];
-                invisible.orientation = GetOrientation(oriReal); 
-                face = a.GetComponent<Face>(); 
-                a.removeSteering(face);
-                a.GetComponent<Align>().target = invisible;
+                llegado = false;
             }
-            a.llegar = false;
-            i++;
+
+
         }
 
     }
+
+    public void Move(){
+        for (int i = 0; i < asignaciones.Count; i++) {
+            GameObject a = invisibles[i];
+            Agent invisible = a.GetComponent<Agent>();
+            invisible.transform.position =centro;
+            asignaciones[i].GetComponent<ArriveAcceleration>().target = invisible;
+
+        }  
+    }
+
     public void UpdateSlots() {
-
-        AgentNPC lider = asignaciones[0];
-
-         
+        
         for (int i = 0; i < asignaciones.Count; i++) {
             Vector3 pos = GetPosition(i);
-           // int oriReal = oriGrid[i];
-           // float ori = GetOrientation(oriReal);
+            int oriReal = oriGrid[i];
+            float ori = GetOrientation(oriReal);
 
             GameObject a = invisibles[i];
             Agent invisible = a.GetComponent<Agent>();
 
-
             invisible.transform.position =pos;
-            invisible.orientation= 0;
-            //invisible.orientation =ori;
+            invisible.orientation =ori;
+            asignaciones[i].GetComponent<ArriveAcceleration>().target = invisible;
+            asignaciones[i].GetComponent<Align>().target = invisible;
 
-            asignaciones[i].GetComponent<SeekAcceleration>().target = invisible;
-            asignaciones[i].GetComponent<Face>().target = invisible;
-            //asignaciones[i].GetComponent<Align>().target = invisible;
         }
     }
         // calcula la orientacion
     public float GetOrientation(int numero) {
-
         float resultado;
         if (numero == 0) {
-            resultado = oriGridInicial[0];
+            resultado = 0;
         }
         else if (numero == 1) {
-            resultado = oriGridInicial[1];
+            resultado = Mathf.PI/2;
         }
         else if (numero == 2) {
-            resultado = oriGridInicial[2];
+            resultado = Mathf.PI;
         }
         else {
-            resultado = oriGridInicial[3];
+            resultado = -Mathf.PI/2;
         }  
         return resultado;
     }
-
     public void GirarIzq(){
         Vector3 aux1 = posGrid[0];
         Vector3 aux2 = posGrid[1];
         Vector3 aux3 = posGrid[2];
         Vector3 aux4 =posGrid[3];
-
         posGrid[0] = aux2;
         posGrid[1]= aux3;
         posGrid[2] = aux4;
         posGrid[3] = aux1;
-
     }
-
     public void GirarDer(){
         Vector3 aux1 = posGrid[0];
         Vector3 aux2 = posGrid[1];
@@ -143,39 +164,33 @@ public class Fixed : MonoBehaviour
         posGrid[1]= aux1;
         posGrid[2] = aux2;
         posGrid[3] = aux3;
-
     }
-
     public void GirarMatriz(){
-       /* Vector3 pri1 = new Vector3(0,0,1);
-        Vector3 seg1 = new Vector3(1,0,0);
-        Vector3 ter1 = new Vector3(0,0,-1);
-        Vector3 cua1 = new Vector3(-1,0,0);*/
+
         if (centro.z - asignaciones[0].transform.position.z > radio*4 ){
-            Debug.Log("Arriba");
+
             while(posGrid[0] != posGridInicial[0]){
                 GirarDer();
             }
         }else if (centro.z - asignaciones[0].transform.position.z < -radio*4){
-             Debug.Log("Abajo");
+
             while(posGrid[0] != posGridInicial[2]){
                 GirarIzq();
             }
         }
         else if (centro.x - asignaciones[0].transform.position.x >0){
-            Debug.Log("Derecha");
+
             while (posGrid[0] != posGridInicial[1]){
                 GirarDer();
             }
         }
         else{
-            Debug.Log("Izquierda");
+
             while (posGrid[0] != posGridInicial[3]){
                 GirarIzq();
             }
         }
         
-        Debug.Log(posGrid[0]);
         if(posGrid[0] == posGridInicial[0] ){
             for(int i = 0; i< 4; i++)
             {
@@ -202,11 +217,8 @@ public class Fixed : MonoBehaviour
     }
     // calcula la posicion
     public Vector3 GetPosition(int numero) {
-
         Vector3 resultado;
         resultado = posGrid[numero] * radio + centro;
-
         return resultado;
     }
-
 }

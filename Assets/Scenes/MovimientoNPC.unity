@@ -1155,7 +1155,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &144090357
 Transform:
   m_ObjectHideFlags: 0
@@ -1307,8 +1307,7 @@ MonoBehaviour:
   gizmosExtRadius: 0
   gizmosIntAngle: 0
   gizmosExtAngle: 0
-  SteeringList:
-  - {fileID: 144090362}
+  SteeringList: []
   steer: {fileID: 144090365}
   blendWeight: 0
 --- !u!114 &144090365
@@ -1493,8 +1492,7 @@ MonoBehaviour:
   gizmosExtRadius: 0
   gizmosIntAngle: 0
   gizmosExtAngle: 0
-  SteeringList:
-  - {fileID: 192263923}
+  SteeringList: []
   steer: {fileID: 192263928}
   blendWeight: 0
 --- !u!114 &192263928
@@ -1654,16 +1652,12 @@ MonoBehaviour:
   - {fileID: 2094445025}
   - {fileID: 245803615}
   - {fileID: 1147587483}
+  oriGrid: 
   posGrid:
   - {x: 1, y: 0, z: 1}
   - {x: 1, y: 0, z: -1}
   - {x: -1, y: 0, z: -1}
   - {x: -1, y: 0, z: 1}
-  oriGridInicial:
-  - 0
-  - 0
-  - 0
-  - 0
   centro: {x: -30, y: 0, z: 0}
 --- !u!4 &197566156
 Transform:
@@ -1801,7 +1795,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &228982829
 Transform:
   m_ObjectHideFlags: 0
@@ -1953,8 +1947,7 @@ MonoBehaviour:
   gizmosExtRadius: 0
   gizmosIntAngle: 0
   gizmosExtAngle: 0
-  SteeringList:
-  - {fileID: 228982834}
+  SteeringList: []
   steer: {fileID: 228982837}
   blendWeight: 0
 --- !u!114 &228982837
@@ -2819,22 +2812,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0540cf024ab1fab4eb3bc71c8b31935f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  radio: 5
+  radio: 8
   agentes:
   - {fileID: 1823096620}
   - {fileID: 976685557}
   - {fileID: 1264733053}
   - {fileID: 835003274}
+  oriGrid: 
   posGrid:
   - {x: 0, y: 0, z: 1}
   - {x: 1, y: 0, z: 0}
   - {x: 0, y: 0, z: -1}
   - {x: -1, y: 0, z: 0}
-  oriGridInicial:
-  - 0
-  - 1.57
-  - 3.14
-  - 4.71
   centro: {x: 0, y: 0, z: 0}
 --- !u!4 &319532908
 Transform:
@@ -3864,7 +3853,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &470826813
 Transform:
   m_ObjectHideFlags: 0
@@ -4016,8 +4005,7 @@ MonoBehaviour:
   gizmosExtRadius: 0
   gizmosIntAngle: 0
   gizmosExtAngle: 0
-  SteeringList:
-  - {fileID: 470826818}
+  SteeringList: []
   steer: {fileID: 470826821}
   blendWeight: 0
 --- !u!114 &470826821
@@ -5844,7 +5832,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &626603107
 Transform:
   m_ObjectHideFlags: 0
@@ -5996,8 +5984,7 @@ MonoBehaviour:
   gizmosExtRadius: 0
   gizmosIntAngle: 0
   gizmosExtAngle: 0
-  SteeringList:
-  - {fileID: 626603112}
+  SteeringList: []
   steer: {fileID: 626603115}
   blendWeight: 0
 --- !u!114 &626603115
@@ -6324,7 +6311,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &650456526
 Transform:
   m_ObjectHideFlags: 0
@@ -6476,8 +6463,7 @@ MonoBehaviour:
   gizmosExtRadius: 0
   gizmosIntAngle: 0
   gizmosExtAngle: 0
-  SteeringList:
-  - {fileID: 650456531}
+  SteeringList: []
   steer: {fileID: 650456534}
   blendWeight: 0
 --- !u!114 &650456534
@@ -7824,8 +7810,7 @@ MonoBehaviour:
   gizmosExtRadius: 0
   gizmosIntAngle: 0
   gizmosExtAngle: 0
-  SteeringList:
-  - {fileID: 786279292}
+  SteeringList: []
   steer: {fileID: 786279294}
   blendWeight: 0
 --- !u!114 &786279294
@@ -7954,16 +7939,12 @@ MonoBehaviour:
   - {fileID: 1299847376}
   - {fileID: 618058506}
   - {fileID: 119958151}
+  oriGrid: 
   posGrid:
   - {x: 0, y: 0, z: 0}
   - {x: 1, y: 0, z: 1}
   - {x: 2, y: 0, z: 2}
   - {x: -1, y: 0, z: 1}
-  oriGridInicial:
-  - 3.14
-  - 3.14
-  - 3.14
-  - 3.14
   centro: {x: -30, y: 0, z: 30}
 --- !u!4 &798556910
 Transform:
@@ -8334,8 +8315,8 @@ GameObject:
   - component: {fileID: 835003274}
   - component: {fileID: 835003278}
   - component: {fileID: 835003277}
-  - component: {fileID: 835003276}
   - component: {fileID: 835003282}
+  - component: {fileID: 835003276}
   m_Layer: 0
   m_Name: Fixed4
   m_TagString: NPC
@@ -8359,25 +8340,22 @@ MonoBehaviour:
   llegar: 0
   speed: 5
   mass: 0.1
-  maxSpeed: 10
-  maxRotation: 0.9
+  maxSpeed: 5
+  maxRotation: 1.57
   maxAcceleration: 0.9
-  maxAngularAcc: 0.9
+  maxAngularAcc: 2.5
   orientation: 0
   velocity: {x: 0, y: 0, z: 0}
   acceleration: {x: 0, y: 0, z: 0}
-  intRadius: 2.5
-  extRadius: 3
+  intRadius: 4
+  extRadius: 4
   intAngle: 0.3
   extAngle: 0.5
-  gizmosIntRadius: 0
+  gizmosIntRadius: 1
   gizmosExtRadius: 0
   gizmosIntAngle: 0
   gizmosExtAngle: 0
-  SteeringList:
-  - {fileID: 835003276}
-  - {fileID: 835003277}
-  - {fileID: 835003282}
+  SteeringList: []
   steer: {fileID: 835003275}
   blendWeight: 0
 --- !u!114 &835003275
@@ -8403,11 +8381,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 835003273}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2cbcc929c56efda4d81e08d3f094a516, type: 3}
+  m_Script: {fileID: 11500000, guid: aa9d3c05c7d3b4e4081907e4656b4aa4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   weight: 1
+  TimeToTarget: 0.1
 --- !u!114 &835003277
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8492,7 +8471,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 835003273}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -5, y: -6.0491586, z: 0}
+  m_LocalPosition: {x: -5, y: -6.0491586, z: -8.53}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1907104753}
@@ -9821,8 +9800,8 @@ GameObject:
   - component: {fileID: 976685557}
   - component: {fileID: 976685561}
   - component: {fileID: 976685560}
-  - component: {fileID: 976685559}
   - component: {fileID: 976685565}
+  - component: {fileID: 976685559}
   m_Layer: 0
   m_Name: Fixed2
   m_TagString: NPC
@@ -9846,25 +9825,22 @@ MonoBehaviour:
   llegar: 0
   speed: 5
   mass: 0.1
-  maxSpeed: 10
-  maxRotation: 0.9
+  maxSpeed: 5
+  maxRotation: 1.57
   maxAcceleration: 0.9
-  maxAngularAcc: 0.9
+  maxAngularAcc: 2.5
   orientation: 0
   velocity: {x: 0, y: 0, z: 0}
   acceleration: {x: 0, y: 0, z: 0}
-  intRadius: 2.5
-  extRadius: 3
+  intRadius: 4
+  extRadius: 4
   intAngle: 0.3
   extAngle: 0.5
-  gizmosIntRadius: 0
+  gizmosIntRadius: 1
   gizmosExtRadius: 0
   gizmosIntAngle: 0
   gizmosExtAngle: 0
-  SteeringList:
-  - {fileID: 835003276}
-  - {fileID: 835003277}
-  - {fileID: 835003282}
+  SteeringList: []
   steer: {fileID: 976685558}
   blendWeight: 0
 --- !u!114 &976685558
@@ -9890,11 +9866,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 976685556}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2cbcc929c56efda4d81e08d3f094a516, type: 3}
+  m_Script: {fileID: 11500000, guid: aa9d3c05c7d3b4e4081907e4656b4aa4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   weight: 1
+  TimeToTarget: 0.1
 --- !u!114 &976685560
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9979,7 +9956,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 976685556}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 5, y: -6.0491586, z: 0}
+  m_LocalPosition: {x: 13.94, y: -6.0491586, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 940466234}
@@ -10164,8 +10141,7 @@ MonoBehaviour:
   gizmosExtRadius: 0
   gizmosIntAngle: 1
   gizmosExtAngle: 1
-  SteeringList:
-  - {fileID: 982697188}
+  SteeringList: []
   steer: {fileID: 982697190}
   blendWeight: 0
 --- !u!114 &982697190
@@ -10883,8 +10859,7 @@ MonoBehaviour:
   gizmosExtRadius: 0
   gizmosIntAngle: 0
   gizmosExtAngle: 0
-  SteeringList:
-  - {fileID: 1151459228}
+  SteeringList: []
   steer: {fileID: 1151459230}
   blendWeight: 0
 --- !u!114 &1151459230
@@ -11771,7 +11746,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1262576401
 Transform:
   m_ObjectHideFlags: 0
@@ -11923,8 +11898,7 @@ MonoBehaviour:
   gizmosExtRadius: 0
   gizmosIntAngle: 0
   gizmosExtAngle: 0
-  SteeringList:
-  - {fileID: 1262576406}
+  SteeringList: []
   steer: {fileID: 1262576409}
   blendWeight: 0
 --- !u!114 &1262576409
@@ -12003,8 +11977,8 @@ GameObject:
   - component: {fileID: 1264733053}
   - component: {fileID: 1264733057}
   - component: {fileID: 1264733056}
-  - component: {fileID: 1264733055}
   - component: {fileID: 1264733061}
+  - component: {fileID: 1264733055}
   m_Layer: 0
   m_Name: Fixed3
   m_TagString: NPC
@@ -12028,25 +12002,22 @@ MonoBehaviour:
   llegar: 0
   speed: 5
   mass: 0.1
-  maxSpeed: 10
-  maxRotation: 0.9
+  maxSpeed: 5
+  maxRotation: 1.57
   maxAcceleration: 0.9
-  maxAngularAcc: 0.9
+  maxAngularAcc: 2.5
   orientation: 0
   velocity: {x: 0, y: 0, z: 0}
   acceleration: {x: 0, y: 0, z: 0}
-  intRadius: 2.5
-  extRadius: 3
+  intRadius: 4
+  extRadius: 4
   intAngle: 0.3
   extAngle: 0.5
-  gizmosIntRadius: 0
+  gizmosIntRadius: 1
   gizmosExtRadius: 0
   gizmosIntAngle: 0
   gizmosExtAngle: 0
-  SteeringList:
-  - {fileID: 835003276}
-  - {fileID: 835003277}
-  - {fileID: 835003282}
+  SteeringList: []
   steer: {fileID: 1264733054}
   blendWeight: 0
 --- !u!114 &1264733054
@@ -12072,11 +12043,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1264733052}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2cbcc929c56efda4d81e08d3f094a516, type: 3}
+  m_Script: {fileID: 11500000, guid: aa9d3c05c7d3b4e4081907e4656b4aa4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   weight: 1
+  TimeToTarget: 0.1
 --- !u!114 &1264733056
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12161,7 +12133,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1264733052}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -6.0491586, z: -5}
+  m_LocalPosition: {x: 1.86, y: -6.0491586, z: -5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1012921824}
@@ -12804,8 +12776,7 @@ MonoBehaviour:
   gizmosExtRadius: 0
   gizmosIntAngle: 1
   gizmosExtAngle: 1
-  SteeringList:
-  - {fileID: 1324625971}
+  SteeringList: []
   steer: {fileID: 1324625973}
   blendWeight: 0
 --- !u!114 &1324625973
@@ -13285,7 +13256,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1341510123
 Transform:
   m_ObjectHideFlags: 0
@@ -13437,8 +13408,7 @@ MonoBehaviour:
   gizmosExtRadius: 0
   gizmosIntAngle: 0
   gizmosExtAngle: 0
-  SteeringList:
-  - {fileID: 1341510128}
+  SteeringList: []
   steer: {fileID: 1341510131}
   blendWeight: 0
 --- !u!114 &1341510131
@@ -13808,16 +13778,12 @@ MonoBehaviour:
   - {fileID: 552316622}
   - {fileID: 429366876}
   - {fileID: 38678793}
+  oriGrid: 
   posGrid:
   - {x: 0, y: 0, z: 0}
   - {x: 1, y: 0, z: 0}
   - {x: -1, y: 0, z: 0}
   - {x: 2, y: 0, z: 0}
-  oriGridInicial:
-  - 0
-  - 0
-  - 0
-  - 0
   centro: {x: 0, y: 0, z: 30}
 --- !u!4 &1356312536
 Transform:
@@ -14606,7 +14572,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1475940938
 Transform:
   m_ObjectHideFlags: 0
@@ -14758,8 +14724,7 @@ MonoBehaviour:
   gizmosExtRadius: 0
   gizmosIntAngle: 0
   gizmosExtAngle: 0
-  SteeringList:
-  - {fileID: 1475940943}
+  SteeringList: []
   steer: {fileID: 1475940946}
   blendWeight: 0
 --- !u!114 &1475940946
@@ -14941,7 +14906,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1489697573
 Transform:
   m_ObjectHideFlags: 0
@@ -15093,8 +15058,7 @@ MonoBehaviour:
   gizmosExtRadius: 0
   gizmosIntAngle: 0
   gizmosExtAngle: 0
-  SteeringList:
-  - {fileID: 1489697578}
+  SteeringList: []
   steer: {fileID: 1489697581}
   blendWeight: 0
 --- !u!114 &1489697581
@@ -16291,7 +16255,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1634812963
 Transform:
   m_ObjectHideFlags: 0
@@ -16410,8 +16374,7 @@ MonoBehaviour:
   gizmosExtRadius: 0
   gizmosIntAngle: 0
   gizmosExtAngle: 0
-  SteeringList:
-  - {fileID: 1634812965}
+  SteeringList: []
   steer: {fileID: 1634812969}
   blendWeight: 0
 --- !u!114 &1634812969
@@ -17589,8 +17552,7 @@ MonoBehaviour:
   gizmosExtRadius: 0
   gizmosIntAngle: 0
   gizmosExtAngle: 0
-  SteeringList:
-  - {fileID: 1809705321}
+  SteeringList: []
   steer: {fileID: 1809705314}
   blendWeight: 0
 --- !u!114 &1809705314
@@ -17821,10 +17783,10 @@ GameObject:
   - component: {fileID: 1823096625}
   - component: {fileID: 1823096621}
   - component: {fileID: 1823096620}
-  - component: {fileID: 1823096622}
   - component: {fileID: 1823096624}
   - component: {fileID: 1823096623}
   - component: {fileID: 1823096628}
+  - component: {fileID: 1823096622}
   m_Layer: 0
   m_Name: Fixed1
   m_TagString: NPC
@@ -17848,25 +17810,22 @@ MonoBehaviour:
   llegar: 0
   speed: 3
   mass: 0.1
-  maxSpeed: 10
-  maxRotation: 0.9
+  maxSpeed: 5
+  maxRotation: 1.57
   maxAcceleration: 0.9
-  maxAngularAcc: 0.9
+  maxAngularAcc: 2.5
   orientation: 0
   velocity: {x: 0, y: 0, z: 0}
   acceleration: {x: 0, y: 0, z: 0}
-  intRadius: 2.5
-  extRadius: 3
+  intRadius: 4
+  extRadius: 4
   intAngle: 0.3
   extAngle: 0.5
-  gizmosIntRadius: 0
+  gizmosIntRadius: 1
   gizmosExtRadius: 0
   gizmosIntAngle: 0
   gizmosExtAngle: 0
-  SteeringList:
-  - {fileID: 835003276}
-  - {fileID: 835003277}
-  - {fileID: 835003282}
+  SteeringList: []
   steer: {fileID: 1823096621}
   blendWeight: 0
 --- !u!114 &1823096621
@@ -17892,11 +17851,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1823096619}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2cbcc929c56efda4d81e08d3f094a516, type: 3}
+  m_Script: {fileID: 11500000, guid: aa9d3c05c7d3b4e4081907e4656b4aa4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   weight: 1
+  TimeToTarget: 0.1
 --- !u!114 &1823096623
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20630,7 +20590,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2111042355
 Transform:
   m_ObjectHideFlags: 0
@@ -20782,8 +20742,7 @@ MonoBehaviour:
   gizmosExtRadius: 0
   gizmosIntAngle: 0
   gizmosExtAngle: 0
-  SteeringList:
-  - {fileID: 2111042360}
+  SteeringList: []
   steer: {fileID: 2111042363}
   blendWeight: 0
 --- !u!114 &2111042363
