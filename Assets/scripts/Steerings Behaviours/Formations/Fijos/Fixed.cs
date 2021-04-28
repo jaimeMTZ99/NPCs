@@ -108,7 +108,6 @@ public class Fixed : MonoBehaviour
             Agent invisible = a.GetComponent<Agent>();
             invisible.transform.position =centro;
             asignaciones[i].GetComponent<ArriveAcceleration>().target = invisible;
-
         }  
     }
 

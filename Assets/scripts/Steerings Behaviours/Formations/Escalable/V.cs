@@ -22,14 +22,14 @@ public class V : FormationManager
         centro.AddComponent<AgentNPC>();
         //metemos los agentes que podemos para la formacion
         foreach (AgentNPC a in agentes) {
-            if (asignaciones.Count<ranuras){
+           // if (asignaciones.Count<ranuras){
                 asignaciones.Add(a);
                 GameObject ForC = new GameObject("V " + asignaciones.Count);
                 Agent invisible = ForC.AddComponent<Agent>() as Agent;
                 invisible.extRadius=1f;
                 invisible.intRadius=1f;
                 a.form = true;
-            }
+          // }
         }
         UpdateSlots();
     }

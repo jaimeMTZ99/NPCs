@@ -5,125 +5,35 @@ using UnityEngine;
 public class CircleEsc : FormationManager
 {
 
-    /**[SerializeField]
-    private float radio;
-
-    [SerializeField]
-    private float ranuras;
-    //lista de los agentes seleccionados
-    [SerializeField]
-    private List<AgentNPC> agentes = new List<AgentNPC>();
-    private List<AgentNPC> asignaciones;
-    private GameObject centro;
-    **/
-    private bool llegado;
-    private GameObject f;
-    private GameObject p;
-    private Vector3 centro1;
-    private Pursue pursue;
+    private GameObject puntoSeleccion;
     private bool lider = true;
     void Start() {
-        f = new GameObject("F1");
-        f.AddComponent<Agent>();
+        puntoSeleccion = new GameObject("F1");
+        puntoSeleccion.AddComponent<Agent>();
         asignaciones = new List<AgentNPC>();
-        p = new GameObject("lugar");
-        p.AddComponent<Agent>();
         centro = new GameObject("CenterCir");
         centro.AddComponent<AgentNPC>();
         //metemos los agentes que podemos para la formacion
         foreach (AgentNPC a in agentes) {
-            if (asignaciones.Count<ranuras){
-                asignaciones.Add(a);
-                GameObject ForC = new GameObject("FCE " + asignaciones.Count);
-                Agent invisible = ForC.AddComponent<Agent>() as Agent;
-                invisible.extRadius=1f;
-                invisible.intRadius=1f;
-                a.form = true;
-                face = a.GetComponent<Face>();
-                a.SteeringList.Remove(face);
-
-                if(lider == false)
-                {
-                    pursue = a.GetComponent<Pursue>();
-                    a.SteeringList.Remove(pursue);
-                }
-                lider =false;
-            }
+            asignaciones.Add(a);
+            GameObject ForC = new GameObject("FCE " + asignaciones.Count);
+            Agent invisible = ForC.AddComponent<Agent>() as Agent;
+            invisible.extRadius=1.5f;
+            invisible.intRadius=1.5f;
+            a.form = true;
         }
         UpdateSlots();
     }
 
-
-
-
     void Update(){
         foreach (AgentNPC a in asignaciones)
         {
-            if (a.llegar){
-                
-                centro1 = a.GetComponent<ArriveAcceleration>().target.transform.position;
-                f.GetComponent<Agent>().transform.position = centro1;
-                centro.transform.position = centro1;
-                for(int i=0;i<asignaciones.Count;i++){
-
-                    align = this.transform.GetChild(i).gameObject.GetComponent<Align>();
-                    if(asignaciones[i].SteeringList.Contains(align))
-                        asignaciones[i].SteeringList.Remove(align);
-
-                    face = asignaciones[i].GetComponent<Face>();
-                    asignaciones[i].GetComponent<Face>().aux = f.GetComponent<Agent>();
-                    asignaciones[i].GetComponent<Face>().target = f.GetComponent<Agent>();
-                    if(!asignaciones[i].SteeringList.Contains(face))
-                        asignaciones[i].SteeringList.Add(face);
-                    if(i != 0){
-                        pursue = asignaciones[i].GetComponent<Pursue>();
-                        pursue.target = asignaciones[0];
-                        pursue.aux = asignaciones[0];
-                        if(!asignaciones[i].SteeringList.Contains(pursue))
-                            asignaciones[i].SteeringList.Add(pursue);
-                    }
-                }
-                Move();
-
-                if((Mathf.Abs(asignaciones[0].transform.position.x) - Mathf.Abs(f.transform.position.x) < asignaciones[0].intRadius) && (Mathf.Abs(asignaciones[0].transform.position.z) - Mathf.Abs(f.transform.position.z) < asignaciones[0].intRadius))
-                {
-                    llegado =true;
-                    a.llegar = false;
-                }
-
-            } else if(asignaciones[0].Velocity.magnitude == 0 && llegado == true){
-                for(int i=0;i<asignaciones.Count;i++){
-                    align = asignaciones[i].GetComponent<Align>();
-                    if(!asignaciones[i].SteeringList.Contains(align))
-                        asignaciones[i].SteeringList.Add(align);
-
-                    face = asignaciones[i].GetComponent<Face>();
-                    if(asignaciones[i].SteeringList.Contains(face))
-                        asignaciones[i].SteeringList.Remove(face);
-                    if(i != 0){
-                        pursue = asignaciones[i].GetComponent<Pursue>();
-                        if(asignaciones[i].SteeringList.Contains(pursue))
-                            asignaciones[i].SteeringList.Remove(pursue);
-                    }
-                }
-                UpdateSlots();
-                llegado = false;
-            }
-
+            if (a.llegar)
+                puntoSeleccion.GetComponent<Agent>().transform.position = a.GetComponent<ArriveAcceleration>().target.transform.position;; 
+            UpdateSlots();
         }
 
     }
-
-
-    
-    public void Move(){
-        Agent invisible = p.GetComponent<Agent>();
-        invisible.transform.position =centro1;
-        asignaciones[0].GetComponent<ArriveAcceleration>().target = invisible;
-
-    }
-
-
     public override void UpdateSlots() {
 
         AgentNPC anchor = GetAnchor();
@@ -143,9 +53,22 @@ public class CircleEsc : FormationManager
 
             invisible.transform.position =anchor.transform.position + result;
             invisible.orientation =-(anchor.orientation + ori);
+            AgentNPC lider = asignaciones[0];
+            if((Mathf.Abs(lider.transform.position.x) - Mathf.Abs(puntoSeleccion.transform.position.x) < lider.intRadius) && (Mathf.Abs(a.transform.position.z) - Mathf.Abs(puntoSeleccion.transform.position.z) < lider.intRadius))
+                lider.llegar = false;
+            //Poner los steerings en tránsito y parados.
+            if (lider.llegar && i != 0 && lider.velocity.magnitude >= 1){
+                asignaciones[i].GetComponent<ArriveAcceleration>().target =lider;
+                asignaciones[i].GetComponent<Align>().target = lider;
+                lider.GetComponent<Face>().aux = puntoSeleccion.GetComponent<Agent>();
+                lider.GetComponent<Face>().target = puntoSeleccion.GetComponent<Agent>();
+            }else if (!lider.llegar && lider.velocity.magnitude < 1){
+                asignaciones[i].GetComponent<ArriveAcceleration>().target = invisible;
+                asignaciones[i].GetComponent<Align>().target = invisible;
+                lider.GetComponent<Face>().target = null;
+                lider.GetComponent<Face>().aux = null;
+            }
 
-            asignaciones[i].GetComponent<ArriveAcceleration>().target = invisible;
-            asignaciones[i].GetComponent<Align>().target = invisible;
         }
     }
 

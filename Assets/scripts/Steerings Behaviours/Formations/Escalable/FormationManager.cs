@@ -7,9 +7,6 @@ public abstract class FormationManager : MonoBehaviour {
     [SerializeField]
     protected float radio;
 
-
-    [SerializeField]
-    protected float ranuras;
     //lista de los agentes seleccionados
     [SerializeField]
     protected List<AgentNPC> agentes = new List<AgentNPC>();

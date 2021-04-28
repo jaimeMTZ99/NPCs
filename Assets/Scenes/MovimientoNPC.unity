@@ -5001,8 +5001,6 @@ GameObject:
   - component: {fileID: 556585444}
   - component: {fileID: 556585443}
   - component: {fileID: 556585442}
-  - component: {fileID: 556585448}
-  - component: {fileID: 556585449}
   m_Layer: 0
   m_Name: Cir3
   m_TagString: NPC
@@ -5165,38 +5163,6 @@ Transform:
   m_Father: {fileID: 750458927}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &556585448
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 556585439}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e930a7f47f9b4e45b623407a9e719e0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  target: {fileID: 0}
-  weight: 1
-  timeToTarget: 0.1
-  aux: {fileID: 0}
---- !u!114 &556585449
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 556585439}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 007d9e84a7d210344968d453777c1cfe, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  target: {fileID: 0}
-  weight: 1
-  maxPredict: 0.1
-  aux: {fileID: 0}
 --- !u!1 &569083489
 GameObject:
   m_ObjectHideFlags: 0
@@ -6205,7 +6171,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   radio: 5
-  ranuras: 3
   agentes:
   - {fileID: 1345386585}
   - {fileID: 348432634}
@@ -7472,7 +7437,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   radio: 3
-  ranuras: 7
   agentes:
   - {fileID: 1509167567}
   - {fileID: 1339820675}
@@ -7480,7 +7444,6 @@ MonoBehaviour:
   - {fileID: 1899415810}
   - {fileID: 753453017}
   - {fileID: 1729649446}
-  - {fileID: 934606888}
 --- !u!4 &750458927
 Transform:
   m_ObjectHideFlags: 0
@@ -7518,8 +7481,6 @@ GameObject:
   - component: {fileID: 753453021}
   - component: {fileID: 753453020}
   - component: {fileID: 753453019}
-  - component: {fileID: 753453025}
-  - component: {fileID: 753453026}
   m_Layer: 0
   m_Name: Cir5
   m_TagString: NPC
@@ -7682,38 +7643,6 @@ Transform:
   m_Father: {fileID: 750458927}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &753453025
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 753453016}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e930a7f47f9b4e45b623407a9e719e0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  target: {fileID: 0}
-  weight: 1
-  timeToTarget: 0.1
-  aux: {fileID: 0}
---- !u!114 &753453026
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 753453016}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 007d9e84a7d210344968d453777c1cfe, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  target: {fileID: 0}
-  weight: 1
-  maxPredict: 0.1
-  aux: {fileID: 0}
 --- !u!1 &776854985
 GameObject:
   m_ObjectHideFlags: 0
@@ -8248,7 +8177,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   radio: 3
-  ranuras: 5
   agentes:
   - {fileID: 681037979}
   - {fileID: 969451956}
@@ -8951,8 +8879,6 @@ GameObject:
   - component: {fileID: 934606892}
   - component: {fileID: 934606891}
   - component: {fileID: 934606890}
-  - component: {fileID: 934606896}
-  - component: {fileID: 934606897}
   m_Layer: 0
   m_Name: Cir7
   m_TagString: NPC
@@ -9115,38 +9041,6 @@ Transform:
   m_Father: {fileID: 750458927}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &934606896
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 934606887}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e930a7f47f9b4e45b623407a9e719e0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  target: {fileID: 0}
-  weight: 1
-  timeToTarget: 0.1
-  aux: {fileID: 0}
---- !u!114 &934606897
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 934606887}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 007d9e84a7d210344968d453777c1cfe, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  target: {fileID: 0}
-  weight: 1
-  maxPredict: 0.1
-  aux: {fileID: 0}
 --- !u!1 &940466233
 GameObject:
   m_ObjectHideFlags: 0
@@ -13171,8 +13065,6 @@ GameObject:
   - component: {fileID: 1339820679}
   - component: {fileID: 1339820678}
   - component: {fileID: 1339820677}
-  - component: {fileID: 1339820683}
-  - component: {fileID: 1339820684}
   m_Layer: 0
   m_Name: Cir2
   m_TagString: NPC
@@ -13335,38 +13227,6 @@ Transform:
   m_Father: {fileID: 750458927}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1339820683
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1339820674}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e930a7f47f9b4e45b623407a9e719e0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  target: {fileID: 0}
-  weight: 1
-  timeToTarget: 0.1
-  aux: {fileID: 0}
---- !u!114 &1339820684
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1339820674}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 007d9e84a7d210344968d453777c1cfe, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  target: {fileID: 0}
-  weight: 1
-  maxPredict: 0.1
-  aux: {fileID: 0}
 --- !u!1 &1341510122
 GameObject:
   m_ObjectHideFlags: 0
@@ -17012,8 +16872,6 @@ GameObject:
   - component: {fileID: 1729649450}
   - component: {fileID: 1729649449}
   - component: {fileID: 1729649448}
-  - component: {fileID: 1729649454}
-  - component: {fileID: 1729649455}
   m_Layer: 0
   m_Name: Cir6
   m_TagString: NPC
@@ -17176,38 +17034,6 @@ Transform:
   m_Father: {fileID: 750458927}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1729649454
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1729649445}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e930a7f47f9b4e45b623407a9e719e0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  target: {fileID: 0}
-  weight: 1
-  timeToTarget: 0.1
-  aux: {fileID: 0}
---- !u!114 &1729649455
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1729649445}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 007d9e84a7d210344968d453777c1cfe, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  target: {fileID: 0}
-  weight: 1
-  maxPredict: 0.1
-  aux: {fileID: 0}
 --- !u!1 &1744410437
 GameObject:
   m_ObjectHideFlags: 0
@@ -18447,8 +18273,6 @@ GameObject:
   - component: {fileID: 1899415814}
   - component: {fileID: 1899415813}
   - component: {fileID: 1899415812}
-  - component: {fileID: 1899415818}
-  - component: {fileID: 1899415819}
   m_Layer: 0
   m_Name: Cir4
   m_TagString: NPC
@@ -18611,38 +18435,6 @@ Transform:
   m_Father: {fileID: 750458927}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1899415818
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1899415809}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e930a7f47f9b4e45b623407a9e719e0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  target: {fileID: 0}
-  weight: 1
-  timeToTarget: 0.1
-  aux: {fileID: 0}
---- !u!114 &1899415819
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1899415809}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 007d9e84a7d210344968d453777c1cfe, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  target: {fileID: 0}
-  weight: 1
-  maxPredict: 0.1
-  aux: {fileID: 0}
 --- !u!1 &1905418251
 GameObject:
   m_ObjectHideFlags: 0
