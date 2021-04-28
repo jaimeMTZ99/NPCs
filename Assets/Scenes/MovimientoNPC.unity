@@ -2799,7 +2799,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &319532907
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3077,9 +3077,9 @@ GameObject:
   - component: {fileID: 348432639}
   - component: {fileID: 348432635}
   - component: {fileID: 348432634}
-  - component: {fileID: 348432636}
   - component: {fileID: 348432638}
   - component: {fileID: 348432637}
+  - component: {fileID: 348432636}
   m_Layer: 0
   m_Name: Line2
   m_TagString: NPC
@@ -3103,23 +3103,22 @@ MonoBehaviour:
   llegar: 0
   speed: 3
   mass: 0.1
-  maxSpeed: 6
+  maxSpeed: 4
   maxRotation: 0.9
   maxAcceleration: 0.9
   maxAngularAcc: 0.9
   orientation: 0
   velocity: {x: 0, y: 0, z: 0}
   acceleration: {x: 0, y: 0, z: 0}
-  intRadius: 9.72
-  extRadius: 16.97
+  intRadius: 1.3
+  extRadius: 3
   intAngle: 0.3
   extAngle: 0.5
   gizmosIntRadius: 0
   gizmosExtRadius: 0
   gizmosIntAngle: 0
   gizmosExtAngle: 0
-  SteeringList:
-  - {fileID: 348432636}
+  SteeringList: []
   steer: {fileID: 348432635}
   blendWeight: 0
 --- !u!114 &348432635
@@ -3145,11 +3144,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 348432633}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2cbcc929c56efda4d81e08d3f094a516, type: 3}
+  m_Script: {fileID: 11500000, guid: aa9d3c05c7d3b4e4081907e4656b4aa4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   weight: 1
+  TimeToTarget: 0.1
 --- !u!114 &348432637
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4998,9 +4998,11 @@ GameObject:
   - component: {fileID: 556585445}
   - component: {fileID: 556585441}
   - component: {fileID: 556585440}
-  - component: {fileID: 556585442}
   - component: {fileID: 556585444}
   - component: {fileID: 556585443}
+  - component: {fileID: 556585442}
+  - component: {fileID: 556585448}
+  - component: {fileID: 556585449}
   m_Layer: 0
   m_Name: Cir3
   m_TagString: NPC
@@ -5024,23 +5026,22 @@ MonoBehaviour:
   llegar: 0
   speed: 3
   mass: 0.1
-  maxSpeed: 6
+  maxSpeed: 4
   maxRotation: 0.9
   maxAcceleration: 0.9
   maxAngularAcc: 0.9
   orientation: 0
   velocity: {x: 0, y: 0, z: 0}
   acceleration: {x: 0, y: 0, z: 0}
-  intRadius: 9.72
-  extRadius: 16.97
+  intRadius: 2.5
+  extRadius: 3
   intAngle: 0.3
   extAngle: 0.5
   gizmosIntRadius: 0
   gizmosExtRadius: 0
   gizmosIntAngle: 0
   gizmosExtAngle: 0
-  SteeringList:
-  - {fileID: 556585442}
+  SteeringList: []
   steer: {fileID: 556585441}
   blendWeight: 0
 --- !u!114 &556585441
@@ -5066,11 +5067,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 556585439}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2cbcc929c56efda4d81e08d3f094a516, type: 3}
+  m_Script: {fileID: 11500000, guid: aa9d3c05c7d3b4e4081907e4656b4aa4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   weight: 1
+  TimeToTarget: 0.1
 --- !u!114 &556585443
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5163,6 +5165,38 @@ Transform:
   m_Father: {fileID: 750458927}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &556585448
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 556585439}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e930a7f47f9b4e45b623407a9e719e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  weight: 1
+  timeToTarget: 0.1
+  aux: {fileID: 0}
+--- !u!114 &556585449
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 556585439}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 007d9e84a7d210344968d453777c1cfe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  weight: 1
+  maxPredict: 0.1
+  aux: {fileID: 0}
 --- !u!1 &569083489
 GameObject:
   m_ObjectHideFlags: 0
@@ -6170,7 +6204,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7e214c0c645ffb4eb120e370ca2e1ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  radio: 4
+  radio: 5
   ranuras: 3
   agentes:
   - {fileID: 1345386585}
@@ -6633,9 +6667,9 @@ GameObject:
   - component: {fileID: 681037984}
   - component: {fileID: 681037980}
   - component: {fileID: 681037979}
-  - component: {fileID: 681037981}
   - component: {fileID: 681037983}
   - component: {fileID: 681037982}
+  - component: {fileID: 681037981}
   m_Layer: 0
   m_Name: V1
   m_TagString: NPC
@@ -6659,23 +6693,22 @@ MonoBehaviour:
   llegar: 0
   speed: 3
   mass: 0.1
-  maxSpeed: 6
+  maxSpeed: 4
   maxRotation: 0.9
   maxAcceleration: 0.9
   maxAngularAcc: 0.9
   orientation: 0
   velocity: {x: 0, y: 0, z: 0}
   acceleration: {x: 0, y: 0, z: 0}
-  intRadius: 9.72
-  extRadius: 16.97
+  intRadius: 1.3
+  extRadius: 3
   intAngle: 0.3
   extAngle: 0.5
   gizmosIntRadius: 0
   gizmosExtRadius: 0
   gizmosIntAngle: 0
   gizmosExtAngle: 0
-  SteeringList:
-  - {fileID: 681037981}
+  SteeringList: []
   steer: {fileID: 681037980}
   blendWeight: 0
 --- !u!114 &681037980
@@ -6701,11 +6734,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 681037978}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2cbcc929c56efda4d81e08d3f094a516, type: 3}
+  m_Script: {fileID: 11500000, guid: aa9d3c05c7d3b4e4081907e4656b4aa4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   weight: 1
+  TimeToTarget: 0.1
 --- !u!114 &681037982
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7424,7 +7458,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &750458926
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7481,9 +7515,11 @@ GameObject:
   - component: {fileID: 753453022}
   - component: {fileID: 753453018}
   - component: {fileID: 753453017}
-  - component: {fileID: 753453019}
   - component: {fileID: 753453021}
   - component: {fileID: 753453020}
+  - component: {fileID: 753453019}
+  - component: {fileID: 753453025}
+  - component: {fileID: 753453026}
   m_Layer: 0
   m_Name: Cir5
   m_TagString: NPC
@@ -7507,23 +7543,22 @@ MonoBehaviour:
   llegar: 0
   speed: 3
   mass: 0.1
-  maxSpeed: 6
+  maxSpeed: 4
   maxRotation: 0.9
   maxAcceleration: 0.9
   maxAngularAcc: 0.9
   orientation: 0
   velocity: {x: 0, y: 0, z: 0}
   acceleration: {x: 0, y: 0, z: 0}
-  intRadius: 9.72
-  extRadius: 16.97
+  intRadius: 2.5
+  extRadius: 3
   intAngle: 0.3
   extAngle: 0.5
   gizmosIntRadius: 0
   gizmosExtRadius: 0
   gizmosIntAngle: 0
   gizmosExtAngle: 0
-  SteeringList:
-  - {fileID: 753453019}
+  SteeringList: []
   steer: {fileID: 753453018}
   blendWeight: 0
 --- !u!114 &753453018
@@ -7549,11 +7584,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 753453016}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2cbcc929c56efda4d81e08d3f094a516, type: 3}
+  m_Script: {fileID: 11500000, guid: aa9d3c05c7d3b4e4081907e4656b4aa4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   weight: 1
+  TimeToTarget: 0.1
 --- !u!114 &753453020
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7646,6 +7682,38 @@ Transform:
   m_Father: {fileID: 750458927}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &753453025
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 753453016}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e930a7f47f9b4e45b623407a9e719e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  weight: 1
+  timeToTarget: 0.1
+  aux: {fileID: 0}
+--- !u!114 &753453026
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 753453016}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 007d9e84a7d210344968d453777c1cfe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  weight: 1
+  maxPredict: 0.1
+  aux: {fileID: 0}
 --- !u!1 &776854985
 GameObject:
   m_ObjectHideFlags: 0
@@ -8880,9 +8948,11 @@ GameObject:
   - component: {fileID: 934606893}
   - component: {fileID: 934606889}
   - component: {fileID: 934606888}
-  - component: {fileID: 934606890}
   - component: {fileID: 934606892}
   - component: {fileID: 934606891}
+  - component: {fileID: 934606890}
+  - component: {fileID: 934606896}
+  - component: {fileID: 934606897}
   m_Layer: 0
   m_Name: Cir7
   m_TagString: NPC
@@ -8906,23 +8976,22 @@ MonoBehaviour:
   llegar: 0
   speed: 3
   mass: 0.1
-  maxSpeed: 6
+  maxSpeed: 4
   maxRotation: 0.9
   maxAcceleration: 0.9
   maxAngularAcc: 0.9
   orientation: 0
   velocity: {x: 0, y: 0, z: 0}
   acceleration: {x: 0, y: 0, z: 0}
-  intRadius: 9.72
-  extRadius: 16.97
+  intRadius: 2.5
+  extRadius: 3
   intAngle: 0.3
   extAngle: 0.5
   gizmosIntRadius: 0
   gizmosExtRadius: 0
   gizmosIntAngle: 0
   gizmosExtAngle: 0
-  SteeringList:
-  - {fileID: 934606890}
+  SteeringList: []
   steer: {fileID: 934606889}
   blendWeight: 0
 --- !u!114 &934606889
@@ -8948,11 +9017,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 934606887}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2cbcc929c56efda4d81e08d3f094a516, type: 3}
+  m_Script: {fileID: 11500000, guid: aa9d3c05c7d3b4e4081907e4656b4aa4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   weight: 1
+  TimeToTarget: 0.1
 --- !u!114 &934606891
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9045,6 +9115,38 @@ Transform:
   m_Father: {fileID: 750458927}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &934606896
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 934606887}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e930a7f47f9b4e45b623407a9e719e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  weight: 1
+  timeToTarget: 0.1
+  aux: {fileID: 0}
+--- !u!114 &934606897
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 934606887}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 007d9e84a7d210344968d453777c1cfe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  weight: 1
+  maxPredict: 0.1
+  aux: {fileID: 0}
 --- !u!1 &940466233
 GameObject:
   m_ObjectHideFlags: 0
@@ -9527,9 +9629,9 @@ GameObject:
   - component: {fileID: 969451961}
   - component: {fileID: 969451957}
   - component: {fileID: 969451956}
-  - component: {fileID: 969451958}
   - component: {fileID: 969451960}
   - component: {fileID: 969451959}
+  - component: {fileID: 969451958}
   m_Layer: 0
   m_Name: V2
   m_TagString: NPC
@@ -9553,23 +9655,22 @@ MonoBehaviour:
   llegar: 0
   speed: 3
   mass: 0.1
-  maxSpeed: 6
+  maxSpeed: 4
   maxRotation: 0.9
   maxAcceleration: 0.9
   maxAngularAcc: 0.9
   orientation: 0
   velocity: {x: 0, y: 0, z: 0}
   acceleration: {x: 0, y: 0, z: 0}
-  intRadius: 9.72
-  extRadius: 16.97
+  intRadius: 1.3
+  extRadius: 3
   intAngle: 0.3
   extAngle: 0.5
   gizmosIntRadius: 0
   gizmosExtRadius: 0
   gizmosIntAngle: 0
   gizmosExtAngle: 0
-  SteeringList:
-  - {fileID: 969451958}
+  SteeringList: []
   steer: {fileID: 969451957}
   blendWeight: 0
 --- !u!114 &969451957
@@ -9595,11 +9696,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 969451955}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2cbcc929c56efda4d81e08d3f094a516, type: 3}
+  m_Script: {fileID: 11500000, guid: aa9d3c05c7d3b4e4081907e4656b4aa4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   weight: 1
+  TimeToTarget: 0.1
 --- !u!114 &969451959
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10966,9 +11068,9 @@ GameObject:
   - component: {fileID: 1168021462}
   - component: {fileID: 1168021458}
   - component: {fileID: 1168021457}
-  - component: {fileID: 1168021459}
   - component: {fileID: 1168021461}
   - component: {fileID: 1168021460}
+  - component: {fileID: 1168021459}
   m_Layer: 0
   m_Name: Line3
   m_TagString: NPC
@@ -10992,23 +11094,22 @@ MonoBehaviour:
   llegar: 0
   speed: 3
   mass: 0.1
-  maxSpeed: 6
+  maxSpeed: 4
   maxRotation: 0.9
   maxAcceleration: 0.9
   maxAngularAcc: 0.9
   orientation: 0
   velocity: {x: 0, y: 0, z: 0}
   acceleration: {x: 0, y: 0, z: 0}
-  intRadius: 9.72
-  extRadius: 16.97
+  intRadius: 1.3
+  extRadius: 3
   intAngle: 0.3
   extAngle: 0.5
   gizmosIntRadius: 0
   gizmosExtRadius: 0
   gizmosIntAngle: 0
   gizmosExtAngle: 0
-  SteeringList:
-  - {fileID: 1168021459}
+  SteeringList: []
   steer: {fileID: 1168021458}
   blendWeight: 0
 --- !u!114 &1168021458
@@ -11034,11 +11135,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1168021456}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2cbcc929c56efda4d81e08d3f094a516, type: 3}
+  m_Script: {fileID: 11500000, guid: aa9d3c05c7d3b4e4081907e4656b4aa4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   weight: 1
+  TimeToTarget: 0.1
 --- !u!114 &1168021460
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13066,9 +13168,11 @@ GameObject:
   - component: {fileID: 1339820680}
   - component: {fileID: 1339820676}
   - component: {fileID: 1339820675}
-  - component: {fileID: 1339820677}
   - component: {fileID: 1339820679}
   - component: {fileID: 1339820678}
+  - component: {fileID: 1339820677}
+  - component: {fileID: 1339820683}
+  - component: {fileID: 1339820684}
   m_Layer: 0
   m_Name: Cir2
   m_TagString: NPC
@@ -13092,23 +13196,22 @@ MonoBehaviour:
   llegar: 0
   speed: 3
   mass: 0.1
-  maxSpeed: 6
+  maxSpeed: 4
   maxRotation: 0.9
   maxAcceleration: 0.9
   maxAngularAcc: 0.9
   orientation: 0
   velocity: {x: 0, y: 0, z: 0}
   acceleration: {x: 0, y: 0, z: 0}
-  intRadius: 9.72
-  extRadius: 16.97
+  intRadius: 2.5
+  extRadius: 3
   intAngle: 0.3
   extAngle: 0.5
   gizmosIntRadius: 0
   gizmosExtRadius: 0
   gizmosIntAngle: 0
   gizmosExtAngle: 0
-  SteeringList:
-  - {fileID: 1339820677}
+  SteeringList: []
   steer: {fileID: 1339820676}
   blendWeight: 0
 --- !u!114 &1339820676
@@ -13134,11 +13237,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1339820674}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2cbcc929c56efda4d81e08d3f094a516, type: 3}
+  m_Script: {fileID: 11500000, guid: aa9d3c05c7d3b4e4081907e4656b4aa4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   weight: 1
+  TimeToTarget: 0.1
 --- !u!114 &1339820678
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13231,6 +13335,38 @@ Transform:
   m_Father: {fileID: 750458927}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1339820683
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1339820674}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e930a7f47f9b4e45b623407a9e719e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  weight: 1
+  timeToTarget: 0.1
+  aux: {fileID: 0}
+--- !u!114 &1339820684
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1339820674}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 007d9e84a7d210344968d453777c1cfe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  weight: 1
+  maxPredict: 0.1
+  aux: {fileID: 0}
 --- !u!1 &1341510122
 GameObject:
   m_ObjectHideFlags: 0
@@ -13485,9 +13621,9 @@ GameObject:
   - component: {fileID: 1345386590}
   - component: {fileID: 1345386586}
   - component: {fileID: 1345386585}
-  - component: {fileID: 1345386587}
   - component: {fileID: 1345386589}
   - component: {fileID: 1345386588}
+  - component: {fileID: 1345386587}
   m_Layer: 0
   m_Name: Line1
   m_TagString: NPC
@@ -13511,23 +13647,22 @@ MonoBehaviour:
   llegar: 0
   speed: 3
   mass: 0.1
-  maxSpeed: 6
+  maxSpeed: 4
   maxRotation: 0.9
   maxAcceleration: 0.9
   maxAngularAcc: 0.9
   orientation: 0
   velocity: {x: 0, y: 0, z: 0}
   acceleration: {x: 0, y: 0, z: 0}
-  intRadius: 9.72
-  extRadius: 16.97
+  intRadius: 1.3
+  extRadius: 3
   intAngle: 0.3
   extAngle: 0.5
   gizmosIntRadius: 0
   gizmosExtRadius: 0
   gizmosIntAngle: 0
   gizmosExtAngle: 0
-  SteeringList:
-  - {fileID: 1345386587}
+  SteeringList: []
   steer: {fileID: 1345386586}
   blendWeight: 0
 --- !u!114 &1345386586
@@ -13553,11 +13688,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1345386584}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2cbcc929c56efda4d81e08d3f094a516, type: 3}
+  m_Script: {fileID: 11500000, guid: aa9d3c05c7d3b4e4081907e4656b4aa4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   weight: 1
+  TimeToTarget: 0.1
 --- !u!114 &1345386588
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15135,9 +15271,10 @@ GameObject:
   - component: {fileID: 1509167572}
   - component: {fileID: 1509167568}
   - component: {fileID: 1509167567}
-  - component: {fileID: 1509167569}
   - component: {fileID: 1509167571}
   - component: {fileID: 1509167570}
+  - component: {fileID: 1509167569}
+  - component: {fileID: 1509167575}
   m_Layer: 0
   m_Name: Cir1
   m_TagString: NPC
@@ -15161,23 +15298,22 @@ MonoBehaviour:
   llegar: 0
   speed: 3
   mass: 0.1
-  maxSpeed: 6
+  maxSpeed: 4
   maxRotation: 0.9
   maxAcceleration: 0.9
   maxAngularAcc: 0.9
   orientation: 0
   velocity: {x: 0, y: 0, z: 0}
   acceleration: {x: 0, y: 0, z: 0}
-  intRadius: 9.72
-  extRadius: 16.97
+  intRadius: 2.5
+  extRadius: 3
   intAngle: 0.3
   extAngle: 0.5
   gizmosIntRadius: 0
   gizmosExtRadius: 0
   gizmosIntAngle: 0
   gizmosExtAngle: 0
-  SteeringList:
-  - {fileID: 1509167569}
+  SteeringList: []
   steer: {fileID: 1509167568}
   blendWeight: 0
 --- !u!114 &1509167568
@@ -15203,11 +15339,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1509167566}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2cbcc929c56efda4d81e08d3f094a516, type: 3}
+  m_Script: {fileID: 11500000, guid: aa9d3c05c7d3b4e4081907e4656b4aa4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   weight: 1
+  TimeToTarget: 0.1
 --- !u!114 &1509167570
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15300,6 +15437,22 @@ Transform:
   m_Father: {fileID: 750458927}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1509167575
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1509167566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e930a7f47f9b4e45b623407a9e719e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  weight: 1
+  timeToTarget: 0.1
+  aux: {fileID: 0}
 --- !u!1 &1517948112
 GameObject:
   m_ObjectHideFlags: 0
@@ -16856,9 +17009,11 @@ GameObject:
   - component: {fileID: 1729649451}
   - component: {fileID: 1729649447}
   - component: {fileID: 1729649446}
-  - component: {fileID: 1729649448}
   - component: {fileID: 1729649450}
   - component: {fileID: 1729649449}
+  - component: {fileID: 1729649448}
+  - component: {fileID: 1729649454}
+  - component: {fileID: 1729649455}
   m_Layer: 0
   m_Name: Cir6
   m_TagString: NPC
@@ -16882,23 +17037,22 @@ MonoBehaviour:
   llegar: 0
   speed: 3
   mass: 0.1
-  maxSpeed: 6
+  maxSpeed: 4
   maxRotation: 0.9
   maxAcceleration: 0.9
   maxAngularAcc: 0.9
   orientation: 0
   velocity: {x: 0, y: 0, z: 0}
   acceleration: {x: 0, y: 0, z: 0}
-  intRadius: 9.72
-  extRadius: 16.97
+  intRadius: 2.5
+  extRadius: 3
   intAngle: 0.3
   extAngle: 0.5
   gizmosIntRadius: 0
   gizmosExtRadius: 0
   gizmosIntAngle: 0
   gizmosExtAngle: 0
-  SteeringList:
-  - {fileID: 1729649448}
+  SteeringList: []
   steer: {fileID: 1729649447}
   blendWeight: 0
 --- !u!114 &1729649447
@@ -16924,11 +17078,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1729649445}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2cbcc929c56efda4d81e08d3f094a516, type: 3}
+  m_Script: {fileID: 11500000, guid: aa9d3c05c7d3b4e4081907e4656b4aa4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   weight: 1
+  TimeToTarget: 0.1
 --- !u!114 &1729649449
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17021,6 +17176,38 @@ Transform:
   m_Father: {fileID: 750458927}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1729649454
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1729649445}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e930a7f47f9b4e45b623407a9e719e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  weight: 1
+  timeToTarget: 0.1
+  aux: {fileID: 0}
+--- !u!114 &1729649455
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1729649445}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 007d9e84a7d210344968d453777c1cfe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  weight: 1
+  maxPredict: 0.1
+  aux: {fileID: 0}
 --- !u!1 &1744410437
 GameObject:
   m_ObjectHideFlags: 0
@@ -17127,9 +17314,9 @@ GameObject:
   - component: {fileID: 1757904211}
   - component: {fileID: 1757904207}
   - component: {fileID: 1757904206}
-  - component: {fileID: 1757904208}
   - component: {fileID: 1757904210}
   - component: {fileID: 1757904209}
+  - component: {fileID: 1757904208}
   m_Layer: 0
   m_Name: V5
   m_TagString: NPC
@@ -17153,23 +17340,22 @@ MonoBehaviour:
   llegar: 0
   speed: 3
   mass: 0.1
-  maxSpeed: 6
+  maxSpeed: 4
   maxRotation: 0.9
   maxAcceleration: 0.9
   maxAngularAcc: 0.9
   orientation: 0
   velocity: {x: 0, y: 0, z: 0}
   acceleration: {x: 0, y: 0, z: 0}
-  intRadius: 9.72
-  extRadius: 16.97
+  intRadius: 1.3
+  extRadius: 3
   intAngle: 0.3
   extAngle: 0.5
   gizmosIntRadius: 0
   gizmosExtRadius: 0
   gizmosIntAngle: 0
   gizmosExtAngle: 0
-  SteeringList:
-  - {fileID: 1757904208}
+  SteeringList: []
   steer: {fileID: 1757904207}
   blendWeight: 0
 --- !u!114 &1757904207
@@ -17195,11 +17381,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1757904205}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2cbcc929c56efda4d81e08d3f094a516, type: 3}
+  m_Script: {fileID: 11500000, guid: aa9d3c05c7d3b4e4081907e4656b4aa4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   weight: 1
+  TimeToTarget: 0.1
 --- !u!114 &1757904209
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18257,9 +18444,11 @@ GameObject:
   - component: {fileID: 1899415815}
   - component: {fileID: 1899415811}
   - component: {fileID: 1899415810}
-  - component: {fileID: 1899415812}
   - component: {fileID: 1899415814}
   - component: {fileID: 1899415813}
+  - component: {fileID: 1899415812}
+  - component: {fileID: 1899415818}
+  - component: {fileID: 1899415819}
   m_Layer: 0
   m_Name: Cir4
   m_TagString: NPC
@@ -18283,23 +18472,22 @@ MonoBehaviour:
   llegar: 0
   speed: 3
   mass: 0.1
-  maxSpeed: 6
+  maxSpeed: 4
   maxRotation: 0.9
   maxAcceleration: 0.9
   maxAngularAcc: 0.9
   orientation: 0
   velocity: {x: 0, y: 0, z: 0}
   acceleration: {x: 0, y: 0, z: 0}
-  intRadius: 9.72
-  extRadius: 16.97
+  intRadius: 2.5
+  extRadius: 3
   intAngle: 0.3
   extAngle: 0.5
   gizmosIntRadius: 0
   gizmosExtRadius: 0
   gizmosIntAngle: 0
   gizmosExtAngle: 0
-  SteeringList:
-  - {fileID: 1899415812}
+  SteeringList: []
   steer: {fileID: 1899415811}
   blendWeight: 0
 --- !u!114 &1899415811
@@ -18325,11 +18513,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1899415809}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2cbcc929c56efda4d81e08d3f094a516, type: 3}
+  m_Script: {fileID: 11500000, guid: aa9d3c05c7d3b4e4081907e4656b4aa4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   weight: 1
+  TimeToTarget: 0.1
 --- !u!114 &1899415813
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18422,6 +18611,38 @@ Transform:
   m_Father: {fileID: 750458927}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1899415818
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1899415809}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e930a7f47f9b4e45b623407a9e719e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  weight: 1
+  timeToTarget: 0.1
+  aux: {fileID: 0}
+--- !u!114 &1899415819
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1899415809}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 007d9e84a7d210344968d453777c1cfe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  weight: 1
+  maxPredict: 0.1
+  aux: {fileID: 0}
 --- !u!1 &1905418251
 GameObject:
   m_ObjectHideFlags: 0
@@ -19399,9 +19620,9 @@ GameObject:
   - component: {fileID: 1992616553}
   - component: {fileID: 1992616549}
   - component: {fileID: 1992616548}
-  - component: {fileID: 1992616550}
   - component: {fileID: 1992616552}
   - component: {fileID: 1992616551}
+  - component: {fileID: 1992616550}
   m_Layer: 0
   m_Name: V3
   m_TagString: NPC
@@ -19425,23 +19646,22 @@ MonoBehaviour:
   llegar: 0
   speed: 3
   mass: 0.1
-  maxSpeed: 6
+  maxSpeed: 4
   maxRotation: 0.9
   maxAcceleration: 0.9
   maxAngularAcc: 0.9
   orientation: 0
   velocity: {x: 0, y: 0, z: 0}
   acceleration: {x: 0, y: 0, z: 0}
-  intRadius: 9.72
-  extRadius: 16.97
+  intRadius: 1.3
+  extRadius: 3
   intAngle: 0.3
   extAngle: 0.5
   gizmosIntRadius: 0
   gizmosExtRadius: 0
   gizmosIntAngle: 0
   gizmosExtAngle: 0
-  SteeringList:
-  - {fileID: 1992616550}
+  SteeringList: []
   steer: {fileID: 1992616549}
   blendWeight: 0
 --- !u!114 &1992616549
@@ -19467,11 +19687,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1992616547}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2cbcc929c56efda4d81e08d3f094a516, type: 3}
+  m_Script: {fileID: 11500000, guid: aa9d3c05c7d3b4e4081907e4656b4aa4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   weight: 1
+  TimeToTarget: 0.1
 --- !u!114 &1992616551
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20035,9 +20256,9 @@ GameObject:
   - component: {fileID: 2044481230}
   - component: {fileID: 2044481226}
   - component: {fileID: 2044481225}
-  - component: {fileID: 2044481227}
   - component: {fileID: 2044481229}
   - component: {fileID: 2044481228}
+  - component: {fileID: 2044481227}
   m_Layer: 0
   m_Name: V4
   m_TagString: NPC
@@ -20061,23 +20282,22 @@ MonoBehaviour:
   llegar: 0
   speed: 3
   mass: 0.1
-  maxSpeed: 6
+  maxSpeed: 4
   maxRotation: 0.9
   maxAcceleration: 0.9
   maxAngularAcc: 0.9
   orientation: 0
   velocity: {x: 0, y: 0, z: 0}
   acceleration: {x: 0, y: 0, z: 0}
-  intRadius: 9.72
-  extRadius: 16.97
+  intRadius: 1.3
+  extRadius: 3
   intAngle: 0.3
   extAngle: 0.5
   gizmosIntRadius: 0
   gizmosExtRadius: 0
   gizmosIntAngle: 0
   gizmosExtAngle: 0
-  SteeringList:
-  - {fileID: 2044481227}
+  SteeringList: []
   steer: {fileID: 2044481226}
   blendWeight: 0
 --- !u!114 &2044481226
@@ -20103,11 +20323,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 2044481224}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2cbcc929c56efda4d81e08d3f094a516, type: 3}
+  m_Script: {fileID: 11500000, guid: aa9d3c05c7d3b4e4081907e4656b4aa4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   weight: 1
+  TimeToTarget: 0.1
 --- !u!114 &2044481228
 MonoBehaviour:
   m_ObjectHideFlags: 0

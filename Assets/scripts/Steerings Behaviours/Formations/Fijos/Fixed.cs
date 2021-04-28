@@ -25,6 +25,7 @@ public class Fixed : MonoBehaviour
     private bool llegado;
     private Align align;
     private Face face;
+    
 
     private GameObject f;
     void Start() {

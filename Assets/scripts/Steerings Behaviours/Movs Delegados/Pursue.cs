@@ -18,6 +18,9 @@ public class Pursue : SeekAcceleration
     }
     public override Steering GetSteering(AgentNPC agent) {
         // Calculamos la distancia y la direccion hacia el objetivo
+        if(aux == null || target == null){
+            return base.GetSteering(agent);
+        }
         Vector3 direction = aux.transform.position - agent.transform.position;
         float distancia = Mathf.Sqrt(Mathf.Pow(aux.transform.position.x - agent.transform.position.x,2) + 
         0 +

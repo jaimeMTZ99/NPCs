@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class V : MonoBehaviour
+public class V : FormationManager
 {
 
-    [SerializeField]
+    /**[SerializeField]
     private float radio;
 
     [SerializeField]
@@ -15,7 +15,7 @@ public class V : MonoBehaviour
     private List<AgentNPC> agentes = new List<AgentNPC>();
     private GameObject centro;
     private List<AgentNPC> asignaciones;
-
+**/
     void Start() {
         asignaciones = new List<AgentNPC>();
         centro = new GameObject("CenterV");
@@ -35,15 +35,9 @@ public class V : MonoBehaviour
     }
     
     void Update(){
-        foreach (AgentNPC a in asignaciones)
-        {
-            if(a.GetComponent<SeekAcceleration>().target.transform.position == a.transform.position && a.llegar){
-                UpdateSlots();
-                a.llegar = false;
-            }
-        }
+
     }
-    public void UpdateSlots() {
+    public override void UpdateSlots() {
 
         AgentNPC anchor = GetAnchor();
 
@@ -63,14 +57,14 @@ public class V : MonoBehaviour
             invisible.transform.position =anchor.transform.position + result;
             invisible.orientation =-(anchor.orientation + ori);
 
-            asignaciones[i].GetComponent<SeekAcceleration>().target = invisible;
+            asignaciones[i].GetComponent<ArriveAcceleration>().target = invisible;
             asignaciones[i].GetComponent<Align>().target = invisible;
         }
     }
 
 
     // calcula la posicion
-    public Vector3 GetPosition(int numero) {
+    public override Vector3 GetPosition(int numero) {
 
         Vector3 resultado = Vector3.zero;
 
@@ -88,6 +82,11 @@ public class V : MonoBehaviour
         }
         return resultado;
     }
+
+    public override float GetOrientation(int numero) {
+        return 0;
+    }
+
     public AgentNPC GetAnchor(){
         AgentNPC anchor = centro.GetComponent<AgentNPC>();
         anchor.transform.position = Vector3.zero;
@@ -117,5 +116,10 @@ public class V : MonoBehaviour
         anchor.orientation += oriBase;
 
         return anchor;
+    }
+
+    
+    public override bool SupportsSlots(int slotCount) {   
+        return true;
     }
 }

@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Line : MonoBehaviour
+public class Line : FormationManager
 {
 
-    [SerializeField]
+    /**[SerializeField]
     private float radio;
 
     [SerializeField]
@@ -15,7 +15,7 @@ public class Line : MonoBehaviour
     private List<AgentNPC> agentes = new List<AgentNPC>();
     private GameObject centro;
     private List<AgentNPC> asignaciones;
-
+**/
     void Start() {
         asignaciones = new List<AgentNPC>();
         centro = new GameObject("Center");
@@ -36,7 +36,7 @@ public class Line : MonoBehaviour
     void Update(){
 
     }
-    public void UpdateSlots() {
+    public override void UpdateSlots() {
 
         AgentNPC anchor = GetAnchor();
 
@@ -61,19 +61,24 @@ public class Line : MonoBehaviour
             //}
             invisible.orientation =-(anchor.orientation + ori);
 
-            asignaciones[i].GetComponent<SeekAcceleration>().target = invisible;
+            asignaciones[i].GetComponent<ArriveAcceleration>().target = invisible;
             asignaciones[i].GetComponent<Align>().target = invisible;
         }
     }
 
 
     // calcula la posicion
-    public Vector3 GetPosition(int numero) {
+    public override Vector3 GetPosition(int numero) {
 
         Vector3 resultado;
         resultado = new Vector3(numero*radio,0,0);
         return resultado;
     }
+
+    public override float GetOrientation(int numero) {
+        return 0;
+    }
+
     public AgentNPC GetAnchor(){
         AgentNPC anchor = centro.GetComponent<AgentNPC>();
         anchor.transform.position = Vector3.zero;
@@ -104,5 +109,7 @@ public class Line : MonoBehaviour
 
         return anchor;
     }
-
+    public override bool SupportsSlots(int slotCount) {   
+        return true;
+    }
 }
