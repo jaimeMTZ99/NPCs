@@ -31,8 +31,8 @@ public class CircleFixed : MonoBehaviour
             GameObject invisibleGO = new GameObject("FC " + agentes.Count);
             Agent invisible = invisibleGO.AddComponent<Agent>() as Agent;
             invisibles[i] = invisibleGO;
-            invisible.extRadius = 2f;
-            invisible.intRadius = 2f;
+            invisible.extRadius = 1f;
+            invisible.intRadius = 1f;
             ag.form = true;
             i++;
             /*face = ag.GetComponent<Face>();
@@ -73,7 +73,7 @@ public class CircleFixed : MonoBehaviour
     public Vector3 GetPosition(int numero) {
         Vector3 agenteActual = grid[numero];
         AgentNPC lider = agentes[0];
-        float distancia = 5;
+        float distancia = 4;
         //distancia = (agentes[numero].transform.position - lider.transform.position).magnitude;
         /*if (diagonal){
 
@@ -82,17 +82,20 @@ public class CircleFixed : MonoBehaviour
             
         }*/
 
-        float[] matrizRotacion = new float[4]{Mathf.Cos(lider.orientation),-Mathf.Sin(lider.orientation),
-                                            Mathf.Sin(lider.orientation), Mathf.Cos(lider.orientation)};
+        float[] matrizRotacion = new float[4]{-Mathf.Cos(lider.orientation), Mathf.Sin(lider.orientation),
+                                            -Mathf.Sin(lider.orientation), -Mathf.Cos(lider.orientation)};
         
         Vector3 pm = productoMatricial(matrizRotacion, grid[numero]);
+        Debug.Log(numero);
         Debug.Log(pm);
-        Vector3 resultado = lider.transform.position + grid[numero] * distancia + pm;
+        Vector3 resultado = grid[0] + pm;
+        resultado = lider.transform.position + resultado * distancia;
         return resultado;
     }
 
     public Vector3 productoMatricial(float[] x,Vector3 posicionGrid ){
-        Vector3 resultado = new Vector3(x[0] * posicionGrid.x + x[1] *posicionGrid.z,0, x[2] * posicionGrid.x + x[3]*posicionGrid.z);
+        Debug.Log("grid pos: " + posicionGrid);
+        Vector3 resultado = new Vector3(x[0] * posicionGrid.x + x[2] *posicionGrid.z,0, x[1] * posicionGrid.x + x[3]*posicionGrid.z);
         return resultado;
     }
 }
