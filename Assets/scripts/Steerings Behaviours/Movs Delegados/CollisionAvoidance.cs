@@ -50,7 +50,7 @@ public class CollisionAvoidance : SeekAcceleration
             target.transform.position = rightWhiskerHit.point + rightWhiskerHit.normal * avoidDistance;
              return base.GetSteering(agent);
         }
-        Steering steering = new Steering();
+        Steering steering = this.gameObject.GetComponent<Steering>();
         return steering;
     }
 }
