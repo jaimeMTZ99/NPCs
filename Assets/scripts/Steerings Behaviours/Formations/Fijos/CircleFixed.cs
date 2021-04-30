@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class CircleFixed : MonoBehaviour
 {
+    [SerializeField]
+    private float time = 10;
+    private float timeRes;
     //Tamaño del grid fijo
     private int tamañoGrid = 9;
     //Grid de posiciones relativas de los agentes.
@@ -17,8 +20,10 @@ public class CircleFixed : MonoBehaviour
     [SerializeField]
     private List<AgentNPC> agentes;
     // Start is called before the first frame update
+    private Wander w;
     void Start()
     {
+        timeRes=time;
         //agentes = new List<AgentNPC>();
         //grid = new Vector3[tamañoGrid];
         invisibles = new GameObject[tamañoGrid];
@@ -28,6 +33,11 @@ public class CircleFixed : MonoBehaviour
         int i = 0;
         foreach (AgentNPC ag in agentes)
         {
+            if(i == 0){
+                w = ag.GetComponent<Wander>();
+                //w.target=puntoDestinoGO.GetComponent<Agent>();
+                ag.SteeringList.Remove(w);
+            }
             GameObject invisibleGO = new GameObject("FC " + agentes.Count);
             Agent invisible = invisibleGO.AddComponent<Agent>() as Agent;
             invisibles[i] = invisibleGO;
@@ -35,8 +45,7 @@ public class CircleFixed : MonoBehaviour
             invisible.intRadius = 1f;
             ag.form = true;
             i++;
-            /*face = ag.GetComponent<Face>();
-            ag.SteeringList.Remove(face);*/
+
         }
         UpdateSlots();
     }
@@ -44,9 +53,30 @@ public class CircleFixed : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        timeRes -= Time.deltaTime;
+        if (timeRes <=0.0f && agentes[0].llegar == false){
+            timeRes = time;
+            Debug.Log("timeUp");
+            if(agentes[0].SteeringList.Contains(w)){
+                agentes[0].SteeringList.Remove(w);
+                agentes[0].SteeringList.Add(agentes[0].GetComponent<ArriveAcceleration>());
+                agentes[0].SteeringList.Add(agentes[0].GetComponent<Face>());
+                agentes[0].GetComponent<ArriveAcceleration>().target = agentes[0];
+            } else{
+                agentes[0].SteeringList.Add(w);
+                Agent puntoDestinoInv = puntoDestinoGO.GetComponent<Agent>();
+                puntoDestinoInv.transform.position = agentes[0].GetComponent<Wander>().target.transform.position;
+                agentes[0].SteeringList.Remove(agentes[0].GetComponent<ArriveAcceleration>());
+                //agentes[0].SteeringList.Remove(agentes[0].GetComponent<Face>());
+            }
+        }
+
         if (agentes[0].llegar){
+            timeRes=time;
+
             Agent puntoDestinoInv = puntoDestinoGO.GetComponent<Agent>();
             puntoDestinoInv.transform.position = agentes[0].GetComponent<ArriveAcceleration>().target.transform.position;
+            agentes[0].llegar = false;
         }
         UpdateSlots();
     }
@@ -74,27 +104,17 @@ public class CircleFixed : MonoBehaviour
         Vector3 agenteActual = grid[numero];
         AgentNPC lider = agentes[0];
         float distancia = 4;
-        //distancia = (agentes[numero].transform.position - lider.transform.position).magnitude;
-        /*if (diagonal){
-
-        }
-        else{
-            
-        }*/
 
         float[] matrizRotacion = new float[4]{-Mathf.Cos(lider.orientation), Mathf.Sin(lider.orientation),
                                             -Mathf.Sin(lider.orientation), -Mathf.Cos(lider.orientation)};
         
         Vector3 pm = productoMatricial(matrizRotacion, grid[numero]);
-        Debug.Log(numero);
-        Debug.Log(pm);
         Vector3 resultado = grid[0] + pm;
         resultado = lider.transform.position + resultado * distancia;
         return resultado;
     }
 
     public Vector3 productoMatricial(float[] x,Vector3 posicionGrid ){
-        Debug.Log("grid pos: " + posicionGrid);
         Vector3 resultado = new Vector3(x[0] * posicionGrid.x + x[2] *posicionGrid.z,0, x[1] * posicionGrid.x + x[3]*posicionGrid.z);
         return resultado;
     }

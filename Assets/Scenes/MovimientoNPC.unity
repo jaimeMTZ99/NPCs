@@ -437,6 +437,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   form: 0
   llegar: 0
+  nuevoArrive: 0
   speed: 5
   mass: 0.1
   maxSpeed: 5
@@ -616,6 +617,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   form: 0
   llegar: 0
+  nuevoArrive: 0
   speed: 5
   mass: 0.1
   maxSpeed: 5
@@ -981,6 +983,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   form: 0
   llegar: 0
+  nuevoArrive: 0
   speed: 5
   mass: 0.1
   maxSpeed: 5
@@ -1376,6 +1379,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   form: 0
   llegar: 0
+  nuevoArrive: 0
   speed: 5
   mass: 0.1
   maxSpeed: 7
@@ -1486,6 +1490,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27065ea4be7de16428780ab015a15827, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  time: 10
   grid:
   - {x: 0, y: 0, z: 0}
   - {x: -1, y: 0, z: 0}
@@ -1633,6 +1638,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   form: 0
   llegar: 0
+  nuevoArrive: 0
   speed: 5
   mass: 0.1
   maxSpeed: 7
@@ -1759,6 +1765,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7946edbb8e8a71d42bbf22781cc42ddc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tiempoVuelta: 10
   selectedUnits: []
   selectedUnit: {fileID: 0}
 --- !u!4 &196707280
@@ -1935,6 +1942,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   form: 0
   llegar: 0
+  nuevoArrive: 0
   speed: 5
   mass: 0.1
   maxSpeed: 7
@@ -2143,6 +2151,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   form: 0
   llegar: 0
+  nuevoArrive: 0
   speed: 0
   mass: 0
   maxSpeed: 0
@@ -2614,6 +2623,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   form: 0
   llegar: 0
+  nuevoArrive: 0
   speed: 5
   mass: 0.1
   maxSpeed: 5
@@ -2825,6 +2835,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   form: 0
   llegar: 0
+  nuevoArrive: 0
   speed: 5
   mass: 0.1
   maxSpeed: 5
@@ -3097,6 +3108,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   form: 0
   llegar: 0
+  nuevoArrive: 0
   speed: 5
   mass: 0.1
   maxSpeed: 5
@@ -3361,6 +3373,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27065ea4be7de16428780ab015a15827, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  time: 10
   grid:
   - {x: 0, y: 0, z: 0}
   - {x: -1, y: 0, z: 1}
@@ -3531,6 +3544,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   form: 0
   llegar: 0
+  nuevoArrive: 0
   speed: 0
   mass: 0
   maxSpeed: 0
@@ -4031,6 +4045,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   form: 0
   llegar: 0
+  nuevoArrive: 0
   speed: 0
   mass: 0
   maxSpeed: 0
@@ -4657,6 +4672,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   form: 0
   llegar: 0
+  nuevoArrive: 0
   speed: 5
   mass: 0.1
   maxSpeed: 7
@@ -4929,6 +4945,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   form: 0
   llegar: 0
+  nuevoArrive: 0
   speed: 5
   mass: 0.1
   maxSpeed: 5
@@ -5914,6 +5931,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   form: 0
   llegar: 0
+  nuevoArrive: 0
   speed: 5
   mass: 0.1
   maxSpeed: 7
@@ -6434,6 +6452,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   form: 0
   llegar: 0
+  nuevoArrive: 0
   speed: 5
   mass: 0.1
   maxSpeed: 7
@@ -6552,6 +6571,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   form: 0
   llegar: 0
+  nuevoArrive: 0
   speed: 5
   mass: 0.1
   maxSpeed: 5
@@ -7063,6 +7083,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   form: 0
   llegar: 0
+  nuevoArrive: 0
   speed: 5
   mass: 0.1
   maxSpeed: 5
@@ -7537,6 +7558,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   form: 0
   llegar: 0
+  nuevoArrive: 0
   speed: 3
   mass: 0.1
   maxSpeed: 2.91
@@ -7685,6 +7707,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   form: 0
   llegar: 0
+  nuevoArrive: 0
   speed: 5
   mass: 0.1
   maxSpeed: 5
@@ -7957,6 +7980,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   form: 0
   llegar: 0
+  nuevoArrive: 0
   speed: 5
   mass: 0.1
   maxSpeed: 5
@@ -8880,6 +8904,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   form: 0
   llegar: 0
+  nuevoArrive: 0
   speed: 5
   mass: 0.1
   maxSpeed: 5
@@ -9100,7 +9125,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -4.8, y: 47.2, z: 17.5}
+  m_LocalPosition: {x: -13.1, y: 47.2, z: 33}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -9342,6 +9367,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   form: 0
   llegar: 0
+  nuevoArrive: 0
   speed: 5
   mass: 0.1
   maxSpeed: 5
@@ -9505,7 +9531,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &982697188
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9535,6 +9561,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   form: 0
   llegar: 0
+  nuevoArrive: 0
   speed: 10
   mass: 0.1
   maxSpeed: 3
@@ -9544,8 +9571,8 @@ MonoBehaviour:
   orientation: 0
   velocity: {x: 0, y: 0, z: 0}
   acceleration: {x: 0, y: 0, z: 0}
-  intRadius: 9.72
-  extRadius: 16.97
+  intRadius: 1.5
+  extRadius: 5
   intAngle: 0.3
   extAngle: 0.4
   gizmosIntRadius: 0
@@ -9624,7 +9651,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 982697187}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -13.9, y: -0, z: 37.21}
+  m_LocalPosition: {x: -27.47, y: -0, z: 22.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1534560661}
@@ -9683,6 +9710,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   form: 0
   llegar: 0
+  nuevoArrive: 0
   speed: 5
   mass: 0.1
   maxSpeed: 5
@@ -10141,6 +10169,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   form: 0
   llegar: 0
+  nuevoArrive: 0
   speed: 5
   mass: 0.1
   maxSpeed: 5
@@ -10392,7 +10421,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1118442734
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10405,6 +10434,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27065ea4be7de16428780ab015a15827, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  time: 10
   grid:
   - {x: 0, y: 0, z: 0}
   - {x: -1, y: 0, z: 1}
@@ -10485,6 +10515,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   form: 0
   llegar: 0
+  nuevoArrive: 0
   speed: 3
   mass: 0.1
   maxSpeed: 5
@@ -10648,7 +10679,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1151459228
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10683,6 +10714,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   form: 0
   llegar: 0
+  nuevoArrive: 0
   speed: 10
   mass: 0.1
   maxSpeed: 3
@@ -10772,7 +10804,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1151459227}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -167.3, y: 0, z: 3.3}
+  m_LocalPosition: {x: 0, y: 0, z: 3.3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 588494418}
@@ -10985,6 +11017,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   form: 0
   llegar: 0
+  nuevoArrive: 0
   speed: 5
   mass: 0.1
   maxSpeed: 5
@@ -11174,6 +11207,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   form: 0
   llegar: 0
+  nuevoArrive: 0
   speed: 0
   mass: 0
   maxSpeed: 0
@@ -11300,6 +11334,7 @@ GameObject:
   - component: {fileID: 1239006955}
   - component: {fileID: 1239006954}
   - component: {fileID: 1239006953}
+  - component: {fileID: 1239006959}
   m_Layer: 0
   m_Name: Fixed1
   m_TagString: NPC
@@ -11321,9 +11356,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   form: 0
   llegar: 0
+  nuevoArrive: 0
   speed: 3
   mass: 0.1
-  maxSpeed: 5
+  maxSpeed: 5.1
   maxRotation: 2.02
   maxAcceleration: 0.9
   maxAngularAcc: 2.5
@@ -11463,6 +11499,26 @@ Transform:
   m_Father: {fileID: 187259606}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1239006959
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1239006950}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f9e34d5273935d45a03a77e4d87c812, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  weight: 1
+  timeToTarget: 0.1
+  aux: {fileID: 0}
+  wanderOffset: 40
+  wanderRadius: 40
+  wanderRate: 0.3
+  wanderOrientation: 0
 --- !u!1 &1256087724
 GameObject:
   m_ObjectHideFlags: 0
@@ -11716,6 +11772,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   form: 0
   llegar: 0
+  nuevoArrive: 0
   speed: 5
   mass: 0.1
   maxSpeed: 7
@@ -11834,6 +11891,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   form: 0
   llegar: 0
+  nuevoArrive: 0
   speed: 5
   mass: 0.1
   maxSpeed: 5
@@ -12292,6 +12350,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   form: 0
   llegar: 0
+  nuevoArrive: 0
   speed: 5
   mass: 0.1
   maxSpeed: 5
@@ -12455,7 +12514,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1324625971
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12485,6 +12544,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   form: 0
   llegar: 0
+  nuevoArrive: 0
   speed: 10
   mass: 0.1
   maxSpeed: 3
@@ -12666,6 +12726,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   form: 0
   llegar: 0
+  nuevoArrive: 0
   speed: 3
   mass: 0.1
   maxSpeed: 6
@@ -13032,6 +13093,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   form: 0
   llegar: 0
+  nuevoArrive: 0
   speed: 5
   mass: 0.1
   maxSpeed: 7
@@ -13862,6 +13924,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   form: 0
   llegar: 0
+  nuevoArrive: 0
   speed: 5
   mass: 0.1
   maxSpeed: 5
@@ -14103,6 +14166,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   form: 0
   llegar: 0
+  nuevoArrive: 0
   speed: 5
   mass: 0.1
   maxSpeed: 7
@@ -14437,6 +14501,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   form: 0
   llegar: 0
+  nuevoArrive: 0
   speed: 5
   mass: 0.1
   maxSpeed: 7
@@ -15575,6 +15640,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   form: 0
   llegar: 0
+  nuevoArrive: 0
   speed: 5
   mass: 0.1
   maxSpeed: 7
@@ -16252,6 +16318,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   form: 0
   llegar: 0
+  nuevoArrive: 0
   speed: 5
   mass: 0.1
   maxSpeed: 5
@@ -16370,6 +16437,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   form: 0
   llegar: 0
+  nuevoArrive: 0
   speed: 5
   mass: 0.1
   maxSpeed: 5
@@ -16549,6 +16617,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   form: 0
   llegar: 0
+  nuevoArrive: 0
   speed: 5
   mass: 0.1
   maxSpeed: 5
@@ -16728,6 +16797,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   form: 0
   llegar: 0
+  nuevoArrive: 0
   speed: 5
   mass: 0.1
   maxSpeed: 5
@@ -17020,6 +17090,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   form: 0
   llegar: 0
+  nuevoArrive: 0
   speed: 10
   mass: 0.1
   maxSpeed: 10
@@ -17292,6 +17363,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   form: 0
   llegar: 0
+  nuevoArrive: 0
   speed: 3
   mass: 0.1
   maxSpeed: 5
@@ -17670,6 +17742,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   form: 0
   llegar: 0
+  nuevoArrive: 0
   speed: 3
   mass: 0.1
   maxSpeed: 6
@@ -17787,7 +17860,7 @@ MonoBehaviour:
   wanderOffset: 0
   wanderRadius: 1.33
   wanderRate: 4.1
-  wanderOrientation: 1.51
+  wanderOrientation: 0
 --- !u!1 &1907104752
 GameObject:
   m_ObjectHideFlags: 0
@@ -18628,6 +18701,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   form: 0
   llegar: 0
+  nuevoArrive: 0
   speed: 5
   mass: 0.1
   maxSpeed: 5
@@ -19023,6 +19097,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   form: 0
   llegar: 0
+  nuevoArrive: 0
   speed: 5
   mass: 0.1
   maxSpeed: 7

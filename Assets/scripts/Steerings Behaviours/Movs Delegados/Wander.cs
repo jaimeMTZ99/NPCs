@@ -8,7 +8,8 @@ public class Wander : Face
     public float wanderOffset;
     public float wanderRadius;
     public float wanderRate;
-    public float wanderOrientation;
+    [SerializeField]
+    private float wanderOrientation;
     private GameObject go;
     void Start(){
         go = new GameObject("Wander");

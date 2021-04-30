@@ -4,28 +4,56 @@ using UnityEngine;
 
 public class Seleccion : MonoBehaviour
 {
-
+    public float tiempoVuelta =10;
     public List<GameObject> selectedUnits;
     public GameObject selectedUnit;
     private GameObject goSel;
     private bool mult = false;
     private Agent t;
     private Agent t1;
+    private List<Timer> times;
 
+    private List<GameObject> agentesArrive;
+    private List<Agent> targetsArrive;
+
+
+    void Start(){
+        times = new List<Timer>();
+        agentesArrive = new List<GameObject>();
+        targetsArrive = new List<Agent>();
+    }
     // Update is called once per frame
     void Update()
     {
         Selec();
+
+        /**foreach (Timer t in times){
+            t.targetTime -= Time.deltaTime;
+            if (t.targetTime <=0.0f){
+                TimeUp(t);
+            }
+        }**/
+        
     }
 
     private void Selec(){
 
-                //Si pulsamos Control, sera para coger varios individuos para moverse
+        //Si pulsamos Control, sera para coger varios individuos para moverse
         mult = Input.GetKey(KeyCode.LeftControl);
         // si clickamos el boton izq del raton, es para seleccionar individiuos.
         if (Input.GetMouseButtonUp(0))
         {
+            seleccionarPersonajes();
+        }
+        if (Input.GetMouseButtonUp(1)){
+            DirigirLugar();
+        }
+        
+    }
 
+
+    public void seleccionarPersonajes(){
+        
             // Comprobamos si el ratón golpea a algo en el escenario.
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
@@ -47,7 +75,7 @@ public class Seleccion : MonoBehaviour
                         GameObject s = selectedUnit.transform.Find("Sel").gameObject;
                         s.SetActive(false);                        
                     }
-                    selectedUnit=null;  //poner a false el outline
+                    selectedUnit=null; 
                 }
                 else if(hitInfo.collider != null && hitInfo.collider.CompareTag("NPC")){
                     if (selectedUnit != null){
@@ -87,13 +115,14 @@ public class Seleccion : MonoBehaviour
                 }
         
             }
-        }
-        if (Input.GetMouseButtonUp(1)){
+    }
 
+    public void DirigirLugar(){
+        
 
             // Comprobamos si el ratón golpea a algo en el escenario.
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-
+            float timeRet = 0;
             RaycastHit hitInfo;
             if (Physics.Raycast(ray, out hitInfo))
             {
@@ -114,6 +143,7 @@ public class Seleccion : MonoBehaviour
                         t.intRadius=2;
                         foreach (GameObject npc in selectedUnits)
                         {
+
                             ArriveAcceleration d = npc.GetComponent<ArriveAcceleration>();
                             AgentNPC x = npc.GetComponent<AgentNPC>();
                             if (x.form){
@@ -124,12 +154,17 @@ public class Seleccion : MonoBehaviour
                                 c.target = t;
                             }
                             if(d == null){
+                                x.nuevoArrive=true;
                                 npc.AddComponent<ArriveAcceleration>();
                                 d = npc.GetComponent<ArriveAcceleration>();
                                 d.target = t;
                             }
                             else
                             {
+                                if(x.nuevoArrive == false){
+                                    targetsArrive.Add(d.target);
+                                    agentesArrive.Add(npc);
+                                }
                                 d.target = t;
                             }
 
@@ -163,12 +198,16 @@ public class Seleccion : MonoBehaviour
                             if(e == null){
                                 selectedUnit.AddComponent<ArriveAcceleration>();
                                 e = selectedUnit.GetComponent<ArriveAcceleration>();
-
+                                x.nuevoArrive=true;
                                 e.target = t1;
 
                             }
                             else
                             {
+                                if(x.nuevoArrive == false){
+                                    targetsArrive.Add(e.target);
+                                    agentesArrive.Add(selectedUnit);
+                                }
                                 e.target = t1;
 
                             }
@@ -177,12 +216,31 @@ public class Seleccion : MonoBehaviour
                             {
                                 n.SteeringList.Add(e);
                             }
-
+                            //Timer t = new Timer();
+                            //t.targetTime = tiempoVuelta;
+                            //t.g = selectedUnit;
+                            //times.Add(t);                           
                     }
                 }
         
             }
-        }
-
     }
+    /**
+    public void TimeUp(Timer t){
+        
+        if(agentesArrive.Contains(t.g))
+        {
+            t.g.GetComponent<ArriveAcceleration>().target =null;// targetsArrive[0];
+            targetsArrive.Clear();
+            agentesArrive.Clear();
+            Debug.Log("Lo tiene");
+        }
+        else
+        {
+            Destroy(t.g.GetComponent<ArriveAcceleration>());
+            AgentNPC n = t.g.GetComponent<AgentNPC>(); 
+            n.SteeringList.Remove(selectedUnit.GetComponent<ArriveAcceleration>());
+        }
+        
+    }**/
 }
