@@ -58,22 +58,30 @@ public class CircleFixed : MonoBehaviour
             timeRes = time;
             Debug.Log("timeUp");
             if(agentes[0].SteeringList.Contains(w)){
+                agentes[0].SteeringList.Add(agentes[0].GetComponent<Face>());
+                agentes[0].GetComponent<Face>().aux = agentes[0].GetComponent<Wander>().target;
+                agentes[0].GetComponent<Face>().target = agentes[0].GetComponent<Wander>().target;
                 agentes[0].SteeringList.Remove(w);
                 agentes[0].SteeringList.Add(agentes[0].GetComponent<ArriveAcceleration>());
-                agentes[0].SteeringList.Add(agentes[0].GetComponent<Face>());
                 agentes[0].GetComponent<ArriveAcceleration>().target = agentes[0];
-            } else{
+            } else {
                 agentes[0].SteeringList.Add(w);
                 Agent puntoDestinoInv = puntoDestinoGO.GetComponent<Agent>();
                 puntoDestinoInv.transform.position = agentes[0].GetComponent<Wander>().target.transform.position;
                 agentes[0].SteeringList.Remove(agentes[0].GetComponent<ArriveAcceleration>());
-                //agentes[0].SteeringList.Remove(agentes[0].GetComponent<Face>());
+                agentes[0].SteeringList.Remove(agentes[0].GetComponent<Face>());
             }
         }
 
         if (agentes[0].llegar){
             timeRes=time;
 
+            if(agentes[0].SteeringList.Contains(w)){
+                agentes[0].SteeringList.Remove(w);
+                agentes[0].SteeringList.Add(agentes[0].GetComponent<Face>());
+            }
+            agentes[0].GetComponent<Face>().aux = puntoDestinoGO.GetComponent<Agent>();
+            agentes[0].GetComponent<Face>().target = puntoDestinoGO.GetComponent<Agent>();
             Agent puntoDestinoInv = puntoDestinoGO.GetComponent<Agent>();
             puntoDestinoInv.transform.position = agentes[0].GetComponent<ArriveAcceleration>().target.transform.position;
             agentes[0].llegar = false;
@@ -91,10 +99,6 @@ public class CircleFixed : MonoBehaviour
                 agentes[i].GetComponent<ArriveAcceleration>().target = invisibleActual;
                 agentes[i].GetComponent<Face>().aux = invisibleActual;
                 agentes[i].GetComponent<Face>().target = invisibleActual;
-            }
-            if (i == 0){
-                agentes[0].GetComponent<Face>().aux = puntoDestinoGO.GetComponent<Agent>();
-                agentes[0].GetComponent<Face>().target = puntoDestinoGO.GetComponent<Agent>();
             }
             
         }

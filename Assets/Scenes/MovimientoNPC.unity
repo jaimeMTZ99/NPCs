@@ -11359,10 +11359,10 @@ MonoBehaviour:
   nuevoArrive: 0
   speed: 3
   mass: 0.1
-  maxSpeed: 5.1
+  maxSpeed: 5.2
   maxRotation: 2.02
   maxAcceleration: 0.9
-  maxAngularAcc: 2.5
+  maxAngularAcc: 0.99
   orientation: 0
   velocity: {x: 0, y: 0, z: 0}
   acceleration: {x: 0, y: 0, z: 0}
