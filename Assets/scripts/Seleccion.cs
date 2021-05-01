@@ -5,35 +5,35 @@ using UnityEngine;
 public class Seleccion : MonoBehaviour
 {
     public float tiempoVuelta =10;
+    private float timeRes;
     public List<GameObject> selectedUnits;
     public GameObject selectedUnit;
     private GameObject goSel;
     private bool mult = false;
     private Agent t;
     private Agent t1;
-    private List<Timer> times;
 
     private List<GameObject> agentesArrive;
     private List<Agent> targetsArrive;
 
 
     void Start(){
-        times = new List<Timer>();
+        timeRes=tiempoVuelta;
         agentesArrive = new List<GameObject>();
         targetsArrive = new List<Agent>();
     }
     // Update is called once per frame
     void Update()
     {
-        Selec();
 
-        /**foreach (Timer t in times){
-            t.targetTime -= Time.deltaTime;
-            if (t.targetTime <=0.0f){
-                TimeUp(t);
-            }
-        }**/
-        
+        timeRes -= Time.deltaTime;
+        if (timeRes <=0.0f){
+            timeRes = tiempoVuelta;
+            Debug.Log("timer");
+
+            //TimeUp();
+        }
+        Selec();       
     }
 
     private void Selec(){
@@ -215,25 +215,20 @@ public class Seleccion : MonoBehaviour
                             if(!n.SteeringList.Contains(e))
                             {
                                 n.SteeringList.Add(e);
-                            }
-                            //Timer t = new Timer();
-                            //t.targetTime = tiempoVuelta;
-                            //t.g = selectedUnit;
-                            //times.Add(t);                           
+                            }                          
                     }
                 }
         
             }
     }
-    /**
-    public void TimeUp(Timer t){
+    /**public void TimeUp(){
         
         if(agentesArrive.Contains(t.g))
         {
             t.g.GetComponent<ArriveAcceleration>().target =null;// targetsArrive[0];
             targetsArrive.Clear();
             agentesArrive.Clear();
-            Debug.Log("Lo tiene");
+            
         }
         else
         {
@@ -244,3 +239,5 @@ public class Seleccion : MonoBehaviour
         
     }**/
 }
+    
+

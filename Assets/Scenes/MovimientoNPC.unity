@@ -917,7 +917,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: ac36ebd11e0b3364eb6a2446477dc1c0, type: 2}
+  - {fileID: 2100000, guid: 9b8e932c2404ec14e9708c2cbd4daad2, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1230,14 +1230,14 @@ GameObject:
   - component: {fileID: 144090357}
   - component: {fileID: 144090367}
   - component: {fileID: 144090366}
-  - component: {fileID: 144090365}
   - component: {fileID: 144090364}
   - component: {fileID: 144090363}
   - component: {fileID: 144090362}
-  - component: {fileID: 144090361}
   - component: {fileID: 144090360}
   - component: {fileID: 144090359}
   - component: {fileID: 144090358}
+  - component: {fileID: 144090361}
+  - component: {fileID: 144090365}
   m_Layer: 0
   m_Name: Flocking (8)
   m_TagString: NPC
@@ -1253,7 +1253,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 144090356}
   m_LocalRotation: {x: -0, y: 0.07413645, z: -0, w: 0.9972481}
-  m_LocalPosition: {x: 8.91, y: 13.901447, z: 159.06}
+  m_LocalPosition: {x: 8.31, y: 13.901447, z: 155.04}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 61334619}
@@ -1274,7 +1274,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  weight: 0.4
+  weight: 1.15
   threshold: 10
   targets: []
   decayCoefficient: 15
@@ -1292,7 +1292,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  weight: 1
+  weight: 0.7
   thresholdCohesion: 5
   targets: []
 --- !u!114 &144090360
@@ -1308,7 +1308,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  weight: 1
+  weight: 0.65
   timeToTarget: 0.1
   threshold: 5
   targets: []
@@ -1321,17 +1321,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 144090356}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6f9e34d5273935d45a03a77e4d87c812, type: 3}
+  m_Script: {fileID: 11500000, guid: 007d9e84a7d210344968d453777c1cfe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 0}
-  weight: 1
-  timeToTarget: 0.1
-  aux: {fileID: 0}
-  wanderOffset: 45
-  wanderRadius: 40
-  wanderRate: 0.7
-  wanderOrientation: 0
+  target: {fileID: 1634812968}
+  weight: 0.88
+  maxPredict: 0.1
+  aux: {fileID: 1634812968}
 --- !u!114 &144090362
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1389,8 +1385,8 @@ MonoBehaviour:
   orientation: 0
   velocity: {x: 0, y: 0, z: 0}
   acceleration: {x: 0, y: 0, z: 0}
-  intRadius: 9.72
-  extRadius: 16.97
+  intRadius: 6.11
+  extRadius: 10.02
   intAngle: 0.3
   extAngle: 0.4
   gizmosIntRadius: 0
@@ -1398,7 +1394,7 @@ MonoBehaviour:
   gizmosIntAngle: 0
   gizmosExtAngle: 0
   SteeringList: []
-  steer: {fileID: 144090365}
+  steer: {fileID: 0}
   blendWeight: 0
 --- !u!114 &144090365
 MonoBehaviour:
@@ -1532,7 +1528,7 @@ Transform:
   - {fileID: 1795876021}
   - {fileID: 1081025237}
   m_Father: {fileID: 0}
-  m_RootOrder: 20
+  m_RootOrder: 22
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &192263922
 GameObject:
@@ -1734,7 +1730,7 @@ Transform:
   - {fileID: 529853017}
   - {fileID: 528763444}
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 8.503, z: 0}
 --- !u!1 &196707278
 GameObject:
@@ -1780,7 +1776,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &228982828
 GameObject:
@@ -1793,14 +1789,14 @@ GameObject:
   - component: {fileID: 228982829}
   - component: {fileID: 228982839}
   - component: {fileID: 228982838}
-  - component: {fileID: 228982837}
   - component: {fileID: 228982836}
   - component: {fileID: 228982835}
   - component: {fileID: 228982834}
-  - component: {fileID: 228982833}
   - component: {fileID: 228982832}
   - component: {fileID: 228982831}
   - component: {fileID: 228982830}
+  - component: {fileID: 228982833}
+  - component: {fileID: 228982837}
   m_Layer: 0
   m_Name: Flocking (1)
   m_TagString: NPC
@@ -1837,7 +1833,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  weight: 0.4
+  weight: 1.15
   threshold: 10
   targets: []
   decayCoefficient: 15
@@ -1855,7 +1851,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  weight: 1
+  weight: 0.7
   thresholdCohesion: 5
   targets: []
 --- !u!114 &228982832
@@ -1871,7 +1867,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  weight: 1
+  weight: 0.65
   timeToTarget: 0.1
   threshold: 5
   targets: []
@@ -1884,17 +1880,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 228982828}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6f9e34d5273935d45a03a77e4d87c812, type: 3}
+  m_Script: {fileID: 11500000, guid: 007d9e84a7d210344968d453777c1cfe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 0}
-  weight: 1
-  timeToTarget: 0.1
-  aux: {fileID: 0}
-  wanderOffset: 45
-  wanderRadius: 40
-  wanderRate: 0.7
-  wanderOrientation: 0
+  target: {fileID: 1634812968}
+  weight: 0.88
+  maxPredict: 0.1
+  aux: {fileID: 1634812968}
 --- !u!114 &228982834
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1910,7 +1902,7 @@ MonoBehaviour:
   target: {fileID: 0}
   weight: 1
   behaviours:
-  - {fileID: 228982833}
+  - {fileID: 144090361}
   - {fileID: 228982832}
   - {fileID: 228982831}
   - {fileID: 228982830}
@@ -1952,8 +1944,8 @@ MonoBehaviour:
   orientation: 0
   velocity: {x: 0, y: 0, z: 0}
   acceleration: {x: 0, y: 0, z: 0}
-  intRadius: 9.72
-  extRadius: 16.97
+  intRadius: 6.11
+  extRadius: 10.02
   intAngle: 0.3
   extAngle: 0.4
   gizmosIntRadius: 0
@@ -1961,7 +1953,7 @@ MonoBehaviour:
   gizmosIntAngle: 0
   gizmosExtAngle: 0
   SteeringList: []
-  steer: {fileID: 228982837}
+  steer: {fileID: 0}
   blendWeight: 0
 --- !u!114 &228982837
 MonoBehaviour:
@@ -2115,7 +2107,7 @@ Transform:
   m_LocalScale: {x: 512, y: 0.07355072, z: 512}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &243265454
 GameObject:
@@ -2244,7 +2236,7 @@ Transform:
   m_LocalScale: {x: 7.0053306, y: 3.7969, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 19
+  m_RootOrder: 21
   m_LocalEulerAnglesHint: {x: 0, y: 64.415, z: 0}
 --- !u!1 &249232496
 GameObject:
@@ -3415,7 +3407,7 @@ Transform:
   - {fileID: 1185829760}
   - {fileID: 503892237}
   m_Father: {fileID: 0}
-  m_RootOrder: 14
+  m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &322827448
 GameObject:
@@ -3637,7 +3629,7 @@ Transform:
   m_LocalScale: {x: 7.744501, y: 3.7969, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 18
+  m_RootOrder: 20
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!1 &337988734
 GameObject:
@@ -4138,7 +4130,7 @@ Transform:
   m_LocalScale: {x: 3.0519, y: 3.7969, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 17
+  m_RootOrder: 19
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &390919264
 GameObject:
@@ -4274,7 +4266,7 @@ MonoBehaviour:
   maxRotation: 0
   maxAcceleration: 0
   maxAngularAcc: 0
-  orientation: 0.23
+  orientation: 0.74
   velocity: {x: 0, y: 0, z: 0}
   acceleration: {x: 0, y: 0, z: 0}
   intRadius: 5.46
@@ -4352,13 +4344,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 391856921}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -68.66, y: 0, z: 35.66}
+  m_LocalRotation: {x: 0, y: 0.22393046, z: 0, w: 0.9746051}
+  m_LocalPosition: {x: -40, y: 0, z: 21.8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 22
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_RootOrder: 24
+  m_LocalEulerAnglesHint: {x: 0, y: 25.88, z: 0}
 --- !u!1 &421503060
 GameObject:
   m_ObjectHideFlags: 0
@@ -4649,14 +4641,14 @@ GameObject:
   - component: {fileID: 470826813}
   - component: {fileID: 470826823}
   - component: {fileID: 470826822}
-  - component: {fileID: 470826821}
   - component: {fileID: 470826820}
   - component: {fileID: 470826819}
   - component: {fileID: 470826818}
-  - component: {fileID: 470826817}
   - component: {fileID: 470826816}
   - component: {fileID: 470826815}
   - component: {fileID: 470826814}
+  - component: {fileID: 470826817}
+  - component: {fileID: 470826821}
   m_Layer: 0
   m_Name: Flocking (9)
   m_TagString: NPC
@@ -4672,7 +4664,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 470826812}
   m_LocalRotation: {x: -0, y: 0.07413645, z: -0, w: 0.9972481}
-  m_LocalPosition: {x: 2.43, y: 13.901447, z: 159.96}
+  m_LocalPosition: {x: 0.8, y: 13.901447, z: 149.4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1920387425}
@@ -4693,7 +4685,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  weight: 0.4
+  weight: 1.15
   threshold: 10
   targets: []
   decayCoefficient: 15
@@ -4711,7 +4703,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  weight: 1
+  weight: 0.74
   thresholdCohesion: 5
   targets: []
 --- !u!114 &470826816
@@ -4727,7 +4719,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  weight: 1
+  weight: 0.44
   timeToTarget: 0.1
   threshold: 5
   targets: []
@@ -4740,17 +4732,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 470826812}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6f9e34d5273935d45a03a77e4d87c812, type: 3}
+  m_Script: {fileID: 11500000, guid: 007d9e84a7d210344968d453777c1cfe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 0}
-  weight: 1
-  timeToTarget: 0.1
-  aux: {fileID: 0}
-  wanderOffset: 45
-  wanderRadius: 40
-  wanderRate: 0.7
-  wanderOrientation: 0
+  target: {fileID: 1634812968}
+  weight: 0.88
+  maxPredict: 0.1
+  aux: {fileID: 1634812968}
 --- !u!114 &470826818
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4766,7 +4754,7 @@ MonoBehaviour:
   target: {fileID: 0}
   weight: 1
   behaviours:
-  - {fileID: 470826817}
+  - {fileID: 144090361}
   - {fileID: 470826816}
   - {fileID: 470826815}
   - {fileID: 470826814}
@@ -4808,8 +4796,8 @@ MonoBehaviour:
   orientation: 0
   velocity: {x: 0, y: 0, z: 0}
   acceleration: {x: 0, y: 0, z: 0}
-  intRadius: 9.72
-  extRadius: 16.97
+  intRadius: 6.11
+  extRadius: 10.02
   intAngle: 0.3
   extAngle: 0.4
   gizmosIntRadius: 0
@@ -4817,7 +4805,7 @@ MonoBehaviour:
   gizmosIntAngle: 0
   gizmosExtAngle: 0
   SteeringList: []
-  steer: {fileID: 470826821}
+  steer: {fileID: 0}
   blendWeight: 0
 --- !u!114 &470826821
 MonoBehaviour:
@@ -5244,7 +5232,7 @@ Transform:
   m_LocalScale: {x: 25.062948, y: 26.729763, z: 3.9009}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &525485923
 GameObject:
@@ -5908,14 +5896,14 @@ GameObject:
   - component: {fileID: 626603107}
   - component: {fileID: 626603117}
   - component: {fileID: 626603116}
-  - component: {fileID: 626603115}
   - component: {fileID: 626603114}
   - component: {fileID: 626603113}
   - component: {fileID: 626603112}
-  - component: {fileID: 626603111}
   - component: {fileID: 626603110}
   - component: {fileID: 626603109}
   - component: {fileID: 626603108}
+  - component: {fileID: 626603111}
+  - component: {fileID: 626603115}
   m_Layer: 0
   m_Name: Flocking (6)
   m_TagString: NPC
@@ -5931,7 +5919,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 626603106}
   m_LocalRotation: {x: -0, y: 0.07413645, z: -0, w: 0.9972481}
-  m_LocalPosition: {x: 8.35, y: 13.901447, z: 155.87}
+  m_LocalPosition: {x: -5.4, y: 13.901447, z: 157.9}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1269800848}
@@ -5952,7 +5940,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  weight: 0.4
+  weight: 1.15
   threshold: 10
   targets: []
   decayCoefficient: 15
@@ -5970,7 +5958,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  weight: 1
+  weight: 0.7
   thresholdCohesion: 5
   targets: []
 --- !u!114 &626603110
@@ -5986,7 +5974,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  weight: 1
+  weight: 0.65
   timeToTarget: 0.1
   threshold: 5
   targets: []
@@ -5999,17 +5987,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 626603106}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6f9e34d5273935d45a03a77e4d87c812, type: 3}
+  m_Script: {fileID: 11500000, guid: 007d9e84a7d210344968d453777c1cfe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 0}
-  weight: 1
-  timeToTarget: 0.1
-  aux: {fileID: 0}
-  wanderOffset: 45
-  wanderRadius: 40
-  wanderRate: 0.7
-  wanderOrientation: 0
+  target: {fileID: 1634812968}
+  weight: 0.88
+  maxPredict: 0.1
+  aux: {fileID: 1634812968}
 --- !u!114 &626603112
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6025,7 +6009,7 @@ MonoBehaviour:
   target: {fileID: 0}
   weight: 1
   behaviours:
-  - {fileID: 626603111}
+  - {fileID: 144090361}
   - {fileID: 626603110}
   - {fileID: 626603109}
   - {fileID: 626603108}
@@ -6067,8 +6051,8 @@ MonoBehaviour:
   orientation: 0
   velocity: {x: 0, y: 0, z: 0}
   acceleration: {x: 0, y: 0, z: 0}
-  intRadius: 9.72
-  extRadius: 16.97
+  intRadius: 6.11
+  extRadius: 10.02
   intAngle: 0.3
   extAngle: 0.4
   gizmosIntRadius: 0
@@ -6076,7 +6060,7 @@ MonoBehaviour:
   gizmosIntAngle: 0
   gizmosExtAngle: 0
   SteeringList: []
-  steer: {fileID: 626603115}
+  steer: {fileID: 0}
   blendWeight: 0
 --- !u!114 &626603115
 MonoBehaviour:
@@ -6429,14 +6413,14 @@ GameObject:
   - component: {fileID: 650456526}
   - component: {fileID: 650456536}
   - component: {fileID: 650456535}
-  - component: {fileID: 650456534}
   - component: {fileID: 650456533}
   - component: {fileID: 650456532}
   - component: {fileID: 650456531}
-  - component: {fileID: 650456530}
   - component: {fileID: 650456529}
   - component: {fileID: 650456528}
   - component: {fileID: 650456527}
+  - component: {fileID: 650456530}
+  - component: {fileID: 650456534}
   m_Layer: 0
   m_Name: Flocking (3)
   m_TagString: NPC
@@ -6452,7 +6436,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 650456525}
   m_LocalRotation: {x: -0, y: 0.07413645, z: -0, w: 0.9972481}
-  m_LocalPosition: {x: 6.55, y: 13.901447, z: 164.26}
+  m_LocalPosition: {x: 7.88, y: 13.901447, z: 173.18}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 477770180}
@@ -6473,7 +6457,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  weight: 0.4
+  weight: 1.15
   threshold: 10
   targets: []
   decayCoefficient: 15
@@ -6491,7 +6475,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  weight: 1
+  weight: 0.7
   thresholdCohesion: 5
   targets: []
 --- !u!114 &650456529
@@ -6507,7 +6491,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  weight: 1
+  weight: 0.65
   timeToTarget: 0.1
   threshold: 5
   targets: []
@@ -6520,17 +6504,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 650456525}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6f9e34d5273935d45a03a77e4d87c812, type: 3}
+  m_Script: {fileID: 11500000, guid: 007d9e84a7d210344968d453777c1cfe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 0}
-  weight: 1
-  timeToTarget: 0.1
-  aux: {fileID: 0}
-  wanderOffset: 45
-  wanderRadius: 40
-  wanderRate: 0.7
-  wanderOrientation: 0
+  target: {fileID: 1634812968}
+  weight: 0.88
+  maxPredict: 0.1
+  aux: {fileID: 1634812968}
 --- !u!114 &650456531
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6546,7 +6526,7 @@ MonoBehaviour:
   target: {fileID: 0}
   weight: 1
   behaviours:
-  - {fileID: 650456530}
+  - {fileID: 144090361}
   - {fileID: 650456529}
   - {fileID: 650456528}
   - {fileID: 650456527}
@@ -6588,8 +6568,8 @@ MonoBehaviour:
   orientation: 0
   velocity: {x: 0, y: 0, z: 0}
   acceleration: {x: 0, y: 0, z: 0}
-  intRadius: 9.72
-  extRadius: 16.97
+  intRadius: 6.11
+  extRadius: 10.02
   intAngle: 0.3
   extAngle: 0.4
   gizmosIntRadius: 0
@@ -6597,7 +6577,7 @@ MonoBehaviour:
   gizmosIntAngle: 0
   gizmosExtAngle: 0
   SteeringList: []
-  steer: {fileID: 650456534}
+  steer: {fileID: 0}
   blendWeight: 0
 --- !u!114 &650456534
 MonoBehaviour:
@@ -7152,7 +7132,7 @@ Transform:
   - {fileID: 313322861}
   - {fileID: 423614091}
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &694663445
 MonoBehaviour:
@@ -7442,7 +7422,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
 --- !u!1 &712267512
 GameObject:
@@ -7780,7 +7760,7 @@ Transform:
   - {fileID: 1400872367}
   - {fileID: 692572099}
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!64 &786279298
 MeshCollider:
@@ -8807,6 +8787,105 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 923725814}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1001 &930792021
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 582484477431559507, guid: 9a52cfa55363f8d42b9ac0f0e228c879,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -53.07844
+      objectReference: {fileID: 0}
+    - target: {fileID: 582484477431559507, guid: 9a52cfa55363f8d42b9ac0f0e228c879,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1.2432246
+      objectReference: {fileID: 0}
+    - target: {fileID: 582484477431559507, guid: 9a52cfa55363f8d42b9ac0f0e228c879,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -7.469232
+      objectReference: {fileID: 0}
+    - target: {fileID: 582484477431559507, guid: 9a52cfa55363f8d42b9ac0f0e228c879,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 582484477431559507, guid: 9a52cfa55363f8d42b9ac0f0e228c879,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 582484477431559507, guid: 9a52cfa55363f8d42b9ac0f0e228c879,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 582484477431559507, guid: 9a52cfa55363f8d42b9ac0f0e228c879,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 582484477431559507, guid: 9a52cfa55363f8d42b9ac0f0e228c879,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 582484477431559507, guid: 9a52cfa55363f8d42b9ac0f0e228c879,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 582484477431559507, guid: 9a52cfa55363f8d42b9ac0f0e228c879,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 582484477431559507, guid: 9a52cfa55363f8d42b9ac0f0e228c879,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 582484477431559508, guid: 9a52cfa55363f8d42b9ac0f0e228c879,
+        type: 3}
+      propertyPath: target
+      value: 
+      objectReference: {fileID: 1213825584}
+    - target: {fileID: 582484477431559508, guid: 9a52cfa55363f8d42b9ac0f0e228c879,
+        type: 3}
+      propertyPath: maxPredict
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 582484477431559508, guid: 9a52cfa55363f8d42b9ac0f0e228c879,
+        type: 3}
+      propertyPath: aux
+      value: 
+      objectReference: {fileID: 1213825584}
+    - target: {fileID: 582484477431559509, guid: 9a52cfa55363f8d42b9ac0f0e228c879,
+        type: 3}
+      propertyPath: m_Name
+      value: PersonajeNPCstalker Pursue
+      objectReference: {fileID: 0}
+    - target: {fileID: 582484477431559511, guid: 9a52cfa55363f8d42b9ac0f0e228c879,
+        type: 3}
+      propertyPath: SteeringList.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 582484477431559511, guid: 9a52cfa55363f8d42b9ac0f0e228c879,
+        type: 3}
+      propertyPath: intRadius
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 582484477431559511, guid: 9a52cfa55363f8d42b9ac0f0e228c879,
+        type: 3}
+      propertyPath: extRadius
+      value: 4.86
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 9a52cfa55363f8d42b9ac0f0e228c879, type: 3}
 --- !u!1 &940466233
 GameObject:
   m_ObjectHideFlags: 0
@@ -9647,19 +9726,19 @@ GameObject:
   - component: {fileID: 982697193}
   - component: {fileID: 982697192}
   - component: {fileID: 982697191}
-  - component: {fileID: 982697190}
   - component: {fileID: 982697189}
   - component: {fileID: 982697194}
   - component: {fileID: 982697188}
   - component: {fileID: 982697195}
   - component: {fileID: 982697196}
+  - component: {fileID: 982697190}
   m_Layer: 0
-  m_Name: PersonajeNPCstalker Align
+  m_Name: PersonajeNPCstalker Align - Seek
   m_TagString: NPC
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &982697188
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9673,7 +9752,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 1213825584}
-  weight: 10
+  weight: 1
   timeToTarget: 0.1
 --- !u!114 &982697189
 MonoBehaviour:
@@ -9708,7 +9787,7 @@ MonoBehaviour:
   gizmosIntAngle: 1
   gizmosExtAngle: 1
   SteeringList: []
-  steer: {fileID: 982697190}
+  steer: {fileID: 0}
   blendWeight: 1
 --- !u!114 &982697190
 MonoBehaviour:
@@ -9785,7 +9864,7 @@ Transform:
   - {fileID: 1534560661}
   - {fileID: 10357384}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!64 &982697194
 MeshCollider:
@@ -9814,7 +9893,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 1213825584}
-  weight: 1
+  weight: 10
 --- !u!114 &982697196
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10635,7 +10714,7 @@ Transform:
   - {fileID: 703011227}
   - {fileID: 1782587826}
   m_Father: {fileID: 0}
-  m_RootOrder: 21
+  m_RootOrder: 23
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1119400915
 GameObject:
@@ -10838,6 +10917,99 @@ MonoBehaviour:
   wanderRadius: 40
   wanderRate: 0.4
   wanderOrientation: 0
+--- !u!1 &1139610986
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1139610987}
+  - component: {fileID: 1139610990}
+  - component: {fileID: 1139610989}
+  - component: {fileID: 1139610988}
+  m_Layer: 0
+  m_Name: Sel
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &1139610987
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1139610986}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 2, z: 0}
+  m_LocalScale: {x: 0.34159, y: 0.34159, z: 0.34159}
+  m_Children: []
+  m_Father: {fileID: 1875245415}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &1139610988
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1139610986}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 0
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!23 &1139610989
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1139610986}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: faf6edb8625d0294c9e1e273bd2f1003, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!33 &1139610990
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1139610986}
+  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &1151459227
 GameObject:
   m_ObjectHideFlags: 0
@@ -10990,7 +11162,7 @@ Transform:
   - {fileID: 588494418}
   - {fileID: 1927006940}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!64 &1151459234
 MeshCollider:
@@ -11279,6 +11451,100 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1185829759}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1001 &1202821315
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 6196579401843685121, guid: e546ea1d82ccac64880ebc6b0728e834,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -54.003925
+      objectReference: {fileID: 0}
+    - target: {fileID: 6196579401843685121, guid: e546ea1d82ccac64880ebc6b0728e834,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1.2432246
+      objectReference: {fileID: 0}
+    - target: {fileID: 6196579401843685121, guid: e546ea1d82ccac64880ebc6b0728e834,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 8.124619
+      objectReference: {fileID: 0}
+    - target: {fileID: 6196579401843685121, guid: e546ea1d82ccac64880ebc6b0728e834,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6196579401843685121, guid: e546ea1d82ccac64880ebc6b0728e834,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6196579401843685121, guid: e546ea1d82ccac64880ebc6b0728e834,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6196579401843685121, guid: e546ea1d82ccac64880ebc6b0728e834,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6196579401843685121, guid: e546ea1d82ccac64880ebc6b0728e834,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6196579401843685121, guid: e546ea1d82ccac64880ebc6b0728e834,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6196579401843685121, guid: e546ea1d82ccac64880ebc6b0728e834,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6196579401843685121, guid: e546ea1d82ccac64880ebc6b0728e834,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6196579401843685125, guid: e546ea1d82ccac64880ebc6b0728e834,
+        type: 3}
+      propertyPath: SteeringList.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6196579401843685125, guid: e546ea1d82ccac64880ebc6b0728e834,
+        type: 3}
+      propertyPath: intRadius
+      value: 2.56
+      objectReference: {fileID: 0}
+    - target: {fileID: 6196579401843685125, guid: e546ea1d82ccac64880ebc6b0728e834,
+        type: 3}
+      propertyPath: extRadius
+      value: 3.92
+      objectReference: {fileID: 0}
+    - target: {fileID: 6196579401843685126, guid: e546ea1d82ccac64880ebc6b0728e834,
+        type: 3}
+      propertyPath: target
+      value: 
+      objectReference: {fileID: 1213825584}
+    - target: {fileID: 6196579401843685126, guid: e546ea1d82ccac64880ebc6b0728e834,
+        type: 3}
+      propertyPath: aux
+      value: 
+      objectReference: {fileID: 1213825584}
+    - target: {fileID: 6196579401843685127, guid: e546ea1d82ccac64880ebc6b0728e834,
+        type: 3}
+      propertyPath: m_Name
+      value: PersonajeNPCstalker Face
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: e546ea1d82ccac64880ebc6b0728e834, type: 3}
 --- !u!1 &1213825579
 GameObject:
   m_ObjectHideFlags: 0
@@ -11367,11 +11633,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1213825579}
   m_LocalRotation: {x: 0, y: 0.2588191, z: 0, w: 0.9659258}
-  m_LocalPosition: {x: -73.5, y: 0, z: -50.5}
+  m_LocalPosition: {x: -47.8, y: 0, z: 5.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 30, z: 0}
 --- !u!114 &1213825584
 MonoBehaviour:
@@ -11397,8 +11663,8 @@ MonoBehaviour:
   orientation: 1.3
   velocity: {x: 0, y: 0, z: 0}
   acceleration: {x: 0, y: 0, z: 0}
-  intRadius: 5.46
-  extRadius: 27.35
+  intRadius: 1.86
+  extRadius: 5.21
   intAngle: 0.3
   extAngle: 0.5
   gizmosIntRadius: 0
@@ -11803,14 +12069,14 @@ GameObject:
   - component: {fileID: 1262576401}
   - component: {fileID: 1262576411}
   - component: {fileID: 1262576410}
-  - component: {fileID: 1262576409}
   - component: {fileID: 1262576408}
   - component: {fileID: 1262576407}
   - component: {fileID: 1262576406}
-  - component: {fileID: 1262576405}
   - component: {fileID: 1262576404}
   - component: {fileID: 1262576403}
   - component: {fileID: 1262576402}
+  - component: {fileID: 1262576405}
+  - component: {fileID: 1262576409}
   m_Layer: 0
   m_Name: Flocking (7)
   m_TagString: NPC
@@ -11826,7 +12092,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1262576400}
   m_LocalRotation: {x: -0, y: 0.07413645, z: -0, w: 0.9972481}
-  m_LocalPosition: {x: 5.39, y: 13.901447, z: 156.53}
+  m_LocalPosition: {x: 2.7, y: 13.901447, z: 138.6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 973758030}
@@ -11847,7 +12113,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  weight: 0.4
+  weight: 1.15
   threshold: 10
   targets: []
   decayCoefficient: 15
@@ -11865,7 +12131,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  weight: 1
+  weight: 0.7
   thresholdCohesion: 5
   targets: []
 --- !u!114 &1262576404
@@ -11881,7 +12147,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  weight: 1
+  weight: 0.65
   timeToTarget: 0.1
   threshold: 5
   targets: []
@@ -11894,17 +12160,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1262576400}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6f9e34d5273935d45a03a77e4d87c812, type: 3}
+  m_Script: {fileID: 11500000, guid: 007d9e84a7d210344968d453777c1cfe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 0}
-  weight: 1
-  timeToTarget: 0.1
-  aux: {fileID: 0}
-  wanderOffset: 45
-  wanderRadius: 40
-  wanderRate: 0.7
-  wanderOrientation: 0
+  target: {fileID: 1634812968}
+  weight: 0.88
+  maxPredict: 0.1
+  aux: {fileID: 1634812968}
 --- !u!114 &1262576406
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11920,7 +12182,7 @@ MonoBehaviour:
   target: {fileID: 0}
   weight: 1
   behaviours:
-  - {fileID: 1262576405}
+  - {fileID: 144090361}
   - {fileID: 1262576404}
   - {fileID: 1262576403}
   - {fileID: 1262576402}
@@ -11962,8 +12224,8 @@ MonoBehaviour:
   orientation: 0
   velocity: {x: 0, y: 0, z: 0}
   acceleration: {x: 0, y: 0, z: 0}
-  intRadius: 9.72
-  extRadius: 16.97
+  intRadius: 6.11
+  extRadius: 10.02
   intAngle: 0.3
   extAngle: 0.4
   gizmosIntRadius: 0
@@ -11971,7 +12233,7 @@ MonoBehaviour:
   gizmosIntAngle: 0
   gizmosExtAngle: 0
   SteeringList: []
-  steer: {fileID: 1262576409}
+  steer: {fileID: 0}
   blendWeight: 0
 --- !u!114 &1262576409
 MonoBehaviour:
@@ -12686,15 +12948,21 @@ GameObject:
   - component: {fileID: 1324625974}
   - component: {fileID: 1324625973}
   - component: {fileID: 1324625972}
-  - component: {fileID: 1324625971}
   - component: {fileID: 1324625977}
+  - component: {fileID: 1324625971}
+  - component: {fileID: 1324625983}
+  - component: {fileID: 1324625982}
+  - component: {fileID: 1324625981}
+  - component: {fileID: 1324625980}
+  - component: {fileID: 1324625979}
+  - component: {fileID: 1324625978}
   m_Layer: 0
-  m_Name: PersonajeNPCstalkerAntiAlign
+  m_Name: PersonajeNPCstalker AntiAlign-seek Face-Arrive
   m_TagString: NPC
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1324625971
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12707,8 +12975,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6dbf5b8953d4d2e4b87f6447aa0babcb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 1213825584}
-  weight: 0
+  target: {fileID: 391856922}
+  weight: 3
   timeToTarget: 0.1
 --- !u!114 &1324625972
 MonoBehaviour:
@@ -12814,13 +13082,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1324625970}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: -3.19, y: -0, z: 38.91}
+  m_LocalPosition: {x: -49.2, y: -0, z: -8.4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1487417275}
   - {fileID: 540448317}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!64 &1324625977
 MeshCollider:
@@ -12836,6 +13104,103 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1324625978
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1324625970}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76b2f59557a1af343bcdce7f7e8588b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  weight: 1
+  groups:
+  - {fileID: 1324625979}
+  - {fileID: 1324625982}
+  epsilon: 0.7
+--- !u!114 &1324625979
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1324625970}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eaf401e7dea172c47ba4e3cf60d48296, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  weight: 1
+  behaviours:
+  - {fileID: 1324625980}
+  - {fileID: 1324625981}
+--- !u!114 &1324625980
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1324625970}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e930a7f47f9b4e45b623407a9e719e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 391856922}
+  weight: 3
+  timeToTarget: 0.1
+  aux: {fileID: 391856922}
+--- !u!114 &1324625981
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1324625970}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa9d3c05c7d3b4e4081907e4656b4aa4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 391856922}
+  weight: 1
+  TimeToTarget: 0.1
+--- !u!114 &1324625982
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1324625970}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eaf401e7dea172c47ba4e3cf60d48296, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  weight: 1
+  behaviours:
+  - {fileID: 1324625971}
+  - {fileID: 1324625983}
+--- !u!114 &1324625983
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1324625970}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2cbcc929c56efda4d81e08d3f094a516, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 391856922}
+  weight: 10
 --- !u!1 &1326473645
 GameObject:
   m_ObjectHideFlags: 0
@@ -13003,7 +13368,7 @@ Transform:
   - {fileID: 1761538457}
   - {fileID: 686080402}
   m_Father: {fileID: 0}
-  m_RootOrder: 15
+  m_RootOrder: 17
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1326473654
 MonoBehaviour:
@@ -13124,14 +13489,14 @@ GameObject:
   - component: {fileID: 1341510123}
   - component: {fileID: 1341510133}
   - component: {fileID: 1341510132}
-  - component: {fileID: 1341510131}
   - component: {fileID: 1341510130}
   - component: {fileID: 1341510129}
   - component: {fileID: 1341510128}
-  - component: {fileID: 1341510127}
   - component: {fileID: 1341510126}
   - component: {fileID: 1341510125}
   - component: {fileID: 1341510124}
+  - component: {fileID: 1341510127}
+  - component: {fileID: 1341510131}
   m_Layer: 0
   m_Name: Flocking (5)
   m_TagString: NPC
@@ -13147,7 +13512,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1341510122}
   m_LocalRotation: {x: -0, y: 0.07413645, z: -0, w: 0.9972481}
-  m_LocalPosition: {x: 5.83, y: 13.901447, z: 159.45}
+  m_LocalPosition: {x: 4, y: 13.901447, z: 147.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 645018928}
@@ -13168,7 +13533,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  weight: 0.4
+  weight: 1.15
   threshold: 10
   targets: []
   decayCoefficient: 15
@@ -13186,7 +13551,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  weight: 1
+  weight: 0.7
   thresholdCohesion: 5
   targets: []
 --- !u!114 &1341510126
@@ -13202,7 +13567,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  weight: 1
+  weight: 0.65
   timeToTarget: 0.1
   threshold: 5
   targets: []
@@ -13215,17 +13580,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1341510122}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6f9e34d5273935d45a03a77e4d87c812, type: 3}
+  m_Script: {fileID: 11500000, guid: 007d9e84a7d210344968d453777c1cfe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 0}
-  weight: 1
-  timeToTarget: 0.1
-  aux: {fileID: 0}
-  wanderOffset: 45
-  wanderRadius: 40
-  wanderRate: 0.7
-  wanderOrientation: 0
+  target: {fileID: 1634812968}
+  weight: 0.88
+  maxPredict: 0.1
+  aux: {fileID: 1634812968}
 --- !u!114 &1341510128
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13241,7 +13602,7 @@ MonoBehaviour:
   target: {fileID: 0}
   weight: 1
   behaviours:
-  - {fileID: 1341510127}
+  - {fileID: 144090361}
   - {fileID: 1341510126}
   - {fileID: 1341510125}
   - {fileID: 1341510124}
@@ -13283,8 +13644,8 @@ MonoBehaviour:
   orientation: 0
   velocity: {x: 0, y: 0, z: 0}
   acceleration: {x: 0, y: 0, z: 0}
-  intRadius: 9.72
-  extRadius: 16.97
+  intRadius: 6.11
+  extRadius: 10.02
   intAngle: 0.3
   extAngle: 0.4
   gizmosIntRadius: 0
@@ -13292,7 +13653,7 @@ MonoBehaviour:
   gizmosIntAngle: 0
   gizmosExtAngle: 0
   SteeringList: []
-  steer: {fileID: 1341510131}
+  steer: {fileID: 0}
   blendWeight: 0
 --- !u!114 &1341510131
 MonoBehaviour:
@@ -14197,14 +14558,14 @@ GameObject:
   - component: {fileID: 1475940938}
   - component: {fileID: 1475940948}
   - component: {fileID: 1475940947}
-  - component: {fileID: 1475940946}
   - component: {fileID: 1475940945}
   - component: {fileID: 1475940944}
   - component: {fileID: 1475940943}
-  - component: {fileID: 1475940942}
   - component: {fileID: 1475940941}
   - component: {fileID: 1475940940}
   - component: {fileID: 1475940939}
+  - component: {fileID: 1475940942}
+  - component: {fileID: 1475940946}
   m_Layer: 0
   m_Name: Flocking (10)
   m_TagString: NPC
@@ -14241,7 +14602,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  weight: 0.4
+  weight: 1.15
   threshold: 10
   targets: []
   decayCoefficient: 15
@@ -14259,7 +14620,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  weight: 1
+  weight: 0.7
   thresholdCohesion: 5
   targets: []
 --- !u!114 &1475940941
@@ -14275,7 +14636,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  weight: 1
+  weight: 0.65
   timeToTarget: 0.1
   threshold: 5
   targets: []
@@ -14288,17 +14649,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1475940937}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6f9e34d5273935d45a03a77e4d87c812, type: 3}
+  m_Script: {fileID: 11500000, guid: 007d9e84a7d210344968d453777c1cfe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 0}
-  weight: 1
-  timeToTarget: 0.1
-  aux: {fileID: 0}
-  wanderOffset: 45
-  wanderRadius: 40
-  wanderRate: 0.7
-  wanderOrientation: 0
+  target: {fileID: 1634812968}
+  weight: 0.88
+  maxPredict: 0.1
+  aux: {fileID: 1634812968}
 --- !u!114 &1475940943
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14314,7 +14671,7 @@ MonoBehaviour:
   target: {fileID: 0}
   weight: 1
   behaviours:
-  - {fileID: 1475940942}
+  - {fileID: 144090361}
   - {fileID: 1475940941}
   - {fileID: 1475940940}
   - {fileID: 1475940939}
@@ -14356,8 +14713,8 @@ MonoBehaviour:
   orientation: 0
   velocity: {x: 0, y: 0, z: 0}
   acceleration: {x: 0, y: 0, z: 0}
-  intRadius: 9.72
-  extRadius: 16.97
+  intRadius: 6.11
+  extRadius: 10.02
   intAngle: 0.3
   extAngle: 0.4
   gizmosIntRadius: 0
@@ -14365,7 +14722,7 @@ MonoBehaviour:
   gizmosIntAngle: 0
   gizmosExtAngle: 0
   SteeringList: []
-  steer: {fileID: 1475940946}
+  steer: {fileID: 0}
   blendWeight: 0
 --- !u!114 &1475940946
 MonoBehaviour:
@@ -14532,14 +14889,14 @@ GameObject:
   - component: {fileID: 1489697573}
   - component: {fileID: 1489697583}
   - component: {fileID: 1489697582}
-  - component: {fileID: 1489697581}
   - component: {fileID: 1489697580}
   - component: {fileID: 1489697579}
   - component: {fileID: 1489697578}
-  - component: {fileID: 1489697577}
   - component: {fileID: 1489697576}
   - component: {fileID: 1489697575}
   - component: {fileID: 1489697574}
+  - component: {fileID: 1489697577}
+  - component: {fileID: 1489697581}
   m_Layer: 0
   m_Name: Flocking (2)
   m_TagString: NPC
@@ -14555,7 +14912,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1489697572}
   m_LocalRotation: {x: -0, y: 0.07413645, z: -0, w: 0.9972481}
-  m_LocalPosition: {x: 3.98, y: 13.901447, z: 162.47}
+  m_LocalPosition: {x: -11.8, y: 13.901447, z: 147.9}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1536070755}
@@ -14576,7 +14933,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  weight: 0.4
+  weight: 1.15
   threshold: 10
   targets: []
   decayCoefficient: 15
@@ -14594,7 +14951,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  weight: 1
+  weight: 0.7
   thresholdCohesion: 5
   targets: []
 --- !u!114 &1489697576
@@ -14610,7 +14967,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  weight: 1
+  weight: 0.65
   timeToTarget: 0.1
   threshold: 5
   targets: []
@@ -14623,17 +14980,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1489697572}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6f9e34d5273935d45a03a77e4d87c812, type: 3}
+  m_Script: {fileID: 11500000, guid: 007d9e84a7d210344968d453777c1cfe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 0}
-  weight: 1
-  timeToTarget: 0.1
-  aux: {fileID: 0}
-  wanderOffset: 45
-  wanderRadius: 40
-  wanderRate: 0.7
-  wanderOrientation: 0
+  target: {fileID: 1634812968}
+  weight: 0.88
+  maxPredict: 0.1
+  aux: {fileID: 1634812968}
 --- !u!114 &1489697578
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14649,7 +15002,7 @@ MonoBehaviour:
   target: {fileID: 0}
   weight: 1
   behaviours:
-  - {fileID: 1489697577}
+  - {fileID: 144090361}
   - {fileID: 1489697576}
   - {fileID: 1489697575}
   - {fileID: 1489697574}
@@ -14691,8 +15044,8 @@ MonoBehaviour:
   orientation: 0
   velocity: {x: 0, y: 0, z: 0}
   acceleration: {x: 0, y: 0, z: 0}
-  intRadius: 9.72
-  extRadius: 16.97
+  intRadius: 6.11
+  extRadius: 10.02
   intAngle: 0.3
   extAngle: 0.4
   gizmosIntRadius: 0
@@ -14700,7 +15053,7 @@ MonoBehaviour:
   gizmosIntAngle: 0
   gizmosExtAngle: 0
   SteeringList: []
-  steer: {fileID: 1489697581}
+  steer: {fileID: 0}
   blendWeight: 0
 --- !u!114 &1489697581
 MonoBehaviour:
@@ -15704,7 +16057,6 @@ GameObject:
   - component: {fileID: 1634812963}
   - component: {fileID: 1634812971}
   - component: {fileID: 1634812970}
-  - component: {fileID: 1634812969}
   - component: {fileID: 1634812968}
   - component: {fileID: 1634812966}
   - component: {fileID: 1634812965}
@@ -15712,6 +16064,7 @@ GameObject:
   - component: {fileID: 1634812973}
   - component: {fileID: 1634812972}
   - component: {fileID: 1634812967}
+  - component: {fileID: 1634812969}
   m_Layer: 0
   m_Name: Flocking
   m_TagString: NPC
@@ -15830,8 +16183,8 @@ MonoBehaviour:
   orientation: 0
   velocity: {x: 0, y: 0, z: 0}
   acceleration: {x: 0, y: 0, z: 0}
-  intRadius: 9.72
-  extRadius: 16.97
+  intRadius: 4.2
+  extRadius: 10.15
   intAngle: 0.3
   extAngle: 0.4
   gizmosIntRadius: 0
@@ -15839,7 +16192,7 @@ MonoBehaviour:
   gizmosIntAngle: 0
   gizmosExtAngle: 0
   SteeringList: []
-  steer: {fileID: 1634812969}
+  steer: {fileID: 0}
   blendWeight: 0
 --- !u!114 &1634812969
 MonoBehaviour:
@@ -15873,7 +16226,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: ac36ebd11e0b3364eb6a2446477dc1c0, type: 2}
+  - {fileID: 2100000, guid: 9b8e932c2404ec14e9708c2cbd4daad2, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -16940,6 +17293,99 @@ Transform:
   m_Father: {fileID: 1118442735}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1784895675
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1784895676}
+  - component: {fileID: 1784895679}
+  - component: {fileID: 1784895678}
+  - component: {fileID: 1784895677}
+  m_Layer: 0
+  m_Name: Cube
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1784895676
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1784895675}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.57, z: 0.53}
+  m_LocalScale: {x: 0.38506, y: 0.38506, z: 0.38506}
+  m_Children: []
+  m_Father: {fileID: 1875245415}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &1784895677
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1784895675}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!23 &1784895678
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1784895675}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: ac36ebd11e0b3364eb6a2446477dc1c0, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!33 &1784895679
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1784895675}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &1795876013
 GameObject:
   m_ObjectHideFlags: 0
@@ -17224,20 +17670,19 @@ GameObject:
   - component: {fileID: 1809705317}
   - component: {fileID: 1809705316}
   - component: {fileID: 1809705315}
-  - component: {fileID: 1809705314}
   - component: {fileID: 1809705313}
   - component: {fileID: 1809705312}
   - component: {fileID: 1809705318}
   - component: {fileID: 1809705319}
   - component: {fileID: 1809705321}
-  - component: {fileID: 1809705320}
+  - component: {fileID: 1809705314}
   m_Layer: 0
   m_Name: CollisionArbitroEsquivo
   m_TagString: NPC
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1809705312
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17251,7 +17696,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 1213825584}
-  weight: 10
+  weight: 1
   avoidDistance: 5
   frontaLookAhead: 10
   whiskersLookahead: 10
@@ -17290,7 +17735,7 @@ MonoBehaviour:
   gizmosIntAngle: 0
   gizmosExtAngle: 0
   SteeringList: []
-  steer: {fileID: 1809705314}
+  steer: {fileID: 0}
   blendWeight: 0
 --- !u!114 &1809705314
 MonoBehaviour:
@@ -17367,7 +17812,7 @@ Transform:
   - {fileID: 275073264}
   - {fileID: 316048889}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 8.503, z: 0}
 --- !u!114 &1809705318
 MonoBehaviour:
@@ -17382,7 +17827,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 1213825584}
-  weight: 1
+  weight: 10
 --- !u!64 &1809705319
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -17397,22 +17842,6 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &1809705320
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1809705311}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e930a7f47f9b4e45b623407a9e719e0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  target: {fileID: 1213825584}
-  weight: 1
-  timeToTarget: 0.1
-  aux: {fileID: 0}
 --- !u!114 &1809705321
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17430,7 +17859,6 @@ MonoBehaviour:
   behaviours:
   - {fileID: 1809705318}
   - {fileID: 1809705312}
-  - {fileID: 1809705320}
 --- !u!1 &1818362553
 GameObject:
   m_ObjectHideFlags: 0
@@ -17797,6 +18225,204 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1869953363}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1875245407
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1875245415}
+  - component: {fileID: 1875245414}
+  - component: {fileID: 1875245413}
+  - component: {fileID: 1875245412}
+  - component: {fileID: 1875245411}
+  - component: {fileID: 1875245408}
+  - component: {fileID: 1875245410}
+  - component: {fileID: 1875245409}
+  - component: {fileID: 1875245416}
+  m_Layer: 0
+  m_Name: PersonajeNPCstalker Face - Arrive
+  m_TagString: NPC
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!114 &1875245408
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1875245407}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eaf401e7dea172c47ba4e3cf60d48296, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  weight: 1
+  behaviours:
+  - {fileID: 1875245410}
+  - {fileID: 1875245409}
+--- !u!114 &1875245409
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1875245407}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e930a7f47f9b4e45b623407a9e719e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 1213825584}
+  weight: 1
+  timeToTarget: 0.1
+  aux: {fileID: 0}
+--- !u!114 &1875245410
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1875245407}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa9d3c05c7d3b4e4081907e4656b4aa4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 1213825584}
+  weight: 1
+  TimeToTarget: 0.1
+--- !u!64 &1875245411
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1875245407}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1875245412
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1875245407}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 12d01c939e4c6a34da71f523c74a29d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  form: 0
+  llegar: 0
+  nuevoArrive: 0
+  speed: 10
+  mass: 0.1
+  maxSpeed: 3
+  maxRotation: 3
+  maxAcceleration: 0.9
+  maxAngularAcc: 0.9
+  orientation: 0
+  velocity: {x: 0, y: 0, z: 0}
+  acceleration: {x: 0, y: 0, z: 0}
+  intRadius: 1.5
+  extRadius: 5
+  intAngle: 0.3
+  extAngle: 0.4
+  gizmosIntRadius: 0
+  gizmosExtRadius: 0
+  gizmosIntAngle: 1
+  gizmosExtAngle: 1
+  SteeringList: []
+  steer: {fileID: 0}
+  blendWeight: 1
+--- !u!23 &1875245413
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1875245407}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: ac36ebd11e0b3364eb6a2446477dc1c0, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!33 &1875245414
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1875245407}
+  m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &1875245415
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1875245407}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -40.3, y: -0, z: -5.3}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1784895676}
+  - {fileID: 1139610987}
+  m_Father: {fileID: 0}
+  m_RootOrder: 25
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1875245416
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1875245407}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a4a0d9e34a21a247b6aca0bd1fb32dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  angular: 0
+  linear: {x: 0, y: 0, z: 0}
 --- !u!1 &1894150976
 GameObject:
   m_ObjectHideFlags: 0
@@ -18037,7 +18663,7 @@ Transform:
   - {fileID: 1350139946}
   - {fileID: 1668373435}
   m_Father: {fileID: 0}
-  m_RootOrder: 16
+  m_RootOrder: 18
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1905418258
 MonoBehaviour:
@@ -18447,7 +19073,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1927519397
 Transform:
   m_ObjectHideFlags: 0
@@ -18471,7 +19097,7 @@ Transform:
   - {fileID: 470826813}
   - {fileID: 1475940938}
   m_Father: {fileID: 0}
-  m_RootOrder: 13
+  m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1927519398
 MonoBehaviour:
@@ -19146,14 +19772,14 @@ GameObject:
   - component: {fileID: 2111042355}
   - component: {fileID: 2111042365}
   - component: {fileID: 2111042364}
-  - component: {fileID: 2111042363}
   - component: {fileID: 2111042362}
   - component: {fileID: 2111042361}
   - component: {fileID: 2111042360}
-  - component: {fileID: 2111042359}
   - component: {fileID: 2111042358}
   - component: {fileID: 2111042357}
   - component: {fileID: 2111042356}
+  - component: {fileID: 2111042359}
+  - component: {fileID: 2111042363}
   m_Layer: 0
   m_Name: Flocking (4)
   m_TagString: NPC
@@ -19169,7 +19795,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2111042354}
   m_LocalRotation: {x: -0, y: 0.07413645, z: -0, w: 0.9972481}
-  m_LocalPosition: {x: 3.89, y: 13.901447, z: 164.66}
+  m_LocalPosition: {x: -6.6, y: 13.901447, z: 166.2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 776854986}
@@ -19190,7 +19816,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  weight: 0.4
+  weight: 1.15
   threshold: 10
   targets: []
   decayCoefficient: 15
@@ -19208,7 +19834,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  weight: 1
+  weight: 0.7
   thresholdCohesion: 5
   targets: []
 --- !u!114 &2111042358
@@ -19224,7 +19850,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  weight: 1
+  weight: 0.65
   timeToTarget: 0.1
   threshold: 5
   targets: []
@@ -19237,17 +19863,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 2111042354}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6f9e34d5273935d45a03a77e4d87c812, type: 3}
+  m_Script: {fileID: 11500000, guid: 007d9e84a7d210344968d453777c1cfe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 0}
-  weight: 1
-  timeToTarget: 0.1
-  aux: {fileID: 0}
-  wanderOffset: 45
-  wanderRadius: 40
-  wanderRate: 0.7
-  wanderOrientation: 0
+  target: {fileID: 1634812968}
+  weight: 0.88
+  maxPredict: 0.1
+  aux: {fileID: 1634812968}
 --- !u!114 &2111042360
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19263,7 +19885,7 @@ MonoBehaviour:
   target: {fileID: 0}
   weight: 1
   behaviours:
-  - {fileID: 2111042359}
+  - {fileID: 144090361}
   - {fileID: 2111042358}
   - {fileID: 2111042357}
   - {fileID: 2111042356}
@@ -19305,8 +19927,8 @@ MonoBehaviour:
   orientation: 0
   velocity: {x: 0, y: 0, z: 0}
   acceleration: {x: 0, y: 0, z: 0}
-  intRadius: 9.72
-  extRadius: 16.97
+  intRadius: 6.11
+  extRadius: 10.02
   intAngle: 0.3
   extAngle: 0.4
   gizmosIntRadius: 0
@@ -19314,7 +19936,7 @@ MonoBehaviour:
   gizmosIntAngle: 0
   gizmosExtAngle: 0
   SteeringList: []
-  steer: {fileID: 2111042363}
+  steer: {fileID: 0}
   blendWeight: 0
 --- !u!114 &2111042363
 MonoBehaviour:
