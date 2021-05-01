@@ -2,43 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class lrta : MonoBehaviour
+public class LRTAStar : MonoBehaviour
 {
-/**
-
-    public class Nodo{
-
-        public int x;
-        public int y;
-        public bool wall;
-        public Vector3 pos;
-        public Nodo vecino;
-
-        public int costeNodo;
-        public int costeDestino;
-
-        public int costeTotal { 
-            get { 
-                return costeNodo + costeDestino; 
-                } 
-            }
-    
-        public Nodo(bool w, Vector3 p, int px, int py)
-        {
-            wall = w;
-            pos = p;
-            x = px;
-            y = py;
-        }
-
-    }
-
-
-    [SerializeField]
-    private List<Vector3> grid;
-
-
-    public List<Nodo> FindPath(Nodo comienzo, Nodo final, int distancia, float [,] mapaCostes)
+    public List<Nodo> FindPath(Nodo startNode, Nodo targetNode, int distance, Grid grid, float [,] mapaCostes)
     {
         
         List<Nodo> ClosedList = new List<Nodo>();
@@ -48,16 +14,16 @@ public class lrta : MonoBehaviour
         switch (distance)
         {
             case 1:
-                moveCost = actualNode.igCost + Manhattan(actualNode, targetNode);
+                moveCost = actualNode.igCost + GetManhattenDistance(actualNode, targetNode);
                 break;
             case 2:
-                moveCost = actualNode.igCost + Chebychev(actualNode, targetNode);
+                moveCost = actualNode.igCost + GetChebyshevDistance(actualNode, targetNode);
                 break;
             case 3:
-                moveCost = actualNode.igCost + Euclidea(actualNode, targetNode);
+                moveCost = actualNode.igCost + GetEuclideDistance(actualNode, targetNode);
                 break;
             default:
-                moveCost = actualNode.igCost + Manhattan(actualNode, targetNode);
+                moveCost = actualNode.igCost + GetManhattenDistance(actualNode, targetNode);
                 break;
         }
         actualNode.ihCost = moveCost;
@@ -73,13 +39,13 @@ public class lrta : MonoBehaviour
                     switch (distance)
                     {
                         case 1:
-                            moveCost = actualNode.igCost + Manhattan(NeighborNode, targetNode);
+                            moveCost = actualNode.igCost + GetManhattenDistance(NeighborNode, targetNode);
                             break;
                         case 2:
-                            moveCost = actualNode.igCost + Chebychev(NeighborNode, targetNode);
+                            moveCost = actualNode.igCost + GetChebyshevDistance(NeighborNode, targetNode);
                             break;
                         case 3:
-                            moveCost = actualNode.igCost + Euclidea(NeighborNode, targetNode);
+                            moveCost = actualNode.igCost + GetEuclideDistance(NeighborNode, targetNode);
                             break;
                     }
                     NeighborNode.igCost = moveCost; 
@@ -108,8 +74,7 @@ public class lrta : MonoBehaviour
         }
         return ClosedList;
     }
-
-    List<Nodo> GetFinalPath(Nodo a_StartingNode, Nodo a_EndNode, MyGrid grid)
+    List<Nodo> GetFinalPath(Nodo a_StartingNode, Nodo a_EndNode, Grid grid)
     {
         List<Nodo> FinalPath = new List<Nodo>();//List to hold the path sequentially 
         Nodo CurrentNode = a_EndNode;//Node to store the current node being checked
@@ -128,38 +93,32 @@ public class lrta : MonoBehaviour
 
     }
 
+    //Calculo de distancias segun tres Heuristicas:
 
-    //heuristicas
-    int Manhattan(Nodo a, Nodo b)
+    // Manhattan
+    int GetManhattenDistance(Nodo a_nodeA, Nodo a_nodeB)
     {
-        int x = Mathf.Abs(a.x - b.x);
-        int y = Mathf.Abs(a.y - b.y);
-        return x + y;
+        int ix = Mathf.Abs(a_nodeA.iGridX - a_nodeB.iGridX);//x1-x2
+        int iy = Mathf.Abs(a_nodeA.iGridY - a_nodeB.iGridY);//y1-y2
+
+        return ix + iy;//Return the sum
     }
 
-    
-    int Chebychev(Nodo a, Nodo b)
+    // Chebyshev
+    int GetChebyshevDistance(Nodo a_nodeA, Nodo a_nodeB)
     {
-        int x = Mathf.Abs(b.x - a.x);
-        int y = Mathf.Abs(b.y - a.y);
+        int ix = Mathf.Abs(a_nodeB.iGridX - a_nodeA.iGridX);
+        int iy = Mathf.Abs(a_nodeB.iGridY - a_nodeA.iGridY);
 
-        return Math.Max(x, y);
+        return Mathf.Max(ix, iy);
     }
 
-    
-    int Euclidea(Nodo a, Nodo b)
+    // Euclidea
+    int GetEuclideDistance(Nodo a_nodeA, Nodo a_nodeB)
     {
-        int x = (b.x - a.x) * (b.x - a.x);
-        int y = (b.y - a.y) * (b.y - a.y);
+        int ix = (a_nodeB.iGridX - a_nodeA.iGridX) * (a_nodeB.iGridX - a_nodeA.iGridX);
+        int iy = (a_nodeB.iGridY - a_nodeA.iGridY) * (a_nodeB.iGridY - a_nodeA.iGridY);
 
-        return (int) Mathf.Sqrt(x+y);
-    }
-
-
-*/
-
-
-
-
-
+        return (int) Mathf.Sqrt(ix+iy);
+    } 
 }

@@ -4,13 +4,14 @@ using UnityEngine;
 
 public class AgentNPC : Agent
 {
-
+    //Esto es para el pathfinding
+    public List<GameObject> listPuntos = new List<GameObject>();
     public List<SteeringBehaviour> SteeringList;
     [SerializeField]
     private Steering steer;
     [SerializeField]
     public float blendWeight;
-
+    public PathFinding pathFinding;
     void Awake()
     {
         if(this.gameObject.GetComponent<PrioritySteering>()!= null)
@@ -32,6 +33,33 @@ public class AgentNPC : Agent
         }
         //SteeringList = this.gameObject.GetComponents<SteeringBehaviour>();
     }
+    void Update(){
+        if (Input.GetMouseButtonDown(0) && this.gameObject.tag == "PathFinding")
+        {
+            RaycastHit hit;
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            PathFollowing pf = new PathFollowing();
+            if (Physics.Raycast(ray, out hit, 1000.0f))
+            {
+                if (hit.transform != null && hit.transform.tag != "Muro" && hit.transform.tag != "Agua")
+                {
+                    listPuntos = pathFinding.EstablecerNodoFinal(this);
+                    Debug.Log("Antes" + listPuntos.Count);
+                    if (this.gameObject.GetComponent<PathFollowing>() == null){
+                        pf =  this.gameObject.AddComponent(typeof(PathFollowing)) as PathFollowing;
+                        SteeringList.Add(pf);
+                    }
+                    pf.path.ClearPath();
+                    for(int i =0 ; i< listPuntos.Count; i ++){
+                        Debug.Log(listPuntos[i].transform.position);
+                        pf.path.AppendPointToPath(listPuntos[i]);
+                    }
+                    Debug.Log(pf.path + "despues");
+                    //pintarCamino();
+                }
+            }
+        }
+    }
     void FixedUpdate()
     {
         PrioritySteering ps = this.gameObject.GetComponent<PrioritySteering>();
@@ -46,10 +74,9 @@ public class AgentNPC : Agent
             steer = ps1.GetSteering(this);
             applySteering(steer);            
         } else if (arbitro == null) {
-
-            if (SteeringList == null)
+            if (SteeringList != null)
             {
-
+                Debug.Log("Que pasaria si la lista se queda vacia");
             }
             else
             {

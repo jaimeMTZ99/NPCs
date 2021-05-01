@@ -7,6 +7,17 @@ TagManager:
   - NPC
   - Terrain
   - Formation
+  - Hierba
+  - ZonaSeguraAzul
+  - Agua
+  - Carretera
+  - Bosque
+  - ZonaSeguraRojo
+  - Puente
+  - BaseAzul
+  - BaseRoja
+  - Muro
+  - PathFinding
   layers:
   - Default
   - TransparentFX

@@ -13,10 +13,11 @@ public class Path : MonoBehaviour
     }
 
     public void ClearPath() {
-        nodos.Clear();
-        GameObject go = new GameObject();
+        if (nodos != null)
+            nodos.Clear();
+        /*GameObject go = new GameObject();
         go.transform.position = this.transform.position;
-        nodos.Add(go); 
+        nodos.Add(go); */
     }
 
     public int Length() {

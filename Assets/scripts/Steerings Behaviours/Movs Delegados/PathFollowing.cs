@@ -6,21 +6,24 @@ public class PathFollowing : SeekAcceleration
 {
 
     [SerializeField]
-    private Path path =null;
+    public Path path;
 
-    private int targetParam;
-
-    [SerializeField]
-    private int currentPos;
+    public int targetParam;
 
     [SerializeField]
-    private int currentParam;
+    public int currentPos;
 
     [SerializeField]
-    private Agent aux;
+    public int currentParam;
 
-    private GameObject goPathFoll;
+    [SerializeField]
+    public  Agent aux;
+
+    public GameObject goPathFoll;
     void Start(){
+        Debug.Log("start");
+        path = new Path();
+        path.Radio = 0.5f;
         goPathFoll = new GameObject("PathFollowing");
         Agent invisible = goPathFoll.AddComponent<Agent>() as Agent;
         invisible.intRadius = path.Radio;
