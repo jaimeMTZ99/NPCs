@@ -6,13 +6,15 @@ public class Path : MonoBehaviour
 {
     [SerializeField] 
     private float radio; 
-    [SerializeField] private List<GameObject> nodos = new List<GameObject>();
-            
+    [SerializeField] public List<GameObject> nodos = new List<GameObject>();
+         
     public void AppendPointToPath(GameObject go) {
             nodos.Add(go);
+            Debug.Log("Añadiendo nodo");
     }
 
     public void ClearPath() {
+        Debug.Log(nodos.Count);
         if (nodos != null)
             nodos.Clear();
         /*GameObject go = new GameObject();
@@ -36,8 +38,10 @@ public class Path : MonoBehaviour
                 return transform.position;
             
             // Return the last point if further inexistent points are requested
-            if (keyPointValue >= nodos.Count)
+            if (keyPointValue >= nodos.Count){
+                Debug.Log("Ultiom keypoint");
                 return nodos[nodos.Count - 1].transform.position;
+            }
 
             // Return the first point if previous inexistent points are requested
             if (keyPointValue < 0)
@@ -84,15 +88,17 @@ public class Path : MonoBehaviour
             // If the current distance is closest to the current point, return said point
             // If the distance is closest to either the previous or next point AND it's under the radio threshold,
             // return said point. Otherwise, return the current point
-            
-            if (distanceToCurrentPoint <= distanceToPreviousPoint && distanceToCurrentPoint <= distanceToNextPoint)
+            if (currentPosition == nodos.Count -1){
                 return currentPosition;
-
-            if (distanceToNextPoint <= distanceToPreviousPoint && distanceToNextPoint < radio)
+            }
+            /*if (distanceToCurrentPoint <= distanceToPreviousPoint && distanceToCurrentPoint <= distanceToNextPoint)
+                return currentPosition;*/
+            Debug.Log(distanceToNextPoint + "distancia sig");
+            if (characterPosition - nodos[currentPosition+1].transform.position == Vector3.zero )
                 return currentPosition + 1;
 
-            if (distanceToPreviousPoint <= distanceToNextPoint && distanceToPreviousPoint < radio)
-                return currentPosition - 1;
+            /*if (distanceToPreviousPoint <= distanceToNextPoint )
+                return currentPosition - 1;*/
 
             return currentPosition;
         }

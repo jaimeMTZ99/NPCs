@@ -12,6 +12,8 @@ public class AgentNPC : Agent
     [SerializeField]
     public float blendWeight;
     public PathFinding pathFinding;
+
+    public List<GameObject> camino;
     void Awake()
     {
         if(this.gameObject.GetComponent<PrioritySteering>()!= null)
@@ -38,24 +40,29 @@ public class AgentNPC : Agent
         {
             RaycastHit hit;
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            PathFollowing pf = new PathFollowing();
+            Debug.Log("movimiento");
+            PathFollowing pf = new PathFollowing() ;
+            Path path  = new Path();
             if (Physics.Raycast(ray, out hit, 1000.0f))
             {
                 if (hit.transform != null && hit.transform.tag != "Muro" && hit.transform.tag != "Agua")
                 {
                     listPuntos = pathFinding.EstablecerNodoFinal(this);
-                    Debug.Log("Antes" + listPuntos.Count);
                     if (this.gameObject.GetComponent<PathFollowing>() == null){
                         pf =  this.gameObject.AddComponent(typeof(PathFollowing)) as PathFollowing;
+                        path = this.gameObject.AddComponent(typeof(Path)) as Path;
+                        pf.path = this.gameObject.GetComponent<Path>();
+                        pf.path.Radio = 1f;
                         SteeringList.Add(pf);
                     }
-                    pf.path.ClearPath();
+                   // Debug.Log("path acabo de crear" + pf.path);
+                    path.ClearPath();
                     for(int i =0 ; i< listPuntos.Count; i ++){
-                        Debug.Log(listPuntos[i].transform.position);
-                        pf.path.AppendPointToPath(listPuntos[i]);
+                        //Debug.Log(listPuntos[i].transform.position);
+                        path.AppendPointToPath(listPuntos[i]);
                     }
-                    Debug.Log(pf.path + "despues");
-                    //pintarCamino();
+                    //Debug.Log(pf.path.nodos.Count + "despues");
+                    pintarCamino();
                 }
             }
         }
@@ -76,17 +83,12 @@ public class AgentNPC : Agent
         } else if (arbitro == null) {
             if (SteeringList != null)
             {
-                Debug.Log("Que pasaria si la lista se queda vacia");
-            }
-            else
-            {
                 foreach (SteeringBehaviour s in SteeringList)
                 {
                     steer = s.GetSteering(this);
                     applySteering(steer);
                 }
             }
-
         }
         else {
             steer = arbitro.GetSteering(this);
@@ -104,5 +106,29 @@ public class AgentNPC : Agent
         transform.rotation = new Quaternion(); //Quaternion.identity;
         transform.Rotate(Vector3.up, Orientation * Mathf.Rad2Deg);
     }
-
+    void pintarCamino()
+    {
+        if (listPuntos.Count != 0)
+        {
+            if (camino != null)
+            {
+                foreach (GameObject g in camino)
+                {
+                      Destroy(g);
+                }
+            }
+            
+            camino = new List<GameObject>();
+            GameObject aux;
+            foreach(GameObject v in listPuntos)
+            {
+                aux = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                aux.transform.localScale = new Vector3(1, 2, 1);
+                aux.transform.position = v.transform.position;
+                aux.GetComponent<Renderer>().material.color = new Color(0, 0, 0);
+                camino.Add(aux);
+            }
+            
+        }
+    }
 }

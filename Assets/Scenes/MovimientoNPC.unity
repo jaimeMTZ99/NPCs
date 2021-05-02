@@ -832,6 +832,7 @@ MonoBehaviour:
   steer: {fileID: 28218912}
   blendWeight: 0
   pathFinding: {fileID: 0}
+  camino: []
 --- !u!114 &28218912
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1572,6 +1573,7 @@ MonoBehaviour:
   steer: {fileID: 46733672}
   blendWeight: 0
   pathFinding: {fileID: 0}
+  camino: []
 --- !u!114 &46733672
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3199,6 +3201,7 @@ MonoBehaviour:
   steer: {fileID: 90904375}
   blendWeight: 0
   pathFinding: {fileID: 0}
+  camino: []
 --- !u!114 &90904375
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3424,7 +3427,7 @@ PrefabInstance:
     - target: {fileID: 8011497864124624600, guid: 790e441b2f4b5324a96b38908003269f,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -9
       objectReference: {fileID: 0}
     - target: {fileID: 8011497864124624600, guid: 790e441b2f4b5324a96b38908003269f,
         type: 3}
@@ -3434,7 +3437,7 @@ PrefabInstance:
     - target: {fileID: 8011497864124624600, guid: 790e441b2f4b5324a96b38908003269f,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -9
       objectReference: {fileID: 0}
     - target: {fileID: 8011497864124624600, guid: 790e441b2f4b5324a96b38908003269f,
         type: 3}
@@ -3484,7 +3487,7 @@ PrefabInstance:
     - target: {fileID: 8011497864124624605, guid: 790e441b2f4b5324a96b38908003269f,
         type: 3}
       propertyPath: intRadius
-      value: 5
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 8011497864124624605, guid: 790e441b2f4b5324a96b38908003269f,
         type: 3}
@@ -3494,7 +3497,7 @@ PrefabInstance:
     - target: {fileID: 8011497864124624605, guid: 790e441b2f4b5324a96b38908003269f,
         type: 3}
       propertyPath: extRadius
-      value: 7
+      value: 17
       objectReference: {fileID: 0}
     - target: {fileID: 8011497864124624605, guid: 790e441b2f4b5324a96b38908003269f,
         type: 3}
@@ -3506,6 +3509,11 @@ PrefabInstance:
       propertyPath: pathFinding
       value: 
       objectReference: {fileID: 103421140}
+    - target: {fileID: 8011497864124624605, guid: 790e441b2f4b5324a96b38908003269f,
+        type: 3}
+      propertyPath: gizmosIntRadius
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8011497864124624607, guid: 790e441b2f4b5324a96b38908003269f,
         type: 3}
       propertyPath: m_Name
@@ -4566,6 +4574,7 @@ MonoBehaviour:
   steer: {fileID: 0}
   blendWeight: 0
   pathFinding: {fileID: 0}
+  camino: []
 --- !u!114 &144090365
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5900,6 +5909,7 @@ MonoBehaviour:
   steer: {fileID: 192263928}
   blendWeight: 0
   pathFinding: {fileID: 0}
+  camino: []
 --- !u!114 &192263928
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7089,6 +7099,7 @@ MonoBehaviour:
   steer: {fileID: 0}
   blendWeight: 0
   pathFinding: {fileID: 0}
+  camino: []
 --- !u!114 &228982837
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7765,6 +7776,7 @@ MonoBehaviour:
   steer: {fileID: 0}
   blendWeight: 0
   pathFinding: {fileID: 0}
+  camino: []
 --- !u!65 &243265456
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -8332,6 +8344,7 @@ MonoBehaviour:
   steer: {fileID: 290764911}
   blendWeight: 0
   pathFinding: {fileID: 0}
+  camino: []
 --- !u!114 &290764911
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8639,6 +8652,7 @@ MonoBehaviour:
   steer: {fileID: 301921972}
   blendWeight: 0
   pathFinding: {fileID: 0}
+  camino: []
 --- !u!114 &301921972
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8881,7 +8895,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 313322860}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 15.19, y: 0, z: -1.85}
+  m_LocalPosition: {x: -2.53, y: 0, z: -5.47}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 694663444}
@@ -9007,6 +9021,7 @@ MonoBehaviour:
   steer: {fileID: 315482654}
   blendWeight: 0
   pathFinding: {fileID: 0}
+  camino: []
 --- !u!114 &315482654
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9817,6 +9832,7 @@ MonoBehaviour:
   steer: {fileID: 0}
   blendWeight: 0
   pathFinding: {fileID: 0}
+  camino: []
 --- !u!65 &331992888
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -11207,6 +11223,7 @@ MonoBehaviour:
   steer: {fileID: 0}
   blendWeight: 0
   pathFinding: {fileID: 0}
+  camino: []
 --- !u!65 &381546272
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -12736,7 +12753,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 423614090}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 26.29, y: 0, z: 11.18}
+  m_LocalPosition: {x: 8.03, y: 0, z: -5.74}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 694663444}
@@ -13818,6 +13835,7 @@ MonoBehaviour:
   steer: {fileID: 0}
   blendWeight: 0
   pathFinding: {fileID: 0}
+  camino: []
 --- !u!114 &470826821
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14558,6 +14576,7 @@ MonoBehaviour:
   steer: {fileID: 503892243}
   blendWeight: 0
   pathFinding: {fileID: 0}
+  camino: []
 --- !u!114 &503892243
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18010,6 +18029,7 @@ MonoBehaviour:
   steer: {fileID: 0}
   blendWeight: 0
   pathFinding: {fileID: 0}
+  camino: []
 --- !u!114 &626603115
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19044,6 +19064,7 @@ MonoBehaviour:
   steer: {fileID: 0}
   blendWeight: 0
   pathFinding: {fileID: 0}
+  camino: []
 --- !u!114 &650456534
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19444,6 +19465,7 @@ MonoBehaviour:
   steer: {fileID: 659979558}
   blendWeight: 0
   pathFinding: {fileID: 0}
+  camino: []
 --- !u!114 &659979558
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20376,7 +20398,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &694663444
 Transform:
   m_ObjectHideFlags: 0
@@ -20938,6 +20960,7 @@ MonoBehaviour:
   steer: {fileID: 703011221}
   blendWeight: 0
   pathFinding: {fileID: 0}
+  camino: []
 --- !u!114 &703011221
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -23033,7 +23056,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &786279292
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -23091,6 +23114,7 @@ MonoBehaviour:
   steer: {fileID: 786279294}
   blendWeight: 0
   pathFinding: {fileID: 0}
+  camino: []
 --- !u!114 &786279294
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -23943,6 +23967,7 @@ MonoBehaviour:
   steer: {fileID: 826852187}
   blendWeight: 0
   pathFinding: {fileID: 0}
+  camino: []
 --- !u!114 &826852187
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24311,6 +24336,7 @@ MonoBehaviour:
   steer: {fileID: 835003275}
   blendWeight: 0
   pathFinding: {fileID: 0}
+  camino: []
 --- !u!114 &835003275
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -27532,6 +27558,7 @@ MonoBehaviour:
   steer: {fileID: 962565593}
   blendWeight: 0
   pathFinding: {fileID: 0}
+  camino: []
 --- !u!114 &962565593
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -28183,6 +28210,7 @@ MonoBehaviour:
   steer: {fileID: 976685558}
   blendWeight: 0
   pathFinding: {fileID: 0}
+  camino: []
 --- !u!114 &976685558
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -28567,6 +28595,7 @@ MonoBehaviour:
   steer: {fileID: 0}
   blendWeight: 1
   pathFinding: {fileID: 0}
+  camino: []
 --- !u!114 &982697190
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -28842,6 +28871,7 @@ MonoBehaviour:
   steer: {fileID: 994532925}
   blendWeight: 0
   pathFinding: {fileID: 0}
+  camino: []
 --- !u!114 &994532925
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -30977,6 +31007,7 @@ MonoBehaviour:
   steer: {fileID: 1081025231}
   blendWeight: 0
   pathFinding: {fileID: 0}
+  camino: []
 --- !u!114 &1081025231
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -31440,7 +31471,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1102059024}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -31488,7 +31519,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1102059024}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 9, y: 0, z: 9}
+  m_LocalPosition: {x: 0, y: 2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -32186,6 +32217,7 @@ MonoBehaviour:
   steer: {fileID: 1119400917}
   blendWeight: 0
   pathFinding: {fileID: 0}
+  camino: []
 --- !u!114 &1119400917
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -32965,6 +32997,7 @@ MonoBehaviour:
   steer: {fileID: 1151459230}
   blendWeight: 0
   pathFinding: {fileID: 0}
+  camino: []
 --- !u!114 &1151459230
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -34114,6 +34147,7 @@ MonoBehaviour:
   steer: {fileID: 1185829766}
   blendWeight: 0
   pathFinding: {fileID: 0}
+  camino: []
 --- !u!114 &1185829766
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -35107,6 +35141,7 @@ MonoBehaviour:
   steer: {fileID: 1239006952}
   blendWeight: 0
   pathFinding: {fileID: 0}
+  camino: []
 --- !u!114 &1239006952
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -35800,6 +35835,7 @@ MonoBehaviour:
   steer: {fileID: 0}
   blendWeight: 0
   pathFinding: {fileID: 0}
+  camino: []
 --- !u!114 &1262576409
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -35921,6 +35957,7 @@ MonoBehaviour:
   steer: {fileID: 1264733054}
   blendWeight: 0
   pathFinding: {fileID: 0}
+  camino: []
 --- !u!114 &1264733054
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -36439,7 +36476,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1273862674}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -9, y: 0, z: -9}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 856259545}
@@ -38106,6 +38143,7 @@ MonoBehaviour:
   steer: {fileID: 1323280995}
   blendWeight: 0
   pathFinding: {fileID: 0}
+  camino: []
 --- !u!114 &1323280995
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -38308,6 +38346,7 @@ MonoBehaviour:
   steer: {fileID: 1324625973}
   blendWeight: 0
   pathFinding: {fileID: 0}
+  camino: []
 --- !u!114 &1324625973
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -38590,6 +38629,7 @@ MonoBehaviour:
   steer: {fileID: 1326473649}
   blendWeight: 0
   pathFinding: {fileID: 0}
+  camino: []
 --- !u!114 &1326473649
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -39047,6 +39087,7 @@ MonoBehaviour:
   steer: {fileID: 0}
   blendWeight: 0
   pathFinding: {fileID: 0}
+  camino: []
 --- !u!114 &1341510131
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -39972,7 +40013,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1394198082}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.09, y: 0, z: -16.37}
+  m_LocalPosition: {x: -7.39, y: 0, z: 1.05}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 694663444}
@@ -41604,6 +41645,7 @@ MonoBehaviour:
   steer: {fileID: 1474987712}
   blendWeight: 0
   pathFinding: {fileID: 0}
+  camino: []
 --- !u!114 &1474987712
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -41844,6 +41886,7 @@ MonoBehaviour:
   steer: {fileID: 0}
   blendWeight: 0
   pathFinding: {fileID: 0}
+  camino: []
 --- !u!114 &1475940946
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -42363,6 +42406,7 @@ MonoBehaviour:
   steer: {fileID: 0}
   blendWeight: 0
   pathFinding: {fileID: 0}
+  camino: []
 --- !u!114 &1489697581
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -45929,6 +45973,7 @@ MonoBehaviour:
   steer: {fileID: 0}
   blendWeight: 0
   pathFinding: {fileID: 0}
+  camino: []
 --- !u!114 &1634812969
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -48662,6 +48707,7 @@ MonoBehaviour:
   steer: {fileID: 1765013529}
   blendWeight: 0
   pathFinding: {fileID: 0}
+  camino: []
 --- !u!114 &1765013529
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -48969,6 +49015,7 @@ MonoBehaviour:
   steer: {fileID: 1781299803}
   blendWeight: 0
   pathFinding: {fileID: 0}
+  camino: []
 --- !u!114 &1781299803
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -49244,6 +49291,7 @@ MonoBehaviour:
   steer: {fileID: 1782587820}
   blendWeight: 0
   pathFinding: {fileID: 0}
+  camino: []
 --- !u!114 &1782587820
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -49519,6 +49567,7 @@ MonoBehaviour:
   steer: {fileID: 1795876015}
   blendWeight: 0
   pathFinding: {fileID: 0}
+  camino: []
 --- !u!114 &1795876015
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -50186,6 +50235,7 @@ MonoBehaviour:
   steer: {fileID: 0}
   blendWeight: 0
   pathFinding: {fileID: 0}
+  camino: []
 --- !u!114 &1809705314
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -50554,6 +50604,7 @@ MonoBehaviour:
   steer: {fileID: 1823096621}
   blendWeight: 0
   pathFinding: {fileID: 0}
+  camino: []
 --- !u!114 &1823096621
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -51922,6 +51973,7 @@ MonoBehaviour:
   steer: {fileID: 0}
   blendWeight: 1
   pathFinding: {fileID: 0}
+  camino: []
 --- !u!23 &1875245413
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -52910,6 +52962,7 @@ MonoBehaviour:
   steer: {fileID: 1905418254}
   blendWeight: 0
   pathFinding: {fileID: 0}
+  camino: []
 --- !u!114 &1905418254
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -57032,6 +57085,7 @@ MonoBehaviour:
   steer: {fileID: 2071455987}
   blendWeight: 0
   pathFinding: {fileID: 0}
+  camino: []
 --- !u!114 &2071455987
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -58077,6 +58131,7 @@ MonoBehaviour:
   steer: {fileID: 0}
   blendWeight: 0
   pathFinding: {fileID: 0}
+  camino: []
 --- !u!114 &2111042363
 MonoBehaviour:
   m_ObjectHideFlags: 0
