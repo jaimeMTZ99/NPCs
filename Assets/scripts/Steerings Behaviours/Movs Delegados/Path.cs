@@ -10,16 +10,14 @@ public class Path : MonoBehaviour
          
     public void AppendPointToPath(GameObject go) {
             nodos.Add(go);
-            Debug.Log("Añadiendo nodo");
     }
 
     public void ClearPath() {
-        Debug.Log(nodos.Count);
-        if (nodos != null)
-            nodos.Clear();
-        /*GameObject go = new GameObject();
-        go.transform.position = this.transform.position;
-        nodos.Add(go); */
+        Debug.Log("limpiando path");
+        foreach (GameObject n in nodos){
+            Destroy(n);
+        }
+        nodos.Clear();
     }
 
     public int Length() {
@@ -39,7 +37,6 @@ public class Path : MonoBehaviour
             
             // Return the last point if further inexistent points are requested
             if (keyPointValue >= nodos.Count){
-                Debug.Log("Ultiom keypoint");
                 return nodos[nodos.Count - 1].transform.position;
             }
 
@@ -88,16 +85,18 @@ public class Path : MonoBehaviour
             // If the current distance is closest to the current point, return said point
             // If the distance is closest to either the previous or next point AND it's under the radio threshold,
             // return said point. Otherwise, return the current point
-            if (currentPosition == nodos.Count -1){
+
+            if (distanceToCurrentPoint <= distanceToPreviousPoint && distanceToCurrentPoint <= distanceToNextPoint){
+                Debug.Log("el mismo");
                 return currentPosition;
             }
-            /*if (distanceToCurrentPoint <= distanceToPreviousPoint && distanceToCurrentPoint <= distanceToNextPoint)
-                return currentPosition;*/
-            Debug.Log(distanceToNextPoint + "distancia sig");
-            if (characterPosition - nodos[currentPosition+1].transform.position == Vector3.zero )
-                return currentPosition + 1;
 
-            /*if (distanceToPreviousPoint <= distanceToNextPoint )
+            if (distanceToNextPoint <= distanceToPreviousPoint && distanceToNextPoint < radio){
+                Debug.Log("siguiente");
+                return currentPosition + 1;
+            }
+
+           /* if (distanceToPreviousPoint <= distanceToNextPoint && distanceToPreviousPoint < radio)
                 return currentPosition - 1;*/
 
             return currentPosition;

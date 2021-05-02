@@ -40,7 +40,6 @@ public class AgentNPC : Agent
         {
             RaycastHit hit;
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            Debug.Log("movimiento");
             PathFollowing pf = new PathFollowing() ;
             Path path  = new Path();
             if (Physics.Raycast(ray, out hit, 1000.0f))
@@ -55,13 +54,16 @@ public class AgentNPC : Agent
                         pf.path.Radio = 1f;
                         SteeringList.Add(pf);
                     }
-                   // Debug.Log("path acabo de crear" + pf.path);
+                    Debug.Log("movimiento");
+                    path = this.gameObject.GetComponent<Path>();
                     path.ClearPath();
+                    pf = this.gameObject.GetComponent<PathFollowing>();
+                   // pf.currentParam = 0;
+                    pf.currentPos = 0;
                     for(int i =0 ; i< listPuntos.Count; i ++){
                         //Debug.Log(listPuntos[i].transform.position);
                         path.AppendPointToPath(listPuntos[i]);
                     }
-                    //Debug.Log(pf.path.nodos.Count + "despues");
                     pintarCamino();
                 }
             }

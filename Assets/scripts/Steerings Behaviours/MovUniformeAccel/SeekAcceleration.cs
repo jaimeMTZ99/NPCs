@@ -21,9 +21,6 @@ public class SeekAcceleration : SteeringBehaviour
         //Calculamos la direccion del agente al target
         steer.linear = agent.directionToTarget(target.transform.position) ;
         //Si la distancia es menor que el radio interior, entonces ponemos la velocidad en sentido contrario para contrarrestar el mov uniforme
-        if (agent.gameObject.tag == "PathFinding"){
-            Debug.Log(target.intRadius);
-        }
         if(distancia < target.intRadius){
             steer.linear = Vector3.zero;
             agent.Velocity = Vector3.zero;

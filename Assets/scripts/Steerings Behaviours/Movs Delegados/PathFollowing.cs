@@ -21,7 +21,6 @@ public class PathFollowing : SeekAcceleration
 
     public GameObject goPathFoll;
     void Start(){
-        Debug.Log("start");
         goPathFoll = new GameObject("PathFollowing");
         Agent invisible = goPathFoll.AddComponent<Agent>() as Agent;
         invisible.intRadius = path.Radio;

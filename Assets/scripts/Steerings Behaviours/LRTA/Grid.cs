@@ -144,14 +144,17 @@ public class Grid : MonoBehaviour
     float costeNodo(Transform nodo, string tagNPC)
     {
         string zona = nodo.tag;
-        switch (tagNPC)
-        {
-            //ESTABLECER PESOS SEGÚN ZONAS???????
-            case "Terreno":
-                Debug.Log("coste del terreno");
-                return 2;
+        Ray ray = Camera.main.ScreenPointToRay(nodo.position);
+        RaycastHit hit;
+        if (Physics.Raycast(ray, out hit, 1000.0f)){
+            if (hit.transform.tag == "Muro"){
+                Debug.Log("Nodo muro");
+                return Mathf.Infinity;
+            }
         }
-
+        Debug.Log(nodo.position);
+        Debug.Log(hit.transform);
+        Debug.Log("Nodo normal");
         return 1;
     }
 
