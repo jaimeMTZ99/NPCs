@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class LRTAStar : MonoBehaviour
 {
-    public List<Nodo> FindPath(Nodo startNode, Nodo targetNode, int distance, Grid grid, float [,] mapaCostes)
+    public List<Nodo> FindPath(Nodo startNode, Nodo targetNode, int distance, Grid grid)
     {
         
         List<Nodo> ClosedList = new List<Nodo>();
@@ -14,16 +14,16 @@ public class LRTAStar : MonoBehaviour
         switch (distance)
         {
             case 1:
-                moveCost = actualNode.igCost + GetManhattenDistance(actualNode, targetNode);
+                moveCost = GetManhattenDistance(actualNode, targetNode);
                 break;
             case 2:
-                moveCost = actualNode.igCost + GetChebyshevDistance(actualNode, targetNode);
+                moveCost = GetChebyshevDistance(actualNode, targetNode);
                 break;
             case 3:
-                moveCost = actualNode.igCost + GetEuclideDistance(actualNode, targetNode);
+                moveCost = GetEuclideDistance(actualNode, targetNode);
                 break;
             default:
-                moveCost = actualNode.igCost + GetManhattenDistance(actualNode, targetNode);
+                moveCost = GetManhattenDistance(actualNode, targetNode);
                 break;
         }
         actualNode.ihCost = moveCost;
@@ -39,23 +39,23 @@ public class LRTAStar : MonoBehaviour
                     switch (distance)
                     {
                         case 1:
-                            moveCost = actualNode.igCost + GetManhattenDistance(NeighborNode, targetNode);
+                            moveCost = GetManhattenDistance(NeighborNode, targetNode);
                             break;
                         case 2:
-                            moveCost = actualNode.igCost + GetChebyshevDistance(NeighborNode, targetNode);
+                            moveCost = GetChebyshevDistance(NeighborNode, targetNode);
                             break;
                         case 3:
-                            moveCost = actualNode.igCost + GetEuclideDistance(NeighborNode, targetNode);
+                            moveCost = GetEuclideDistance(NeighborNode, targetNode);
                             break;
                     }
-                    NeighborNode.igCost = moveCost; 
+                    NeighborNode.ihCost = moveCost; 
                 
             }
             
             float minCost = Mathf.Infinity;
             foreach (Nodo NeighborNode in nodesVecinos)
             {
-                if (NeighborNode.bIsWall)
+                if (NeighborNode.bIsWall && !ClosedList.Contains(NeighborNode))
                 {
                     if (minCost == Mathf.Infinity)
                     {

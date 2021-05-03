@@ -10,16 +10,10 @@ public class PathFinding : MonoBehaviour{
     [SerializeField]
     private Grid grid;
     float[,] mapaCostes;
-    /*private void Awake()
-    {
-        grid = grid.GetComponent<Grid>();
-        
-    }*/
     private void Start()
     {
         grid = grid.GetComponent<Grid>();
-        Debug.Log(grid);
-        mapaCostes = grid.ObtenerMatrizCostes("TUPUTAMADRE");
+        //mapaCostes = grid.ObtenerMatrizCostes("TUPUTAMADRE");
     }
 
 
@@ -38,7 +32,7 @@ public class PathFinding : MonoBehaviour{
         this.nodoActual = grid.NodeFromWorldPoint(agent.transform.position);
         if (Physics.Raycast(ray, out hit, 1000.0f))
         {
-            if (hit.transform != null && hit.transform.tag != "Muro" && hit.transform.tag != "Agua")
+            if (hit.transform != null && hit.transform.tag != "Muro")
             {
                 if (nodoEnd != null) Destroy(nodoEnd);
                 nodoEnd = GameObject.CreatePrimitive(PrimitiveType.Sphere);
@@ -48,7 +42,7 @@ public class PathFinding : MonoBehaviour{
                 nodoFinal = grid.NodeFromWorldPoint(nodoEnd.transform.position);
                 //Debug.Log("Nodo inicial" + nodoActual.iGridX + nodoActual.iGridY +  "  " + " Nodo final " + nodoFinal.iGridX + nodoFinal.iGridY);
                 //Debug.Log("Nodo inicial: " + agent.transform.position + " Nodo final: " + nodoEnd.transform.position );
-                nodos = lrtaStar.FindPath(nodoActual, nodoFinal, 1/*npc.distancePathfinding*/, grid, mapaCostes);
+                nodos = lrtaStar.FindPath(nodoActual, nodoFinal, 1/*npc.distancePathfinding*/, grid);
                 List<Vector3> aux = new List<Vector3>(nodos.Count);
                 for (int i=0; i < nodos.Count; i++)
                 {

@@ -13,7 +13,6 @@ public class Path : MonoBehaviour
     }
 
     public void ClearPath() {
-        Debug.Log("limpiando path");
         foreach (GameObject n in nodos){
             Destroy(n);
         }
@@ -87,12 +86,10 @@ public class Path : MonoBehaviour
             // return said point. Otherwise, return the current point
 
             if (distanceToCurrentPoint <= distanceToPreviousPoint && distanceToCurrentPoint <= distanceToNextPoint){
-                Debug.Log("el mismo");
                 return currentPosition;
             }
 
             if (distanceToNextPoint <= distanceToPreviousPoint && distanceToNextPoint < radio){
-                Debug.Log("siguiente");
                 return currentPosition + 1;
             }
 

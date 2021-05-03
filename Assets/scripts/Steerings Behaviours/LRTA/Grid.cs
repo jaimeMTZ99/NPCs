@@ -52,9 +52,9 @@ public class Grid : MonoBehaviour
 
     void CreateGrid()
     {
+        int[,] matrizCostes = ObtenerMatrizCostes();
         NodeArray = new Nodo[iGridSizeX, iGridSizeY];//Declare the array of nodes.
         Vector3 bottomLeft = transform.position - Vector3.right * vGridWorldSize.x / 2 - Vector3.forward * vGridWorldSize.y / 2;//Get the real world position of the bottom left of the grid.
-
         for (int x = 0; x < iGridSizeX; x++)//Loop through the array of nodes.
         {
             for (int y = 0; y < iGridSizeY; y++)//Loop through the array of nodes
@@ -70,6 +70,9 @@ public class Grid : MonoBehaviour
                     Wall = false;//Object is not a wall
                 }
                 NodeArray[x, y] = new Nodo(Wall, worldPoint, x, y);//Create a new node in the array.
+                NodeArray[x,y].igCost = matrizCostes[x,y];
+                if (NodeArray[x,y].igCost == 99999)
+                    print("Nodo: "+ NodeArray[x,y].vPosition  + " Coste" + NodeArray[x,y].igCost);
             }
         }
     }
@@ -137,35 +140,27 @@ public class Grid : MonoBehaviour
 
         int ix = Mathf.RoundToInt((iGridSizeX - 1) * ixPos);
         int iy = Mathf.RoundToInt((iGridSizeY - 1) * iyPos);
-        Debug.Log(ix + iy);
         return NodeArray[ix, iy];
     }
 
-    float costeNodo(Transform nodo, string tagNPC)
+    int costeNodo(Transform nodo)
     {
-        string zona = nodo.tag;
-        Ray ray = Camera.main.ScreenPointToRay(nodo.position);
-        RaycastHit hit;
-        if (Physics.Raycast(ray, out hit, 1000.0f)){
-            if (hit.transform.tag == "Muro"){
-                Debug.Log("Nodo muro");
-                return Mathf.Infinity;
-            }
+        if(isObjectHere(nodo.position)){
+            //Debug.Log("Nodo en la posicion " + nodo.position + " es un muro");
+            return 99999;
         }
-        Debug.Log(nodo.position);
-        Debug.Log(hit.transform);
-        Debug.Log("Nodo normal");
         return 1;
     }
 
-    public float[,] ObtenerMatrizCostes(string tagNPC)
+    public int[,] ObtenerMatrizCostes()
     {
-        float[,] mapaCostes = new float[mapaFila, mapaColumna];
+        int[,] mapaCostes = new int[mapaFila, mapaColumna];
         for (int i = 0; i < mapaFila; i++)
         {
             for (int y = 0; y < mapaColumna; y++)
             {
-                mapaCostes[i, y] = costeNodo(mapa[i, y], tagNPC);
+                mapaCostes[i, y] = costeNodo(mapa[i, y]);
+                Debug.Log(mapaCostes[i,y]);
             }
         }
         return mapaCostes;
@@ -176,5 +171,16 @@ public class Grid : MonoBehaviour
     {
         if (mapa[x, y].tag == null) Debug.Log(x + " " + y);
         return mapa[x, y].tag;
+    }
+    bool isObjectHere(Vector3 position)
+    {
+        Collider[] intersecting = Physics.OverlapSphere(position, 1f);
+        foreach (Collider i in intersecting){
+            if(i.gameObject.tag == "Muro"){
+
+                return true;
+            }
+        }
+        return false;
     }
 }

@@ -54,7 +54,6 @@ public class AgentNPC : Agent
                         pf.path.Radio = 1f;
                         SteeringList.Add(pf);
                     }
-                    Debug.Log("movimiento");
                     path = this.gameObject.GetComponent<Path>();
                     path.ClearPath();
                     pf = this.gameObject.GetComponent<PathFollowing>();
