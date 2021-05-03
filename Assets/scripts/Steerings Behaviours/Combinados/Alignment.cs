@@ -7,7 +7,6 @@ public class Alignment : Align {
     private float threshold = 0f;
 
     [SerializeField]
-    // Targets that have see to the same direction
     private List<Agent> targets;
 
     public List<Agent> Targets {
@@ -22,12 +21,10 @@ public class Alignment : Align {
     }
     public override Steering GetSteering(AgentNPC agent) {
         Vector3 direction;
-        //El cabeza es la media de todas las orientaciones de los targets que estan dentro 
-        //del umbral.
         float heading = 0f;
         float distance = 0f;
         int count = 0;
-        // Loop through each target. Get the medium point to all targets have to watch
+
         foreach (Agent target in targets) {
             direction = agent.Position - target.Position;
             distance = Mathf.Abs(direction.magnitude);

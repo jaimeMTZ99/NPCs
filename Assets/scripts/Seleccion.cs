@@ -144,10 +144,13 @@ public class Seleccion : MonoBehaviour
                         t.transform.position += new Vector3 (0,1.3f,0);
                         t.extRadius=2;
                         t.intRadius=2;
+                        Debug.Log("Time to return");
+                        timeRes = tiempoVuelta;                     //reseteamos tiempo
                         foreach (GameObject npc in selectedUnits)
                         {
                             AgentNPC n = npc.GetComponent<AgentNPC>();
                             ArriveAcceleration d = npc.GetComponent<ArriveAcceleration>();
+                            BlendedSteering l = npc.GetComponent<BlendedSteering>();
                             AgentNPC x = npc.GetComponent<AgentNPC>();
                             if (x.form && npc.name == "lider"){
                                 x.llegar = true;
@@ -156,22 +159,31 @@ public class Seleccion : MonoBehaviour
                                 Align c = npc.GetComponent<Align>();
                                 c.target = t;
                             } else if (x.form && npc.name != "lider"){
-
+                                x.form = false;
 
                             }
                             if(d == null){
 
+                                if(l == null)
+
+                                {
                                 foreach (SteeringBehaviour i in npc.GetComponents<SteeringBehaviour>())
                                 {
                                     n.SteeringList.Remove(i);
                                 }
-                                
+                                }else {
+                                    l.behaviours.Clear();
+                                }
 
                                 x.nuevoArrive=true;
                                 npc.AddComponent<ArriveAcceleration>();
                                 d = npc.GetComponent<ArriveAcceleration>();
                                 d.target = t;
                                 agentesReturn.Add(npc);
+
+                                if(l != null){
+                                    l.behaviours.Add(d);
+                                }
                             }
                             else
                             {
@@ -179,7 +191,7 @@ public class Seleccion : MonoBehaviour
                             }
 
 
-                            if(!n.SteeringList.Contains(d))
+                            if(!n.SteeringList.Contains(d) && l == null)
                             {
                                 n.SteeringList.Add(d);
                             }
@@ -207,19 +219,31 @@ public class Seleccion : MonoBehaviour
                                 c.target = t1;
                             }                                                        //si pertenece a la formacion pero no es el lider, que se salga de la formacion
 
-                            
+                            BlendedSteering m = selectedUnit.GetComponent<BlendedSteering>();
                             AgentNPC n = selectedUnit.GetComponent<AgentNPC>();         //se añade a la lista de steering behaviours paraque tengan ese comportamiento
                             if(e == null){                                                              //si no tiene arrive, se le anade con el nuevo target y se le pone nuevoArrive a true para restablecerlo despues
                                 
-                                foreach (SteeringBehaviour i in selectedUnit.GetComponents<SteeringBehaviour>())
+
+                                if(m == null)
+
                                 {
-                                    n.SteeringList.Remove(i);
+                                    foreach (SteeringBehaviour i in selectedUnit.GetComponents<SteeringBehaviour>())
+                                    {
+                                        n.SteeringList.Remove(i);
+                                    }
+                                }else {
+                                    m.behaviours.Clear();
                                 }
+
                                 
                                 selectedUnit.AddComponent<ArriveAcceleration>();
                                 e = selectedUnit.GetComponent<ArriveAcceleration>();
                                 x.nuevoArrive=true;
                                 e.target = t1;
+
+                                if(m != null){
+                                    m.behaviours.Add(e);
+                                }
 
                                 agentesReturn.Add(selectedUnit);
 
@@ -228,10 +252,10 @@ public class Seleccion : MonoBehaviour
                             {
                                 e.target = t1;
                             }
-                            if(!n.SteeringList.Contains(e))
+                            if(!n.SteeringList.Contains(e) && m == null)
                             {
                                 n.SteeringList.Add(e);
-                            }                          
+                            }  
                     }
                 }
         
@@ -245,20 +269,34 @@ public class Seleccion : MonoBehaviour
 
         foreach (GameObject g in agentesReturn)
         {
-
+            BlendedSteering m = g.GetComponent<BlendedSteering>();
             AgentNPC n = g.GetComponent<AgentNPC>();
             ArriveAcceleration e = g.GetComponent<ArriveAcceleration>();
-            if (n.nuevoArrive)
-            {
-                n.SteeringList.Remove(e);
-                Destroy(e);
-                n.nuevoArrive = false;
-                Debug.Log("devolvemos comportamientos");
-                foreach (SteeringBehaviour i in g.GetComponents<SteeringBehaviour>())
+
+            if (m == null){
+                if (n.nuevoArrive)
                 {
-                    if(i != e)
-                        n.SteeringList.Add(i);
+                    n.SteeringList.Remove(e);
+                    Destroy(e);
+                    n.nuevoArrive = false;
+                    foreach (SteeringBehaviour i in g.GetComponents<SteeringBehaviour>())
+                    {
+                        if(i != e)
+                            n.SteeringList.Add(i);
+                    }
                 }
+            } else{
+                if (n.nuevoArrive)
+                {
+                    m.behaviours.Remove(e);
+                    Destroy(e);
+                    n.nuevoArrive = false;
+                    foreach (SteeringBehaviour i in g.GetComponents<SteeringBehaviour>())
+                    {
+                        if(i != e && i != m)
+                            m.behaviours.Add(i);
+                    }
+                }   
             }
         }
         agentesReturn.Clear();

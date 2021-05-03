@@ -7,7 +7,6 @@ public class Separation : SteeringBehaviour {
     private float threshold = 0f;
 
     [SerializeField]
-    // Targets I want to get away from
     private List<Agent> targets;
 
     public List<Agent> Targets {
@@ -15,37 +14,32 @@ public class Separation : SteeringBehaviour {
         set => targets = value;
     }
 
-    // Hold the constant coefficient of decay for 
-    // the inverse square law force
     [SerializeField]
-    private float decayCoefficient = 1f;
+    private float coef = 1f;
 
     [SerializeField]
-    private float strength;
+    private float fuerza;
+    private GameObject goSeparation;  
+    void Start(){
+        goSeparation = new GameObject("Separation");
+        Agent invisible = goSeparation.AddComponent<Agent>() as Agent;
+        target = invisible;
+    }
 
     public override Steering GetSteering(AgentNPC agent) {
-         Steering steering = new Steering();
-         Vector3 direction;
+        Steering steering = new Steering();
+        Vector3 direction;
         float distance = 0f;
-        // Loop through each target
         foreach (Agent target in targets) {
-
-            // Check if the target is close
             direction = agent.Position - target.Position;
             distance = Mathf.Abs(direction.magnitude);
 
             if (distance < threshold) {
-
-                // Calculate the strength of repulsion
-                float desiredStrength = decayCoefficient/(distance*distance);
-                strength = Mathf.Min(desiredStrength, agent.maxAcceleration);
-
-                // Add the acceleration
-                steering.linear += direction.normalized * strength;
+                float f = coef/(distance*distance);
+                fuerza = Mathf.Min(f, agent.maxAcceleration);
+                steering.linear += direction.normalized * fuerza;
             }
         }
-
-        // We've gone through all targets, return the result
         return steering;
     }
 }

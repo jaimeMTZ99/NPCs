@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class AntiAlign : SteeringBehaviour
 {
-    [Header("Anti-Align")]
     [SerializeField]
     private float timeToTarget = 0.1f;
 

@@ -202,7 +202,7 @@ GameObject:
   - component: {fileID: 8011497864124624604}
   - component: {fileID: 8011497864124624582}
   m_Layer: 0
-  m_Name: PersonajeNPCstalker VelMat
+  m_Name: VelMat
   m_TagString: NPC
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -297,6 +297,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12d01c939e4c6a34da71f523c74a29d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  form: 0
+  llegar: 0
+  nuevoArrive: 0
   speed: 10
   mass: 0.1
   maxSpeed: 3

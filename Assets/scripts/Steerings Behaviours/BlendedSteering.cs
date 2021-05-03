@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class BlendedSteering : SteeringBehaviour
 {
-    [SerializeField]
-    private List<SteeringBehaviour> behaviours;
+
+    public List<SteeringBehaviour> behaviours;
     private Steering steer;
 
     void Start(){
