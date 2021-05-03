@@ -6,28 +6,25 @@ public class LRTAStar : MonoBehaviour
 {
     public List<Nodo> FindPath(Nodo startNode, Nodo targetNode, int distance, Grid grid)
     {
-        
         List<Nodo> ClosedList = new List<Nodo>();
-        
         Nodo actualNode = startNode;
         int moveCost;
         switch (distance)
         {
             case 1:
-                moveCost = GetManhattenDistance(actualNode, targetNode);
+                moveCost = Manhattan(actualNode, targetNode);
                 break;
             case 2:
-                moveCost = GetChebyshevDistance(actualNode, targetNode);
+                moveCost = Chebychev(actualNode, targetNode);
                 break;
             case 3:
-                moveCost = GetEuclideDistance(actualNode, targetNode);
+                moveCost = Euclide(actualNode, targetNode);
                 break;
             default:
-                moveCost = GetManhattenDistance(actualNode, targetNode);
+                moveCost = Manhattan(actualNode, targetNode);
                 break;
         }
         actualNode.ihCost = moveCost;
-        //Mientras el estado actual no sea el estado objetivo
         while (actualNode != targetNode)
         {
             Nodo nextNode = null;
@@ -39,19 +36,18 @@ public class LRTAStar : MonoBehaviour
                     switch (distance)
                     {
                         case 1:
-                            moveCost = GetManhattenDistance(NeighborNode, targetNode);
+                            moveCost = Manhattan(NeighborNode, targetNode);
                             break;
                         case 2:
-                            moveCost = GetChebyshevDistance(NeighborNode, targetNode);
+                            moveCost = Chebychev(NeighborNode, targetNode);
                             break;
                         case 3:
-                            moveCost = GetEuclideDistance(NeighborNode, targetNode);
+                            moveCost = Euclide(NeighborNode, targetNode);
                             break;
                     }
                     NeighborNode.ihCost = moveCost; 
                 
-            }
-            
+            }      
             float minCost = Mathf.Infinity;
             foreach (Nodo NeighborNode in nodesVecinos)
             {
@@ -74,51 +70,39 @@ public class LRTAStar : MonoBehaviour
         }
         return ClosedList;
     }
-    List<Nodo> GetFinalPath(Nodo a_StartingNode, Nodo a_EndNode, Grid grid)
+    List<Nodo> GetFinalPath(Nodo a, Nodo b, Grid grid)
     {
-        List<Nodo> FinalPath = new List<Nodo>();//List to hold the path sequentially 
-        Nodo CurrentNode = a_EndNode;//Node to store the current node being checked
-
-        while (CurrentNode != a_StartingNode)//While loop to work through each node going through the parents to the beginning of the path
+        List<Nodo> FinalPath = new List<Nodo>();
+        Nodo CurrentNode = b;
+        while (CurrentNode != a)
         {
-            FinalPath.Add(CurrentNode);//Add that node to the final path
-            CurrentNode = CurrentNode.ParentNode;//Move onto its parent node
+            FinalPath.Add(CurrentNode);
+            CurrentNode = CurrentNode.ParentNode;
         }
 
-        FinalPath.Reverse();//Reverse the path to get the correct order
-
-        grid.FinalPath = FinalPath;//Set the final path
-
+        FinalPath.Reverse();
+        grid.FinalPath = FinalPath;
         return FinalPath;
-
     }
 
-    //Calculo de distancias segun tres Heuristicas:
-
-    // Manhattan
-    int GetManhattenDistance(Nodo a_nodeA, Nodo a_nodeB)
+    int Manhattan(Nodo a, Nodo b)
     {
-        int ix = Mathf.Abs(a_nodeA.iGridX - a_nodeB.iGridX);//x1-x2
-        int iy = Mathf.Abs(a_nodeA.iGridY - a_nodeB.iGridY);//y1-y2
-
-        return ix + iy;//Return the sum
+        int ix = Mathf.Abs(a.X - b.X);
+        int iy = Mathf.Abs(a.Y - b.Y);
+        return ix + iy;
     }
 
-    // Chebyshev
-    int GetChebyshevDistance(Nodo a_nodeA, Nodo a_nodeB)
+    int Chebychev(Nodo a, Nodo b)
     {
-        int ix = Mathf.Abs(a_nodeB.iGridX - a_nodeA.iGridX);
-        int iy = Mathf.Abs(a_nodeB.iGridY - a_nodeA.iGridY);
-
+        int ix = Mathf.Abs(b.X - a.X);
+        int iy = Mathf.Abs(b.Y - a.Y);
         return Mathf.Max(ix, iy);
     }
 
-    // Euclidea
-    int GetEuclideDistance(Nodo a_nodeA, Nodo a_nodeB)
+    int Euclide(Nodo a, Nodo b)
     {
-        int ix = (a_nodeB.iGridX - a_nodeA.iGridX) * (a_nodeB.iGridX - a_nodeA.iGridX);
-        int iy = (a_nodeB.iGridY - a_nodeA.iGridY) * (a_nodeB.iGridY - a_nodeA.iGridY);
-
+        int ix = (b.X - a.X) * (b.X - a.X);
+        int iy = (b.Y - a.Y) * (b.Y - a.Y);
         return (int) Mathf.Sqrt(ix+iy);
     } 
 }

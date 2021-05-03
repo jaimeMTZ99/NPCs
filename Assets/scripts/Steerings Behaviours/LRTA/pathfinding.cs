@@ -13,15 +13,7 @@ public class PathFinding : MonoBehaviour{
     private void Start()
     {
         grid = grid.GetComponent<Grid>();
-        //mapaCostes = grid.ObtenerMatrizCostes("TUPUTAMADRE");
     }
-
-
-    // Update is called once per frame
-    void Update () {
-       
-    }
-
     public List<GameObject> EstablecerNodoFinal(AgentNPC agent)
     {
 
@@ -40,8 +32,6 @@ public class PathFinding : MonoBehaviour{
                 nodoEnd.transform.position = new Vector3(hit.transform.position.x, hit.transform.position.y + 1, hit.transform.position.z);
                 nodoEnd.GetComponent<Renderer>().material.color = new Color(255, 0, 0);
                 nodoFinal = grid.NodeFromWorldPoint(nodoEnd.transform.position);
-                //Debug.Log("Nodo inicial" + nodoActual.iGridX + nodoActual.iGridY +  "  " + " Nodo final " + nodoFinal.iGridX + nodoFinal.iGridY);
-                //Debug.Log("Nodo inicial: " + agent.transform.position + " Nodo final: " + nodoEnd.transform.position );
                 nodos = lrtaStar.FindPath(nodoActual, nodoFinal, 1/*npc.distancePathfinding*/, grid);
                 List<Vector3> aux = new List<Vector3>(nodos.Count);
                 for (int i=0; i < nodos.Count; i++)
