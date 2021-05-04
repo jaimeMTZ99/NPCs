@@ -35,8 +35,7 @@ public class AntiAlign : SteeringBehaviour
         //Si el agente ya esta rotado en la misma direccion del target paramos.
         if (rotationSize <= agent.intAngle) {
             // Return "none"
-
-            steer.angular = -agent.Rotation;
+            //steer.angular = -agent.Rotation;
             if (steer.angular >  0){
                 steer.angular *= agent.MaxAngularAcc;
             }
