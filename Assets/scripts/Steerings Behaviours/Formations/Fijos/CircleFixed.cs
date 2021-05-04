@@ -17,15 +17,12 @@ public class CircleFixed : MonoBehaviour
     //Punto de movimiento.
     private GameObject puntoDestinoGO;
     //Agentes que forman parte del grid
-    [SerializeField]
-    private List<AgentNPC> agentes;
+    public List<AgentNPC> agentes;
     // Start is called before the first frame update
     private Wander w;
     void Start()
     {
         timeRes=time;
-        //agentes = new List<AgentNPC>();
-        //grid = new Vector3[tamañoGrid];
         invisibles = new GameObject[tamañoGrid];
         puntoDestinoGO = new GameObject("punto destino");
         puntoDestinoGO.AddComponent<Agent>();
@@ -35,7 +32,6 @@ public class CircleFixed : MonoBehaviour
         {
             if(i == 0){
                 w = ag.GetComponent<Wander>();
-                //w.target=puntoDestinoGO.GetComponent<Agent>();
                 ag.SteeringList.Remove(w);
             }
             GameObject invisibleGO = new GameObject("FC " + agentes.Count);
