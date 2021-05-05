@@ -336,7 +336,7 @@ public class Seleccion : MonoBehaviour
                         pf =  selectedUnit.AddComponent(typeof(PathFollowing)) as PathFollowing;
                         path = selectedUnit.AddComponent(typeof(Path)) as Path;
                         pf.path = selectedUnit.GetComponent<Path>();
-                        pf.path.Radio = 1f;
+                        pf.path.Radio = 2f;
                         n.SteeringList.Add(pf);
                     }
                     path = selectedUnit.GetComponent<Path>();
@@ -370,13 +370,12 @@ public class Seleccion : MonoBehaviour
                 aux = GameObject.CreatePrimitive(PrimitiveType.Cube);
                 aux.transform.localScale = new Vector3(1, 2, 1);
                 aux.transform.position = v.transform.position;
-                aux.GetComponent<Renderer>().material.color = new Color(0, 0, 0);
+                //aux.GetComponent<Renderer>().material.color = new Color(0, 0, 0);
                 camino.Add(aux);
             }
             
         }
     }
 }
-    
 
 

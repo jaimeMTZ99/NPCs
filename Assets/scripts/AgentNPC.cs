@@ -12,13 +12,13 @@ public class AgentNPC : Agent
 
     void Awake()
     {
-        if(this.gameObject.GetComponent<PrioritySteering>()!= null)
+        if(this.gameObject.GetComponent<PrioritySteeringAcc>()!= null)
         {
-            SteeringList.Add(this.gameObject.GetComponent<PrioritySteering>());
+            SteeringList.Add(this.gameObject.GetComponent<PrioritySteeringAcc>());
         }
-        else if(this.gameObject.GetComponent<PrioritySteering1>() != null)
+        else if(this.gameObject.GetComponent<PrioritySteeringAng>() != null)
         {
-            SteeringList.Add(this.gameObject.GetComponent<PrioritySteering1>());
+            SteeringList.Add(this.gameObject.GetComponent<PrioritySteeringAng>());
         }
         else if (this.gameObject.GetComponent<BlendedSteering>() != null){
             SteeringList.Add(this.gameObject.GetComponent<BlendedSteering>());
@@ -33,8 +33,8 @@ public class AgentNPC : Agent
     }
     void FixedUpdate()
     {
-        PrioritySteering ps = this.gameObject.GetComponent<PrioritySteering>();
-        PrioritySteering1 ps1 = this.gameObject.GetComponent<PrioritySteering1>();
+        PrioritySteeringAcc ps = this.gameObject.GetComponent<PrioritySteeringAcc>();
+        PrioritySteeringAng ps1 = this.gameObject.GetComponent<PrioritySteeringAng>();
         BlendedSteering arbitro = this.gameObject.GetComponent<BlendedSteering>();
 
         if(ps != null){

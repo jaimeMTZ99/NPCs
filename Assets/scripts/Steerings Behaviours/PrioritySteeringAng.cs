@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PrioritySteering1 : SteeringBehaviour
+public class PrioritySteeringAng : SteeringBehaviour
 {
     public List<BlendedSteering> groups;
 
