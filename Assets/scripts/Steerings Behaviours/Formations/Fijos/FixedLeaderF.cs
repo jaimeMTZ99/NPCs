@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CircleFixed : MonoBehaviour
+public class FixedLeaderF : MonoBehaviour
 {
     [SerializeField]
     private float time = 10;
@@ -83,7 +83,12 @@ public class CircleFixed : MonoBehaviour
             agentes[0].GetComponent<Face>().target = puntoDestinoGO.GetComponent<Agent>();
             Agent puntoDestinoInv = puntoDestinoGO.GetComponent<Agent>();
             puntoDestinoInv.transform.position = agentes[0].GetComponent<ArriveAcceleration>().target.transform.position;
-            agentes[0].llegar = false;
+            float diffX = Mathf.Abs(Mathf.Abs(agentes[0].transform.position.x) - Mathf.Abs(puntoDestinoInv.transform.position.x));
+            float diffZ = Mathf.Abs(Mathf.Abs(agentes[0].transform.position.z) - Mathf.Abs(puntoDestinoInv.transform.position.z));
+            if(diffX < agentes[0].intRadius && diffZ < agentes[0].intRadius) {
+                Debug.Log("llegar = false");
+                agentes[0].llegar = false;
+            }
         }
         UpdateSlots();
     }
@@ -94,11 +99,17 @@ public class CircleFixed : MonoBehaviour
             GameObject invisibleGOActual = invisibles[i];
             Agent invisibleActual = invisibleGOActual.GetComponent<Agent>();
             invisibleActual.transform.position =pos;
-            if (i != 0){
+            if (i != 0 && !agentes[0].llegar){
                 agentes[i].GetComponent<ArriveAcceleration>().target = invisibleActual;
                 agentes[i].GetComponent<Face>().aux = invisibleActual;
                 agentes[i].GetComponent<Face>().target = invisibleActual;
+            }else if ( i !=0 && agentes[0].llegar){
+                Debug.Log("Siguiendo lider");
+                agentes[i].GetComponent<ArriveAcceleration>().target = agentes[0];
+                agentes[i].GetComponent<Face>().aux = agentes[0];
+                agentes[i].GetComponent<Face>().target = agentes[0];
             }
+
             
         }
     }

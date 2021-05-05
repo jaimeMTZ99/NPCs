@@ -13,6 +13,7 @@ public class Seleccion : MonoBehaviour
     private Agent t;
     private Agent t1;
 
+    private List<GameObject> agentesRetForms;
     private List<GameObject> agentesReturn; //lista con los gameObject que vuelven a la normalidad
 
     public List<GameObject> listPuntos = new List<GameObject>();    //variables para pathfinding
@@ -22,6 +23,7 @@ public class Seleccion : MonoBehaviour
     void Start(){
         timeRes=tiempoVuelta;           //establecemos el tiempo inicial y las listas vacias
         agentesReturn = new List<GameObject>();
+        agentesRetForms = new List<GameObject>();
     }
     // Update is called once per frame
     void Update()
@@ -30,7 +32,6 @@ public class Seleccion : MonoBehaviour
         timeRes -= Time.deltaTime;      //vamos quitando tiempo hasta que lleguemos a 0 y el tiempo se resetee y llamemos a la funcion que devuelve todo a la normalidad
         if (timeRes <=0.0f){
             timeRes = tiempoVuelta;
-            Debug.Log("timer");
 
             TimeUp();
         }
@@ -160,7 +161,8 @@ public class Seleccion : MonoBehaviour
                                 c.target = t;
                             } else if (x.form && npc.name != "lider"){
                                 x.form = false;
-
+                                npc.transform.parent.gameObject.GetComponent<CircleFixed>().agentes.Remove(n);
+                                agentesRetForms.Add(npc);
                             }
                             if(d == null){
 
@@ -206,7 +208,6 @@ public class Seleccion : MonoBehaviour
                             t1.extRadius=2;
                             t1.intRadius=2;
 
-                            Debug.Log("Time to return");
                             timeRes = tiempoVuelta;                     //reseteamos tiempo
 
                             ArriveAcceleration e = selectedUnit.GetComponent<ArriveAcceleration>();     //sacamos el arrive y el agenteNPC
@@ -217,7 +218,11 @@ public class Seleccion : MonoBehaviour
                                 e.target = t1;
                                 Align c = selectedUnit.GetComponent<Align>();
                                 c.target = t1;
-                            }                                                        //si pertenece a la formacion pero no es el lider, que se salga de la formacion
+                            } else if (x.form && selectedUnit.name != "lider"){
+                                x.form = false;
+                                selectedUnit.transform.parent.gameObject.GetComponent<CircleFixed>().agentes.Remove(x);
+                                agentesRetForms.Add(selectedUnit);
+                            }                                                       //si pertenece a la formacion pero no es el lider, que se salga de la formacion
 
                             BlendedSteering m = selectedUnit.GetComponent<BlendedSteering>();
                             AgentNPC n = selectedUnit.GetComponent<AgentNPC>();         //se añade a la lista de steering behaviours paraque tengan ese comportamiento
@@ -267,12 +272,22 @@ public class Seleccion : MonoBehaviour
 
     public void TimeUp(){
 
+
+        foreach (GameObject h in agentesRetForms)
+        {
+            AgentNPC v = h.GetComponent<AgentNPC>();
+            if(v.form ==false){
+                h.transform.parent.gameObject.GetComponent<CircleFixed>().agentes.Add(v);
+                v.form =true;
+            }
+        }
+        agentesRetForms.Clear();
         foreach (GameObject g in agentesReturn)
         {
             BlendedSteering m = g.GetComponent<BlendedSteering>();
             AgentNPC n = g.GetComponent<AgentNPC>();
             ArriveAcceleration e = g.GetComponent<ArriveAcceleration>();
-
+            Debug.Log(g.transform.name);
             if (m == null){
                 if (n.nuevoArrive)
                 {
@@ -284,6 +299,7 @@ public class Seleccion : MonoBehaviour
                         if(i != e)
                             n.SteeringList.Add(i);
                     }
+
                 }
             } else{
                 if (n.nuevoArrive)
@@ -320,7 +336,7 @@ public class Seleccion : MonoBehaviour
                         pf =  selectedUnit.AddComponent(typeof(PathFollowing)) as PathFollowing;
                         path = selectedUnit.AddComponent(typeof(Path)) as Path;
                         pf.path = selectedUnit.GetComponent<Path>();
-                        pf.path.Radio = 1f;
+                        pf.path.Radio = 2f;
                         n.SteeringList.Add(pf);
                     }
                     path = selectedUnit.GetComponent<Path>();
@@ -354,13 +370,12 @@ public class Seleccion : MonoBehaviour
                 aux = GameObject.CreatePrimitive(PrimitiveType.Cube);
                 aux.transform.localScale = new Vector3(1, 2, 1);
                 aux.transform.position = v.transform.position;
-                aux.GetComponent<Renderer>().material.color = new Color(0, 0, 0);
+                //aux.GetComponent<Renderer>().material.color = new Color(0, 0, 0);
                 camino.Add(aux);
             }
             
         }
     }
 }
-    
 
 

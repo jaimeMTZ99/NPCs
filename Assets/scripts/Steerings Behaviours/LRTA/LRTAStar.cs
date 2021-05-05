@@ -6,6 +6,8 @@ public class LRTAStar : MonoBehaviour
 {
     public List<Nodo> FindPath(Nodo startNode, Nodo targetNode, int distance, Grid grid)
     {
+        if (grid.NodeArray == null)
+            return null;
         List<Nodo> ClosedList = new List<Nodo>();
         Nodo actualNode = startNode;
         int moveCost;

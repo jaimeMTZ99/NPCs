@@ -10,7 +10,7 @@ public class Grid : MonoBehaviour
     public float fNodeRadius;//This stores how big each square on the graph will be
     public float fDistanceBetweenNodes;//The distance that the squares will spawn from eachother.
 
-    Nodo[,] NodeArray;//The array of nodes that the A Star algorithm uses.
+    public Nodo[,] NodeArray;//The array of nodes that the A Star algorithm uses.
     Transform[,] mapa;
     public GameObject cubos;
     public int mapaFila;
@@ -61,6 +61,7 @@ public class Grid : MonoBehaviour
                 bool Wall = true;
                 NodeArray[x, y] = new Nodo(Wall, worldPoint, x, y);//Create a new node in the array.
                 NodeArray[x,y].igCost = matrizCostes[x,y];
+                Debug.Log(matrizCostes[x,y]) ;
             }
         }
     }
@@ -127,7 +128,9 @@ public class Grid : MonoBehaviour
 
         int ix = Mathf.RoundToInt((iGridSizeX - 1) * ixPos);
         int iy = Mathf.RoundToInt((iGridSizeY - 1) * iyPos);
-        return NodeArray[ix, iy];
+        if (NodeArray != null && ix < mapaFila && ix >= 0 &&  iy < mapaColumna && iy >= 0)
+            return NodeArray[ix, iy];
+        return null;
     }
 
     int costeNodo(Transform nodo)
@@ -153,7 +156,7 @@ public class Grid : MonoBehaviour
     
     bool isObjectHere(Vector3 position)
     {
-        Collider[] intersecting = Physics.OverlapSphere(position, 1f);
+        Collider[] intersecting = Physics.OverlapSphere(position, 2f);
         foreach (Collider i in intersecting){
             if(i.gameObject.tag == "Muro"){
 

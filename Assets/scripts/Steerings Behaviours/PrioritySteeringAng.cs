@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PrioritySteering : SteeringBehaviour
+public class PrioritySteeringAng : SteeringBehaviour
 {
     public List<BlendedSteering> groups;
 
@@ -10,22 +10,17 @@ public class PrioritySteering : SteeringBehaviour
 
     public override Steering GetSteering(AgentNPC character)
     {
+        Steering steering = this.gameObject.GetComponent<Steering>(); 
 
-        Steering steering = this.gameObject.GetComponent<Steering>();
-
-        int i=0;
         foreach (BlendedSteering group in groups)
         {
             steering = group.GetSteering(character);
-            Debug.Log(steering.linear.magnitude);
-            if(steering.linear.magnitude > epsilon) 
+
+            if(Mathf.Abs(steering.angular) > epsilon)
             {
-                Debug.Log(i);
-                //Debug.Log(steering.linear);
-                //Debug.Log(steering.angular);
+                Debug.Log(steering.angular);
                 return steering;
             }
-            i++;
         }
 
         return steering; 

@@ -2,7 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PathFinding : MonoBehaviour{
+public class PathFinding : MonoBehaviour
+{
     Nodo nodoActual;
     Nodo nodoFinal;
     GameObject nodoEnd; //Objeto visual
@@ -28,24 +29,64 @@ public class PathFinding : MonoBehaviour{
             {
                 if (nodoEnd != null) Destroy(nodoEnd);
                 nodoEnd = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-                nodoEnd.transform.localScale = new Vector3(1, 1, 1);
+                nodoEnd.transform.localScale = new Vector3(4, 4, 4);
                 nodoEnd.transform.position = new Vector3(hit.transform.position.x, hit.transform.position.y + 1, hit.transform.position.z);
                 nodoEnd.GetComponent<Renderer>().material.color = new Color(255, 0, 0);
                 nodoFinal = grid.NodeFromWorldPoint(nodoEnd.transform.position);
                 nodos = lrtaStar.FindPath(nodoActual, nodoFinal, 1/*npc.distancePathfinding*/, grid);
                 List<Vector3> aux = new List<Vector3>(nodos.Count);
-                for (int i=0; i < nodos.Count; i++)
+                for (int i = 0; i < nodos.Count; i++)
                 {
                     GameObject keyPoint = new GameObject("Keypoint");
                     keyPoint.transform.position = nodos[i].vPosition;
                     keyPoints.Add(keyPoint);
-                    
+
                 }
                 return keyPoints;
 
             }
         }
 
-       return null;
+        return null;
+    }
+    public List<GameObject> nodoFinalFormaciones(AgentNPC agent, GameObject esferaDestino)
+    {
+        List<Nodo> nodos;
+        List<GameObject> keyPoints = new List<GameObject>();
+        this.nodoActual = grid.NodeFromWorldPoint(agent.transform.position);
+        Collider[] colliders = Physics.OverlapSphere(esferaDestino.transform.position, 2f);
+        bool muro = false;
+        foreach (Collider c in colliders)
+        {
+            if (c.tag == "Muro")
+            {
+                muro = true;
+            }
+        }
+        /*GameObject nodoEnd  = new GameObject();
+        nodoEnd.transform.position = nodoFinalVector;*/
+        if (esferaDestino != null && !muro)
+        {
+            /*nodoEnd = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+            nodoEnd.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+            nodoEnd.transform.position = new Vector3(nodoFinalVector.x, nodoFinalVector.y, nodoFinalVector.z);
+            nodoEnd.GetComponent<Renderer>().material.color = new Color(255, 0, 0);*/
+            nodoFinal = grid.NodeFromWorldPoint(esferaDestino.transform.position);
+            nodos = lrtaStar.FindPath(nodoActual, nodoFinal, 1/*npc.distancePathfinding*/, grid);
+            if (nodos != null)
+            {
+                List<Vector3> aux = new List<Vector3>(nodos.Count);
+                for (int i = 0; i < nodos.Count; i++)
+                {
+                    GameObject keyPoint = new GameObject("Keypoint");
+                    keyPoint.transform.position = nodos[i].vPosition;
+                    keyPoints.Add(keyPoint);
+
+                }
+                return keyPoints;
+            }
+
+        }
+        return null;
     }
 }
