@@ -18,6 +18,7 @@ TagManager:
   - BaseRoja
   - Muro
   - PathFinding
+  - Wall
   layers:
   - Default
   - TransparentFX

@@ -18,14 +18,13 @@ public class PrioritySteering : SteeringBehaviour
         {
             steering = group.GetSteering(character);
             Debug.Log(steering.linear.magnitude);
-            if(steering.linear.magnitude > epsilon) 
+            if(Mathf.Abs(steering.linear.magnitude) > epsilon) 
             {
                 Debug.Log(i);
-                //Debug.Log(steering.linear);
-                //Debug.Log(steering.angular);
                 return steering;
             }
             i++;
+        
         }
 
         return steering; 

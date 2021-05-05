@@ -18,7 +18,6 @@ public class PrioritySteering1 : SteeringBehaviour
 
             if(Mathf.Abs(steering.angular) > epsilon)
             {
-                Debug.Log(steering.angular);
                 return steering;
             }
         }
