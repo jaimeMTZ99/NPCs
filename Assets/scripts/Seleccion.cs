@@ -333,10 +333,11 @@ public class Seleccion : MonoBehaviour
                     AgentNPC n = selectedUnit.GetComponent<AgentNPC>();
                     listPuntos = pathFinding.EstablecerNodoFinal(n);
                     if (selectedUnit.GetComponent<PathFollowing>() == null){
+                        PathFinding pathFinding = selectedUnit.GetComponent<PathFinding>();
                         pf =  selectedUnit.AddComponent(typeof(PathFollowing)) as PathFollowing;
                         path = selectedUnit.AddComponent(typeof(Path)) as Path;
                         pf.path = selectedUnit.GetComponent<Path>();
-                        pf.path.Radio = 2f;
+                        pf.path.Radio = pathFinding.grid.fNodeRadius;
                         n.SteeringList.Add(pf);
                     }
                     path = selectedUnit.GetComponent<Path>();
