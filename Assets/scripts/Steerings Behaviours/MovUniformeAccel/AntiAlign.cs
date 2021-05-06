@@ -7,6 +7,7 @@ public class AntiAlign : SteeringBehaviour
     [SerializeField]
     private float timeToTarget = 0.1f;
 
+    //Esta funcion ayuda a encontrar la direccion real de rotacion después de restar dos valores de orientacion
     public float MapToRange (float rotation) {
     rotation %=  Mathf.PI * 2;
     if (Mathf.Abs(rotation) >  Mathf.PI) {
@@ -29,7 +30,6 @@ public class AntiAlign : SteeringBehaviour
         float targetRotation;
         // Restamos las orientaciones para calcular el angulo de rotación hacía el target.
         float rotation = this.target.Orientation - agent.Orientation + Mathf.PI;
-        // Map the result to the (-pi, pi) interval
         rotation = MapToRange(rotation) ;
         float rotationSize = Mathf.Abs(rotation);
         //Si el agente ya esta rotado en la misma direccion del target paramos.

@@ -7,7 +7,7 @@ public class FleeAcceleration : SteeringBehaviour
 
     override public Steering GetSteering(AgentNPC agent)
     {
-        //establecer a valores nulos el steering que se debe retornar,
+        //establecer a valores iniciales el steering que se debe retornar,
         Steering steer = this.gameObject.GetComponent<Steering>();
         steer.angular = 0;
         if (target == null){

@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class OrganizarGrupos : MonoBehaviour
 {
-    public Agent[] agentesCombinados;
+    public Agent[] agentesCombinados;   //lista de agentes con los comportamietnos de flocking
+
+    //las siguientes funciones sirven para indicar quienes van a ser objetivos de los comportamientos de flocking
     private void PutAlignment(Alignment script, int excluded)
     {
         for(int i = 0; i < agentesCombinados.Length; i++)

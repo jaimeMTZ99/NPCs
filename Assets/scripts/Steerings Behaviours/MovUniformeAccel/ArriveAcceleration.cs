@@ -8,22 +8,24 @@ public class ArriveAcceleration : SteeringBehaviour
     override public Steering GetSteering(AgentNPC agent)
     {
 
-        //establecer a valores nulos el steering que se debe retornar,
+        //establecer a valores iniciales el steering que se debe retornar,
         Steering steer = this.gameObject.GetComponent<Steering>();
         steer.angular = 0;
         if (target == null){
             steer.linear = Vector3.zero;
             return steer;
         }         
-
+        //sacamos la direccion del agente al target
         Vector3 direction = agent.directionToTarget(target.transform.position);
         Vector3 targetVelocity;
+        //sacamos la distancia
         float distancia = Mathf.Sqrt(Mathf.Pow((target.transform.position.x - this.transform.position.x),2) + 
         0 +
         Mathf.Pow((target.transform.position.z - this.transform.position.z),2));
 
 
         float targetSpeed;
+        //si la distancia es menor que el radio interno del agente en cuestion, paramos al agente
         if(distancia <= agent.intRadius){
                
             steer.linear = -agent.velocity;

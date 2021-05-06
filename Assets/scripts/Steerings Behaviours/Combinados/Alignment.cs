@@ -14,6 +14,7 @@ public class Alignment : Align {
         set => targets = value;
     }
     private GameObject goAlignment;
+    
     void Start(){
         goAlignment = new GameObject("Alignment");
         Agent invisible = goAlignment.AddComponent<Agent>() as Agent;
