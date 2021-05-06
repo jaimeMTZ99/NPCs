@@ -79,11 +79,6 @@ public class Path : MonoBehaviour
 
             distanceToCurrentPoint = Vector3.Distance(characterPosition, nodos[currentPosition].transform.position);
 
-            
-            // The following criteria is used to determine the closest point:
-            // If the current distance is closest to the current point, return said point
-            // If the distance is closest to either the previous or next point AND it's under the radio threshold,
-            // return said point. Otherwise, return the current point
 
             if (distanceToCurrentPoint <= distanceToPreviousPoint && distanceToCurrentPoint <= distanceToNextPoint){
                 return currentPosition;
@@ -93,8 +88,6 @@ public class Path : MonoBehaviour
                 return currentPosition + 1;
             }
 
-           /* if (distanceToPreviousPoint <= distanceToNextPoint && distanceToPreviousPoint < radio)
-                return currentPosition - 1;*/
 
             return currentPosition;
         }

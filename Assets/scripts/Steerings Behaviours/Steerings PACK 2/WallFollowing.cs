@@ -7,16 +7,18 @@ public class WallFollowing : SeekAcceleration
     public GameObject goWF;
     public float predictTime = 0.1f;
     private Vector3 futurePos;
-    public float distancia;
+    public float distancia = 3;
+    [SerializeField]
+    private List<GameObject> walls;
     private List<Collider> col;
+
     void Start(){
         goWF = new GameObject("WallFollowing");
         target = goWF.AddComponent<Agent>() as Agent;
         target.extRadius = 1.5f;
         target.intRadius = 1.5f;
         col = new List<Collider>();
-        GameObject[] a = GameObject.FindGameObjectsWithTag("Wall");
-        foreach (GameObject b in a)
+        foreach (GameObject b in walls)
         {
             Collider c = b.GetComponent<Collider>();
             if (c!=null)
@@ -27,18 +29,26 @@ public class WallFollowing : SeekAcceleration
     public override Steering GetSteering(AgentNPC agent){
 
         futurePos = agent.transform.position+agent.Velocity*predictTime;
-        Vector3 point = Vector3.zero;
+        GameObject pared = null;
         float puntoMasCercano = 99999;
-        foreach (Collider d in col){
-            Vector3 closestPoint = d.ClosestPoint(futurePos);
+        for (int i = 0; i< col.Count; i++){
+            Vector3 closestPoint = col[i].ClosestPoint(futurePos);
             if(closestPoint.magnitude < puntoMasCercano){
                 puntoMasCercano = closestPoint.magnitude;
-                point = closestPoint;
+                pared = walls[i];
             }
         }
+        Vector3 normale = Vector3.zero;
+        Vector3 dir = pared.transform.position - futurePos;
+        RaycastHit hit;
+        if (Physics.Raycast(futurePos, dir, out hit))
+        {
+            Debug.Log(hit);
+            normale = hit.normal;
+        }
 
-
-
+        normale = normale + normale.normalized*distancia;
+        target.transform.position = normale;
         return base.GetSteering(agent);
     }
 }
