@@ -4,21 +4,21 @@ using UnityEngine;
 
 public class Seleccion : MonoBehaviour
 {
-    public float tiempoVuelta =10;
-    private float timeRes;
-    public List<GameObject> selectedUnits;
-    public GameObject selectedUnit;
-    private GameObject goSel;
-    private bool mult = false;
-    private Agent t;
-    private Agent t1;
+    public float tiempoVuelta =10;  //intervalo de tiempo entre timeOut
+    private float timeRes;          //tiempo que queda para saltar el timeOut
+    public List<GameObject> selectedUnits; //gameobject del grupo que se escoge
+    public GameObject selectedUnit;     //gameobject del unico que se escoge
+    private GameObject goSel;       //gameObject usado para establecer el lugar donde se moveran los agentes
+    private bool mult = false;  //booleano para establecer cuando coger grupo de agentes
+    private Agent t;        //agente invisible que sera usado para cuando se seleccione un grupo de agentes
+    private Agent t1;       //agente invisible que sera usado para cuando se seleccione un solo agente
 
-    private List<GameObject> agentesRetForms;
+    private List<GameObject> agentesRetForms;   //lista con los agentes de formaciones que volveran a la normalidad
     private List<GameObject> agentesReturn; //lista con los gameObject que vuelven a la normalidad
 
     public List<GameObject> listPuntos = new List<GameObject>();    //variables para pathfinding
-    public PathFinding pathFinding;
-    public List<GameObject> camino;
+    public PathFinding pathFinding;     //Pathfinding para poder mover aquellos que vayan por grid
+    public List<GameObject> camino;     //para establecer el camino en el grid
 
     void Start(){
         timeRes=tiempoVuelta;           //establecemos el tiempo inicial y las listas vacias
@@ -33,20 +33,21 @@ public class Seleccion : MonoBehaviour
         if (timeRes <=0.0f){
             timeRes = tiempoVuelta;
 
-            TimeUp();
+            TimeUp();           //salta timeOut
         }
-        Selec();       
+        Selec();                //funcion de seleccion
     }
 
     private void Selec(){
 
         //Si pulsamos Control, sera para coger varios individuos para moverse
-        mult = Input.GetKey(KeyCode.LeftControl);
+        mult = Input.GetKey(KeyCode.LeftControl); 
         // si clickamos el boton izq del raton, es para seleccionar individiuos. 
         if (Input.GetMouseButtonUp(0))
         {
             seleccionarPersonajes();
-        }
+        }  
+        //si pulsamos el boton derecho del raton es para mandarlos a algun lugar
         if (Input.GetMouseButtonUp(1)){
             DirigirLugar();
         }
@@ -59,12 +60,12 @@ public class Seleccion : MonoBehaviour
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
             RaycastHit hitInfo;
-            if (Physics.Raycast(ray, out hitInfo))
+            if (Physics.Raycast(ray, out hitInfo))  //el rayCast ha colisionado
             {
-
+                //si colisiona con un agente y esta siendo pulsado Control, cogemos para un grupo
                 if (hitInfo.collider != null && hitInfo.collider.CompareTag("NPC") && mult)
                 {
-
+                    //anadimos cada agente que seleccionemos, indicando que estan siendo activados y apagando el agente solitario
                     selectedUnits.Add(hitInfo.collider.gameObject);
                     foreach (GameObject u in selectedUnits)
                     {
@@ -77,7 +78,9 @@ public class Seleccion : MonoBehaviour
                     }
                     selectedUnit=null; 
                 }
+                //si colisiona con un agente y no esta siendo pulsado Control, cogemos para un solitario
                 else if(hitInfo.collider != null && (hitInfo.collider.CompareTag("NPC") || hitInfo.collider.CompareTag("PathFinding"))){
+                    //cogemos solo un personaje como seleccionado y apagamos el resto
                     if (selectedUnit != null){
                         GameObject g = selectedUnit.transform.Find("Sel").gameObject;
                         g.SetActive(false);
@@ -97,6 +100,7 @@ public class Seleccion : MonoBehaviour
                     selectedUnits.Clear();  
                     
                 }
+                //si no pulsamos en ningun NPC, simplemente apagamos todos los seleccionados
                 else if (hitInfo.collider != null && !hitInfo.collider.CompareTag("NPC")){
                     if(selectedUnit != null){
                         GameObject s = selectedUnit.transform.Find("Sel").gameObject;
@@ -118,14 +122,13 @@ public class Seleccion : MonoBehaviour
     }
 
     public void DirigirLugar(){
-        
+            //si seleccionamos un lugar y el elegido tiene pathfindig, lo realiza
             if (selectedUnit != null && selectedUnit.tag == "PathFinding"){
                 Pathfinding();
             } else{
 
             // Comprobamos si el ratón golpea a algo en el escenario.
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            float timeRet = 0;
             RaycastHit hitInfo;
             if (Physics.Raycast(ray, out hitInfo))
             {
@@ -135,7 +138,7 @@ public class Seleccion : MonoBehaviour
                 if (hitInfo.collider != null && hitInfo.collider.CompareTag("Terrain") && (selectedUnit != null || selectedUnits.Count > 0))
                 {
 
-
+                    //para el grupo de agentes, establecemos un nuevo target en el sitio escogido con un radio
                     if(selectedUnits.Count>0){
                         goSel = new GameObject("Seleccion Grupo");
                         Agent invisible = goSel.AddComponent<Agent>();
@@ -145,25 +148,29 @@ public class Seleccion : MonoBehaviour
                         t.transform.position += new Vector3 (0,1.3f,0);
                         t.extRadius=2;
                         t.intRadius=2;
-                        Debug.Log("Time to return");
+
                         timeRes = tiempoVuelta;                     //reseteamos tiempo
                         foreach (GameObject npc in selectedUnits)
                         {
+                            //cogemos los nuevos comportamiento del arrive y de los arbitros
                             AgentNPC n = npc.GetComponent<AgentNPC>();
                             ArriveAcceleration d = npc.GetComponent<ArriveAcceleration>();
                             BlendedSteering l = npc.GetComponent<BlendedSteering>();
                             AgentNPC x = npc.GetComponent<AgentNPC>();
+                            //si un esocgido es un lider, movemos a partir de el toda la formacion que tenga
                             if (x.form && npc.name == "lider"){
                                 x.llegar = true;
                                 d = npc.GetComponent<ArriveAcceleration>();
                                 d.target = t;
                                 Align c = npc.GetComponent<Align>();
                                 c.target = t;
-                            } else if (x.form && npc.name != "lider"){
+                            }// si no es el lider, rompe la formacion para ir al lugar destinado
+                             else if (x.form && npc.name != "lider"){
                                 x.form = false;
                                 npc.transform.parent.gameObject.GetComponent<CircleFixed>().agentes.Remove(n);
                                 agentesRetForms.Add(npc);
                             }
+                            //si no tenian arrive antes, se les añade, se les apaga el resto de componentes de comporatmiento, sea de arbitro o no, y lo activamos
                             if(d == null){
 
                                 if(l == null)
@@ -187,6 +194,7 @@ public class Seleccion : MonoBehaviour
                                     l.behaviours.Add(d);
                                 }
                             }
+                            //si ya lo teneian, simplemente se le establece el nuevo target
                             else
                             {
                                 d.target = t;
@@ -199,7 +207,8 @@ public class Seleccion : MonoBehaviour
                             }
                         }                
                     } else{
-                            goSel = new GameObject("Seleccion Solo");               //crear el agente invisible que sera target del nuevo arrive
+                        //de la misma manera creamos todo lo anterior pero para la unica unidad escogida.
+                            goSel = new GameObject("Seleccion Solo");
                             Agent invisible = goSel.AddComponent<Agent>();
                             t1 = invisible;
                             Vector3 newTarget1 = hitInfo.point;
@@ -272,7 +281,7 @@ public class Seleccion : MonoBehaviour
 
     public void TimeUp(){
 
-
+        //devolvemos primero cada uno de los agentes que eran de una formacion a sus respectivas formaciones
         foreach (GameObject h in agentesRetForms)
         {
             AgentNPC v = h.GetComponent<AgentNPC>();
@@ -282,6 +291,7 @@ public class Seleccion : MonoBehaviour
             }
         }
         agentesRetForms.Clear();
+        //de igual manera deovlvemos a aquellos que no tuvieran arrive como componentes, para ello, eliminando arrive y volviendo a activar el resto de comprotamientos
         foreach (GameObject g in agentesReturn)
         {
             BlendedSteering m = g.GetComponent<BlendedSteering>();
@@ -320,6 +330,7 @@ public class Seleccion : MonoBehaviour
     }
 
     void Pathfinding(){
+        //simplemente ejecutamos la funcion pathfinding para que encuentre el camino mas corto hasta la posicion seleccionada.
             RaycastHit hit;
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             PathFollowing pf = new PathFollowing() ;
@@ -351,7 +362,7 @@ public class Seleccion : MonoBehaviour
                 }
             }
     }
-
+    //esta funcion es solo para señalar el camino que seguira el pathfinding
     void pintarCamino()
     {
         if (listPuntos.Count != 0)

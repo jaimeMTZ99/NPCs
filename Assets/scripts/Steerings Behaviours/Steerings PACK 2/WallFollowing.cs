@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿#pragma warning disable
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -50,7 +52,7 @@ public class WallFollowing : SeekAcceleration
         RaycastHit hit;
         if (Physics.Raycast(futurePos, dir, out hit))
         {
-            Debug.Log(hit);
+
             normale = hit.normal;
         }
 

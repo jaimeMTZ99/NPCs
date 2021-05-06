@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿#pragma warning disable
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,8 +10,7 @@ public class PathFollowingPredict : SeekAcceleration
     public int currentPos;
     public Vector3 futurePos;
     public int currentParam;
-    public  Agent aux;
-
+    public Agent aux;
     public float predictTime = 0.1f;
     public GameObject goPathFoll;
     void Start(){

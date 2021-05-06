@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿#pragma warning disable
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,7 +7,6 @@ public class CircleEsc : FormationManager
 {
 
     private GameObject puntoSeleccion;
-    private bool lider = true;
     void Start() {
         puntoSeleccion = new GameObject("F1");
         puntoSeleccion.AddComponent<Agent>();

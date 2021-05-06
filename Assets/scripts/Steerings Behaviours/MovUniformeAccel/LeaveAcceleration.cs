@@ -15,13 +15,12 @@ public class LeaveAcceleration : SteeringBehaviour
             return steer;
         }
         //calculamos la distancia entre objetivo y el agente player (de un punto a otro)
-        //float distancia = Mathf.Sqrt(Mathf.Pow((target.transform.position.x - this.transform.position.x),2) + 0 + Mathf.Pow((target.transform.position.z - this.transform.position.z),2));
         Vector3 direction = target.directionToTarget(agent.transform.position);
         Vector3 targetVelocity;
         float distancia = Mathf.Sqrt(Mathf.Pow((target.transform.position.x - this.transform.position.x),2) + 
         0 +
         Mathf.Pow((target.transform.position.z - this.transform.position.z),2));
-        //Si la distancia es mayor que el radio interior del target estable la
+        //Si la distancia es mayor que el radio interior del target establece la
         //magnitud vectorial del steering como el vector cuya magnitud es la
         //velocidad máxima del agente y cuya dirección va del agente hacia el
         //target

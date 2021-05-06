@@ -4,20 +4,20 @@ using UnityEngine;
 
 public class Bodi : MonoBehaviour
 {
-    public bool form;
-    public bool llegar;
-    public bool nuevoArrive;
-    public float speed;
-    public float mass;
-    public float maxSpeed;
-    public float maxRotation;
-    public float maxAcceleration;
-    public float maxAngularAcc;
+    public bool form;       //para indicar si forma parte de una formacion
+    public bool llegar;     
+    public bool nuevoArrive;    //si se le añadio un nuevo arrive
+    public float speed;         //velocidad que tiene
+    public float mass;          //masa del agente
+    public float maxSpeed;      //velocidad maxima
+    public float maxRotation;      //rotacion maxima
+    public float maxAcceleration;   //maxima aceleracion
+    public float maxAngularAcc;     //maxima aceleracion angular
     [SerializeField]
-    public float orientation;
+    public float orientation;       // orientacion del personaje
     private float rotation;
-    public Vector3 velocity;
-    public Vector3 acceleration;
+    public Vector3 velocity;           //Vector de volcidad del agente
+    public Vector3 acceleration;        //vector de aceleracion del agente
 
     public float Orientation
     {
@@ -80,22 +80,24 @@ public class Bodi : MonoBehaviour
 
     public float MaxRotation => maxRotation;
 
+    //funcion para pasar de posicion a angulo
     public float PositionToAngle(Vector3 pos)
     {
         return Mathf.Atan2(pos.x, pos.z) * Mathf.Rad2Deg;
     }
+    //funcion para pasar de angulo a posicion
     public Vector3 AngleToPosition(float angle)
     {
-        //TODO quitar redondeo 
         return new Vector3(Mathf.Cos(angle), 0, Mathf.Sin(angle));
     }
-
+    //para sacar el vector director
     public Vector3 directionToTarget(Vector3 pos)
     {
         Vector3 vecDir;
         vecDir = pos - this.transform.position;
         return vecDir;
     }
+    //para sacar el angulo dado el vector direccion
     public float Heading(Vector3 pos)
     {
 

@@ -6,8 +6,8 @@ public abstract class SteeringBehaviour : MonoBehaviour
 {
 
 
-    public Agent target;
-    public float weight = 1f;
+    public Agent target;                //objetivo del comportamiento
+    public float weight = 1f;           //peso del comportamiento para los arbitro
 
     public abstract Steering GetSteering(AgentNPC agent);
 }

@@ -4,12 +4,13 @@ using UnityEngine;
 
 public class Agent : Bodi
 {
-    public float intRadius;
-    public float extRadius;
-    public float intAngle;
-    public float extAngle;
 
-    public bool gizmosIntRadius;
+    public float intRadius;     //radio interno del agente
+    public float extRadius;     //radio externo del agente
+    public float intAngle;     //angulo interno del agente
+    public float extAngle;     //angulo externo del agente
+
+    public bool gizmosIntRadius;    //booleanos para activar gizmos del agente
     public bool gizmosExtRadius;
     public bool gizmosIntAngle;
     public bool gizmosExtAngle;
@@ -17,6 +18,7 @@ public class Agent : Bodi
     // Update is called once per frame
     void Update()
     {
+        //nos aseguramos de que cumplan siempre los limites establecidos
         if (intRadius > extRadius){
             intRadius = extRadius;
         } 
@@ -41,7 +43,7 @@ public class Agent : Bodi
 
     }
 
-
+    //dibujamos los gizmos si estan activados
     void OnDrawGizmosSelected()
     {
         if(gizmosIntRadius){

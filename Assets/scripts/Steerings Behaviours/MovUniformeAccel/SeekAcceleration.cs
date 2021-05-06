@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿#pragma warning disable
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,7 +8,7 @@ public class SeekAcceleration : SteeringBehaviour
     Steering steer = new Steering();
     override public Steering GetSteering(AgentNPC agent)
     {
-        //establecer a valores nulos el steering que se debe retornar,
+        //establecer a valores iniciales el steering que se debe retornar,
         
         steer.angular = 0;
         if (target == null){

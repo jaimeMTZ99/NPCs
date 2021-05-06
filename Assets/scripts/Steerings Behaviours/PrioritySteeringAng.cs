@@ -4,19 +4,17 @@ using UnityEngine;
 
 public class PrioritySteeringAng : SteeringBehaviour
 {
-    public List<BlendedSteering> groups;
+    public List<BlendedSteering> groups;        //lista de steerings
 
-    public float epsilon;
+    public float epsilon;                       //umbral arbitro
 
     public override Steering GetSteering(AgentNPC character)
     {
         Steering steering = this.gameObject.GetComponent<Steering>(); 
-
         foreach (BlendedSteering group in groups)
         {
             steering = group.GetSteering(character);
-
-            if(Mathf.Abs(steering.angular) > epsilon)
+            if(Mathf.Abs(steering.angular) > epsilon)   //si el angular cumple el umbral realiza el steering
             {
                 return steering;
             }

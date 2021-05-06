@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class AgentNPC : Agent
 {
-    public List<SteeringBehaviour> SteeringList;
+    public List<SteeringBehaviour> SteeringList;        //lista de steerings que tiene el agente
     [SerializeField]
     private Steering steer;
     [SerializeField]
     public float blendWeight;
 
-    void Awake()
+    void Awake()    //simplemente cogemos en funcion de si es arbitro, o solo comportamientos para tener toda la lista de steerings
     {
         if(this.gameObject.GetComponent<PrioritySteeringAcc>()!= null)
         {
@@ -32,6 +32,7 @@ public class AgentNPC : Agent
         //SteeringList = this.gameObject.GetComponents<SteeringBehaviour>();
     }
     void FixedUpdate()
+    //activamos en funcion de si tienen arbitros o no todos los steerings behaviours
     {
         PrioritySteeringAcc ps = this.gameObject.GetComponent<PrioritySteeringAcc>();
         PrioritySteeringAng ps1 = this.gameObject.GetComponent<PrioritySteeringAng>();
@@ -59,6 +60,7 @@ public class AgentNPC : Agent
             applySteering(steer);
         }
     }
+    //funcion usada para aplicar los cambios de los steerigns a las propiedades del agente
     public void applySteering(Steering s)
     {
         Vector3 Acceleration = s.linear / mass;       // A = F/masa
