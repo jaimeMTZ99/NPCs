@@ -18,7 +18,6 @@ public class Grid : MonoBehaviour
     private Transform fila;
     private Transform columna;
     public List<Nodo> FinalPath;//The completed path that the red line will be drawn along
-
     float fNodeDiameter;//Twice the amount of the radius (Set in the start function)
     int iGridSizeX, iGridSizeY;//Size of the Grid in Array units.
 
@@ -156,7 +155,7 @@ public class Grid : MonoBehaviour
     
     bool isObjectHere(Vector3 position)
     {
-        Collider[] intersecting = Physics.OverlapSphere(position, 2f);
+        Collider[] intersecting = Physics.OverlapSphere(position, fNodeRadius);
         foreach (Collider i in intersecting){
             if(i.gameObject.tag == "Muro"){
 

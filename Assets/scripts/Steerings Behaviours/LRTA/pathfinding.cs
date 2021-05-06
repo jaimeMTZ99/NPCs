@@ -9,7 +9,7 @@ public class PathFinding : MonoBehaviour
     GameObject nodoEnd; //Objeto visual
     LRTAStar lrtaStar = new LRTAStar();
     [SerializeField]
-    private Grid grid;
+    public Grid grid;
     float[,] mapaCostes;
     private void Start()
     {
@@ -29,7 +29,7 @@ public class PathFinding : MonoBehaviour
             {
                 if (nodoEnd != null) Destroy(nodoEnd);
                 nodoEnd = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-                nodoEnd.transform.localScale = new Vector3(4, 4, 4);
+                nodoEnd.transform.localScale = new Vector3(grid.fNodeRadius*2, grid.fNodeRadius*2, grid.fNodeRadius*2);
                 nodoEnd.transform.position = new Vector3(hit.transform.position.x, hit.transform.position.y + 1, hit.transform.position.z);
                 nodoEnd.GetComponent<Renderer>().material.color = new Color(255, 0, 0);
                 nodoFinal = grid.NodeFromWorldPoint(nodoEnd.transform.position);
@@ -54,7 +54,7 @@ public class PathFinding : MonoBehaviour
         List<Nodo> nodos;
         List<GameObject> keyPoints = new List<GameObject>();
         this.nodoActual = grid.NodeFromWorldPoint(agent.transform.position);
-        Collider[] colliders = Physics.OverlapSphere(esferaDestino.transform.position, 2f);
+        Collider[] colliders = Physics.OverlapSphere(esferaDestino.transform.position, grid.fNodeRadius);
         bool muro = false;
         foreach (Collider c in colliders)
         {
@@ -63,14 +63,8 @@ public class PathFinding : MonoBehaviour
                 muro = true;
             }
         }
-        /*GameObject nodoEnd  = new GameObject();
-        nodoEnd.transform.position = nodoFinalVector;*/
         if (esferaDestino != null && !muro)
         {
-            /*nodoEnd = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-            nodoEnd.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
-            nodoEnd.transform.position = new Vector3(nodoFinalVector.x, nodoFinalVector.y, nodoFinalVector.z);
-            nodoEnd.GetComponent<Renderer>().material.color = new Color(255, 0, 0);*/
             nodoFinal = grid.NodeFromWorldPoint(esferaDestino.transform.position);
             nodos = lrtaStar.FindPath(nodoActual, nodoFinal, 1/*npc.distancePathfinding*/, grid);
             if (nodos != null)
