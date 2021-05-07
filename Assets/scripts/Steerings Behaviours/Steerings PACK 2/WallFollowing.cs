@@ -28,14 +28,15 @@ public class WallFollowing : SeekAcceleration
     }
 
     public override Steering GetSteering(AgentNPC agent){
-
+        //calculamos la posicion futura con el time de prediccion
         futurePos = agent.transform.position+agent.Velocity*predictTime;
-
+        //establecemos los puntos mas cercanos y la distancia
         GameObject pared = null;
         float puntoMasCercano = 99999;
         Vector3 closestPoint = Vector3.zero;
         Vector3 closestPointActualWall = Vector3.zero;
         Vector3 distance = Vector3.zero;
+        //comprobamos cual es el punto mas cercano segun el wall que tengamos en la lista de colliders
         for (int i = 0; i< col.Count; i++){
             closestPoint = col[i].ClosestPoint(futurePos);
             distance = futurePos - closestPoint;
@@ -46,7 +47,7 @@ public class WallFollowing : SeekAcceleration
                 
             }
         }
-
+        //despues de proyectar dicho punto, sacamos la normal
         Vector3 normale = Vector3.zero;
         Vector3 dir = pared.transform.position - futurePos;
         RaycastHit hit;
@@ -55,7 +56,7 @@ public class WallFollowing : SeekAcceleration
 
             normale = hit.normal;
         }
-
+        //establecemos la distancia exacta
         normale = closestPointActualWall + normale*distancia;
         normale.y = 0;
         target.transform.position = normale;

@@ -27,7 +27,7 @@ public class CollisionAvoidancePredict : SeekAcceleration
     public override Steering GetSteering(AgentNPC agent) {
         Steering steering = this.gameObject.GetComponent<Steering>();
         float shortestTime = Mathf.Infinity;
-
+        //establecemos el target final, velocidad, distancia y separacion iniciales
         Agent firstTarget = null;
         float firstMinSeparation = 0;
         Vector3 firstRelativePos = Vector3.zero;
@@ -36,6 +36,7 @@ public class CollisionAvoidancePredict : SeekAcceleration
 
         float relativeSpeed = 0;
         float timeToCollision = 0;
+        //vamos comprobando para cada agente quien es el target mas cercano con las propiedades inciadas de antes
         foreach (Agent a in targets)
         {
             Vector3 relativePos = a.transform.position - agent.transform.position;
@@ -59,10 +60,10 @@ public class CollisionAvoidancePredict : SeekAcceleration
             }
 
         }
-
+        //si no encontramos a nadie que este cerca, seguimos moviendonos igual
         if(firstTarget == null)
             return steering;
-
+        //si alguien va a colisionar con nosotros, redirigimos el personajes en consecuencia para poder llegar al punto evitando a los personajes
         if (firstMinSeparation <= 0 || firstDistance < 2*Radius){
             firstRelativePos = firstTarget.transform.position;
         } else {

@@ -23,12 +23,14 @@ public class CircleFixed : MonoBehaviour
     private Wander w;
     void Start()
     {
+            //incializamos el time
         timeRes=time;
         invisibles = new GameObject[tamañoGrid];
         puntoDestinoGO = new GameObject("punto destino");
         puntoDestinoGO.AddComponent<Agent>();
 
-        int i = 0;
+        int i = 0; 
+        //vamos añadiendo a cada agente el GO al que haran arrive
         foreach (AgentNPC ag in agentes)
         {
             if(i == 0){
@@ -51,17 +53,17 @@ public class CircleFixed : MonoBehaviour
     void Update()
     {
         timeRes -= Time.deltaTime;
-        if (timeRes <=0.0f && agentes[0].llegar == false){
+        if (timeRes <=0.0f && agentes[0].llegar == false){  //si timeOut entonces añadimos Wander si no lo tiene, y si lo tiene, se le quita
             timeRes = time;
             Debug.Log("timeUp");
-            if(agentes[0].SteeringList.Contains(w)){
+            if(agentes[0].SteeringList.Contains(w)){        //si tiene el wander, quitamos el mismo y añadimos arrive y face
                 agentes[0].SteeringList.Add(agentes[0].GetComponent<Face>());
                 agentes[0].GetComponent<Face>().aux = agentes[0].GetComponent<Wander>().target;
                 agentes[0].GetComponent<Face>().target = agentes[0].GetComponent<Wander>().target;
                 agentes[0].SteeringList.Remove(w);
                 agentes[0].SteeringList.Add(agentes[0].GetComponent<ArriveAcceleration>());
                 agentes[0].GetComponent<ArriveAcceleration>().target = agentes[0];
-            } else {
+            } else {                                        //si no lo tiene, qitamos arrive y face, pero añadimos wander
                 agentes[0].SteeringList.Add(w);
                 Agent puntoDestinoInv = puntoDestinoGO.GetComponent<Agent>();
                 puntoDestinoInv.transform.position = agentes[0].GetComponent<Wander>().target.transform.position;
@@ -70,7 +72,7 @@ public class CircleFixed : MonoBehaviour
             }
         }
 
-        if (agentes[0].llegar){
+        if (agentes[0].llegar){     // si ha sido seleccionado y enviado a un lugar, entonces quitamos wander si lo tenia, y les indicamos la nueva localizacion
             timeRes=time;
 
             if(agentes[0].SteeringList.Contains(w)){
@@ -86,7 +88,7 @@ public class CircleFixed : MonoBehaviour
         UpdateSlots();
     }
     public void UpdateSlots() {
-        
+        // para cada agente, vamos actualizadno su posicion y orientacion
         for (int i = 0; i < agentes.Count; i++) {
             Vector3 pos = GetPosition(i);
             GameObject invisibleGOActual = invisibles[i];
@@ -105,7 +107,7 @@ public class CircleFixed : MonoBehaviour
         Vector3 agenteActual = grid[numero];
         AgentNPC lider = agentes[0];
         float distancia = 4;
-
+        //establecemos la matriz de rotacion para poder hacer que cuando gire el lider, el resto gire en consecuencia
         float[] matrizRotacion = new float[4]{-Mathf.Cos(lider.orientation), Mathf.Sin(lider.orientation),
                                             -Mathf.Sin(lider.orientation), -Mathf.Cos(lider.orientation)};
         

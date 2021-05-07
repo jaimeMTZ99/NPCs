@@ -21,7 +21,7 @@ public class Wander : Face
         return new Vector3(Mathf.Cos(o), 0, Mathf.Sin(o));
     }
     private float RandomBinomial() {
-        // With Random.Range() min is exclusive and max inclusive.
+        //usamos la funcion para generar el el angulo del face
         return Random.Range(0.0f, 1.0f) - Random.Range(0.0f, 1.0f);
     }
     override public Steering GetSteering(AgentNPC agent)
@@ -33,6 +33,7 @@ public class Wander : Face
         target.Orientation = wanderOrientation + agent.Orientation;
         //Colocar target invisible en posición adelantada del agente.
         Vector3 targetPosition = agent.transform.position + wanderOffset * AsVector(agent.Orientation); 
+        //convertimos la orientacion en un vector y multiplicamos por el radiop
         targetPosition += wanderRadius * AsVector(target.Orientation);
         target.transform.position = targetPosition;
         Steering steer;

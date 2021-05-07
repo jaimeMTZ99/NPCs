@@ -17,15 +17,9 @@ public class OffsetPursuit : ArriveAcceleration
         Agent invisible = goOffsetPursuit.AddComponent<Agent>() as Agent;
         aux = target;
         target = invisible;
-        /*target.intRadius = aux.intRadius;
-        target.extRadius = aux.extRadius;*/
     }
     public override Steering GetSteering(AgentNPC agent) {
         // Calculamos la distancia y la direccion hacia el objetivo
-        /*Vector3 worldOffsetPos = aux.transform.position + aux.transform.TransformDirection(offset);
-        
-        Vector3 displacement = worldOffsetPos - aux.transform.position;
-        float distancia = displacement.magnitude;*/
         
         float distancia = Mathf.Sqrt(Mathf.Pow(aux.transform.position.x - agent.transform.position.x,2) + 
         0 +
@@ -45,12 +39,6 @@ public class OffsetPursuit : ArriveAcceleration
             prediction = distancia / speed;
         }
         
-        // Put the target together
-        
-        
-       // target.transform.position = worldOffsetPos + target.velocity * prediction;
-        
-        // Delegate to arrive
         return base.GetSteering(agent);
         
     }

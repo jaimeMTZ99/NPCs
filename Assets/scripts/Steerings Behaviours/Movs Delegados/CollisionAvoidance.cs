@@ -28,6 +28,7 @@ public class CollisionAvoidance : SeekAcceleration
         target.extRadius = aux.extRadius;
     }
     public override Steering GetSteering(AgentNPC agent) {
+        //creamos los bigotes izquierdo, derecho y frontal junto con los raycast
         Vector3 frontalVector = agent.Velocity.normalized * frontaLookAhead;
         Vector3 leftWhiskerVector = Quaternion.Euler(0, -whiskersAngle, 0) * frontalVector;
         Vector3 rightWhiskerVector = Quaternion.Euler(0, whiskersAngle, 0) * frontalVector;
@@ -36,18 +37,19 @@ public class CollisionAvoidance : SeekAcceleration
         //Colisión frontal
         if (Physics.Raycast(agent.transform.position, frontalVector, out frontalHit, frontaLookAhead))
         {
+            //detectamos colision
            target.transform.position = frontalHit.point + frontalHit.normal * avoidDistance;
             return base.GetSteering(agent);
         }
-        // No frontal collision, check the left whisker
+        // bigote izquierdo
         if (Physics.Raycast(agent.transform.position, leftWhiskerVector, out leftWhiskerHit, frontaLookAhead)) {
-            // We detected a left side collision
+            //detectamos colision
             target.transform.position = leftWhiskerHit.point + leftWhiskerHit.normal * avoidDistance;
              return base.GetSteering(agent);
         }
-        // No left side collision, check the right whisker
+        // bigote derecho
         if (Physics.Raycast(agent.transform.position, rightWhiskerVector, out rightWhiskerHit, frontaLookAhead)) {
-            // We detected a right side collision
+            //detectamos colision
             target.transform.position = rightWhiskerHit.point + rightWhiskerHit.normal * avoidDistance;
              return base.GetSteering(agent);
         }

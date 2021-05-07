@@ -19,7 +19,6 @@ public class FixedLeaderF : MonoBehaviour
     private GameObject puntoDestinoGO;
     //Agentes que forman parte del grid
     public List<AgentNPC> agentes;
-    // Start is called before the first frame update
     private Wander w;
     void Start()
     {
@@ -104,7 +103,7 @@ public class FixedLeaderF : MonoBehaviour
                 agentes[i].GetComponent<ArriveAcceleration>().target = invisibleActual;
                 agentes[i].GetComponent<Face>().aux = invisibleActual;
                 agentes[i].GetComponent<Face>().target = invisibleActual;
-            }else if ( i !=0 && agentes[0].llegar){
+            }else if ( i !=0 && agentes[0].llegar){     //la unica diferencia con respecto a las formaciones fijas es que cuando el lider se mueve, rompemos las formaciones para que vayan al lugar establecido por el lider y desues volver a formar
                 Debug.Log("Siguiendo lider");
                 agentes[i].GetComponent<ArriveAcceleration>().target = agentes[0];
                 agentes[i].GetComponent<Face>().aux = agentes[0];

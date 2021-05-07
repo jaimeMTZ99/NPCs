@@ -41,13 +41,10 @@ public class Pursue : SeekAcceleration
             prediction = distancia / speed;
         }
         
-        // Put the target together
+        // establecemos la posicion del target en funcion de la velocidad y el timepo de prediccion
         target.transform.position = aux.transform.position;
         target.transform.position += aux.Velocity * prediction;
-    
-        //agent.transform.position += aux.Velocity * prediction;
         
-        // Delegate to seek
         return base.GetSteering(agent);
         
     }

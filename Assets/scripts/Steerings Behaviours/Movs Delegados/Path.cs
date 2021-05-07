@@ -12,14 +12,14 @@ public class Path : MonoBehaviour
             nodos.Add(go);
     }
 
-    public void ClearPath() {
+    public void ClearPath() {       // limpiar el camino
         foreach (GameObject n in nodos){
             Destroy(n);
         }
         nodos.Clear();
     }
 
-    public int Length() {
+    public int Length() {           //numero nodos del camino
         return nodos.Count;
     }
 
@@ -29,27 +29,27 @@ public class Path : MonoBehaviour
             radio = value;
         }
     }
-    public Vector3 GetPosition(int keyPointValue) {
-        // Return the current position if the path is empty
+    public Vector3 GetPosition(int valor) {
+        // si el camino esta vacio pues devolvemos la misma posicion
             if (nodos.Count == 0)
                 return transform.position;
             
-            // Return the last point if further inexistent points are requested
-            if (keyPointValue >= nodos.Count){
+            // Devuelve el ultimo punto si no hay mas despues
+            if (valor >= nodos.Count){
                 return nodos[nodos.Count - 1].transform.position;
             }
 
-            // Return the first point if previous inexistent points are requested
-            if (keyPointValue < 0)
+            // Devuelve el primer punto si no hay mas antes de el
+            if (valor < 0)
                 return nodos[0].transform.position;
 
 
-            return nodos[keyPointValue].transform.position;
+            return nodos[valor].transform.position;
 
     }
     public int GetParam(Vector3 characterPosition, int currentPosition) {
 
-            // If there is no path return current position
+            // si no hay camino , devuelve la misma posicion
             if (nodos.Count <= 1) {
                 return currentPosition;
             }
@@ -58,20 +58,19 @@ public class Path : MonoBehaviour
                 return nodos.Count - 1;
             }
             
-            // Find the closest point to the path between the current position, the previous and the next one
+            // encontramos el punto mas cercano, el siguiente y el anterior
             float distanceToPreviousPoint, distanceToCurrentPoint, distanceToNextPoint; // a, b, c
 
-            // If we're at the start, there's no previous point
+            // principio, no hay anteriores
             if (currentPosition == 0) {
                 distanceToPreviousPoint = float.MaxValue;
                 distanceToNextPoint = Vector3.Distance(characterPosition, nodos[currentPosition + 1].transform.position);
             }
-            // If we're at the end, there's no next point
+            // final, no hay posteriores
             else if (currentPosition == nodos.Count - 1) {
                 distanceToPreviousPoint = Vector3.Distance(characterPosition, nodos[currentPosition - 1].transform.position);
                 distanceToNextPoint = float.MaxValue;
             }
-            // Otherwise, both points exist
             else {
                 distanceToNextPoint = Vector3.Distance(characterPosition, nodos[currentPosition + 1].transform.position);
                 distanceToPreviousPoint = Vector3.Distance(characterPosition, nodos[currentPosition - 1].transform.position);

@@ -38,13 +38,10 @@ public class Evade : FleeAcceleration
             prediction = distancia / speed;
         }
         
-        // Put the target together
+        // Calculamos la posicion del target
         target.transform.position = aux.transform.position;
         target.transform.position += aux.Velocity * prediction;
-    
-        //agent.transform.position += aux.Velocity * prediction;
         
-        // Delegate to seek
         return base.GetSteering(agent);
         
     }

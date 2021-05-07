@@ -24,7 +24,7 @@ public class PathFollowingPredict : SeekAcceleration
     
 
     public override Steering GetSteering(AgentNPC agent){
-
+        //calculamos la posicion futura dada la pos del agente 
         futurePos = agent.transform.position+agent.Velocity*predictTime;
         //Actual posición en el camino
         currentParam = path.GetParam(futurePos, currentPos);

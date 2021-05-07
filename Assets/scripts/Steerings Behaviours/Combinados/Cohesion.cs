@@ -25,6 +25,8 @@ public class Cohesion : SeekAcceleration {
         Vector3 centro = Vector3.zero;
         float distance = 0f;
         int count = 0;
+
+        //vamos calculando el centro de masas en funcion de lo cerca que estan los personajes unos de otros y segun se vaya moviendo
         foreach (Agent target in targets) {
             direction = agent.Position - target.Position;
             distance = Mathf.Abs(direction.magnitude);

@@ -64,7 +64,6 @@ public class FixedPathfinding : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        timeRes -= Time.deltaTime;
        /* if (timeRes <= 0.0f && agentes[0].llegar == false)
         {
             timeRes = time;

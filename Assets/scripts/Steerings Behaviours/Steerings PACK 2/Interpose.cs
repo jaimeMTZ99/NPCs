@@ -17,15 +17,16 @@ public class Interpose : ArriveAcceleration
 
 
     public override Steering GetSteering(AgentNPC agent){
-
+        //calculamos el punto medio entre A y B
         Vector3 middlePoint = (a.transform.position + b.transform.position)/2;
+        //calculamos el tiempo
         float time = ((agent.transform.position - middlePoint).magnitude)/ agent.maxSpeed;
-
+        //calculamos los vectores A y B
         Vector3 predictA = a.transform.position + a.Velocity * time;
         Vector3 predictB = b.transform.position + b.Velocity * time;
 
         middlePoint = (predictA + predictB)/2;
-
+        //la posicion del target invisible sera entre los dos GameObjects
         target.transform.position = middlePoint;
         return base.GetSteering(agent);
     }
