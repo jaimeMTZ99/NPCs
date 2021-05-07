@@ -8,17 +8,18 @@ TagManager:
   - Terrain
   - Formation
   - Hierba
-  - ZonaSeguraAzul
   - Agua
   - Carretera
   - Bosque
-  - ZonaSeguraRojo
   - Puente
-  - BaseAzul
-  - BaseRoja
   - Muro
   - PathFinding
   - Wall
+  - Zona Curacion Esp
+  - Zona Curacion Fra
+  - Base Esp
+  - Base Fra
+  - Pradera
   layers:
   - Default
   - TransparentFX
