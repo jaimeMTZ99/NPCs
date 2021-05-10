@@ -60,7 +60,6 @@ public class Grid : MonoBehaviour
                 bool Wall = true;
                 NodeArray[x, y] = new Nodo(Wall, worldPoint, x, y);//Create a new node in the array.
                 NodeArray[x,y].igCost = matrizCostes[x,y];
-                Debug.Log(matrizCostes[x,y]) ;
             }
         }
     }

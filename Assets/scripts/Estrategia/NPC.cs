@@ -15,9 +15,19 @@ public class NPC : MonoBehaviour
         France
     }
 
+    private Grid gridMap;
+    private GameManager gameManager;
+    public AgentNPC _agentNPC;
+    //private SimplePropagator _simplePropagator;
+    public PathFinding pf;
+
+
+    //info de la unidad
     public TipoUnidad tipo;
     public Equipo team;
 
+
+    //caracteristicas de la unidad
     public int health;
 
     public int meleeDamage;
@@ -33,4 +43,29 @@ public class NPC : MonoBehaviour
     public float speed;
 
     public int captureRatio;
+
+
+    //Pesos segun los modos
+
+    public int aliadosAtacantes;
+    public float menosVida;
+    public float masVida;
+    public int aliadosDefendiendo;
+    public int capturar;
+
+
+        // Estados
+        /**
+    [SerializeField] private State _currentState;
+    private Capture _captureState;
+    private Defend _defendState;
+    private Escape _escapeState;
+    private Heal _healState;
+    private Idle _idleState;
+    private MeleeAttack _meleeAttackState;
+    private Patrol _patrolState;
+    private RangedAttack _rangedAttackState;
+    private Dead _deadState; **/
+    
+
 }
