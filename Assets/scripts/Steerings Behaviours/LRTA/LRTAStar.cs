@@ -2,91 +2,97 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LRTAStar : MonoBehaviour
+public class LRTA : MonoBehaviour
 {
-    public List<Nodo> FindPath(Nodo startNode, Nodo targetNode, int distance, Grid grid)
+    //Encuentra un camino dado un nodo por el que comenzar, y un destino
+    //Distancia se usa para especificar que tipo de heuristica utilizar
+    public List<Nodo> EncontrarCamino(Nodo comienzo, Nodo objetivo, int distancia, Grid grid)
     {
-        if (grid.NodeArray == null)
+        //En caso de que el grid no contenga nodos, no se hace nada
+        if (grid.Nodos == null)
             return null;
-        List<Nodo> ClosedList = new List<Nodo>();
-        Nodo actualNode = startNode;
-        int moveCost;
-        switch (distance)
+        //Lista de nodos cerrados a.k.a nodos utilizados
+        List<Nodo> cerrados = new List<Nodo>();
+        Nodo actual = comienzo;
+        int coste;
+        //Aplicamos la heuristica especificada entre el nodo actual (inicial) y el destino
+        switch (distancia)
         {
             case 1:
-                moveCost = Manhattan(actualNode, targetNode);
+                coste = Manhattan(actual, objetivo);
                 break;
             case 2:
-                moveCost = Chebychev(actualNode, targetNode);
+                coste = Chebychev(actual, objetivo);
                 break;
             case 3:
-                moveCost = Euclide(actualNode, targetNode);
+                coste = Euclide(actual, objetivo);
                 break;
             default:
-                moveCost = Manhattan(actualNode, targetNode);
+                coste = Manhattan(actual, objetivo);
                 break;
         }
-        actualNode.ihCost = moveCost;
-        while (actualNode != targetNode)
+
+        //Establecemos el coste del camino
+        actual.ihCost = coste;
+
+        //Mientras que no se haya alcanzado el nodo objetivo
+        while (actual != objetivo)
         {
-            Nodo nextNode = null;
-            List<Nodo> nodesVecinos = grid.GetNeighboringNodes(actualNode);
+            Nodo siguiente = null;
+            List<Nodo> vecinos = grid.GetVecinos(actual);
            
-            foreach (Nodo NeighborNode in nodesVecinos)
+            //Buscamos de entre sus nodos vecinos
+            foreach (Nodo vecino in vecinos)
             {
-                moveCost = 0;
-                    switch (distance)
+                coste = 0;
+                    //Para cada vecino, calcula su coste hasta el objetivo
+                    switch (distancia)
                     {
                         case 1:
-                            moveCost = Manhattan(NeighborNode, targetNode);
+                            coste = Manhattan(vecino, objetivo);
                             break;
                         case 2:
-                            moveCost = Chebychev(NeighborNode, targetNode);
+                            coste = Chebychev(vecino, objetivo);
                             break;
                         case 3:
-                            moveCost = Euclide(NeighborNode, targetNode);
+                            coste = Euclide(vecino, objetivo);
                             break;
                     }
-                    NeighborNode.ihCost = moveCost; 
+                    vecino.ihCost = coste; 
                 
-            }      
-            float minCost = Mathf.Infinity;
-            foreach (Nodo NeighborNode in nodesVecinos)
+            }
+            float costeMinimo = Mathf.Infinity;
+            
+            //Para cada vecino
+            foreach (Nodo vecino in vecinos)
             {
-                if (NeighborNode.bIsWall && !ClosedList.Contains(NeighborNode))
+                //Si no está en la lista de cerrados y no está aislado
+                //establece el vecino como el siguiente nodo del camino
+                //obteniendo el nodo cuyo coste es menor
+                if (vecino.aislado && !cerrados.Contains(vecino))
                 {
-                    if (minCost == Mathf.Infinity)
+                    if (costeMinimo == Mathf.Infinity)
                     {
-                        nextNode = NeighborNode;
-                        minCost = NeighborNode.FCost;
+                        siguiente = vecino;
+                        costeMinimo = vecino.FCost;
                     }
-                    else if (NeighborNode.FCost < nextNode.FCost)
+                    else if (vecino.FCost < siguiente.FCost)
                     {
-                        nextNode = NeighborNode;
-                        minCost = NeighborNode.FCost;
+                        siguiente = vecino;
+                        costeMinimo = vecino.FCost;
                     }
                 }
             }
-            ClosedList.Add(actualNode);
-            actualNode = nextNode;
+            //Añade el nodo a la lista de cerrados
+            cerrados.Add(actual);
+            //Establecemos el nodo actual como el siguiente nodo del camino
+            actual = siguiente;
         }
-        return ClosedList;
-    }
-    List<Nodo> GetFinalPath(Nodo a, Nodo b, Grid grid)
-    {
-        List<Nodo> FinalPath = new List<Nodo>();
-        Nodo CurrentNode = b;
-        while (CurrentNode != a)
-        {
-            FinalPath.Add(CurrentNode);
-            CurrentNode = CurrentNode.ParentNode;
-        }
-
-        FinalPath.Reverse();
-        grid.FinalPath = FinalPath;
-        return FinalPath;
+        //Devolvemos el camino
+        return cerrados;
     }
 
+    //Calcula la distancia Manhattan entre dos nodos
     int Manhattan(Nodo a, Nodo b)
     {
         int ix = Mathf.Abs(a.X - b.X);
@@ -94,6 +100,7 @@ public class LRTAStar : MonoBehaviour
         return ix + iy;
     }
 
+    //Calcula la distancia Chebychev entre dos nodos
     int Chebychev(Nodo a, Nodo b)
     {
         int ix = Mathf.Abs(b.X - a.X);
@@ -101,6 +108,7 @@ public class LRTAStar : MonoBehaviour
         return Mathf.Max(ix, iy);
     }
 
+    //Calcula la distancia Euclidea entre dos nodos
     int Euclide(Nodo a, Nodo b)
     {
         int ix = (b.X - a.X) * (b.X - a.X);

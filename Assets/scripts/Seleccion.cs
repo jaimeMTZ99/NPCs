@@ -348,7 +348,7 @@ public class Seleccion : MonoBehaviour
                         pf =  selectedUnit.AddComponent(typeof(PathFollowing)) as PathFollowing;
                         path = selectedUnit.AddComponent(typeof(Path)) as Path;
                         pf.path = selectedUnit.GetComponent<Path>();
-                        pf.path.Radio = pathFinding.grid.fNodeRadius;
+                        pf.path.Radio = pathFinding.grid.radioNodo;
                         n.SteeringList.Add(pf);
                     }
                     path = selectedUnit.GetComponent<Path>();

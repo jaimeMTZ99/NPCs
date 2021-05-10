@@ -5,21 +5,21 @@ using UnityEngine;
 public class Grid : MonoBehaviour
 {
 
-    public Transform StartPosition;//This is where the program will start the pathfinding from.
-    public Vector2 vGridWorldSize;//A vector2 to store the width and height of the graph in world units.
-    public float fNodeRadius;//This stores how big each square on the graph will be
-    public float fDistanceBetweenNodes;//The distance that the squares will spawn from eachother.
+    public Transform inicio; //Inicio del pathfinding
+    public Vector2 tamGrid; //Tamaño del grid (unidades reales)
+    public float radioNodo;//This stores how big each square on the graph will be
+    public float distanciaNodos;//The distance that the squares will spawn from eachother.
 
-    public Nodo[,] NodeArray;//The array of nodes that the A Star algorithm uses.
+    public Nodo[,] Nodos; //Nodos
     Transform[,] mapa;
     public GameObject cubos;
     public int mapaFila;
     public int mapaColumna;
     private Transform fila;
     private Transform columna;
-    public List<Nodo> FinalPath;//The completed path that the red line will be drawn along
-    float fNodeDiameter;//Twice the amount of the radius (Set in the start function)
-    int iGridSizeX, iGridSizeY;//Size of the Grid in Array units.
+    public List<Nodo> camino;
+    float diametroNodo;
+    int tamGridX, tamGridY; //Tamaño del grid en relacion a los nodos
 
 
     private void Awake()
@@ -34,103 +34,103 @@ public class Grid : MonoBehaviour
                 mapa[y, i] = columna;
             }
         }
-        
-       
     }
 
 
     private void Start()
     {
-        fNodeDiameter = fNodeRadius * 2;
-        iGridSizeX = Mathf.RoundToInt(vGridWorldSize.x / fNodeDiameter);
-        iGridSizeY = Mathf.RoundToInt(vGridWorldSize.y / fNodeDiameter);
-        CreateGrid();
+        diametroNodo = radioNodo * 2;
+        tamGridX = Mathf.RoundToInt(tamGrid.x / diametroNodo);
+        tamGridY = Mathf.RoundToInt(tamGrid.y / diametroNodo);
+        CrearGrid();
     }
 
-    void CreateGrid()
+    //Inicializa el grid
+    void CrearGrid()
     {
         int[,] matrizCostes = ObtenerMatrizCostes();
-        NodeArray = new Nodo[iGridSizeX, iGridSizeY];
-        Vector3 bottomLeft = transform.position - Vector3.right * vGridWorldSize.x / 2 - Vector3.forward * vGridWorldSize.y / 2;
-        for (int x = 0; x < iGridSizeX; x++)
+        Nodos = new Nodo[tamGridX, tamGridY];
+        Vector3 esquina = transform.position - Vector3.right * tamGrid.x / 2 - Vector3.forward * tamGrid.y / 2;
+        for (int x = 0; x < tamGridX; x++)
         {
-            for (int y = 0; y < iGridSizeY; y++)
+            for (int y = 0; y < tamGridY; y++)
             {
-                Vector3 worldPoint = bottomLeft + Vector3.right * (x * fNodeDiameter + fNodeRadius) + Vector3.forward * (y * fNodeDiameter + fNodeRadius);
+                Vector3 worldPoint = esquina + Vector3.right * (x * diametroNodo + radioNodo) + Vector3.forward * (y * diametroNodo + radioNodo);
                 bool Wall = true;
-                NodeArray[x, y] = new Nodo(Wall, worldPoint, x, y);//Create a new node in the array.
-                NodeArray[x,y].igCost = matrizCostes[x,y];
+                Nodos[x, y] = new Nodo(Wall, worldPoint, x, y);//Create a new node in the array.
+                Nodos[x,y].igCost = matrizCostes[x,y];
             }
         }
     }
 
-    //Function that gets the neighboring nodes of the given node.
-    public List<Nodo> GetNeighboringNodes(Nodo z)
+    //Obtiene los nodos vecinos al dado
+    public List<Nodo> GetVecinos(Nodo z)
     {
-        List<Nodo> NeighborList = new List<Nodo>();
+        List<Nodo> vecinos = new List<Nodo>();
         int icheckX;
         int icheckY;
 
         icheckX = z.X + 1;
         icheckY = z.Y;
-        if (icheckX >= 0 && icheckX < iGridSizeX)
+        if (icheckX >= 0 && icheckX < tamGridX)
         {
-            if (icheckY >= 0 && icheckY < iGridSizeY)
+            if (icheckY >= 0 && icheckY < tamGridY)
             {
-                NeighborList.Add(NodeArray[icheckX, icheckY]);
+                vecinos.Add(Nodos[icheckX, icheckY]);
             }
         }
         //Check the Left side of the current node.
         icheckX = z.X - 1;
         icheckY = z.Y;
-        if (icheckX >= 0 && icheckX < iGridSizeX)
+        if (icheckX >= 0 && icheckX < tamGridX)
         {
-            if (icheckY >= 0 && icheckY < iGridSizeY)
+            if (icheckY >= 0 && icheckY < tamGridY)
             {
-                NeighborList.Add(NodeArray[icheckX, icheckY]);
+                vecinos.Add(Nodos[icheckX, icheckY]);
             }
         }
         //Check the Top side of the current node.
         icheckX = z.X;
         icheckY = z.Y + 1;
-        if (icheckX >= 0 && icheckX < iGridSizeX)
+        if (icheckX >= 0 && icheckX < tamGridX)
         {
-            if (icheckY >= 0 && icheckY < iGridSizeY)
+            if (icheckY >= 0 && icheckY < tamGridY)
             {
-                NeighborList.Add(NodeArray[icheckX, icheckY]);
+                vecinos.Add(Nodos[icheckX, icheckY]);
             }
         }
         //Check the Bottom side of the current node.
         icheckX = z.X;
         icheckY = z.Y - 1;
-        if (icheckX >= 0 && icheckX < iGridSizeX)
+        if (icheckX >= 0 && icheckX < tamGridX)
         {
-            if (icheckY >= 0 && icheckY < iGridSizeY)
+            if (icheckY >= 0 && icheckY < tamGridY)
             {
-                NeighborList.Add(NodeArray[icheckX, icheckY]);
+                vecinos.Add(Nodos[icheckX, icheckY]);
             }
         }
 
-        return NeighborList;
+        return vecinos;
     }
 
 
-    //Gets the closest node to the given world position.
-    public Nodo NodeFromWorldPoint(Vector3 a_vWorldPos)
+    //Obtiene el nodo correspondiente a las coordenadas reales
+    public Nodo GetNodoPosicionGlobal(Vector3 a_vWorldPos)
     {
-        float ixPos = ((a_vWorldPos.x + vGridWorldSize.x / 2) / vGridWorldSize.x);
-        float iyPos = ((a_vWorldPos.z + vGridWorldSize.y / 2) / vGridWorldSize.y);
+        float ixPos = ((a_vWorldPos.x + tamGrid.x / 2) / tamGrid.x);
+        float iyPos = ((a_vWorldPos.z + tamGrid.y / 2) / tamGrid.y);
 
         ixPos = Mathf.Clamp01(ixPos);
         iyPos = Mathf.Clamp01(iyPos);
 
-        int ix = Mathf.RoundToInt((iGridSizeX - 1) * ixPos);
-        int iy = Mathf.RoundToInt((iGridSizeY - 1) * iyPos);
-        if (NodeArray != null && ix < mapaFila && ix >= 0 &&  iy < mapaColumna && iy >= 0)
-            return NodeArray[ix, iy];
+        int ix = Mathf.RoundToInt((tamGridX - 1) * ixPos);
+        int iy = Mathf.RoundToInt((tamGridY - 1) * iyPos);
+        if (Nodos != null && ix < mapaFila && ix >= 0 &&  iy < mapaColumna && iy >= 0)
+            return Nodos[ix, iy];
         return null;
     }
 
+    //Obtiene el coste de un nodo
     int costeNodo(Transform nodo)
     {
         if(isObjectHere(nodo.position)){
@@ -139,6 +139,7 @@ public class Grid : MonoBehaviour
         return 1;
     }
 
+    //Obtiene la matriz de costes del grids
     public int[,] ObtenerMatrizCostes()
     {
         int[,] mapaCostes = new int[mapaFila, mapaColumna];
@@ -151,10 +152,11 @@ public class Grid : MonoBehaviour
         }
         return mapaCostes;
     }
-    
+
+    //Comprueba si hay un objeto que impide el paso    
     bool isObjectHere(Vector3 position)
     {
-        Collider[] intersecting = Physics.OverlapSphere(position, fNodeRadius);
+        Collider[] intersecting = Physics.OverlapSphere(position, radioNodo);
         foreach (Collider i in intersecting){
             if(i.gameObject.tag == "Muro"){
 
