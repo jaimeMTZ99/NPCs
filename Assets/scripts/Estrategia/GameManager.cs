@@ -4,141 +4,139 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour {
-/**
+
     public Grid gridMap;
     public List<NPC> npcs;
     public bool totalWarMode;
 
-    public WaypointManager waypointManager;
-
-
+   // public WaypointManager waypointManager;
     [SerializeField]
-    private StrategyInputManager _strategyInputManager;
+   // private StrategyInputManager strategyInputManager;
 
     private float minDistance = 1.5f;
 
     [SerializeField]
     // Set the minimum speed of movement required for capture the enemy checkpoint
-    private float _speedForCapturing;
-    public float SpeedForCapturing => _speedForCapturing;
+    private float speedForCapturing;
+    public float SpeedForCapturing => speedForCapturing;
 
-    [SerializeField] private GameObject _redVictory;
-    [SerializeField] private GameObject _bluVictory;
-    [SerializeField] private GameObject _restart;
+    //GUI de ganar o restear el juego
+    [SerializeField] private GameObject espanaGana;
+    [SerializeField] private GameObject franciaGana;
+    [SerializeField] private GameObject restart;
 
     // Start is called before the first frame update
     void Start()
     {
-        foreach (NPC npc in _npcs) {
-            npc.GameManager = this;
-            npc.GridMap = _gridMap;
+        foreach (NPC npc in npcs) {
+            npc.gameManager = this;
+            npc.gridMap = gridMap;
         }
-        _waypointManager.GameManager = this;
-        _waypointManager.GridMap = _gridMap;
-        _strategyInputManager.GameManager = this;
+        //waypointManager.GameManager = this;
+       // waypointManager.GridMap = _gridMap;
+       // strategyInputManager.GameManager = this;
     }
     
     void Update() {
-        bool bluCapturing = false;
-        bool redCapturing = false;
-        foreach (NPC npc in _npcs) {
-            if (!npc.IsDead && NPCInWaypoint(npc, WaypointManager.GetEnemyCheckpoint(npc))) {
-                if (npc.Team == NPC.UnitTeam.Red)
-                    redCapturing = true;
+        bool capturaFrancia = false;
+        bool capturaEspana = false;
+        foreach (NPC npc in npcs) {
+            if (!npc.IsDead /*&& NPCInWaypoint(npc, WaypointManager.GetEnemyCheckpoint(npc))*/) {
+                if (npc.team == NPC.Equipo.Spain)
+                    capturaEspana = true;
                 else
-                    bluCapturing = true;
+                    capturaFrancia = true;
             }
         }
-        if (!redCapturing) {
-            WaypointManager.RedTeamNotCapturing();
+        if (!capturaEspana) {
+            //WaypointManager.RedTeamNotCapturing();
         }
-        if (!bluCapturing) {
-            WaypointManager.BluTeamNotCapturing();
+        if (!capturaFrancia) {
+            //WaypointManager.BluTeamNotCapturing();
         }
     }
     
-    public int EnemiesAtCheckpoint(NPC npc) {
+    public int EnemigosCheckpoint(NPC npc) {
         int enemiesAtCheckpoint = 0;
-        foreach (NPC npc2 in _npcs) {
-            if (npc2.Team != npc.Team && !npc2.IsDead) {
-                
-                foreach (Transform position in WaypointManager.GetAlliedCheckpoint(npc).Positions) {
-                    if (Vector3.Distance(npc2.AgentNPC.Position, position.position) <= minDistance)
+        foreach (NPC npc2 in npcs) {
+            if (npc2.team != npc.team && !npc2.IsDead) {
+                /*foreach (Transform position in WaypointManager.GetAlliedCheckpoint(npc).Positions) {
+                    if (Vector3.Distance(npc2.agentNPC.Position, position.position) <= minDistance)
                         enemiesAtCheckpoint++;
-                }
+                }*/
             }
         }
         return enemiesAtCheckpoint;
     }
 
-    public int AlliesCapturing(NPC npc) {
+    public int AliadosCapturando(NPC npc) {
         int alliesCapturing = 0;
-        foreach (NPC npc2 in _npcs) {
-            if (npc2.Team == npc.Team && !npc2.IsDead) {
-                foreach (Transform position in WaypointManager.GetEnemyCheckpoint(npc).Positions) {
-                    if (Vector3.Distance(npc2.AgentNPC.Position, position.position) <= minDistance)
+        foreach (NPC npc2 in npcs) {
+            if (npc2.team == npc.team && !npc2.IsDead) {
+                /*foreach (Transform position in WaypointManager.GetEnemyCheckpoint(npc).Positions) {
+                    if (Vector3.Distance(npc2.agentNPC.Position, position.position) <= minDistance)
                         alliesCapturing++;
-                }
+                }*/
             }
         }
         return alliesCapturing;
     }
 
-    public bool EnemiesDefending(NPC npc) {
-        Waypoint enemyCheckpoint = WaypointManager.GetEnemyCheckpoint(npc);
-        foreach (NPC npc2 in _npcs) {
-            if(npc2.Team != npc.Team && !npc2.IsDead) {
+    public bool EnemigosDefendiendo(NPC npc) {
+       /* Waypoint enemyCheckpoint = WaypointManager.GetEnemyCheckpoint(npc);
+        foreach (NPC npc2 in npcs) {
+            if(npc2.team != npc.team && !npc2.IsDead) {
                 if (NPCInWaypoint(npc2, enemyCheckpoint))
                     return true;
             }
-        }
+        }*/
         return false;
     }
 
     // Return true if the NPC is on base
     public bool InBase(NPC npc) {
-        foreach (Transform position in WaypointManager.GetAlliedBase(npc).Positions) {
-            if (Vector3.Distance(npc.AgentNPC.Position, position.position) <= minDistance)
+        /*foreach (Transform position in WaypointManager.GetAlliedBase(npc).Positions) {
+            if (Vector3.Distance(npc.agentNPC.Position, position.position) <= minDistance)
                 return true;
-        }
+        }*/
         return false;
     }
 
-    public bool NPCInWaypoint(NPC npc, Waypoint waypoint) {
-        foreach (Transform position in waypoint.Positions) {
-            if (Vector3.Distance(npc.AgentNPC.Position, position.position) <= minDistance)
+    public bool NPCInWaypoint(NPC npc/*, Waypoint waypoint*/) {
+        /*foreach (Transform position in waypoint.Positions) {
+            if (Vector3.Distance(npc.agentNPC.Position, position.position) <= minDistance)
                 return true;
-        }
+        }*/
         return false;
     }
 
-    public void ToggleOffensiveMode(NPC.UnitTeam team) {
-        foreach (NPC npc in _npcs)
-            if (npc.Team == team)
-                npc.ToggleOffensiveMode();
+    public void CambiarModoOfensivo(NPC.Equipo team) {
+        foreach (NPC npc in npcs)
+            if (npc.team == team)
+                npc.DispararModoOfensivo();
     }
 
-    public void ToggleDefensiveMode(NPC.UnitTeam team) {
-        foreach (NPC npc in _npcs)
-            if (npc.Team == team)
-                npc.ToggleDefensiveMode();
+    public void CambiarModoDefensivo(NPC.Equipo team) {
+        foreach (NPC npc in npcs)
+            if (npc.team == team)
+                npc.DispararModoDefensivo();
     }
 
-    public void EnableTotalWar() {
+    public void ModoGuerraTotal() {
         totalWarMode = true;
-        foreach (NPC npc in _npcs)
-            npc.ToggleTotalWar();
+        foreach (NPC npc in npcs)
+            npc.DispararGuerraTotal();
     }
 
-    public void BlueWins() {
-        _bluVictory.SetActive(true);
-        _restart.SetActive(true);
+    public void FranciaGana() {
+        franciaGana.SetActive(true);
+        restart.SetActive(true);
         Time.timeScale = 0;
     }
 
-    public void RedWins() {
-        _redVictory.SetActive(true);
-        _restart.SetActive(true);
+    public void EspanaGana() {
+        espanaGana.SetActive(true);
+        restart.SetActive(true);
         Time.timeScale = 0;
     }
 
@@ -154,5 +152,5 @@ public class GameManager : MonoBehaviour {
         else
             audio.Play();
     }
-    **/
+    
 }

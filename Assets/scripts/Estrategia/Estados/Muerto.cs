@@ -1,39 +1,41 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class Muerto : Estado
-{
-    public float timepoMuerto = 8;
-    private float timeRes;
+public class Muerto : Estado  {
+
+    private float _deadTime = 10f;
+    private float _time;
 
     public override void EntrarEstado(NPC npc) {
         //npc.SimplePropagator.Value = 0;
-        //npc.Pathfinding.ClearPath();
+        npc.GetComponent<Path>().ClearPath();
         move = false;
-        timeRes = Time.time;
+        _time = Time.time;
     }
 
     public override void SalirEstado(NPC npc) {
-
-        //volver a establecer mapa influencias
-
-        /**if (npc.Team == NPC.UnitTeam.Red) 
-            npc.SimplePropagator.Value = 1;
-        else
-            npc.SimplePropagator.Value = -1;**/
+        if (npc.team == NPC.Equipo.Spain){} 
+           // npc.SimplePropagator.Value = 1;
+        else{}
+           // npc.SimplePropagator.Value = -1;
     }
 
     public override void Accion(NPC npc) {
-        // respawnear en la base cunado el tiempo se agote
-        if (Time.time - timeRes > timepoMuerto) {
-            //npc.AgentNPC.Position = npc.GameManager.WaypointManager.GetRandomTile(npc.GameManager.WaypointManager.GetAlliedBase(npc)).worldPosition;
-            //npc.Health = npc.MaxHealth;
+        // When it is finally time to come back from the dead, respawn at base
+        if (Time.time - _time >= _deadTime) {
+           // npc.agentNPC.Position = npc.gameManager.waypointManager.GetRandomTile(npc.gameManager.waypointManager.GetAlliedBase(npc)).worldPosition;
+            npc.health = npc.maxVida;
+            npc.municionActual = npc.maxMunicion;
         }
-        //if (npc.Health > 0){
-
-        //}
-            //npc.ChangeState(npc.IdleState);
     }
 
+    public override void Ejecutar(NPC npc) {
+        Accion(npc);
+        ComprobarEstado(npc);
+    }
+
+    public override void ComprobarEstado(NPC npc) {
+        // I have returned from the dead, get back to business
+        if (npc.health > 0)
+            npc.CambiarEstado(npc.estadoAsignado);
+    }
 }

@@ -47,6 +47,9 @@ public class Path : MonoBehaviour
             return nodos[valor].transform.position;
 
     }
+    public bool EndOfThePath(int currentPosition){
+        return currentPosition >= nodos.Count;
+    }
     public int GetParam(Vector3 characterPosition, int currentPosition) {
 
             // si no hay camino , devuelve la misma posicion
