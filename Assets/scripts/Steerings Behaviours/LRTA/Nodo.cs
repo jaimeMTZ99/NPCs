@@ -8,7 +8,7 @@ public class Nodo{
     public int X;   //Posicion x con respecto a los nodos
     public int Y;   //Posicion y con respecto a los nodos
 
-    public bool aislado;     //Aislamiento del nodo, si es posible continuar
+    public bool walkable;     //Aislamiento del nodo, si es posible continuar
     public Vector3 Posicion;   //posicion
 
     public Nodo NodoPadre;  //Nodo del que se accede al actual
@@ -20,7 +20,7 @@ public class Nodo{
     
     public Nodo(bool a, Vector3 b, int c, int d) //Constructor
     {
-        aislado = a;
+        walkable = a;
         Posicion = b;
         X = c;
         Y = d;

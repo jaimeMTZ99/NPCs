@@ -56,8 +56,8 @@ public class Grid : MonoBehaviour
             for (int y = 0; y < tamGridY; y++)
             {
                 Vector3 worldPoint = esquina + Vector3.right * (x * diametroNodo + radioNodo) + Vector3.forward * (y * diametroNodo + radioNodo);
-                bool Wall = true;
-                Nodos[x, y] = new Nodo(Wall, worldPoint, x, y);//Create a new node in the array.
+                bool walkable = !isObjectHere(worldPoint);
+                Nodos[x, y] = new Nodo(walkable, worldPoint, x, y);//Create a new node in the array.
                 Nodos[x,y].igCost = matrizCostes[x,y];
             }
         }
@@ -158,7 +158,7 @@ public class Grid : MonoBehaviour
     {
         Collider[] intersecting = Physics.OverlapSphere(position, radioNodo);
         foreach (Collider i in intersecting){
-            if(i.gameObject.tag == "Muro"){
+            if(i.gameObject.tag == "Muro" || i.gameObject.tag =="Agua"){
 
                 return true;
             }
