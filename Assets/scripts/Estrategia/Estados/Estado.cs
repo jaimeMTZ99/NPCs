@@ -30,7 +30,7 @@ public abstract class Estado : MonoBehaviour
     protected bool ComprobarDefensa(GameManager gameManager, NPC npc) {
         if (gameManager.EnemigosCheckpoint(npc) > 0 && 
         (npc.health > npc.menosVida || gameManager.totalWarMode) 
-        /*&& !gameManager.NPCInWaypoint(npc, gameManager.waypointManager.GetAlliedCheckpoint(npc))*/) {
+        && !gameManager.NPCInWaypoint(npc, gameManager.waypointManager.GetEquipo(npc))) {
             // If there are enemies in our capture point and I have enough health or it's total war, go defend
             npc.CambiarEstado(npc.estadoDefensa);
             return true;
@@ -39,8 +39,8 @@ public abstract class Estado : MonoBehaviour
     }
 
     protected bool ComprobarCaptura(GameManager gameManager, NPC npc) {
-        if ((!npc.patrol || npc.patrol && gameManager.totalWarMode) //&& 
-        /*UnitsManager.EnemiesNearby(npc) == 0*/ && npc.health > npc.menosVida) {
+        if ((!npc.patrol || npc.patrol && gameManager.totalWarMode) && 
+        UnitsManager.EnemiesNearby(npc) == 0 && npc.health > npc.menosVida) {
             // If I'm not supposed to patrol or it's total war mode and there are no nearby enemies and I have enough health
             if (gameManager.AliadosCapturando(npc) >= npc.minAliadosCaptura) {
                 // If there are enough allies capturing, go capture too
@@ -56,8 +56,7 @@ public abstract class Estado : MonoBehaviour
         if (npc.gameManager.totalWarMode)
             return false;
         
-        if (npc.health <= npc.menosVida //|| 
-        /*UnitsManager.EnemiesNearby(npc) > npc.numEnemigosEscape*/) {
+        if (npc.health <= npc.menosVida || UnitsManager.EnemiesNearby(npc) > npc.numEnemigosEscape) {
             // If I have low health or there are too many enemies, flee
             npc.CambiarEstado(npc.estadoEscapar);
             return true;
@@ -68,7 +67,7 @@ public abstract class Estado : MonoBehaviour
     protected bool ComprobarAtaqueRangoMedico(NPC npc) {
         if (npc.tipo == NPC.TipoUnidad.Medic) {
             // If I am medic
-            NPC allyChoosen = null;//UnitsManager.ChooseAlly(npc);
+            NPC allyChoosen = UnitsManager.ChooseAlly(npc);
             if (allyChoosen != null) {
                 // If there is a wounded ally and I can "shoot" him in a straight line, "shoot" him
                 npc.CambiarEstado(npc.estadoAtaqueRango, allyChoosen);
@@ -85,14 +84,14 @@ public abstract class Estado : MonoBehaviour
             // There are close enemies
             if (npc.municionActual == 0) {
                 // I have no ammo
-                /*if (UnitsManager.EnemiesNearby(npc) - UnitsManager.AlliesNearby(npc) <= npc.maxEnemigosMelee - npc.minEnemigosMelee) {
+                if (UnitsManager.EnemiesNearby(npc) - UnitsManager.AlliesNearby(npc) <= npc.maxEnemigosMelee - npc.minEnemigosMelee) {
                     // I have enough support to fight
                     if (!npc.gameManager.InBase(npc) && !npc.gameManager.InBase(enemies[0])) {
                         // If I am not inside the base and neither the enemy, attack said enemy
                         npc.CambiarEstado(npc.estadoAtaqueMelee, enemies[0]);
                         return true;
                     }
-                }*/
+                }
             } else {
                 // I do have ammo
                 foreach (NPC en in enemies) {

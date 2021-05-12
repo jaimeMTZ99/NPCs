@@ -14,6 +14,7 @@ public class NPC : MonoBehaviour
         Spain,
         France
     }
+    
     //######REFERENCIAS A OBJETOS#########
     public Grid gridMap;
     public GameManager gameManager;
@@ -42,6 +43,8 @@ public class NPC : MonoBehaviour
     public float rangedRange;
     public float rangedAttackSpeed;
     public int municionActual;
+
+    public float healthy;
     
     public int municionPorTiro;
     public int tiempoCargaRango;
@@ -64,7 +67,7 @@ public class NPC : MonoBehaviour
     public Captura estadoCaptura;
     public Defender estadoDefensa;
     public Escapar estadoEscapar;
-   // private Heal _healState;
+    public Curar estadoCuracion;
     public AsignarEstado estadoAsignado;
     public AtaqueMelee estadoAtaqueMelee;
    // private Patrol _patrolState;
@@ -149,8 +152,7 @@ public class NPC : MonoBehaviour
         QuitarDelGrupo();
         this.GetComponent<Path>().ClearPath();
         agentNPC.Position = startPosition;
-        //Idle estado?
-        //CambiarEstado(_idleState);
+        CambiarEstado(estadoAsignado);
     }
 
 }

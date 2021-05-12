@@ -6,11 +6,10 @@ using UnityEngine;
 public class WaypointManager : MonoBehaviour
 {
 
-    [SerializeField]
-    private Grid grid;
 
-    [SerializeField]
-    private GameManager gm;
+    public Grid grid;
+
+    public GameManager gm;
 
     [SerializeField]
     private Waypoint baseESP;
