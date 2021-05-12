@@ -27,7 +27,7 @@ public class AtaqueRango : Estado  {
             }
             // Wait patiently
             if (Time.time - time >= npc.tiempoCargaRango) {
-                //CombatManager.RangedAttack(npc, npcObjetivo);
+                CombatManager.RangedAttack(npc, npcObjetivo);
                 time = -1;
             }
         }

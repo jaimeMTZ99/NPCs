@@ -56,7 +56,7 @@ public class AtaqueMelee : Estado  {
             
             if (!move && !iTried && time == -1) {
                 // I'm not moving and I haven't tried chasing him
-                //npc.pf.FindPathToPosition(npc.nodoActual.Posicion, npcObjetivo.nodoActual.Posicion);
+                npc.pf.FindPathToPosition(npc.nodoActual.Posicion, npcObjetivo.nodoActual.Posicion);
                 move = true;
                 iTried = true;
             }

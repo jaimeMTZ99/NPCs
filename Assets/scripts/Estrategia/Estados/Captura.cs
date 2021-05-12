@@ -17,27 +17,26 @@ public class Captura : Estado {
         GameManager gameManager = npc.gameManager;
         
         // If the unit is already at the enemy capture point, stop moving
-        if (gameManager.NPCInWaypoint(npc, gameManager.waypointManager.GetEnemyCheckpoint(npc))) {
+        if (gameManager.NPCInWaypoint(npc, gameManager.waypointManager.GetRival(npc))) {
             if (move) {
                 move = false;
                 npc.GetComponent<Path>().ClearPath();
             }
 
             // If there are no enemies defending their capture point, increment the capture bar
-            if (!gameManager.EnemigosDefendiendo(npc))
-                //gameManager.waypointManager.Capturing(npc);
+            if (!gameManager.EnemigosDefendiendo(npc)){}
+                gameManager.waypointManager.Captura(npc);
         } 
         // Otherwise, start moving towards the enemy capture point
         else if (!move) {
             // The target position is one of the random available positions within the enemy capture point
-            
-            //npc.Pathfinding.FindPathToPosition(npc.CurrentTile.worldPosition, gameManager.WaypointManager.GetRandomTile(gameManager.WaypointManager.GetEnemyCheckpoint(npc)).worldPosition);
+            npc.Pathfinding.FindPathToPosition(npc.CurrentTile.worldPosition, gameManager.WaypointManager.GetRandomTile(gameManager.WaypointManager.GetEnemyCheckpoint(npc)).worldPosition);
             move = true;
         } else {
             // If I am on my way to the enemy capture point but it happens that there are enemies attacking our point
             if (gameManager.EnemigosCheckpoint(npc) > 0) {
-                var alliedCapturePoint = gameManager.waypointManager.GetAlliedCheckpoint(npc).Position;
-                var enemyCapturePoint = gameManager.waypointManager.GetEnemyCheckpoint(npc).Position;
+                var alliedCapturePoint = gameManager.waypointManager.GetEquipo(npc).posicion;
+                var enemyCapturePoint = gameManager.waypointManager.GetRival(npc).posicion;
                 var currentPosition = npc.nodoActual.Posicion;
                 var distanceToEnemyCapturePoint = Vector3.Distance(alliedCapturePoint, currentPosition);
                 var distanceToAlliedCapturePoint = Vector3.Distance(enemyCapturePoint, currentPosition);

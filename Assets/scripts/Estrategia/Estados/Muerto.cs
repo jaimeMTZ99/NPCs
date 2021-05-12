@@ -2,14 +2,14 @@
 
 public class Muerto : Estado  {
 
-    private float _deadTime = 10f;
-    private float _time;
+    private float deadTime = 10f;
+    private float time;
 
     public override void EntrarEstado(NPC npc) {
         //npc.SimplePropagator.Value = 0;
         npc.GetComponent<Path>().ClearPath();
         move = false;
-        _time = Time.time;
+        time = Time.time;
     }
 
     public override void SalirEstado(NPC npc) {
@@ -21,8 +21,8 @@ public class Muerto : Estado  {
 
     public override void Accion(NPC npc) {
         // When it is finally time to come back from the dead, respawn at base
-        if (Time.time - _time >= _deadTime) {
-           // npc.agentNPC.Position = npc.gameManager.waypointManager.GetRandomTile(npc.gameManager.waypointManager.GetAlliedBase(npc)).worldPosition;
+        if (Time.time - time >= deadTime) {
+            npc.agentNPC.Position = npc.gameManager.waypointManager.GetNodoAleatorio(npc.gameManager.waypointManager.GetBase(npc)).Posicion;
             npc.health = npc.maxVida;
             npc.municionActual = npc.maxMunicion;
         }
