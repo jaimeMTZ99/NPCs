@@ -42,7 +42,7 @@ public class AtaqueMelee : Estado  {
             
             // Wait patiently
             if (Time.time - time >= npc.meleeAttackSpeed) {
-                CombatManager.MeleeAttack(npc, npcObjetivo);
+                CombatManager.AtaqueMelee(npc, npcObjetivo);
                 time = -1;
                 iTried = false;
             }
@@ -56,7 +56,7 @@ public class AtaqueMelee : Estado  {
             
             if (!move && !iTried && time == -1) {
                 // I'm not moving and I haven't tried chasing him
-                npc.pf.FindPathToPosition(npc.nodoActual.Posicion, npcObjetivo.nodoActual.Posicion);
+                npc.pf.EncontrarCaminoJuego(npc.nodoActual.Posicion, npcObjetivo.nodoActual.Posicion);
                 move = true;
                 iTried = true;
             }

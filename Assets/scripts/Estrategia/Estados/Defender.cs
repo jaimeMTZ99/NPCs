@@ -12,7 +12,7 @@ public class Defender : Estado  {
 
         if (!move) {
             // Go to our capture point
-            npc.pf.FindPathToPosition(npc.nodoActual.Posicion, npc.gameManager.waypointManager.GetNodoAleatorio(npc.gameManager.waypointManager.GetEquipo(npc)).Posicion);
+            npc.pf.EncontrarCaminoJuego(npc.nodoActual.Posicion, npc.gameManager.waypointManager.GetNodoAleatorio(npc.gameManager.waypointManager.GetEquipo(npc)).Posicion);
             move = true;
         }
 

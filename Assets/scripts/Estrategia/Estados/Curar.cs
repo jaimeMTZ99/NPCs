@@ -37,7 +37,7 @@ public class Curar : Estado {
             // Otherwise, get healed until it is acceptable by the medic
             if (npc.health <= npc.healthy) {
                 // If the medic has died, abort
-                NPC closestMedic = UnitsManager.ClosestMedic(npc);
+                NPC closestMedic = UnitsManager.MedicoCerca(npc);
                 if (closestMedic == null || Vector3.Distance(npc.agentNPC.Position, closestMedic.agentNPC.Position) > closestMedic.rangedRange) {
                     pointless = true;
                 }

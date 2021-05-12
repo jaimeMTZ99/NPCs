@@ -6,14 +6,13 @@ public class PathFinding : MonoBehaviour
 {
     Nodo nodoActual;
     Nodo nodoFinal;
-
-    [SerializeField]
-    private int heuristica = 1;
+    public int heuristica = 1;
     GameObject nodoEnd; //Objeto visual
-    LRTA lrta = new LRTA();
+    public LRTA lrta = new LRTA();
     [SerializeField]
     public Grid grid;
     float[,] mapaCostes;
+    List<GameObject> camino ;
     private void Start()
     {
         grid = grid.GetComponent<Grid>();
@@ -34,7 +33,7 @@ public class PathFinding : MonoBehaviour
             {
                 if (nodoEnd != null) Destroy(nodoEnd);
                 nodoEnd = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-                nodoEnd.transform.localScale = new Vector3(grid.radioNodo*2, grid.radioNodo*2, grid.radioNodo*2);
+                nodoEnd.transform.localScale = new Vector3(grid.radioNodo * 2, grid.radioNodo * 2, grid.radioNodo * 2);
                 nodoEnd.transform.position = new Vector3(hit.transform.position.x, hit.transform.position.y + 1, hit.transform.position.z);
                 nodoEnd.GetComponent<Renderer>().material.color = new Color(255, 0, 0);
                 nodoFinal = grid.GetNodoPosicionGlobal(nodoEnd.transform.position);
@@ -73,7 +72,7 @@ public class PathFinding : MonoBehaviour
         if (esferaDestino != null && !muro)
         {
             nodoFinal = grid.GetNodoPosicionGlobal(esferaDestino.transform.position);
-            nodos = lrta.EncontrarCamino(nodoActual, nodoFinal, 1, grid);
+            nodos = lrta.EncontrarCamino(nodoActual, nodoFinal, heuristica, grid);
             if (nodos != null)
             {
                 List<Vector3> aux = new List<Vector3>(nodos.Count);
@@ -89,5 +88,69 @@ public class PathFinding : MonoBehaviour
 
         }
         return null;
+    }
+    public void EncontrarCaminoJuego(Vector3 posicionInicial, Vector3 posicionFinal)
+    {
+        Nodo actual = grid.GetNodoPosicionGlobal(posicionInicial);
+        Nodo final = grid.GetNodoPosicionGlobal(posicionFinal);
+        List<Nodo> nodos = lrta.EncontrarCamino(actual, final, heuristica, grid);
+        List<GameObject> keyPoints = new List<GameObject>();
+        if (nodos != null)
+        {
+            List<Vector3> aux = new List<Vector3>(nodos.Count);
+            for (int i = 0; i < nodos.Count; i++)
+            {
+                GameObject keyPoint = new GameObject("Keypoint");
+                keyPoint.transform.position = nodos[i].Posicion;
+                keyPoints.Add(keyPoint);
+            }
+
+        }
+        Path path;
+        PathFollowing pf;
+        if (this.GetComponent<PathFollowing>() == null)
+        {
+            pf = this.gameObject.AddComponent<PathFollowing>();
+            path = this.gameObject.AddComponent(typeof(Path)) as Path;
+            pf.path = this.gameObject.GetComponent<Path>();
+            path.Radio = this.grid.radioNodo;
+            this.gameObject.GetComponent<AgentNPC>().SteeringList.Add(pf);
+        }
+        path = this.gameObject.GetComponent<Path>();
+        path.ClearPath();
+        pf = this.gameObject.GetComponent<PathFollowing>();
+        pf.currentPos = 0;
+        for (int i = 0; i < keyPoints.Count; i++)
+        {
+            path.AppendPointToPath(keyPoints[i]);
+        }
+        pintarCamino(keyPoints);
+    }
+
+
+    void pintarCamino(List<GameObject> listPuntos)
+    {
+        if (listPuntos.Count != 0)
+        {
+            if (camino != null)
+            {
+                foreach (GameObject g in camino)
+                {
+                      Destroy(g);
+                }
+            }
+            
+            camino = new List<GameObject>();
+            GameObject aux;
+            foreach(GameObject v in listPuntos)
+            {
+                aux = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                aux.transform.localScale = new Vector3(1, this.grid.radioNodo, 1);
+                aux.transform.position = v.transform.position;
+                //aux.GetComponent<Renderer>().material.color = new Color(0, 0, 0);
+                camino.Add(aux);
+            }
+            
+        }
     }
 }

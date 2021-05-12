@@ -30,7 +30,7 @@ public class Captura : Estado {
         // Otherwise, start moving towards the enemy capture point
         else if (!move) {
             // The target position is one of the random available positions within the enemy capture point
-            npc.Pathfinding.FindPathToPosition(npc.CurrentTile.worldPosition, gameManager.WaypointManager.GetRandomTile(gameManager.WaypointManager.GetEnemyCheckpoint(npc)).worldPosition);
+            npc.pf.EncontrarCaminoJuego(npc.nodoActual.Posicion, gameManager.waypointManager.GetNodoAleatorio(gameManager.waypointManager.GetRival(npc)).Posicion);
             move = true;
         } else {
             // If I am on my way to the enemy capture point but it happens that there are enemies attacking our point

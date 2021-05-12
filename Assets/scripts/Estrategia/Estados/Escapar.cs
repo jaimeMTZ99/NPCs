@@ -17,10 +17,10 @@ public class Escapar : Estado {
         lowHealth = npc.health <= npc.menosVida;
         NPC closestAlly = null;
         if (lowHealth) {
-            closestMedic = UnitsManager.ClosestMedic(npc);
+            closestMedic = UnitsManager.MedicoCerca(npc);
         }
         else {
-            closestAlly = UnitsManager.ClosestAlly(npc);
+            closestAlly = UnitsManager.AliadoCercano(npc);
         }
         alliedBase = npc.gameManager.waypointManager.GetNodoAleatorio(npc.gameManager.waypointManager.GetBase(npc));
     
@@ -56,17 +56,17 @@ public class Escapar : Estado {
                 move = true;
                 if (distanceToMedic < distanceToBase && npc.tipo != NPC.TipoUnidad.Medic) {
                     // If I am closer to the medic, go to the medic
-                    //npc.Pathfinding.FindPathToPosition(npc.CurrentTile.worldPosition, _closestMedic.CurrentTile.worldPosition);
+                    npc.pf.EncontrarCaminoJuego(npc.nodoActual.Posicion, closestMedic.nodoActual.Posicion);
                     return;
                 }
                 // Otherwise, go to base
-                //npc.Pathfinding.FindPathToPosition(npc.CurrentTile.worldPosition, _alliedBase.worldPosition);
+                npc.pf.EncontrarCaminoJuego(npc.nodoActual.Posicion, alliedBase.Posicion);
             } else {
                 if (distanceToMedic < distanceToBase && npc.tipo != NPC.TipoUnidad.Medic) {
                     // I was headed towards my medic
                     if (npc.nodoActual == startingMedicNodo) {
                         // I have reached where my medic is supposed to be
-                        NPC currentClosestMedic = UnitsManager.ClosestMedic(npc);
+                        NPC currentClosestMedic = UnitsManager.MedicoCerca(npc);
                         if (currentClosestMedic == null ||
                          Vector3.Distance(npc.agentNPC.Position, currentClosestMedic.agentNPC.Position) > currentClosestMedic.rangedRange || 
                          currentClosestMedic.municionActual == 0) {
@@ -95,22 +95,22 @@ public class Escapar : Estado {
                 move = true;
                 if (distanceToAlly < distanceToBase) {
                     // If I am closer to the last known position of the ally, go there
-                    //npc.Pathfinding.FindPathToPosition(npc.CurrentTile.worldPosition, _startingAllyTile.worldPosition);
+                    npc.pf.EncontrarCaminoJuego(npc.nodoActual.Posicion, startingAllyNodo.Posicion);
                     return;
                 }
 
                 // Otherwise, go to base
-                //npc.Pathfinding.FindPathToPosition(npc.CurrentTile.worldPosition, _alliedBase.worldPosition);
+                npc.pf.EncontrarCaminoJuego(npc.nodoActual.Posicion, alliedBase.Posicion);
             } else {
                 if (distanceToAlly < distanceToBase) {
                     // I was headed to an ally
                     if (npc.nodoActual == startingAllyNodo) {
                         // I have reached my destination
-                        if (UnitsManager.EnemiesNearby(npc) > 0) {
+                        if (UnitsManager.EnemigosCerca(npc) > 0) {
                             // There are enemies at the position of my ally, escape to base 
                             startingAllyNodo = alliedBase;
                             npc.GetComponent<Path>().ClearPath();
-                           // npc.Pathfinding.FindPathToPosition(npc.CurrentTile.worldPosition, _alliedBase.worldPosition);
+                            npc.pf.EncontrarCaminoJuego(npc.nodoActual.Posicion, alliedBase.Posicion);
                         }
                         else {
                             if (startingAllyNodo == alliedBase) {

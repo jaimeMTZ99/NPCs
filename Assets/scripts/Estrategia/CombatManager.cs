@@ -5,7 +5,7 @@ public static class CombatManager {
     // Initialized from the GUIKillFeed itself so this class continues to stay static
     //public static GUIKillFeed GuiKillFeed;
     
-    public static void MeleeAttack(NPC attacker, NPC target) {
+    public static void AtaqueMelee(NPC attacker, NPC target) {
         int crit = Random.Range(0, 51);
         if (crit == 50) {
             // Critical attack
@@ -22,7 +22,7 @@ public static class CombatManager {
         }
     }
 
-    public static void RangedAttack(NPC attacker, NPC target) {
+    public static void AtaqueRango(NPC attacker, NPC target) {
         int crit = Random.Range(0, 51);
         if (crit == 50) {
             // Critical attack

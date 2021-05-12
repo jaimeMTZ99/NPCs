@@ -13,7 +13,7 @@ public static class UnitsManager {
     private static int _sphereRange = 25;
 
     // Returns the number of enemies near that the unit can see
-    public static int EnemiesNearby(NPC npc) {
+    public static int EnemigosCerca(NPC npc) {
         int result = 0;
         Collider[] hitColliders = Physics.OverlapSphere(npc.agentNPC.Position, 5, _npcLayerMask);
         int i = 0;
@@ -27,7 +27,7 @@ public static class UnitsManager {
     }
 
     // Returns the number of allies near that the unit can see
-    public static int AlliesNearby(NPC npc) {
+    public static int AliadosCerca(NPC npc) {
         int result = 0;
         Collider[] hitColliders = Physics.OverlapSphere(npc.agentNPC.Position, 5, _npcLayerMask);
         int i = 0;
@@ -41,7 +41,7 @@ public static class UnitsManager {
     }
     
     // Returns all enemies within the visible range ordered by distance
-    public static List<NPC> EnemiesInRange(NPC npc) {
+    public static List<NPC> EnemigosEnRango(NPC npc) {
         List<NPC> enemies = new List<NPC>();
         Collider[] hitColliders = Physics.OverlapSphere(npc.agentNPC.Position, npc.rangedRange, _npcLayerMask);
         int i = 0;
@@ -59,7 +59,7 @@ public static class UnitsManager {
     }
 
     // Returns the closest medic alive to the unit
-    public static NPC ClosestMedic(NPC npc) {
+    public static NPC MedicoCerca(NPC npc) {
         Collider[] hitColliders = Physics.OverlapSphere(npc.agentNPC.Position, _sphereRange, _npcLayerMask);
         int i = 0;
         float minimalDistance = float.MaxValue;
@@ -79,7 +79,7 @@ public static class UnitsManager {
     }
     
     // Returns the closes ally, if any
-    public static NPC ClosestAlly(NPC npc) {
+    public static NPC AliadoCercano(NPC npc) {
         Collider[] hitColliders = Physics.OverlapSphere(npc.agentNPC.Position, _sphereRange, _npcLayerMask);
         int i = 0;
         float minimalDistance = float.MaxValue;
@@ -102,7 +102,7 @@ public static class UnitsManager {
     }
     
     // Find the ally with the lowest health between all close units that are "LowHealth"
-    public static NPC ChooseAlly(NPC npc) {
+    public static NPC ElegirAliado(NPC npc) {
         List<NPC> lowHealth = new List<NPC>();
         Collider[] hitColliders = Physics.OverlapSphere(npc.agentNPC.Position, npc.rangedRange, _npcLayerMask);
         int i = 0;
