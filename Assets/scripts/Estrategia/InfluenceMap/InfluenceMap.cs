@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class InfluenceMap : Graph
 {
+    /**
     public List<NPC> unidades;
-    // works as vertices in regular graph
     GameObject[] posiciones;
 
     void Awake()
@@ -41,7 +41,7 @@ public class InfluenceMap : Graph
             Vertex vert = GetNearestVertex(uPos);
             pendientes.Add(vert);
             // BFS for assigning influence
-            for (int i = 1; i <= u.radius; i++)
+            for (int i = 1; i <= u.radio; i++)
             {
                 frontera = new List<Vertex>();
                 foreach (Vertex p in pendientes)
@@ -50,7 +50,7 @@ public class InfluenceMap : Graph
                         continue;
                     visitados.Add(p);
                     v = p as Punto;
-                    dropOff = u.GetDropOff(i);
+                    dropOff = u.GetDropOff();
                     v.SetValue(u.team, dropOff);
 
                     vecinos = GetNeighbours(vert);
@@ -61,5 +61,5 @@ public class InfluenceMap : Graph
         
         }
         
-    }
+    }**/
 }

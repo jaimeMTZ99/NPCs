@@ -31,6 +31,8 @@ public class NPC : MonoBehaviour
 
     public Nodo nodoActual;
 
+    public int radio = 1;
+    public float influencia = 1f;
     //#########CARACTERISTICAS DE LA UNIDAD###########
     public float health;
     public int meleeDamage;
@@ -145,7 +147,10 @@ public class NPC : MonoBehaviour
         /*groupSpeed = speed;
         pathfinding.Type = unitType;*/
     }
-
+    public virtual float GetDropOff()
+    {
+        return influencia;
+    }
     public void Restart() {
         health = maxVida;
         municionActual = maxMunicion;
