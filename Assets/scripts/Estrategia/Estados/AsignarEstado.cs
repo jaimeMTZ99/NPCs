@@ -1,15 +1,17 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 public class AsignarEstado : Estado  {
 
     public override void EntrarEstado(NPC npc) {
-
+        
     }
 
     public override void SalirEstado(NPC npc) {
-
+       
     }
 
     public override void Accion(NPC npc) {
-
     }
 
     public override void Ejecutar(NPC npc) {
@@ -20,7 +22,6 @@ public class AsignarEstado : Estado  {
     public override void ComprobarEstado(NPC npc) {
 
         GameManager gameManager = npc.gameManager;
-        
         // If the unit is dead, change to that state
         if (ComprobarMuerto(npc))
             return;
@@ -37,8 +38,12 @@ public class AsignarEstado : Estado  {
         if (ComprobarCaptura(gameManager, npc))
             return;
         // Otherwise, check if I can attack any enemies
-        if (ComprobarAtaqueRangoMelee(npc))
+        if (ComprobarAtaqueRangoMelee(npc)){
+            if (npc.name == "MeleeFra 1"){
+                Debug.Log("Comprobando ataque melee frances 1");
+            }
             return;
+        }
         // Otherwise, check if I have to reload
         if (ComprobarRecarga(npc))
             return;

@@ -20,6 +20,7 @@ public class Muerto : Estado  {
     }
 
     public override void Accion(NPC npc) {
+        Debug.Log("Estoy muerto");
         // When it is finally time to come back from the dead, respawn at base
         if (Time.time - time >= deadTime) {
             npc.agentNPC.Position = npc.gameManager.waypointManager.GetNodoAleatorio(npc.gameManager.waypointManager.GetBase(npc)).Posicion;

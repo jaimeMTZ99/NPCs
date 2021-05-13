@@ -4,17 +4,19 @@ using UnityEngine;
 
 public class NPC : MonoBehaviour
 {
-    public enum TipoUnidad{
+    public enum TipoUnidad
+    {
         Brawler,
         Ranged,
         Medic
     }
 
-    public enum Equipo{
+    public enum Equipo
+    {
         Spain,
         France
     }
-    
+
     //######REFERENCIAS A OBJETOS#########
     public Grid gridMap;
     public GameManager gameManager;
@@ -30,7 +32,7 @@ public class NPC : MonoBehaviour
     public Vector3 startPosition;
 
     public Nodo nodoActual;
-
+    public Nodo anteriorNodo;
     public int radio = 1;
     public float influencia = 1f;
     //#########CARACTERISTICAS DE LA UNIDAD###########
@@ -47,7 +49,7 @@ public class NPC : MonoBehaviour
     public int municionActual;
 
     public float healthy;
-    
+
     public int municionPorTiro;
     public int tiempoCargaRango;
     //#############Pesos segun los modos#############
@@ -59,12 +61,12 @@ public class NPC : MonoBehaviour
     public int numEnemigosEscape;
     public int minAliadosCaptura;
     public int maxEnemigosMelee;
-    public int minEnemigosMelee;
+    public int minAliadosMelee;
     public int maxMunicion;
 
     //######### Estados###########
-        
-    [SerializeField] 
+
+    [SerializeField]
     private Estado currentState;
     public Captura estadoCaptura;
     public Defender estadoDefensa;
@@ -72,26 +74,75 @@ public class NPC : MonoBehaviour
     public Curar estadoCuracion;
     public AsignarEstado estadoAsignado;
     public AtaqueMelee estadoAtaqueMelee;
-   // private Patrol _patrolState;
+    // private Patrol _patrolState;
     public AtaqueRango estadoAtaqueRango;
-    public Muerto estadoMuerto; 
+    public Muerto estadoMuerto;
     public bool IsDead => currentState == estadoMuerto;
     //Función que sirve para cambiar el estado del NPC
-    public void CambiarEstado(Estado newState, NPC objective = null) {
+    void Start()
+    {
+        /*if (pathfinding)
+        {
+            pathfinding.Type = _unitType;
+            pathfinding.Team = _team;
+        }*/
+        agentNPC = GetComponent<AgentNPC>();
+        //simplePropagator = GetComponent<SimplePropagator>();
+        Initialize();
+    }
+    protected void Initialize() {
+        currentState = null;
+        estadoCaptura = new Captura();
+        estadoDefensa = new Defender();
+        estadoEscapar = new Escapar();
+        estadoCuracion = new Curar();
+        estadoAsignado = new AsignarEstado();
+        estadoAtaqueMelee = new AtaqueMelee();
+        //_patrolState = new Patrol();
+        estadoAtaqueRango = new AtaqueRango();
+        estadoMuerto = new Muerto();
+        //_reloadState = new Reload();
+        //_userState = new User();
+        //_roamState = new Roam();
+        health = maxVida;
+        //_currentHealthAnimation = _maxHealth;
+        municionActual = maxMunicion;
+        //_groupSpeed = _speed;
+        startPosition = agentNPC.Position;
+        CambiarEstado(estadoAsignado);
+    }
 
+
+    void Update()
+    {
+        if (currentState != null){
+            currentState.Ejecutar(this);
+        }
+
+        // Most likely not the best way to do this
+        //agentNPC.maxSpeed = _groupSpeed * _gridMap.GetTile(_agentNPC.Position).SpeedMultiplier(_pathfinding.Type);
+        var currentNodo = gridMap.GetNodoPosicionGlobal(agentNPC.Position);
+
+        if (currentNodo.walkable)
+            anteriorNodo = currentNodo;
+    }
+
+    public void CambiarEstado(Estado newState, NPC objective = null)
+    {
         if (currentState != null && currentState != newState)
             currentState.SalirEstado(this);
 
         newState.SetObjective(objective);
-
-        if (currentState != newState) {
+        if (currentState == null || currentState != newState)
+        {
             currentState = newState;
             //GUIManager.TriggerAnimation(statusAnimator);
             currentState.EntrarEstado(this);
         }
     }
 
-        public void DispararModoOfensivo() {
+    public void DispararModoOfensivo()
+    {
         /*_enemiesToRun = _initialEnemiesToRun + 1;
         _lowHealth = _initialLowHealth - 10;
         _healthy = _initialHealthy - 20;
@@ -106,7 +157,8 @@ public class NPC : MonoBehaviour
         _pathfinding.VisibilityCostMultiplier = 2;*/
     }
 
-    public void DispararModoDefensivo() {
+    public void DispararModoDefensivo()
+    {
         /*_enemiesToRun = _initialEnemiesToRun - 1;
         _lowHealth = _initialLowHealth + 20;
         _healthy = _initialHealthy + 10;
@@ -121,7 +173,8 @@ public class NPC : MonoBehaviour
         _pathfinding.VisibilityCostMultiplier = 1;*/
     }
 
-    public void DispararGuerraTotal() {
+    public void DispararGuerraTotal()
+    {
         /*_enemiesToRun = _initialEnemiesToRun + 2;
         _lowHealth = _initialLowHealth - 20;
         _healthy = _initialHealthy - 30;
@@ -135,15 +188,18 @@ public class NPC : MonoBehaviour
         _pathfinding.InfluenceCostMultiplier = 0;
         _pathfinding.VisibilityCostMultiplier = 0;*/
     }
-    public void ActualizarIconoEstado() {
+    public void ActualizarIconoEstado()
+    {
         //GUIManager.UpdateStateIcon(_status, _currentState);
     }
-     public void AñadirAlGrupo(float speed, TipoUnidad type) {
+    public void AñadirAlGrupo(float speed, TipoUnidad type)
+    {
         /*groupSpeed = speed;
         pathfinding.Type = type;*/
     }
 
-    public void QuitarDelGrupo() {
+    public void QuitarDelGrupo()
+    {
         /*groupSpeed = speed;
         pathfinding.Type = unitType;*/
     }
@@ -151,7 +207,8 @@ public class NPC : MonoBehaviour
     {
         return influencia;
     }
-    public void Restart() {
+    public void Restart()
+    {
         health = maxVida;
         municionActual = maxMunicion;
         QuitarDelGrupo();

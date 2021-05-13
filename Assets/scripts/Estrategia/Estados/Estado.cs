@@ -2,12 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Estado : MonoBehaviour
+public abstract class Estado 
 {
 
     public NPC npcObjetivo;         //el objetivo cuando realice algun ataque
     public bool move = false;          //para indicar si se esta moviendo 
 
+    public Estado(){
+        npcObjetivo = null;
+        move = false;
+    }
     public abstract void Accion(NPC n);
     public abstract void EntrarEstado(NPC n);
     public abstract void SalirEstado(NPC n);
@@ -17,7 +21,7 @@ public abstract class Estado : MonoBehaviour
     public void SetObjective(NPC newObjective) {
         npcObjetivo = newObjective;
     }
-
+    
     protected bool ComprobarMuerto(NPC npc) {
         // Self-explanatory
         if (npc.health == 0) {
@@ -79,12 +83,17 @@ public abstract class Estado : MonoBehaviour
 
     // Check whether to switch to melee or ranged attack
     protected bool ComprobarAtaqueRangoMelee(NPC npc) {
-        List<NPC> enemies =null;// UnitsManager.EnemiesInRange(npc);
+        List<NPC> enemies = UnitsManager.EnemigosEnRango(npc);
+        if (npc.name == "MeleeFra 1"){
+                    int enemigos = enemies.Count;
+                    Debug.Log("Enemigos cerca " + enemigos);
+                }
         if (enemies != null && enemies.Count > 0) {
             // There are close enemies
             if (npc.municionActual == 0) {
                 // I have no ammo
-                if (UnitsManager.EnemigosCerca(npc) - UnitsManager.AliadosCerca(npc) <= npc.maxEnemigosMelee - npc.minEnemigosMelee) {
+                if (UnitsManager.EnemigosCerca(npc) - UnitsManager.AliadosCerca(npc) <= npc.maxEnemigosMelee - npc.minAliadosMelee) {
+                   Debug.Log("Posible pelea");
                     // I have enough support to fight
                     if (!npc.gameManager.InBase(npc) && !npc.gameManager.InBase(enemies[0])) {
                         // If I am not inside the base and neither the enemy, attack said enemy

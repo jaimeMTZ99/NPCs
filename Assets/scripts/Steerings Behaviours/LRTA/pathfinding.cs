@@ -8,7 +8,7 @@ public class PathFinding : MonoBehaviour
     Nodo nodoFinal;
     public int heuristica = 1;
     GameObject nodoEnd; //Objeto visual
-    public LRTA lrta = new LRTA();
+    public LRTA lrta;
     [SerializeField]
     public Grid grid;
     float[,] mapaCostes;
@@ -16,6 +16,7 @@ public class PathFinding : MonoBehaviour
     private void Start()
     {
         grid = grid.GetComponent<Grid>();
+        lrta = new LRTA();
     }
 
     //Establece el objetivo
