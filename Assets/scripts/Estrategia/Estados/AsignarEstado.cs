@@ -44,18 +44,13 @@ public class AsignarEstado : Estado  {
             }
             return;
         }
-        // Otherwise, check if I have to reload
-        if (ComprobarRecarga(npc))
-            return;
-        
-        //TODO ¿NECESARIO?
         // If I cannot do any of these tasks and I have to patrol, then patrol
-       /* if (npc.patrol)
-            npc.CambiarEstado(npc.PatrolState);
+         if (npc.patrol)
+            npc.CambiarEstado(npc.estadoPatrullar);
         else {
             // Otherwise, roam around our "country"
-            npc.CambiarEstado(npc.RoamState);
-        }*/
+            npc.CambiarEstado(npc.estadoVagar);
+        }
     }
 
 }

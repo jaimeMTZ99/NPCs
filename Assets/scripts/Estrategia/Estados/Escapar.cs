@@ -68,8 +68,7 @@ public class Escapar : Estado {
                         // I have reached where my medic is supposed to be
                         NPC currentClosestMedic = UnitsManager.MedicoCerca(npc);
                         if (currentClosestMedic == null ||
-                         Vector3.Distance(npc.agentNPC.Position, currentClosestMedic.agentNPC.Position) > currentClosestMedic.rangedRange || 
-                         currentClosestMedic.municionActual == 0) {
+                         Vector3.Distance(npc.agentNPC.Position, currentClosestMedic.agentNPC.Position) > currentClosestMedic.rangedRange ) {
                             // My medic isn't there or he has no ammo, then think again
                             pointless = true;
                         }

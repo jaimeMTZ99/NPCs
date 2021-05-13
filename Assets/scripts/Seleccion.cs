@@ -358,7 +358,7 @@ public class Seleccion : MonoBehaviour
                     for(int i =0 ; i< listPuntos.Count; i ++){
                         path.AppendPointToPath(listPuntos[i]);
                     }
-                    pintarCamino();
+                   // pintarCamino();
                 }
             }
     }

@@ -24,7 +24,7 @@ public abstract class Estado
     
     protected bool ComprobarMuerto(NPC npc) {
         // Self-explanatory
-        if (npc.health == 0) {
+        if (npc.health <= 0) {
             npc.CambiarEstado(npc.estadoMuerto);
             return true;
         }
@@ -73,6 +73,9 @@ public abstract class Estado
             // If I am medic
             NPC allyChoosen = UnitsManager.ElegirAliado(npc);
             if (allyChoosen != null) {
+                if (npc.name == "MedicoFra"){
+                            Debug.Log("Entrando en estado curar");
+                    }
                 // If there is a wounded ally and I can "shoot" him in a straight line, "shoot" him
                 npc.CambiarEstado(npc.estadoAtaqueRango, allyChoosen);
                 return true;
@@ -84,24 +87,20 @@ public abstract class Estado
     // Check whether to switch to melee or ranged attack
     protected bool ComprobarAtaqueRangoMelee(NPC npc) {
         List<NPC> enemies = UnitsManager.EnemigosEnRango(npc);
-        if (npc.name == "MeleeFra 1"){
-                    int enemigos = enemies.Count;
-                    Debug.Log("Enemigos cerca " + enemigos);
-                }
         if (enemies != null && enemies.Count > 0) {
             // There are close enemies
-            if (npc.municionActual == 0) {
+            if (npc.tipo == NPC.TipoUnidad.Brawler || npc.tipo == NPC.TipoUnidad.Medic) {
                 // I have no ammo
                 if (UnitsManager.EnemigosCerca(npc) - UnitsManager.AliadosCerca(npc) <= npc.maxEnemigosMelee - npc.minAliadosMelee) {
-                   Debug.Log("Posible pelea");
                     // I have enough support to fight
                     if (!npc.gameManager.InBase(npc) && !npc.gameManager.InBase(enemies[0])) {
+                        Debug.Log("Entrando en estado ataque " + npc.name);
                         // If I am not inside the base and neither the enemy, attack said enemy
                         npc.CambiarEstado(npc.estadoAtaqueMelee, enemies[0]);
                         return true;
                     }
                 }
-            } else {
+            } else if (npc.tipo == NPC.TipoUnidad.Ranged) {
                 // I do have ammo
                 foreach (NPC en in enemies) {
                     float distance = Vector3.Distance(npc.agentNPC.Position, en.agentNPC.Position);
@@ -113,15 +112,6 @@ public abstract class Estado
                 }
             }
         }
-        return false;
-    }
-    //TODO ¿Esto lo tenemos que hacer?
-    protected bool ComprobarRecarga(NPC npc) {
-        /*if (npc.municionActual == 0 && UnitsManager.EnemiesNearby(npc) == 0) {
-            // I have no ammo and there are no enemies nearby, try to reload
-            npc.CambiarEstado(npc.ReloadState);
-            return true;
-        }*/
         return false;
     }
     

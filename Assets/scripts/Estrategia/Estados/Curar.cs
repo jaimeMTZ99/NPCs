@@ -28,8 +28,6 @@ public class Curar : Estado {
                     npc.health += 10;
                 else {
                     healed = true;
-                    // You also get ammo because you are in base
-                    npc.municionActual = npc.maxMunicion;
                 }
             }
 

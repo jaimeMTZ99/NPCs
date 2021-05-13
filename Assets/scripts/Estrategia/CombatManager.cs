@@ -8,6 +8,7 @@ public static class CombatManager {
     public static void AtaqueMelee(NPC attacker, NPC target) {
         int crit = Random.Range(0, 51);
         if (crit == 50) {
+            Debug.Log("El jugador " + attacker.name +" ha golpeado con un ataque crítico a " + target.name);
             // Critical attack
             target.health -= attacker.meleeDamageCrit;
             //GUIManager.TriggerAnimation(target.CriticalHitAnimator);
@@ -15,6 +16,7 @@ public static class CombatManager {
                // GuiKillFeed.AddKill(attacker, target, true, true);
         }
         else {
+             Debug.Log("El jugador " + attacker.name +" ha golpeado con un ataque básico a " + target.name);
             // Default attack
             target.health -= attacker.meleeDamage;
             if (target.health == 0 && !target.IsDead){}
@@ -25,27 +27,28 @@ public static class CombatManager {
     public static void AtaqueRango(NPC attacker, NPC target) {
         int crit = Random.Range(0, 51);
         if (crit == 50) {
+             Debug.Log("El jugador " + attacker.name +" ha golpeado con un ataque crítico a " + target.name);
             // Critical attack
             if (target.team == attacker.team) {
-                target.health += attacker.rangedDamageCrit * attacker.municionPorTiro;
+                target.health += attacker.rangedDamageCrit;
             }
             else {
-                target.health -= attacker.rangedDamageCrit * attacker.municionPorTiro;
+                target.health -= attacker.rangedDamageCrit;
             }
-            attacker.municionActual -= attacker.municionPorTiro;
+            
             //GUIManager.TriggerAnimation(target.CriticalHitAnimator);
             if (target.health == 0 && !target.IsDead){}
                 //GuiKillFeed.AddKill(attacker, target, false, true);
         }
         else {
+             Debug.Log("El jugador " + attacker.name +" ha golpeado con un ataque básico a " + target.name);
             // Default attack
             if (target.team == attacker.team) {
-                target.health += attacker.rangedDamage * attacker.municionPorTiro;
+                target.health += attacker.rangedDamage;
             }
             else {
-                target.health -= attacker.rangedDamage * attacker.municionPorTiro;
+                target.health -= attacker.rangedDamage;
             }
-            attacker.municionActual -= attacker.municionPorTiro;
             if (target.health == 0 && !target.IsDead){}
                 //GuiKillFeed.AddKill(attacker, target, false, false);
         }

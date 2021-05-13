@@ -43,10 +43,9 @@ public static class UnitsManager {
     // Returns all enemies within the visible range ordered by distance
     public static List<NPC> EnemigosEnRango(NPC npc) {
         List<NPC> enemies = new List<NPC>();
-        Collider[] hitColliders = Physics.OverlapSphere(npc.agentNPC.Position, npc.rangedRange, npcLayerMask);
+        Collider[] hitColliders = Physics.OverlapSphere(npc.agentNPC.Position, npc.rangedRange);
         int i = 0;
         while (i < hitColliders.Length) {
-            Debug.Log("bucle");
             NPC actualNPC = hitColliders[i].GetComponent<NPC>();
             if (actualNPC != null && actualNPC.team != npc.team && DirectLine(npc, actualNPC) && !actualNPC.IsDead) {
                 enemies.Add(actualNPC);
@@ -55,6 +54,9 @@ public static class UnitsManager {
         }
         if (enemies.Count > 0) {
             enemies = enemies.OrderBy(e => Vector3.Distance(e.agentNPC.Position, npc.agentNPC.Position)).ToList();
+        }
+        if (npc.name == "MeleeFra 1" || npc.name == "MeleeEsp 2"){
+            Debug.Log("Enemigos detectados del npc " + npc.name + " " + enemies.Count);
         }
         return enemies;
     }
@@ -105,12 +107,12 @@ public static class UnitsManager {
     // Find the ally with the lowest health between all close units that are "LowHealth"
     public static NPC ElegirAliado(NPC npc) {
         List<NPC> lowHealth = new List<NPC>();
-        Collider[] hitColliders = Physics.OverlapSphere(npc.agentNPC.Position, npc.rangedRange, npcLayerMask);
+        Collider[] hitColliders = Physics.OverlapSphere(npc.agentNPC.Position, npc.rangedRange);
         int i = 0;
         while (i < hitColliders.Length) {
             NPC actualNPC = hitColliders[i].GetComponent<NPC>();
             if (actualNPC != null && actualNPC.team == npc.team && DirectLine(npc, actualNPC) && !actualNPC.IsDead) {
-                if (actualNPC.health <= actualNPC.menosVida)
+                if (actualNPC.health <= actualNPC.maxVida/2)
                     lowHealth.Add(actualNPC);
             }
             i++;

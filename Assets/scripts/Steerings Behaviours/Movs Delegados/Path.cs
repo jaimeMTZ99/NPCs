@@ -80,7 +80,7 @@ public class Path : MonoBehaviour
             }
 
             distanceToCurrentPoint = Vector3.Distance(characterPosition, nodos[currentPosition].transform.position);
-
+            
 
             if (distanceToCurrentPoint <= distanceToPreviousPoint && distanceToCurrentPoint <= distanceToNextPoint){
                 return currentPosition;
@@ -89,6 +89,8 @@ public class Path : MonoBehaviour
             if (distanceToNextPoint <= distanceToPreviousPoint && distanceToNextPoint < radio){
                 return currentPosition + 1;
             }
+            if (distanceToPreviousPoint <= distanceToNextPoint && distanceToPreviousPoint < radio)
+                return currentPosition - 1;
 
 
             return currentPosition;

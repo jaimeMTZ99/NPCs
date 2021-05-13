@@ -9,7 +9,7 @@ public class AtaqueMelee : Estado  {
         move = false;
         iTried = false;
         pointless = false;
-        time = -1;
+        time = -0.5f;
     }
 
     public override void SalirEstado(NPC npc) {
@@ -31,7 +31,7 @@ public class AtaqueMelee : Estado  {
                 npc.GetComponent<Path>().ClearPath();
             }
             // I can start winding up my attack
-            if (time == -1) {
+            if (time == -0.5f) {
                 if (!npc.gameManager.totalWarMode && npc.health <= npc.menosVida) {
                     // But I am on low HP and I am not in total war, so I should leave
                     pointless = true;
@@ -43,7 +43,7 @@ public class AtaqueMelee : Estado  {
             // Wait patiently
             if (Time.time - time >= npc.meleeAttackSpeed) {
                 CombatManager.AtaqueMelee(npc, npcObjetivo);
-                time = -1;
+                time = -0.5f;
                 iTried = false;
             }
         } else {

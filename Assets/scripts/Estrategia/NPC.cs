@@ -28,7 +28,6 @@ public class NPC : MonoBehaviour
     //##########INFO DE LA UNIDAD###########
     public TipoUnidad tipo;
     public Equipo team;
-    public bool patrol;
     public Vector3 startPosition;
 
     public Nodo nodoActual;
@@ -41,17 +40,11 @@ public class NPC : MonoBehaviour
     public int meleeDamageCrit;
     public float rangoMelee;
     public float meleeAttackSpeed;
-
     public int rangedDamage;
     public int rangedDamageCrit;
     public float rangedRange;
     public float rangedAttackSpeed;
-    public int municionActual;
-
     public float healthy;
-
-    public int municionPorTiro;
-    public int tiempoCargaRango;
     //#############Pesos segun los modos#############
     public int aliadosAtacantes;
     public float menosVida;
@@ -62,8 +55,10 @@ public class NPC : MonoBehaviour
     public int minAliadosCaptura;
     public int maxEnemigosMelee;
     public int minAliadosMelee;
-    public int maxMunicion;
-
+    //############ PATROL ###############
+    public bool patrol;
+    public Transform puntoPatrullaInicial;
+    public Transform puntoPatrullaFin;
     //######### Estados###########
 
     [SerializeField]
@@ -74,9 +69,10 @@ public class NPC : MonoBehaviour
     public Curar estadoCuracion;
     public AsignarEstado estadoAsignado;
     public AtaqueMelee estadoAtaqueMelee;
-    // private Patrol _patrolState;
+    public Patrullar estadoPatrullar;
     public AtaqueRango estadoAtaqueRango;
     public Muerto estadoMuerto;
+    public Vagar estadoVagar;
     public bool IsDead => currentState == estadoMuerto;
     //Función que sirve para cambiar el estado del NPC
     void Start()
@@ -98,15 +94,13 @@ public class NPC : MonoBehaviour
         estadoCuracion = new Curar();
         estadoAsignado = new AsignarEstado();
         estadoAtaqueMelee = new AtaqueMelee();
-        //_patrolState = new Patrol();
+        estadoPatrullar = new Patrullar();
         estadoAtaqueRango = new AtaqueRango();
         estadoMuerto = new Muerto();
-        //_reloadState = new Reload();
         //_userState = new User();
-        //_roamState = new Roam();
+        estadoVagar = new Vagar();
         health = maxVida;
         //_currentHealthAnimation = _maxHealth;
-        municionActual = maxMunicion;
         //_groupSpeed = _speed;
         startPosition = agentNPC.Position;
         CambiarEstado(estadoAsignado);
@@ -121,10 +115,10 @@ public class NPC : MonoBehaviour
 
         // Most likely not the best way to do this
         //agentNPC.maxSpeed = _groupSpeed * _gridMap.GetTile(_agentNPC.Position).SpeedMultiplier(_pathfinding.Type);
-        var currentNodo = gridMap.GetNodoPosicionGlobal(agentNPC.Position);
+         nodoActual = gridMap.GetNodoPosicionGlobal(agentNPC.Position);
 
-        if (currentNodo.walkable)
-            anteriorNodo = currentNodo;
+        if (nodoActual.walkable)
+            anteriorNodo = nodoActual;
     }
 
     public void CambiarEstado(Estado newState, NPC objective = null)
@@ -210,7 +204,6 @@ public class NPC : MonoBehaviour
     public void Restart()
     {
         health = maxVida;
-        municionActual = maxMunicion;
         QuitarDelGrupo();
         this.GetComponent<Path>().ClearPath();
         agentNPC.Position = startPosition;

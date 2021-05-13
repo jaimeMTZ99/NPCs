@@ -22,6 +22,8 @@ public class WaypointManager : MonoBehaviour
     [SerializeField]
     private Waypoint[] coberturas;
 
+    public Waypoint vagarWaypointSPA;
+    public Waypoint vagarWaypointFRA;
 
     public Nodo GetNodoAleatorio(Waypoint wp) {
         int random = Random.Range(0, wp.posiciones.Length);
@@ -64,6 +66,7 @@ public class WaypointManager : MonoBehaviour
     }
 
     public void Captura(NPC npc) {
+        Debug.Log(npc.name + " capturando base enemiga");
         if (npc.team == NPC.Equipo.France) {
             zonaESP.porcentajeCaptura *= Time.deltaTime;
             if (zonaESP.porcentajeCaptura >= 100);
