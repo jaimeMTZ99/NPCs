@@ -20,6 +20,7 @@ TagManager:
   - Base Esp
   - Base Fra
   - Pradera
+  - PathFindingAStar
   layers:
   - Default
   - TransparentFX

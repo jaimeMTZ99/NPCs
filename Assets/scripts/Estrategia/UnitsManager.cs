@@ -6,7 +6,6 @@ using System.Linq;
 
 public static class UnitsManager {
 
-    private static int npcLayerMask = 1 << 9;
 
     // Defines the range for each of the OverlapShere calls used in this script
     // Essentially, it is the distance at which a unit can "see"
@@ -15,7 +14,7 @@ public static class UnitsManager {
     // Returns the number of enemies near that the unit can see
     public static int EnemigosCerca(NPC npc) {
         int result = 0;
-        Collider[] hitColliders = Physics.OverlapSphere(npc.agentNPC.Position, 5, npcLayerMask);
+        Collider[] hitColliders = Physics.OverlapSphere(npc.agentNPC.Position, 5);
         int i = 0;
         while (i < hitColliders.Length) {
             NPC actualNPC = hitColliders[i].GetComponent<NPC>();
@@ -29,7 +28,7 @@ public static class UnitsManager {
     // Returns the number of allies near that the unit can see
     public static int AliadosCerca(NPC npc) {
         int result = 0;
-        Collider[] hitColliders = Physics.OverlapSphere(npc.agentNPC.Position, 5, npcLayerMask);
+        Collider[] hitColliders = Physics.OverlapSphere(npc.agentNPC.Position, 5);
         int i = 0;
         while (i < hitColliders.Length) {
             NPC actualNPC = hitColliders[i].GetComponent<NPC>();
@@ -63,7 +62,7 @@ public static class UnitsManager {
 
     // Returns the closest medic alive to the unit
     public static NPC MedicoCerca(NPC npc) {
-        Collider[] hitColliders = Physics.OverlapSphere(npc.agentNPC.Position, sphereRange, npcLayerMask);
+        Collider[] hitColliders = Physics.OverlapSphere(npc.agentNPC.Position, sphereRange);
         int i = 0;
         float minimalDistance = float.MaxValue;
         NPC selected = null;
@@ -83,7 +82,7 @@ public static class UnitsManager {
     
     // Returns the closes ally, if any
     public static NPC AliadoCercano(NPC npc) {
-        Collider[] hitColliders = Physics.OverlapSphere(npc.agentNPC.Position, sphereRange, npcLayerMask);
+        Collider[] hitColliders = Physics.OverlapSphere(npc.agentNPC.Position, sphereRange);
         int i = 0;
         float minimalDistance = float.MaxValue;
         NPC allySelected = null;

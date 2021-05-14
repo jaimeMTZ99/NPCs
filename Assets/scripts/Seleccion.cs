@@ -79,7 +79,7 @@ public class Seleccion : MonoBehaviour
                     selectedUnit=null; 
                 }
                 //si colisiona con un agente y no esta siendo pulsado Control, cogemos para un solitario
-                else if(hitInfo.collider != null && (hitInfo.collider.CompareTag("NPC") || hitInfo.collider.CompareTag("PathFinding"))){
+                else if(hitInfo.collider != null && (hitInfo.collider.CompareTag("NPC") || hitInfo.collider.CompareTag("PathFinding") || hitInfo.collider.CompareTag("PathFindingAStar"))){
                     //cogemos solo un personaje como seleccionado y apagamos el resto
                     if (selectedUnit != null){
                         GameObject g = selectedUnit.transform.Find("Sel").gameObject;
@@ -123,7 +123,7 @@ public class Seleccion : MonoBehaviour
 
     public void DirigirLugar(){
             //si seleccionamos un lugar y el elegido tiene pathfindig, lo realiza
-            if (selectedUnit != null && selectedUnit.tag == "PathFinding"){
+            if (selectedUnit != null && (selectedUnit.tag == "PathFinding" || selectedUnit.tag == "PathFindingAStar") ){
                 Pathfinding();
             } else{
 

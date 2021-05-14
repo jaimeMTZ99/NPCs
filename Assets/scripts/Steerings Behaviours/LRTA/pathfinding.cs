@@ -12,7 +12,7 @@ public class PathFinding : MonoBehaviour
     [SerializeField]
     public Grid grid;
     float[,] mapaCostes;
-    List<GameObject> camino ;
+    List<GameObject> camino;
     private void Start()
     {
         grid = grid.GetComponent<Grid>();
@@ -25,7 +25,7 @@ public class PathFinding : MonoBehaviour
 
         RaycastHit hit;
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        List<Nodo> nodos;
+        List<Nodo> nodos = new List<Nodo>();
         List<GameObject> keyPoints = new List<GameObject>();
         this.nodoActual = grid.GetNodoPosicionGlobal(agent.transform.position);
         if (Physics.Raycast(ray, out hit, 1000.0f))
@@ -38,7 +38,10 @@ public class PathFinding : MonoBehaviour
                 nodoEnd.transform.position = new Vector3(hit.transform.position.x, hit.transform.position.y + 1, hit.transform.position.z);
                 nodoEnd.GetComponent<Renderer>().material.color = new Color(255, 0, 0);
                 nodoFinal = grid.GetNodoPosicionGlobal(nodoEnd.transform.position);
-                nodos = lrta.EncontrarCamino(nodoActual, nodoFinal, heuristica, grid);
+                if (agent.tag == "PathFinding")
+                    nodos = lrta.EncontrarCaminoLRTAStar(nodoActual, nodoFinal, heuristica, grid);
+                else if (agent.tag == "PathFindingAStar")
+                    nodos = lrta.EncontrarCaminoAStar(nodoActual, nodoFinal, heuristica, grid);
                 List<Vector3> aux = new List<Vector3>(nodos.Count);
                 for (int i = 0; i < nodos.Count; i++)
                 {
@@ -58,7 +61,7 @@ public class PathFinding : MonoBehaviour
     //Establece objetivo respecto al lider de una formacion
     public List<GameObject> nodoFinalFormaciones(AgentNPC agent, GameObject esferaDestino)
     {
-        List<Nodo> nodos;
+        List<Nodo> nodos = new List<Nodo>();
         List<GameObject> keyPoints = new List<GameObject>();
         this.nodoActual = grid.GetNodoPosicionGlobal(agent.transform.position);
         Collider[] colliders = Physics.OverlapSphere(esferaDestino.transform.position, grid.radioNodo);
@@ -73,7 +76,10 @@ public class PathFinding : MonoBehaviour
         if (esferaDestino != null && !muro)
         {
             nodoFinal = grid.GetNodoPosicionGlobal(esferaDestino.transform.position);
-            nodos = lrta.EncontrarCamino(nodoActual, nodoFinal, heuristica, grid);
+            if (agent.tag == "PathFinding")
+                nodos = lrta.EncontrarCaminoLRTAStar(nodoActual, nodoFinal, heuristica, grid);
+            else if (agent.tag == "PathFindingAStar")
+                nodos = lrta.EncontrarCaminoAStar(nodoActual, nodoFinal, heuristica, grid);
             if (nodos != null)
             {
                 List<Vector3> aux = new List<Vector3>(nodos.Count);
@@ -94,7 +100,7 @@ public class PathFinding : MonoBehaviour
     {
         Nodo actual = grid.GetNodoPosicionGlobal(posicionInicial);
         Nodo final = grid.GetNodoPosicionGlobal(posicionFinal);
-        List<Nodo> nodos = lrta.EncontrarCamino(actual, final, heuristica, grid);
+        List<Nodo> nodos = lrta.EncontrarCaminoAStar(actual, final, heuristica, grid);
         List<GameObject> keyPoints = new List<GameObject>();
         if (nodos != null)
         {
@@ -137,13 +143,13 @@ public class PathFinding : MonoBehaviour
             {
                 foreach (GameObject g in camino)
                 {
-                      Destroy(g);
+                    Destroy(g);
                 }
             }
-            
+
             camino = new List<GameObject>();
             GameObject aux;
-            foreach(GameObject v in listPuntos)
+            foreach (GameObject v in listPuntos)
             {
                 aux = GameObject.CreatePrimitive(PrimitiveType.Cube);
                 aux.transform.localScale = new Vector3(1, this.grid.radioNodo, 1);
@@ -151,7 +157,7 @@ public class PathFinding : MonoBehaviour
                 //aux.GetComponent<Renderer>().material.color = new Color(0, 0, 0);
                 camino.Add(aux);
             }
-            
+
         }
     }
 }

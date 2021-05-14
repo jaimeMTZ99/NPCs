@@ -4,101 +4,9 @@ using UnityEngine;
 using System.Linq;
 public class LRTA : MonoBehaviour
 {
-    //Encuentra un camino dado un nodo por el que comenzar, y un destino
-    //Distancia se usa para especificar que tipo de heuristica utilizar
-    public List<Nodo> EncontrarCamino(Nodo comienzo, Nodo objetivo, int distancia, Grid grid)
-    {
-        //En caso de que el grid no contenga nodos, no se hace nada
-        if (grid.Nodos == null)
-            return null;
-        List<Nodo> openSet = new List<Nodo>();
-        List<Nodo> closedSet = new List<Nodo>();
-        int coste = 0;
-        openSet.Add(comienzo);
-        while (openSet.Count > 0)
-        {
-            Nodo currentNode = openSet[0];
-            for (int i = 1; i < openSet.Count; i++)
-            {
-                switch (distancia)
-                {
-                    case 1:
-                        currentNode.ihCost = Manhattan(currentNode, objetivo);
-                        openSet[i].ihCost =  Manhattan(openSet[i], objetivo);
-                        break;
-                    case 2:
-                        currentNode.ihCost = Chebychev(currentNode, objetivo);
-                         openSet[i].ihCost =  Chebychev(openSet[i], objetivo);
-                        break;
-                    case 3:
-                        currentNode.ihCost = Euclide(currentNode, objetivo);
-                         openSet[i].ihCost =  Euclide(openSet[i], objetivo);
-                        break;
-                    default:
-                        currentNode.ihCost = Manhattan(currentNode, objetivo);
-                        openSet[i].ihCost =  Manhattan(openSet[i], objetivo);
-                        break;
-                }
-                if (openSet[i].FCost < currentNode.FCost || openSet[i].FCost == currentNode.FCost && openSet[i].ihCost < currentNode.ihCost)
-                {
-                    currentNode = openSet[i];
-                }
-            }
-            openSet.Remove(currentNode);
-            closedSet.Add(currentNode);
-            if (currentNode == objetivo)
-            {
-               return RetracePath(comienzo,objetivo);
-                //return closedSet.Distinct().ToList();
-            }
-            List<Nodo> vecinos = grid.GetVecinos(currentNode);
-            foreach (Nodo neighbour in vecinos)
-            {
-                if (!neighbour.walkable || closedSet.Contains(neighbour)) continue;
-                switch (distancia)
-                {
-                    case 1:
-                        coste = Manhattan(currentNode, neighbour);
-                        break;
-                    case 2:
-                        coste = Chebychev(currentNode, neighbour);
-                        break;
-                    case 3:
-                        coste = Euclide(currentNode, neighbour);
-                        break;
-                    default:
-                        coste = Manhattan(currentNode, neighbour);
-                        break;
-                }
-                int newMovementCostToNeighbour = currentNode.igCost + coste;
-                if (newMovementCostToNeighbour < neighbour.igCost || !openSet.Contains(neighbour))
-                {
-                    neighbour.igCost = newMovementCostToNeighbour;
-                    switch (distancia)
-                    {
-                        case 1:
-                            neighbour.ihCost = Manhattan(currentNode, neighbour);
-                            break;
-                        case 2:
-                            neighbour.ihCost = Chebychev(currentNode, neighbour);
-                            break;
-                        case 3:
-                            neighbour.ihCost = Euclide(currentNode, neighbour);
-                            break;
-                        default:
-                            neighbour.ihCost = Manhattan(currentNode, neighbour);
-                            break;
-                    }
-                    neighbour.NodoPadre = currentNode;
-
-                    if (!openSet.Contains(neighbour))
-                        openSet.Add(neighbour);
-                }
-            }
-        }
-        return RetracePath(comienzo,objetivo);
+    public List<Nodo> EncontrarCaminoLRTAStar(Nodo comienzo, Nodo objetivo, int distancia, Grid grid){
         //Lista de nodos cerrados a.k.a nodos utilizados
-        /*List<Nodo> cerrados = new List<Nodo>();
+        List<Nodo> cerrados = new List<Nodo>();
         Nodo actual = comienzo;
         int coste;
         //Aplicamos la heuristica especificada entre el nodo actual (inicial) y el destino
@@ -175,12 +83,106 @@ public class LRTA : MonoBehaviour
             actual = siguiente;
             if(siguiente == null){
                 break;
-                Debug.Log("siguiente nulo");
             }
         }
         //Devolvemos el camino
-        return cerrados;*/
+        return cerrados;
     }
+    
+    //Encuentra un camino dado un nodo por el que comenzar, y un destino
+    //Distancia se usa para especificar que tipo de heuristica utilizar
+    public List<Nodo> EncontrarCaminoAStar(Nodo comienzo, Nodo objetivo, int distancia, Grid grid)
+    {
+        //En caso de que el grid no contenga nodos, no se hace nada
+        if (grid.Nodos == null)
+            return null;
+        List<Nodo> openSet = new List<Nodo>();
+        List<Nodo> closedSet = new List<Nodo>();
+        int coste = 0;
+        openSet.Add(comienzo);
+        while (openSet.Count > 0)
+        {
+            Nodo currentNode = openSet[0];
+            for (int i = 1; i < openSet.Count; i++)
+            {
+                switch (distancia)
+                {
+                    case 1:
+                        currentNode.ihCost = Manhattan(currentNode, objetivo);
+                        openSet[i].ihCost =  Manhattan(openSet[i], objetivo);
+                        break;
+                    case 2:
+                        currentNode.ihCost = Chebychev(currentNode, objetivo);
+                         openSet[i].ihCost =  Chebychev(openSet[i], objetivo);
+                        break;
+                    case 3:
+                        currentNode.ihCost = Euclide(currentNode, objetivo);
+                         openSet[i].ihCost =  Euclide(openSet[i], objetivo);
+                        break;
+                    default:
+                        currentNode.ihCost = Manhattan(currentNode, objetivo);
+                        openSet[i].ihCost =  Manhattan(openSet[i], objetivo);
+                        break;
+                }
+                if (openSet[i].FCost < currentNode.FCost || openSet[i].FCost == currentNode.FCost && openSet[i].ihCost < currentNode.ihCost)
+                {
+                    currentNode = openSet[i];
+                }
+            }
+            openSet.Remove(currentNode);
+            closedSet.Add(currentNode);
+            if (currentNode == objetivo)
+            {
+               return RetracePath(comienzo,objetivo);
+            }
+            List<Nodo> vecinos = grid.GetVecinos(currentNode);
+            foreach (Nodo neighbour in vecinos)
+            {
+                if (!neighbour.walkable || closedSet.Contains(neighbour)) continue;
+                switch (distancia)
+                {
+                    case 1:
+                        coste = Manhattan(currentNode, neighbour);
+                        break;
+                    case 2:
+                        coste = Chebychev(currentNode, neighbour);
+                        break;
+                    case 3:
+                        coste = Euclide(currentNode, neighbour);
+                        break;
+                    default:
+                        coste = Manhattan(currentNode, neighbour);
+                        break;
+                }
+                int newMovementCostToNeighbour = currentNode.igCost + coste;
+                if (newMovementCostToNeighbour < neighbour.igCost || !openSet.Contains(neighbour))
+                {
+                    neighbour.igCost = newMovementCostToNeighbour;
+                    switch (distancia)
+                    {
+                        case 1:
+                            neighbour.ihCost = Manhattan(currentNode, neighbour);
+                            break;
+                        case 2:
+                            neighbour.ihCost = Chebychev(currentNode, neighbour);
+                            break;
+                        case 3:
+                            neighbour.ihCost = Euclide(currentNode, neighbour);
+                            break;
+                        default:
+                            neighbour.ihCost = Manhattan(currentNode, neighbour);
+                            break;
+                    }
+                    neighbour.NodoPadre = currentNode;
+
+                    if (!openSet.Contains(neighbour))
+                        openSet.Add(neighbour);
+                }
+            }
+        }
+        return RetracePath(comienzo,objetivo);
+    }
+
     List<Nodo> RetracePath(Nodo comienzo, Nodo objetivo){
         List<Nodo> path = new List<Nodo>();
         Nodo currentNode = objetivo;
