@@ -9,7 +9,7 @@ public static class UnitsManager {
 
     // Defines the range for each of the OverlapShere calls used in this script
     // Essentially, it is the distance at which a unit can "see"
-    private static int sphereRange = 25;
+    private static int sphereRange = 50;
 
     // Returns the number of enemies near that the unit can see
     public static int EnemigosCerca(NPC npc) {
@@ -68,7 +68,7 @@ public static class UnitsManager {
         NPC selected = null;
         while (i < hitColliders.Length) {
             NPC actualNPC = hitColliders[i].GetComponent<NPC>();
-            if (actualNPC.team == npc.team && actualNPC.tipo == NPC.TipoUnidad.Medic && !actualNPC.IsDead) {
+            if (actualNPC != null && actualNPC.team == npc.team && actualNPC.tipo == NPC.TipoUnidad.Medic && !actualNPC.IsDead) {
                 float distance = Vector3.Distance(actualNPC.agentNPC.Position, npc.agentNPC.Position);
                 if (distance < minimalDistance) {
                     minimalDistance = distance;

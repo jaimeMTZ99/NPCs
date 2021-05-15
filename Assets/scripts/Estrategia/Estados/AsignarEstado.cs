@@ -39,9 +39,6 @@ public class AsignarEstado : Estado  {
             return;
         // Otherwise, check if I can attack any enemies
         if (ComprobarAtaqueRangoMelee(npc)){
-            if (npc.name == "MeleeFra 1"){
-                Debug.Log("Comprobando ataque melee frances 1");
-            }
             return;
         }
         // If I cannot do any of these tasks and I have to patrol, then patrol

@@ -61,6 +61,7 @@ public abstract class Estado
             return false;
         
         if (npc.health <= npc.menosVida || UnitsManager.EnemigosCerca(npc) > npc.numEnemigosEscape) {
+            Debug.Log("Entrando en estado escapar");
             // If I have low health or there are too many enemies, flee
             npc.CambiarEstado(npc.estadoEscapar);
             return true;

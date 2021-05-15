@@ -50,17 +50,21 @@ public class Escapar : Estado {
     public override void Accion(NPC npc) {
         // There are two reasons to escape: too many enemies or low health
         if (lowHealth) {
+            Debug.Log("Escapando a base");
             // Low health, decide whether to go to base or to a medic
             // There are two possible routes to escape: my base, the closest ally or a medic
             if (!move) {
                 move = true;
                 if (distanceToMedic < distanceToBase && npc.tipo != NPC.TipoUnidad.Medic) {
                     // If I am closer to the medic, go to the medic
+                    Debug.Log("yendo a por el medico");
                     npc.pf.EncontrarCaminoJuego(npc.nodoActual.Posicion, closestMedic.nodoActual.Posicion);
                     return;
                 }
                 // Otherwise, go to base
+                Debug.Log("Yendo a base sin nada mas");
                 npc.pf.EncontrarCaminoJuego(npc.nodoActual.Posicion, alliedBase.Posicion);
+                goHeal = true;
             } else {
                 if (distanceToMedic < distanceToBase && npc.tipo != NPC.TipoUnidad.Medic) {
                     // I was headed towards my medic
@@ -69,10 +73,12 @@ public class Escapar : Estado {
                         NPC currentClosestMedic = UnitsManager.MedicoCerca(npc);
                         if (currentClosestMedic == null ||
                          Vector3.Distance(npc.agentNPC.Position, currentClosestMedic.agentNPC.Position) > currentClosestMedic.rangedRange ) {
+                             Debug.Log("El medico se fue");
                             // My medic isn't there or he has no ammo, then think again
                             pointless = true;
                         }
                         else {
+                            Debug.Log("Me curo solo");
                             // Let yourself get healed
                             goHeal = true;
                         }
@@ -82,6 +88,7 @@ public class Escapar : Estado {
                     // I was headed towards base
                     if (npc.nodoActual == alliedBase) {
                         // I have reached my position
+                        Debug.Log("He llegado a la zona de base");
                         goHeal = true;
                     }
                 }
@@ -141,12 +148,12 @@ public class Escapar : Estado {
     public override void ComprobarEstado(NPC npc) {
         if (ComprobarMuerto(npc))
             return;
-        
-        if (goHeal)
+        if (goHeal){
             npc.CambiarEstado(npc.estadoCuracion);
-        
-        if (pointless)
+        }
+        if (pointless){
             npc.CambiarEstado(npc.estadoAsignado);
+        }
         
     }
 
