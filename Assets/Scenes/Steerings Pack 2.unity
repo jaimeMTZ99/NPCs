@@ -365,6 +365,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: collisionPredict
       objectReference: {fileID: 0}
+    - target: {fileID: 8485057914146819237, guid: 7fc812e63650ce843b4c44ce2aaa8984,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 085c31a82f1d76d4c857fa4dc503d2a6, type: 2}
     - target: {fileID: 8485057914146819239, guid: 7fc812e63650ce843b4c44ce2aaa8984,
         type: 3}
       propertyPath: intRadius
@@ -1171,6 +1176,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: WallFollowing
       objectReference: {fileID: 0}
+    - target: {fileID: 8485057914146819237, guid: 7fc812e63650ce843b4c44ce2aaa8984,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 90d127a4a00619e4a94b85def40573b1, type: 2}
     - target: {fileID: 8485057914146819239, guid: 7fc812e63650ce843b4c44ce2aaa8984,
         type: 3}
       propertyPath: intRadius
@@ -1552,6 +1562,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Interpose
       objectReference: {fileID: 0}
+    - target: {fileID: 8485057914146819237, guid: 7fc812e63650ce843b4c44ce2aaa8984,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 20cb15b9cfff8bd4a9c95d626ca3fb12, type: 2}
     - target: {fileID: 8485057914146819239, guid: 7fc812e63650ce843b4c44ce2aaa8984,
         type: 3}
       propertyPath: intRadius
@@ -1948,6 +1963,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: PathFollowerPredict
       objectReference: {fileID: 0}
+    - target: {fileID: 8485057914146819237, guid: 7fc812e63650ce843b4c44ce2aaa8984,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: ab6d7a3cf3c364d47a483d9cf8a69715, type: 2}
     - target: {fileID: 8485057914146819239, guid: 7fc812e63650ce843b4c44ce2aaa8984,
         type: 3}
       propertyPath: intRadius

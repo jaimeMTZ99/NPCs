@@ -9,7 +9,7 @@ public class Align : SteeringBehaviour
     private float timeToTarget = 0.1f;
     //Rotación deseada.
     private float targetRotation;
-    //Esta funcion ayuda a encontrar la direccion real de rotacion despues de restar dos valores de orientacion:
+    //Esta funcion ayuda a encontrar la direccion real de rotacion despues de restar dos valores de orientacion y sacar la rotacion total
     public float MapToRange (float rotation) {
     rotation %=  Mathf.PI * 2;
     if (Mathf.Abs(rotation) >  Mathf.PI) {

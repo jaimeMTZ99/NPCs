@@ -8,13 +8,12 @@ public class CollisionAvoidance : SeekAcceleration
 
 
     [SerializeField]
-    private float avoidDistance = 1;
+    private float distancia = 1;
     [SerializeField]
-    private float frontaLookAhead = 3;
-    [SerializeField]    
-    private float whiskersLookahead = 3;
+    private float frontal = 3;
+
     [SerializeField]
-    private float whiskersAngle = 15f;
+    private float angulo = 15f;
     private GameObject goCollision;
     [SerializeField]
     private Agent aux;
@@ -29,28 +28,28 @@ public class CollisionAvoidance : SeekAcceleration
     }
     public override Steering GetSteering(AgentNPC agent) {
         //creamos los bigotes izquierdo, derecho y frontal junto con los raycast
-        Vector3 frontalVector = agent.Velocity.normalized * frontaLookAhead;
-        Vector3 leftWhiskerVector = Quaternion.Euler(0, -whiskersAngle, 0) * frontalVector;
-        Vector3 rightWhiskerVector = Quaternion.Euler(0, whiskersAngle, 0) * frontalVector;
+        Vector3 frontalBigote = agent.Velocity.normalized * frontal;
+        Vector3 izqBigote = Quaternion.Euler(0, -angulo, 0) * frontalBigote;
+        Vector3 derBigote = Quaternion.Euler(0, angulo, 0) * frontalBigote;
         target.transform.position = aux.transform.position;
-        RaycastHit frontalHit, leftWhiskerHit, rightWhiskerHit;
+        RaycastHit frontalHit, izqHit, derHit;
         //Colisión frontal
-        if (Physics.Raycast(agent.transform.position, frontalVector, out frontalHit, frontaLookAhead))
+        if (Physics.Raycast(agent.transform.position, frontalBigote, out frontalHit, frontal))
         {
             //detectamos colision
-           target.transform.position = frontalHit.point + frontalHit.normal * avoidDistance;
+           target.transform.position = frontalHit.point + frontalHit.normal * distancia;
             return base.GetSteering(agent);
         }
         // bigote izquierdo
-        if (Physics.Raycast(agent.transform.position, leftWhiskerVector, out leftWhiskerHit, frontaLookAhead)) {
+        if (Physics.Raycast(agent.transform.position, izqBigote, out izqHit, frontal)) {
             //detectamos colision
-            target.transform.position = leftWhiskerHit.point + leftWhiskerHit.normal * avoidDistance;
+            target.transform.position = izqHit.point + izqHit.normal * distancia;
              return base.GetSteering(agent);
         }
         // bigote derecho
-        if (Physics.Raycast(agent.transform.position, rightWhiskerVector, out rightWhiskerHit, frontaLookAhead)) {
+        if (Physics.Raycast(agent.transform.position, derBigote, out derHit, frontal)) {
             //detectamos colision
-            target.transform.position = rightWhiskerHit.point + rightWhiskerHit.normal * avoidDistance;
+            target.transform.position = derHit.point + derHit.normal * distancia;
              return base.GetSteering(agent);
         }
         Steering steering = this.gameObject.GetComponent<Steering>();

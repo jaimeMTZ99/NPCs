@@ -50,7 +50,7 @@ public class Path : MonoBehaviour
     public bool EndOfThePath(int currentPosition){
         return currentPosition >= nodos.Count;
     }
-    public int GetParam(Vector3 characterPosition, int currentPosition) {
+    public int GetParam(Vector3 personaje, int currentPosition) {
 
             // si no hay camino , devuelve la misma posicion
             if (nodos.Count <= 1) {
@@ -62,34 +62,34 @@ public class Path : MonoBehaviour
             }
             
             // encontramos el punto mas cercano, el siguiente y el anterior
-            float distanceToPreviousPoint, distanceToCurrentPoint, distanceToNextPoint; // a, b, c
+            float anterior, actual, siguiente; // a, b, c
 
             // principio, no hay anteriores
             if (currentPosition == 0) {
-                distanceToPreviousPoint = float.MaxValue;
-                distanceToNextPoint = Vector3.Distance(characterPosition, nodos[currentPosition + 1].transform.position);
+                anterior = float.MaxValue;
+                siguiente = Vector3.Distance(personaje, nodos[currentPosition + 1].transform.position);
             }
             // final, no hay posteriores
             else if (currentPosition == nodos.Count - 1) {
-                distanceToPreviousPoint = Vector3.Distance(characterPosition, nodos[currentPosition - 1].transform.position);
-                distanceToNextPoint = float.MaxValue;
+                anterior = Vector3.Distance(personaje, nodos[currentPosition - 1].transform.position);
+                siguiente = float.MaxValue;
             }
             else {
-                distanceToNextPoint = Vector3.Distance(characterPosition, nodos[currentPosition + 1].transform.position);
-                distanceToPreviousPoint = Vector3.Distance(characterPosition, nodos[currentPosition - 1].transform.position);
+                siguiente = Vector3.Distance(personaje, nodos[currentPosition + 1].transform.position);
+                anterior = Vector3.Distance(personaje, nodos[currentPosition - 1].transform.position);
             }
 
-            distanceToCurrentPoint = Vector3.Distance(characterPosition, nodos[currentPosition].transform.position);
+            actual = Vector3.Distance(personaje, nodos[currentPosition].transform.position);
             
 
-            if (distanceToCurrentPoint <= distanceToPreviousPoint && distanceToCurrentPoint <= distanceToNextPoint){
+            if (actual <= anterior && actual <= siguiente){
                 return currentPosition;
             }
 
-            if (distanceToNextPoint <= distanceToPreviousPoint && distanceToNextPoint < radio){
+            if (siguiente <= anterior && siguiente < radio){
                 return currentPosition + 1;
             }
-            if (distanceToPreviousPoint <= distanceToNextPoint && distanceToPreviousPoint < radio)
+            if (anterior <= siguiente && anterior < radio)
                 return currentPosition - 1;
 
 

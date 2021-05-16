@@ -7,7 +7,7 @@ public class AntiAlign : SteeringBehaviour
     [SerializeField]
     private float timeToTarget = 0.1f;
 
-    //Esta funcion ayuda a encontrar la direccion real de rotacion después de restar dos valores de orientacion
+    //Esta funcion ayuda a encontrar la direccion real de rotacion después de restar dos valores de orientacion y sacar la rotacion total
     public float MapToRange (float rotation) {
     rotation %=  Mathf.PI * 2;
     if (Mathf.Abs(rotation) >  Mathf.PI) {

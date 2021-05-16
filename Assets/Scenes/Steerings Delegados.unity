@@ -694,6 +694,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 582484477431559505, guid: 9a52cfa55363f8d42b9ac0f0e228c879,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 90d127a4a00619e4a94b85def40573b1, type: 2}
     - target: {fileID: 582484477431559507, guid: 9a52cfa55363f8d42b9ac0f0e228c879,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -890,6 +895,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 582484477431559505, guid: 9a52cfa55363f8d42b9ac0f0e228c879,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: ab6d7a3cf3c364d47a483d9cf8a69715, type: 2}
     - target: {fileID: 582484477431559507, guid: 9a52cfa55363f8d42b9ac0f0e228c879,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1073,6 +1083,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6196579401843685123, guid: e546ea1d82ccac64880ebc6b0728e834,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 9b8e932c2404ec14e9708c2cbd4daad2, type: 2}
     - target: {fileID: 6196579401843685125, guid: e546ea1d82ccac64880ebc6b0728e834,
         type: 3}
       propertyPath: SteeringList.Array.size
@@ -1215,6 +1230,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: PathFollower
       objectReference: {fileID: 0}
+    - target: {fileID: 8485057914146819237, guid: 7fc812e63650ce843b4c44ce2aaa8984,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 20cb15b9cfff8bd4a9c95d626ca3fb12, type: 2}
     - target: {fileID: 8485057914146819239, guid: 7fc812e63650ce843b4c44ce2aaa8984,
         type: 3}
       propertyPath: intRadius
