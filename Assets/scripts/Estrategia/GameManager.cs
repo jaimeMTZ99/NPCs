@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour {
     [SerializeField]
    // private StrategyInputManager strategyInputManager;
 
-    private float minDistance = 1.5f;
+    private float minDistance = 5;
 
     [SerializeField]
     // Set the minimum speed of movement required for capture the enemy checkpoint

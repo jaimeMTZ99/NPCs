@@ -21,7 +21,9 @@ public class Grid : MonoBehaviour
     float diametroNodo;
     int tamGridX, tamGridY; //Tamaño del grid en relacion a los nodos
 
-
+    public InfluenceMapControl mapaInfluencia;
+    public Transform abajoIzq;
+    public Transform arribaDcha;
     private void Awake()
     {
         mapa = new Transform[mapaFila, mapaColumna];
@@ -43,6 +45,32 @@ public class Grid : MonoBehaviour
         tamGridX = Mathf.RoundToInt(tamGrid.x / diametroNodo);
         tamGridY = Mathf.RoundToInt(tamGrid.y / diametroNodo);
         CrearGrid();
+        if (mapaInfluencia != null){
+             float minX, maxX, minZ, maxZ;
+
+        // x
+        if (abajoIzq.position.x < arribaDcha.position.x) {
+            minX = abajoIzq.position.x;
+            maxX = arribaDcha.position.x;
+        } else {
+            maxX = abajoIzq.position.x;
+            minX = arribaDcha.position.x;
+        }  
+        
+        // z
+        if (abajoIzq.position.z < arribaDcha.position.z) {
+            minZ = abajoIzq.position.z;
+            maxZ = arribaDcha.position.z;
+        } else {
+            maxZ = abajoIzq.position.z;
+            minZ = arribaDcha.position.z;
+        }  
+
+        // Bounds include the cell where the max position lands in
+        int x = Mathf.RoundToInt((maxX - minX) / radioNodo*2) + 1;
+        int z = Mathf.RoundToInt((maxZ - minZ) / radioNodo*2) + 1;
+            mapaInfluencia.Initialize(x,z);
+        }
     }
 
     //Inicializa el grid
@@ -128,6 +156,20 @@ public class Grid : MonoBehaviour
         if (Nodos != null && ix < mapaFila && ix >= 0 &&  iy < mapaColumna && iy >= 0)
             return Nodos[ix, iy];
         return null;
+    }
+    public Vector3 GetIndicesNodos(Vector3 a_vWorldPos)
+    {
+        float ixPos = ((a_vWorldPos.x + tamGrid.x / 2) / tamGrid.x);
+        float iyPos = ((a_vWorldPos.z + tamGrid.y / 2) / tamGrid.y);
+
+        ixPos = Mathf.Clamp01(ixPos);
+        iyPos = Mathf.Clamp01(iyPos);
+
+        int ix = Mathf.RoundToInt((tamGridX - 1) * ixPos);
+        int iy = Mathf.RoundToInt((tamGridY - 1) * iyPos);
+        if (Nodos != null && ix < mapaFila && ix >= 0 &&  iy < mapaColumna && iy >= 0)
+            return new Vector3(ix,0,iy);
+        return Vector3.zero;
     }
 
     //Obtiene el coste de un nodo

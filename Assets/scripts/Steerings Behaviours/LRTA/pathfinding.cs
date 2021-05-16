@@ -8,7 +8,7 @@ public class PathFinding : MonoBehaviour
     Nodo nodoFinal;
     public int heuristica = 1;
     GameObject nodoEnd; //Objeto visual
-    public LRTA lrta;
+    public LRTA lrta =  new LRTA();
     [SerializeField]
     public Grid grid;
     float[,] mapaCostes;
@@ -76,8 +76,9 @@ public class PathFinding : MonoBehaviour
         if (esferaDestino != null && !muro)
         {
             nodoFinal = grid.GetNodoPosicionGlobal(esferaDestino.transform.position);
-            if (agent.tag == "PathFinding")
+            if (agent.tag == "PathFinding"){
                 nodos = lrta.EncontrarCaminoLRTAStar(nodoActual, nodoFinal, heuristica, grid);
+            }
             else if (agent.tag == "PathFindingAStar")
                 nodos = lrta.EncontrarCaminoAStar(nodoActual, nodoFinal, heuristica, grid);
             if (nodos != null)

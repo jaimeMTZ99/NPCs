@@ -21,7 +21,7 @@ public class NPC : MonoBehaviour
     public Grid gridMap;
     public GameManager gameManager;
     public AgentNPC agentNPC;
-    //private SimplePropagator _simplePropagator;
+    public SimplePropagator simplePropagator;
     public PathFinding pf;
 
 
@@ -83,7 +83,7 @@ public class NPC : MonoBehaviour
             pathfinding.Team = _team;
         }*/
         agentNPC = GetComponent<AgentNPC>();
-        //simplePropagator = GetComponent<SimplePropagator>();
+        simplePropagator = GetComponent<SimplePropagator>();
         Initialize();
     }
     protected void Initialize() {

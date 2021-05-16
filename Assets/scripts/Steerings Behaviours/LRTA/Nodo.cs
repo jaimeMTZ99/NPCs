@@ -18,6 +18,7 @@ public class Nodo{
 
     public int FCost { get { return igCost + ihCost; } } //Suma de costes
     
+    public float influence;
     public Nodo(bool a, Vector3 b, int c, int d) //Constructor
     {
         walkable = a;
