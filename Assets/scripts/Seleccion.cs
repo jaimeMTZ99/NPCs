@@ -356,7 +356,7 @@ public class Seleccion : MonoBehaviour
                     pf = selectedUnit.GetComponent<PathFollowing>();
                     pf.currentPos = 0;
                     for(int i =0 ; i< listPuntos.Count; i ++){
-                        path.AppendPointToPath(listPuntos[i]);
+                        path.nuevoNodo(listPuntos[i]);
                     }
                    // pintarCamino();
                 }

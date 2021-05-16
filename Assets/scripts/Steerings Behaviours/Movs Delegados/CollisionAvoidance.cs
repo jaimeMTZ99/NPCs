@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class CollisionAvoidance : SeekAcceleration
 {
-
+    public bool gizmos;
 
     [SerializeField]
     private float distancia = 1;
@@ -54,5 +54,22 @@ public class CollisionAvoidance : SeekAcceleration
         }
         Steering steering = this.gameObject.GetComponent<Steering>();
         return steering;
+    }
+
+    private void OnDrawGizmos() {
+        if (gizmos) {
+            Vector3 primario = transform.forward;
+            Vector3 bigoteIzq = Quaternion.Euler(0, -angulo, 0) * primario;
+            Vector3 bigoteDer = Quaternion.Euler(0, angulo, 0) * primario;
+
+            Vector3 position = transform.position;
+
+            Gizmos.color = new Color(0, 255, 0);
+            Gizmos.DrawLine(position, position + primario * frontal);
+
+            Gizmos.color = new Color(0, 0, 255);
+            Gizmos.DrawLine(position, position + bigoteIzq * 5);
+            Gizmos.DrawLine(position, position + bigoteDer * 5);
+        }
     }
 }

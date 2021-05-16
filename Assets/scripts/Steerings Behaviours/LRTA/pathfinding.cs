@@ -129,7 +129,7 @@ public class PathFinding : MonoBehaviour
         pf.currentPos = 0;
         for (int i = 0; i < keyPoints.Count; i++)
         {
-            path.AppendPointToPath(keyPoints[i]);
+            path.nuevoNodo(keyPoints[i]);
         }
         pintarCamino(keyPoints);
     }

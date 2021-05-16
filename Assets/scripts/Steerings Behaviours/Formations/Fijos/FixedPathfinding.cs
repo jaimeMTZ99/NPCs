@@ -134,7 +134,7 @@ public class FixedPathfinding : MonoBehaviour
                 {
                     for (int j = 0; j < listPuntos.Count; j++)
                     {
-                        pathsAgentes[i].AppendPointToPath(listPuntos[j]);
+                        pathsAgentes[i].nuevoNodo(listPuntos[j]);
                     }
                 }
                 pintarCamino();
