@@ -151,9 +151,10 @@ public class Escapar : Estado {
         if (goHeal){
             npc.CambiarEstado(npc.estadoCuracion);
         }
-        if (pointless){
+        else {
             npc.CambiarEstado(npc.estadoAsignado);
         }
+        
         
     }
 

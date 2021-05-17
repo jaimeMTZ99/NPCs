@@ -100,6 +100,15 @@ public class GameManager : MonoBehaviour {
         return false;
     }
 
+    // Return true if the NPC is on base
+    public bool InCuracion(NPC npc) {
+        foreach (Transform position in waypointManager.GetCuracion(npc).posiciones) {
+            if (Vector3.Distance(npc.agentNPC.Position, position.position) <= minDistance)
+                return true;
+        }
+        return false;
+    }
+
     public bool NPCInWaypoint(NPC npc, Waypoint waypoint) {
         foreach (Transform position in waypoint.posiciones) {
             if (Vector3.Distance(npc.agentNPC.Position, position.position) <= minDistance)

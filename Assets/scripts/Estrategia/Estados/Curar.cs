@@ -18,7 +18,7 @@ public class Curar : Estado {
 
     public override void Accion(NPC npc) {
         // If the NPC is at base, start healing until max hp
-        if (npc.gameManager.InBase(npc)) {
+        if (npc.gameManager.InCuracion(npc)) {
             if (timer == -1)
                 timer = Time.time;
 

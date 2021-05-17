@@ -80,24 +80,24 @@ public class WaypointManager : MonoBehaviour
         Debug.Log(npc.name + " capturando base enemiga");
         if (npc.team == NPC.Equipo.France) {
             zonaESP.porcentajeCaptura += 0.25f;
-            if (zonaESP.porcentajeCaptura >= 100)
+            if (zonaESP.porcentajeCaptura >= 500)
                 gm.FranciaGana();
         }
         if (npc.team == NPC.Equipo.Spain){
             zonaFRA.porcentajeCaptura += 0.25f;
-            if (zonaFRA.porcentajeCaptura >= 100)
+            if (zonaFRA.porcentajeCaptura >= 500)
                 gm.EspanaGana();
         }
     }
 
     public void EspCapturando() {
         if (zonaFRA.porcentajeCaptura > 0)
-            zonaFRA.porcentajeCaptura -= 0.5f;
+            zonaFRA.porcentajeCaptura -= 2f;
     }
 
     public void FraCapturando() {
         if (zonaESP.porcentajeCaptura > 0)
-            zonaESP.porcentajeCaptura -= 0.5f;
+            zonaESP.porcentajeCaptura -= 2f;
     }
 
 }
