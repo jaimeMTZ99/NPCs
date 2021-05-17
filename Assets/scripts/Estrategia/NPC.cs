@@ -114,7 +114,7 @@ public class NPC : MonoBehaviour
         }
 
         // Most likely not the best way to do this
-        //agentNPC.maxSpeed = _groupSpeed * _gridMap.GetTile(_agentNPC.Position).SpeedMultiplier(_pathfinding.Type);
+        agentNPC.maxSpeed =  gridMap.GetNodoPosicionGlobal(agentNPC.Position).SpeedMultiplier(tipo);
          nodoActual = gridMap.GetNodoPosicionGlobal(agentNPC.Position);
 
         if (nodoActual.walkable)

@@ -4,7 +4,17 @@ using UnityEngine;
 
 //Nodos que componen los caminos del pathfinding y del algoritmo LRTA estrella
 public class Nodo{
-
+    public enum TerrainType {
+        Road,
+        Grassland,
+        Forest,
+        RedCapturePoint,
+        BluCapturePoint,
+        BluBase,
+        RedBase,
+        Undefined,
+        NotWalkable
+    }
     public int X;   //Posicion x con respecto a los nodos
     public int Y;   //Posicion y con respecto a los nodos
 
@@ -13,18 +23,58 @@ public class Nodo{
 
     public Nodo NodoPadre;  //Nodo del que se accede al actual
 
-    public int igCost;  //coste nodo siguiente
-    public int ihCost;  //coste destino
-
-    public int FCost { get { return igCost + ihCost; } } //Suma de costes
+    public float igCost;  //coste nodo siguiente
+    public float ihCost;  //coste destino
+    public float FCost { get { return igCost + ihCost; } } //Suma de costes
     
+    public TerrainType terrainType;
     public float influence;
-    public Nodo(bool a, Vector3 b, int c, int d) //Constructor
+    public Nodo(bool a, Vector3 b, int c, int d, TerrainType terreno) //Constructor
     {
         walkable = a;
         Posicion = b;
         X = c;
         Y = d;
+        terrainType = terreno;
+    }
+    public float SpeedMultiplier(NPC.TipoUnidad unitType) {
+        switch (terrainType) {
+            case TerrainType.Forest:
+                switch (unitType) {
+                    case NPC.TipoUnidad.Ranged:
+                        return 2.5f; 
+                    case NPC.TipoUnidad.Brawler: 
+                        return 2f;
+                    case NPC.TipoUnidad.Medic:
+                        return 3;
+                }
+                break;
+            case TerrainType.Grassland:
+                switch (unitType) {
+                    case NPC.TipoUnidad.Ranged:
+                        return 2.75f; 
+                    case NPC.TipoUnidad.Brawler:
+                        return 2.5f;
+                    case NPC.TipoUnidad.Medic:
+                        return 2.5f;
+                    
+                }
+                break;
+            case TerrainType.Road:
+                switch (unitType) {
+                    case NPC.TipoUnidad.Ranged:
+                        return 2.75f; 
+                    case NPC.TipoUnidad.Brawler:
+                        return 3;
+                    case NPC.TipoUnidad.Medic:
+                        return 3;
+                    
+                }
+                break;
+            default:
+                return 2;
+        }
+        return 2;
     }
 
 }

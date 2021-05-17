@@ -45,30 +45,37 @@ public class Grid : MonoBehaviour
         tamGridX = Mathf.RoundToInt(tamGrid.x / diametroNodo);
         tamGridY = Mathf.RoundToInt(tamGrid.y / diametroNodo);
         CrearGrid();
-        if (mapaInfluencia != null){
-             float minX, maxX, minZ, maxZ;
+        if (mapaInfluencia != null)
+        {
+            float minX, maxX, minZ, maxZ;
 
-        // x
-        if (abajoIzq.position.x < arribaDcha.position.x) {
-            minX = abajoIzq.position.x;
-            maxX = arribaDcha.position.x;
-        } else {
-            maxX = abajoIzq.position.x;
-            minX = arribaDcha.position.x;
-        }  
-        
-        // z
-        if (abajoIzq.position.z < arribaDcha.position.z) {
-            minZ = abajoIzq.position.z;
-            maxZ = arribaDcha.position.z;
-        } else {
-            maxZ = abajoIzq.position.z;
-            minZ = arribaDcha.position.z;
-        }  
+            // x
+            if (abajoIzq.position.x < arribaDcha.position.x)
+            {
+                minX = abajoIzq.position.x;
+                maxX = arribaDcha.position.x;
+            }
+            else
+            {
+                maxX = abajoIzq.position.x;
+                minX = arribaDcha.position.x;
+            }
 
-        int x = Mathf.RoundToInt((maxX - minX) / radioNodo*2) + 1;
-        int z = Mathf.RoundToInt((maxZ - minZ) / radioNodo*2) + 1;
-            mapaInfluencia.Initialize(x,z);
+            // z
+            if (abajoIzq.position.z < arribaDcha.position.z)
+            {
+                minZ = abajoIzq.position.z;
+                maxZ = arribaDcha.position.z;
+            }
+            else
+            {
+                maxZ = abajoIzq.position.z;
+                minZ = arribaDcha.position.z;
+            }
+
+            int x = Mathf.RoundToInt((maxX - minX) / radioNodo * 2) + 1;
+            int z = Mathf.RoundToInt((maxZ - minZ) / radioNodo * 2) + 1;
+            mapaInfluencia.Initialize(x, z);
         }
     }
 
@@ -84,8 +91,9 @@ public class Grid : MonoBehaviour
             {
                 Vector3 worldPoint = esquina + Vector3.right * (x * diametroNodo + radioNodo) + Vector3.forward * (y * diametroNodo + radioNodo);
                 bool walkable = !isObjectHere(worldPoint);
-                Nodos[x, y] = new Nodo(walkable, worldPoint, x, y);//Create a new node in the array.
-                Nodos[x,y].igCost = matrizCostes[x,y];
+                Nodo.TerrainType terreno = getTerrenoPosition(worldPoint);
+                Nodos[x, y] = new Nodo(walkable, worldPoint, x, y,terreno);//Create a new node in the array.
+                Nodos[x, y].igCost = (float) matrizCostes[x, y];
             }
         }
     }
@@ -152,7 +160,7 @@ public class Grid : MonoBehaviour
 
         int ix = Mathf.RoundToInt((tamGridX - 1) * ixPos);
         int iy = Mathf.RoundToInt((tamGridY - 1) * iyPos);
-        if (Nodos != null && ix < mapaFila && ix >= 0 &&  iy < mapaColumna && iy >= 0)
+        if (Nodos != null && ix < mapaFila && ix >= 0 && iy < mapaColumna && iy >= 0)
             return Nodos[ix, iy];
         return null;
     }
@@ -166,20 +174,84 @@ public class Grid : MonoBehaviour
 
         int ix = Mathf.RoundToInt((tamGridX - 1) * ixPos);
         int iy = Mathf.RoundToInt((tamGridY - 1) * iyPos);
-        if (Nodos != null && ix < mapaFila && ix >= 0 &&  iy < mapaColumna && iy >= 0)
-            return new Vector3(ix,0,iy);
+        if (Nodos != null && ix < mapaFila && ix >= 0 && iy < mapaColumna && iy >= 0)
+            return new Vector3(ix, 0, iy);
         return Vector3.zero;
     }
 
     //Obtiene el coste de un nodo
     int costeNodo(Transform nodo)
     {
-        if(isObjectHere(nodo.position)){
+        if (isObjectHere(nodo.position))
+        {
             return 99999;
         }
         return 1;
     }
 
+    public float costeNodoTactico(Nodo nodo, NPC.TipoUnidad tipoUnidad, NPC.Equipo team)
+    {
+
+        switch (nodo.terrainType)
+        {
+            case Nodo.TerrainType.Forest:
+                switch (tipoUnidad)
+                {
+                    case NPC.TipoUnidad.Ranged:
+                        return 18;
+                    case NPC.TipoUnidad.Brawler:
+                        return 20f;
+                    case NPC.TipoUnidad.Medic:
+                        return 15;
+                }
+                break;
+            case Nodo.TerrainType.Grassland:
+                switch (tipoUnidad)
+                {
+                    case NPC.TipoUnidad.Ranged:
+                        return 10;
+                    case NPC.TipoUnidad.Brawler:
+                        return 10;
+                    case NPC.TipoUnidad.Medic:
+                        return 10;
+
+                }
+                break;
+            case Nodo.TerrainType.Road:
+                switch (tipoUnidad)
+                {
+                    case NPC.TipoUnidad.Ranged:
+                        return 0.8f;
+                    case NPC.TipoUnidad.Brawler:
+                        return 0.66f;
+                    case NPC.TipoUnidad.Medic:
+                        return 0.66f;
+
+                }
+                break;
+            case Nodo.TerrainType.BluBase:
+                switch (team) {
+                    case NPC.Equipo.Spain:
+                        return 1000;
+                    case NPC.Equipo.France:
+                        return 1;
+                }
+                break;
+            case Nodo.TerrainType.RedBase:
+                switch (team) {
+                    case NPC.Equipo.Spain:
+                        return 1;
+                    case NPC.Equipo.France:
+                        return 1000;
+                }
+                break;
+            case Nodo.TerrainType.NotWalkable:
+                return float.MaxValue;
+            default:
+                return 1;
+        }
+        return 1;
+    }
     //Obtiene la matriz de costes del grids
     public int[,] ObtenerMatrizCostes()
     {
@@ -198,12 +270,41 @@ public class Grid : MonoBehaviour
     bool isObjectHere(Vector3 position)
     {
         Collider[] intersecting = Physics.OverlapSphere(position, radioNodo);
-        foreach (Collider i in intersecting){
-            if(i.gameObject.tag == "Muro" || i.gameObject.tag =="Agua"){
+        foreach (Collider i in intersecting)
+        {
+            if (i.gameObject.tag == "Muro" || i.gameObject.tag == "Agua")
+            {
 
                 return true;
             }
         }
         return false;
+    }
+    Nodo.TerrainType getTerrenoPosition(Vector3 position)
+    {
+        Collider[] intersecting = Physics.OverlapSphere(position, radioNodo);
+        foreach (Collider i in intersecting)
+        {
+            switch(i.tag){
+                case "Carretera":
+                    return Nodo.TerrainType.Road;
+                case "Puente":
+                    return Nodo.TerrainType.Road;
+                case "Bosque":
+                    return Nodo.TerrainType.Forest;
+                case "Pradera":
+                    return Nodo.TerrainType.Grassland;
+                case "Base Fra":
+                    return Nodo.TerrainType.BluCapturePoint;
+                case "Base Esp":
+                    return Nodo.TerrainType.RedCapturePoint;
+                case "Muro":
+                    return Nodo.TerrainType.NotWalkable;
+                case "Agua":
+                    return Nodo.TerrainType.NotWalkable;
+
+            }
+        }
+        return Nodo.TerrainType.Undefined;
     }
 }

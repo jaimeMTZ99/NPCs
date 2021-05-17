@@ -4,7 +4,8 @@ using UnityEngine;
 using System.Linq;
 public class LRTA : MonoBehaviour
 {
-    public List<Nodo> EncontrarCaminoLRTAStar(Nodo comienzo, Nodo objetivo, int distancia, Grid grid){
+    public List<Nodo> EncontrarCaminoLRTAStar(Nodo comienzo, Nodo objetivo, int distancia, Grid grid)
+    {
         //Lista de nodos cerrados a.k.a nodos utilizados
         if (grid.Nodos == null)
             return null;
@@ -40,24 +41,24 @@ public class LRTA : MonoBehaviour
             foreach (Nodo vecino in vecinos)
             {
                 coste = 0;
-                    //Para cada vecino, calcula su coste hasta el objetivo
-                    switch (distancia)
-                    {
-                        case 1:
-                            coste = Manhattan(vecino, objetivo);
-                            break;
-                        case 2:
-                            coste = Chebychev(vecino, objetivo);
-                            break;
-                        case 3:
-                            coste = Euclide(vecino, objetivo);
-                            break;
-                    }
-                    vecino.ihCost = coste; 
-                
+                //Para cada vecino, calcula su coste hasta el objetivo
+                switch (distancia)
+                {
+                    case 1:
+                        coste = Manhattan(vecino, objetivo);
+                        break;
+                    case 2:
+                        coste = Chebychev(vecino, objetivo);
+                        break;
+                    case 3:
+                        coste = Euclide(vecino, objetivo);
+                        break;
+                }
+                vecino.ihCost = coste;
+
             }
             float costeMinimo = Mathf.Infinity;
-            
+
             //Para cada vecino
             foreach (Nodo vecino in vecinos)
             {
@@ -82,17 +83,18 @@ public class LRTA : MonoBehaviour
             cerrados.Add(actual);
             //Establecemos el nodo actual como el siguiente nodo del camino
             actual = siguiente;
-            if(siguiente == null){
+            if (siguiente == null)
+            {
                 break;
             }
         }
         //Devolvemos el camino
         return cerrados;
     }
-    
+
     //Encuentra un camino dado un nodo por el que comenzar, y un destino
     //Distancia se usa para especificar que tipo de heuristica utilizar
-    public List<Nodo> EncontrarCaminoAStar(Nodo comienzo, Nodo objetivo, int distancia, Grid grid)
+    public List<Nodo> EncontrarCaminoAStar(Nodo comienzo, Nodo objetivo, int distancia, Grid grid, NPC npc, bool tactico, float multiplicadorTerreno, float multiplicadorInfluencia)
     {
         //En caso de que el grid no contenga nodos, no se hace nada
         if (grid.Nodos == null)
@@ -110,19 +112,19 @@ public class LRTA : MonoBehaviour
                 {
                     case 1:
                         currentNode.ihCost = Manhattan(currentNode, objetivo);
-                        openSet[i].ihCost =  Manhattan(openSet[i], objetivo);
+                        openSet[i].ihCost = Manhattan(openSet[i], objetivo);
                         break;
                     case 2:
                         currentNode.ihCost = Chebychev(currentNode, objetivo);
-                         openSet[i].ihCost =  Chebychev(openSet[i], objetivo);
+                        openSet[i].ihCost = Chebychev(openSet[i], objetivo);
                         break;
                     case 3:
                         currentNode.ihCost = Euclide(currentNode, objetivo);
-                         openSet[i].ihCost =  Euclide(openSet[i], objetivo);
+                        openSet[i].ihCost = Euclide(openSet[i], objetivo);
                         break;
                     default:
                         currentNode.ihCost = Manhattan(currentNode, objetivo);
-                        openSet[i].ihCost =  Manhattan(openSet[i], objetivo);
+                        openSet[i].ihCost = Manhattan(openSet[i], objetivo);
                         break;
                 }
                 if (openSet[i].FCost < currentNode.FCost || openSet[i].FCost == currentNode.FCost && openSet[i].ihCost < currentNode.ihCost)
@@ -134,7 +136,7 @@ public class LRTA : MonoBehaviour
             closedSet.Add(currentNode);
             if (currentNode == objetivo)
             {
-               return RetracePath(comienzo,objetivo);
+                return RetracePath(comienzo, objetivo);
             }
             List<Nodo> vecinos = grid.GetVecinos(currentNode);
             foreach (Nodo neighbour in vecinos)
@@ -155,7 +157,15 @@ public class LRTA : MonoBehaviour
                         coste = Manhattan(currentNode, neighbour);
                         break;
                 }
-                int newMovementCostToNeighbour = currentNode.igCost + coste;
+                float newMovementCostToNeighbour = 0;
+                if (tactico)
+                {
+                    newMovementCostToNeighbour = costeVecinoTactico(currentNode, neighbour, multiplicadorTerreno, grid, npc.tipo, npc.team, coste,multiplicadorInfluencia);
+                }
+                else
+                {
+                    newMovementCostToNeighbour = currentNode.igCost + coste;
+                }
                 if (newMovementCostToNeighbour < neighbour.igCost || !openSet.Contains(neighbour))
                 {
                     neighbour.igCost = newMovementCostToNeighbour;
@@ -175,19 +185,67 @@ public class LRTA : MonoBehaviour
                             break;
                     }
                     neighbour.NodoPadre = currentNode;
-
-                    if (!openSet.Contains(neighbour))
+                    Collider[] hitColliders = Physics.OverlapSphere(neighbour.Posicion, 1);
+                    bool hayPersonaje = false;
+                    foreach (Collider c in hitColliders){
+                         if (c.tag == "PathFindingAStar"){
+                             hayPersonaje = true;
+                         }
+                     }
+                    if (!openSet.Contains(neighbour) || !hayPersonaje)
                         openSet.Add(neighbour);
                 }
             }
         }
-        return RetracePath(comienzo,objetivo);
+        return RetracePath(comienzo, objetivo);
     }
+    float costeVecinoTactico(Nodo currentNode, Nodo vecino, float multiplicadorTerreno,
+     Grid grid, NPC.TipoUnidad tipo, NPC.Equipo team, int heuristica, float multiplicadorInfluencia)
+    {
+        float finalCost = 0;
+        //Puede ser que haya cmabiarlo a (multiplicadorTerreno * (costeNodoTactico + hCost))
+        float terrainCost = multiplicadorTerreno * (grid.costeNodoTactico(currentNode, tipo, team) + grid.costeNodoTactico(vecino, tipo, team)) / 2;
+        float currentInfluence;
+        float adjacentInfluence;
+        if (team == NPC.Equipo.Spain)
+        {
+            // Ignore friendly influence (positive values)
+            // Avoid enemy influence areas (negative values turned positive)
+            if (currentNode.influence > 0)
+                currentInfluence = 0;
+            else
+                currentInfluence = Mathf.Abs(currentNode.influence);
 
-    List<Nodo> RetracePath(Nodo comienzo, Nodo objetivo){
+            if (vecino.influence > 0)
+                adjacentInfluence = 0;
+            else
+                adjacentInfluence = Mathf.Abs(currentNode.influence);
+        }
+        else
+        {
+            // Ignore friendly influence (negative values)
+            // Avoid enemy influence areas (positive values)
+            if (currentNode.influence < 0)
+                currentInfluence = 0;
+            else
+                currentInfluence = currentNode.influence;
+
+            if (vecino.influence < 0)
+                adjacentInfluence = 0;
+            else
+                adjacentInfluence = vecino.influence;
+        }
+
+        float influenceCost = multiplicadorInfluencia * (currentInfluence + adjacentInfluence) / 2;
+        finalCost += terrainCost + influenceCost;
+        return finalCost;
+    }
+    List<Nodo> RetracePath(Nodo comienzo, Nodo objetivo)
+    {
         List<Nodo> path = new List<Nodo>();
         Nodo currentNode = objetivo;
-        while(currentNode != comienzo){
+        while (currentNode != comienzo)
+        {
             path.Add(currentNode);
             currentNode = currentNode.NodoPadre;
         }

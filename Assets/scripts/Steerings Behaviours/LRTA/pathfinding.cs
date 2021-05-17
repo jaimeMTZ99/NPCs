@@ -13,6 +13,12 @@ public class PathFinding : MonoBehaviour
     public Grid grid;
     float[,] mapaCostes;
     List<GameObject> camino;
+    public NPC npc;
+    public NPC.TipoUnidad type;
+    public bool tactico;
+    public NPC.Equipo team;
+    public float multiplicadorTerreno;
+    public float multiplicadorInfluencia;
     private void Start()
     {
         grid = grid.GetComponent<Grid>();
@@ -41,7 +47,7 @@ public class PathFinding : MonoBehaviour
                 if (agent.tag == "PathFinding")
                     nodos = lrta.EncontrarCaminoLRTAStar(nodoActual, nodoFinal, heuristica, grid);
                 else if (agent.tag == "PathFindingAStar")
-                    nodos = lrta.EncontrarCaminoAStar(nodoActual, nodoFinal, heuristica, grid);
+                    nodos = lrta.EncontrarCaminoAStar(nodoActual, nodoFinal, heuristica, grid, npc, tactico, multiplicadorTerreno, multiplicadorInfluencia);
                 List<Vector3> aux = new List<Vector3>(nodos.Count);
                 for (int i = 0; i < nodos.Count; i++)
                 {
@@ -68,7 +74,7 @@ public class PathFinding : MonoBehaviour
         bool muro = false;
         foreach (Collider c in colliders)
         {
-            if (c.tag == "Muro")
+            if (c.tag == "Muro" )
             {
                 muro = true;
             }
@@ -80,7 +86,7 @@ public class PathFinding : MonoBehaviour
                 nodos = lrta.EncontrarCaminoLRTAStar(nodoActual, nodoFinal, heuristica, grid);
             }
             else if (agent.tag == "PathFindingAStar")
-                nodos = lrta.EncontrarCaminoAStar(nodoActual, nodoFinal, heuristica, grid);
+                nodos = lrta.EncontrarCaminoAStar(nodoActual, nodoFinal, heuristica, grid, npc, tactico, multiplicadorTerreno, multiplicadorInfluencia);
             if (nodos != null)
             {
                 List<Vector3> aux = new List<Vector3>(nodos.Count);
@@ -101,7 +107,7 @@ public class PathFinding : MonoBehaviour
     {
         Nodo actual = grid.GetNodoPosicionGlobal(posicionInicial);
         Nodo final = grid.GetNodoPosicionGlobal(posicionFinal);
-        List<Nodo> nodos = lrta.EncontrarCaminoAStar(actual, final, heuristica, grid);
+        List<Nodo> nodos = lrta.EncontrarCaminoAStar(actual, final, heuristica, grid, npc, tactico, multiplicadorTerreno, multiplicadorInfluencia);
         List<GameObject> keyPoints = new List<GameObject>();
         if (nodos != null)
         {
