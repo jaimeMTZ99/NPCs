@@ -18,12 +18,10 @@ public class GameManager : MonoBehaviour {
     [SerializeField]
     // Set the minimum speed of movement required for capture the enemy checkpoint
     private float speedForCapturing;
-    public float SpeedForCapturing => speedForCapturing;
 
     //GUI de ganar o restear el juego
     [SerializeField] private GameObject espanaGana;
     [SerializeField] private GameObject franciaGana;
-    [SerializeField] private GameObject restart;
 
     // Start is called before the first frame update
     void Start()
@@ -49,10 +47,10 @@ public class GameManager : MonoBehaviour {
             }
         }
         if (!capturaEspana) {
-            //WaypointManager.RedTeamNotCapturing();
+            waypointManager.EspCapturando();
         }
         if (!capturaFrancia) {
-            //WaypointManager.BluTeamNotCapturing();
+            waypointManager.FraCapturando();
         }
     }
     
@@ -124,20 +122,20 @@ public class GameManager : MonoBehaviour {
 
     public void ModoGuerraTotal() {
         totalWarMode = true;
+
         foreach (NPC npc in npcs)
             npc.DispararGuerraTotal();
     }
 
     public void FranciaGana() {
         franciaGana.SetActive(true);
-        restart.SetActive(true);
         Time.timeScale = 0;
     }
 
     public void EspanaGana() {
         espanaGana.SetActive(true);
-        restart.SetActive(true);
         Time.timeScale = 0;
+        
     }
 
     public void Restart() {

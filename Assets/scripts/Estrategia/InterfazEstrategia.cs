@@ -15,32 +15,32 @@ public class InterfazEstrategia : MonoBehaviour
     void Start()
     {
         totalWar = false;
-        gameManager.ToggleDefensiveMode(NPC.Equipo.Spain);
-        gameManager.ToggleDefensiveMode(NPC.Equipo.France);
+        gameManager.CambiarModoDefensivo(NPC.Equipo.Spain);
+        gameManager.CambiarModoDefensivo(NPC.Equipo.France);
     }
 
 
 
-    public void ToggleRedMode(bool offensive) {
+    public void CambiarModoSpa(bool offensive) {
         if (totalWar) {
 
             totalWar = false;
 
             if (FraAttack) {
-                gameManager.ToggleOffensiveMode(NPC.Equipo.France);
+                gameManager.CambiarModoOfensivo(NPC.Equipo.France);
                 
             } else {
-                gameManager.ToggleDefensiveMode(NPC.Equipo.France);
+                gameManager.CambiarModoOfensivo(NPC.Equipo.France);
             }
 
             SpaAttack = offensive;
 
             if (SpaAttack) {
 
-                gameManager.ToggleOffensiveMode(NPC.Equipo.Spain);
+                gameManager.CambiarModoOfensivo(NPC.Equipo.Spain);
                 
             } else {
-                gameManager.ToggleDefensiveMode(NPC.Equipo.Spain);
+                gameManager.CambiarModoDefensivo(NPC.Equipo.Spain);
                 
             }
             
@@ -48,41 +48,41 @@ public class InterfazEstrategia : MonoBehaviour
             SpaAttack = offensive;
 
             if (SpaAttack) {
-                gameManager.ToggleOffensiveMode(NPC.Equipo.Spain);
+                gameManager.CambiarModoOfensivo(NPC.Equipo.Spain);
             } else {
-                gameManager.ToggleDefensiveMode(NPC.Equipo.Spain);
+                gameManager.CambiarModoDefensivo(NPC.Equipo.Spain);
                 
             }
                 
         }
     }
     
-    public void ToggleBluMode(bool offensive) {
+    public void CambiarModoFra(bool offensive) {
         if (totalWar) {
 
             totalWar = false;
             if (SpaAttack) {
-                gameManager.ToggleOffensiveMode(NPC.Equipo.Spain);
+                gameManager.CambiarModoOfensivo(NPC.Equipo.Spain);
             } else {
-                gameManager.ToggleDefensiveMode(NPC.Equipo.Spain);          
+                gameManager.CambiarModoDefensivo(NPC.Equipo.Spain);          
             }
 
             FraAttack = offensive;
 
             if (FraAttack) {
-                gameManager.ToggleOffensiveMode(NPC.Equipo.France);    
+                gameManager.CambiarModoOfensivo(NPC.Equipo.France);    
             } else {
-                gameManager.ToggleDefensiveMode(NPC.Equipo.France);
+                gameManager.CambiarModoDefensivo(NPC.Equipo.France);
             }
 
         } else if (FraAttack != offensive) {
             FraAttack = offensive;
 
             if (FraAttack) {
-                gameManager.ToggleOffensiveMode(NPC.Equipo.France);
+                gameManager.CambiarModoOfensivo(NPC.Equipo.France);
                 
             } else {
-                gameManager.ToggleDefensiveMode(NPC.Equipo.France);
+                gameManager.CambiarModoDefensivo(NPC.Equipo.France);
                 
             }
                 
@@ -90,28 +90,20 @@ public class InterfazEstrategia : MonoBehaviour
     }
 
 
-        public void EnableTotalWarMode() {
+        public void TotalWarMode() {
         if (totalWar)
             return;
-        
         totalWar = true;
 
         if (SpaAttack){
-
-        }
-        else{
-
+            SpaAttack = false;
         }
 
         if (FraAttack){
-
+            FraAttack = false;
         }
 
-        else{
-
-        }
-
-        gameManager.EnableTotalWar();
+        gameManager.ModoGuerraTotal();
     }
 
     public void Restart() {

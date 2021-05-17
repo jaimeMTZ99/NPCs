@@ -19,7 +19,9 @@ public class WaypointManager : MonoBehaviour
     private Waypoint zonaESP;
     [SerializeField]
     private Waypoint zonaFRA;
+    [SerializeField]
     private Waypoint curaESP;
+    [SerializeField]
     private Waypoint curaFRA;
     [SerializeField]
     private Waypoint[] coberturas;
@@ -77,30 +79,25 @@ public class WaypointManager : MonoBehaviour
     public void Captura(NPC npc) {
         Debug.Log(npc.name + " capturando base enemiga");
         if (npc.team == NPC.Equipo.France) {
-            zonaESP.porcentajeCaptura *= Time.deltaTime;
-            if (zonaESP.porcentajeCaptura >= 100);
-                //gm.BlueWins();
-        } else {
-            zonaFRA.porcentajeCaptura *= Time.deltaTime;
-            if (zonaESP.porcentajeCaptura >= 100);
-                //gm.RedWins();
+            zonaESP.porcentajeCaptura += 0.25f;
+            if (zonaESP.porcentajeCaptura >= 100)
+                gm.FranciaGana();
+        }
+        if (npc.team == NPC.Equipo.Spain){
+            zonaFRA.porcentajeCaptura += 0.25f;
+            if (zonaFRA.porcentajeCaptura >= 100)
+                gm.EspanaGana();
         }
     }
 
-
-    //ESTO QUE? HAY QUE VER CONDICION VICTORIA
-    /*public void RedTeamNotCapturing() {
-        if (_blueCheckpointWaypoint.porcentajeCaptura > 0)
-            _blueCheckpointWaypoint.porcentajeCaptura -= 0.5f * Time.deltaTime;
+    public void EspCapturando() {
+        if (zonaFRA.porcentajeCaptura > 0)
+            zonaFRA.porcentajeCaptura -= 0.5f;
     }
 
-    public void BluTeamNotCapturing() {
-        if (_redCheckpointWaypoint.porcentajeCaptura > 0)
-            _redCheckpointWaypoint.porcentajeCaptura -= 0.5f * Time.deltaTime;
+    public void FraCapturando() {
+        if (zonaESP.porcentajeCaptura > 0)
+            zonaESP.porcentajeCaptura -= 0.5f;
     }
 
-    public void Restart() {
-        _blueCheckpointWaypoint.CapturePercentage = 0;
-        _redCheckpointWaypoint.CapturePercentage = 0;
-    }*/
 }
