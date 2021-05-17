@@ -19,6 +19,8 @@ public class WaypointManager : MonoBehaviour
     private Waypoint zonaESP;
     [SerializeField]
     private Waypoint zonaFRA;
+    private Waypoint curaESP;
+    private Waypoint curaFRA;
     [SerializeField]
     private Waypoint[] coberturas;
 
@@ -35,6 +37,13 @@ public class WaypointManager : MonoBehaviour
         if (npc.team == NPC.Equipo.France)
             return baseFRA;
         return baseESP;
+    }
+
+    //Devuelve waypoint de la base de curación del equipo
+    public Waypoint GetCuracion(NPC npc) {
+        if (npc.team == NPC.Equipo.France)
+            return curaFRA;
+        return curaESP;
     }
 
     //Devuelve waypoint de la zona del equipo

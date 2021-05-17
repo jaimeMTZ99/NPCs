@@ -11,7 +11,9 @@ public class Waypoint : MonoBehaviour
         BaseFRA,
         Cobertura,
         zonaESP,
-        zonaFRA
+        zonaFRA,
+        curaESP,
+        curaFRA
     }
 
     [SerializeField] private WayPointClase wpClase;

@@ -22,7 +22,7 @@ public class Escapar : Estado {
         else {
             closestAlly = UnitsManager.AliadoCercano(npc);
         }
-        alliedBase = npc.gameManager.waypointManager.GetNodoAleatorio(npc.gameManager.waypointManager.GetBase(npc));
+        alliedBase = npc.gameManager.waypointManager.GetNodoAleatorio(npc.gameManager.waypointManager.GetCuracion(npc));
     
         distanceToBase = Vector3.Distance(npc.nodoActual.Posicion, alliedBase.Posicion);
         if (closestMedic) {
