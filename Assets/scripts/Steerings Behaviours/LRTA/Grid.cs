@@ -7,8 +7,8 @@ public class Grid : MonoBehaviour
 
     public Transform inicio; //Inicio del pathfinding
     public Vector2 tamGrid; //Tamaño del grid (unidades reales)
-    public float radioNodo;//This stores how big each square on the graph will be
-    public float distanciaNodos;//The distance that the squares will spawn from eachother.
+    public float radioNodo;
+    public float distanciaNodos;
 
     public Nodo[,] Nodos; //Nodos
     Transform[,] mapa;
@@ -66,7 +66,6 @@ public class Grid : MonoBehaviour
             minZ = arribaDcha.position.z;
         }  
 
-        // Bounds include the cell where the max position lands in
         int x = Mathf.RoundToInt((maxX - minX) / radioNodo*2) + 1;
         int z = Mathf.RoundToInt((maxZ - minZ) / radioNodo*2) + 1;
             mapaInfluencia.Initialize(x,z);
@@ -107,7 +106,7 @@ public class Grid : MonoBehaviour
                 vecinos.Add(Nodos[icheckX, icheckY]);
             }
         }
-        //Check the Left side of the current node.
+
         icheckX = z.X - 1;
         icheckY = z.Y;
         if (icheckX >= 0 && icheckX < tamGridX)
@@ -117,7 +116,7 @@ public class Grid : MonoBehaviour
                 vecinos.Add(Nodos[icheckX, icheckY]);
             }
         }
-        //Check the Top side of the current node.
+
         icheckX = z.X;
         icheckY = z.Y + 1;
         if (icheckX >= 0 && icheckX < tamGridX)
@@ -127,7 +126,7 @@ public class Grid : MonoBehaviour
                 vecinos.Add(Nodos[icheckX, icheckY]);
             }
         }
-        //Check the Bottom side of the current node.
+
         icheckX = z.X;
         icheckY = z.Y - 1;
         if (icheckX >= 0 && icheckX < tamGridX)

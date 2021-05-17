@@ -70,12 +70,9 @@ public class InfluenceMap : GridData
 
 	public void SetInfluence(Vector2I pos, float value)
 	{
-		Debug.Log("X: " + pos.x);
-		Debug.Log("Z: " + pos.y);
 		if (pos.x < Width && pos.y < Height)
 		{
 			Nodo nodo = gridMap.GetNodoPosicionGlobal(new Vector3(pos.x, 0, pos.y));
-			//Nodo nodo = gridMap.Nodos[pos.x, pos.y];
 			if (nodo.walkable) {
 				nodo.influence = value;
 			}
@@ -110,13 +107,12 @@ public class InfluenceMap : GridData
 		{
 			for (int yIdx = 0; yIdx < gridMap.Nodos.GetLength(1); ++yIdx)
 			{
-				//Debug.Log("at " + xIdx + ", " + yIdx);
+
 				float maxInf = 0.0f;
 				float minInf = 0.0f;
 				Vector2I[] neighbors = GetNeighbors(xIdx, yIdx);
 				foreach (Vector2I n in neighbors)
 				{
-					//Debug.Log(n.x + " " + n.y);
 					float inf = influencesBuffer[n.x, n.y] * Mathf.Exp(-Decay * n.d); //* Decay;
 					maxInf = Mathf.Max(inf, maxInf);
 					minInf = Mathf.Min(inf, minInf);
@@ -148,7 +144,7 @@ public class InfluenceMap : GridData
 			}
 		}
 	}
-	
+
 	Vector2I[] GetNeighbors(int x, int y)
 	{
 		List<Vector2I> retVal = new List<Vector2I>();

@@ -55,8 +55,8 @@ public class GridDisplay : MonoBehaviour
 		meshRenderer.material = material;
 		
 		float objectHeight = transform.position.y;
-		float staX = 0;//bottomLeftPos.x;
-		float staZ = 0;//bottomLeftPos.z;
+		float staX = 0;
+		float staZ = 0;
 		
 		// create squares starting at bottomLeftPos
 		List<Vector3> verts = new List<Vector3>();
@@ -71,7 +71,6 @@ public class GridDisplay : MonoBehaviour
 				Vector3 tl = new Vector3(staX + (xIdx * gridSize), objectHeight, staZ + ((yIdx+1) * gridSize));
 				Vector3 tr = new Vector3(staX + ((xIdx+1) * gridSize), objectHeight, staZ + ((yIdx+1) * gridSize));
 				
-				//Debug.Log("verts: " + xIdx + ", " + yIdx + ": " + idx + " " + bl.ToString("0.000"));
 				
 				verts.Add(bl);
 				verts.Add(br);
@@ -79,7 +78,6 @@ public class GridDisplay : MonoBehaviour
 				verts.Add(tr);
 			}
 		}
-		// Debug.Log("verts: " + verts.Count);
 		
 		List<Color> colors = new List<Color>();
 		for (int yIdx = 0; yIdx < data.Height; ++yIdx)
