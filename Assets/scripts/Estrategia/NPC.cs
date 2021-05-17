@@ -55,6 +55,11 @@ public class NPC : MonoBehaviour
     public int minAliadosCaptura;
     public int maxEnemigosMelee;
     public int minAliadosMelee;
+    public int enemigosEscapeBase;
+    public int enemigosMeleeBase;
+    public int aliadosCapturaBase;
+    public int minAliadosMeleeBase;
+    public int menosVidaBase;
     //############ PATROL ###############
     public bool patrol;
     public Transform puntoPatrullaInicial;
@@ -137,50 +142,33 @@ public class NPC : MonoBehaviour
 
     public void DispararModoOfensivo()
     {
-        /*_enemiesToRun = _initialEnemiesToRun + 1;
-        _lowHealth = _initialLowHealth - 10;
-        _healthy = _initialHealthy - 20;
-        _maxEnemiesForMelee = _initialMaxEnemiesForMelee + 1;
-        _minAlliesForCapture = 0;
-        if (_minAlliesForMelee > 0)
-            _minAlliesForMelee = _initialMinAlliesForMelee - 1;
-
-        // Pathfinding
-        _pathfinding.TerrainCostMultiplier = 1;
-        _pathfinding.InfluenceCostMultiplier = 1;
-        _pathfinding.VisibilityCostMultiplier = 2;*/
+       numEnemigosEscape = enemigosEscapeBase + 1;
+        menosVida = menosVidaBase - 50;
+        maxEnemigosMelee = enemigosMeleeBase + 1;
+        minAliadosCaptura = 0;
+        if (minAliadosMelee > 0)
+            minAliadosMelee = minAliadosMeleeBase - 1;
     }
 
     public void DispararModoDefensivo()
     {
-        /*_enemiesToRun = _initialEnemiesToRun - 1;
-        _lowHealth = _initialLowHealth + 20;
-        _healthy = _initialHealthy + 10;
-        _minAlliesForCapture = _initialAlliesForCapture;
-        if (_maxEnemiesForMelee > 0)
-            _maxEnemiesForMelee = _initialMaxEnemiesForMelee - 1;
-        _minAlliesForMelee = _initialMinAlliesForMelee + 1;
-
-        // Pathfinding
-        _pathfinding.TerrainCostMultiplier = 1;
-        _pathfinding.InfluenceCostMultiplier = 2;
-        _pathfinding.VisibilityCostMultiplier = 1;*/
+        numEnemigosEscape = enemigosEscapeBase - 1;
+        menosVida = menosVidaBase - 50;
+        minAliadosCaptura = aliadosCapturaBase;
+        if (maxEnemigosMelee > 0)
+            maxEnemigosMelee = enemigosMeleeBase - 1;
+        minAliadosMelee = minAliadosMeleeBase + 1;
     }
 
     public void DispararGuerraTotal()
     {
-        /*_enemiesToRun = _initialEnemiesToRun + 2;
-        _lowHealth = _initialLowHealth - 20;
-        _healthy = _initialHealthy - 30;
-        _maxEnemiesForMelee = _initialMaxEnemiesForMelee + 2;
-        _minAlliesForCapture = 0;
-        if (_minAlliesForMelee > 0)
-            _minAlliesForMelee = _initialMinAlliesForMelee - 1;
-
-        // Pathfinding
-        _pathfinding.TerrainCostMultiplier = 1;
-        _pathfinding.InfluenceCostMultiplier = 0;
-        _pathfinding.VisibilityCostMultiplier = 0;*/
+        numEnemigosEscape = enemigosEscapeBase + 2;
+        menosVida = menosVidaBase - 50;
+        maxEnemigosMelee = enemigosMeleeBase + 2;
+        minAliadosCaptura = 0;
+        if(minAliadosMelee > 0){
+            minAliadosMelee = minAliadosMeleeBase - 1;
+        }
     }
     public void ActualizarIconoEstado()
     {
