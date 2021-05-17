@@ -4,27 +4,27 @@ using System.Collections.Generic;
 public class InfluenceMapControl : MonoBehaviour
 {
 	[SerializeField]
-	private Transform bottomLeft;
+	Transform bottomLeft;
 	
 	[SerializeField]
-	private Transform upperRight;
+	Transform upperRight;
 	
 	[SerializeField]
-	private float gridSize = 1;
+	float gridSize = 1;
 	
 	[SerializeField]
-	private float decay = 0.1f;
+	float decay = 0.1f;
 	
 	[SerializeField]
-	private float momentum = 1f;
+	float momentum = 1f;
 	
 	[SerializeField]
-	private float updateFrequency = 10;
+	float updateFrequency = 10;
 	
 	InfluenceMap influenceMap;
 
 	[SerializeField]
-	private GridDisplay display;
+	GridDisplay display;
 
 	[SerializeField] 
 	private Grid gridMap;
@@ -32,9 +32,12 @@ public class InfluenceMapControl : MonoBehaviour
 	[SerializeField]
 	private List<SimplePropagator> propagators;
 
-	public void CreateMap(int x, int z) {
+	void CreateMap(int x, int z) {
+		// how many of gridsize is in Mathf.Abs(upperRight.positon.x - bottomLeft.position.x)
 		int width = x;
 		int height = z;
+		
+		//Debug.Log(width + " x " + height);
 		
 		influenceMap = new InfluenceMap(width, height, decay, momentum, gridMap);
 		
@@ -44,7 +47,11 @@ public class InfluenceMapControl : MonoBehaviour
 
 	public Vector2I GetGridPosition(Vector3 pos)
 	{
+		//int x = (int)((pos.x - bottomLeft.position.x)/gridSize);
+		//int y = (int)((pos.z - bottomLeft.position.z)/gridSize);
 		var cellPosition =gridMap.GetNodoPosicionGlobal(pos);
+		
+
 		return new Vector2I((int)cellPosition.Posicion.x, (int)cellPosition.Posicion.z);
 	}
 
@@ -59,17 +66,17 @@ public class InfluenceMapControl : MonoBehaviour
 		InvokeRepeating(nameof(PropagationUpdate), 0.001f, 1.0f/updateFrequency);
 	}
 
-	public void PropagationUpdate()
+	void PropagationUpdate()
 	{
 		influenceMap.Propagate();
 	}
 
-	public void SetInfluence(int x, int y, float value)
+	void SetInfluence(int x, int y, float value)
 	{
 		influenceMap.SetInfluence(x, y, value);
 	}
 
-	public void SetInfluence(Vector2I pos, float value)
+	void SetInfluence(Vector2I pos, float value)
 	{
 		influenceMap.SetInfluence(pos, value);
 	}
