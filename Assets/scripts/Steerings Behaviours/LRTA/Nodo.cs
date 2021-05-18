@@ -91,10 +91,10 @@ public class Nodo{
                 return 48;
                 break;
             case Nodo.TerrainType.BluBase:
-                return 48;
+                return 8;
                 break;
             case Nodo.TerrainType.RedBase:
-                return 48;
+                return 8;
                 break;
             case Nodo.TerrainType.NotWalkable:
                 return 0;

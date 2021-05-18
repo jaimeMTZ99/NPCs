@@ -94,7 +94,7 @@ public class LRTA : MonoBehaviour
 
     //Encuentra un camino dado un nodo por el que comenzar, y un destino
     //Distancia se usa para especificar que tipo de heuristica utilizar
-    public List<Nodo> EncontrarCaminoAStar(Nodo comienzo, Nodo objetivo, int distancia, Grid grid, NPC npc, bool tactico, float multiplicadorTerreno, float multiplicadorInfluencia)
+    public List<Nodo> EncontrarCaminoAStar(Nodo comienzo, Nodo objetivo, int distancia, Grid grid, NPC npc, bool tactico, float multiplicadorTerreno, float multiplicadorInfluencia, float multiplicadorVisibilidad)
     {
         //En caso de que el grid no contenga nodos, no se hace nada
         if (grid.Nodos == null)
@@ -160,7 +160,7 @@ public class LRTA : MonoBehaviour
                 float newMovementCostToNeighbour = 0;
                 if (tactico)
                 {
-                    newMovementCostToNeighbour = costeVecinoTactico(currentNode, neighbour, multiplicadorTerreno, grid, npc.tipo, npc.team, coste,multiplicadorInfluencia);
+                    newMovementCostToNeighbour = costeVecinoTactico(currentNode, neighbour, multiplicadorTerreno, grid, npc.tipo, npc.team, coste,multiplicadorInfluencia, multiplicadorVisibilidad);
                 }
                 else
                 {
@@ -200,7 +200,7 @@ public class LRTA : MonoBehaviour
         return RetracePath(comienzo, objetivo);
     }
     float costeVecinoTactico(Nodo currentNode, Nodo vecino, float multiplicadorTerreno,
-     Grid grid, NPC.TipoUnidad tipo, NPC.Equipo team, int heuristica, float multiplicadorInfluencia)
+     Grid grid, NPC.TipoUnidad tipo, NPC.Equipo team, int heuristica, float multiplicadorInfluencia, float multiplicadorVisibilidad)
     {
         float finalCost = 0;
         //Puede ser que haya cmabiarlo a (multiplicadorTerreno * (costeNodoTactico + hCost))
@@ -237,7 +237,8 @@ public class LRTA : MonoBehaviour
         }
 
         float influenceCost = multiplicadorInfluencia * (currentInfluence + adjacentInfluence) / 2;
-        finalCost += terrainCost + influenceCost;
+        float visibilityCost = multiplicadorVisibilidad * (1 / currentNode.costeNodoVisibilidad()) * 10;
+        finalCost += terrainCost + influenceCost + visibilityCost;
         return finalCost;
     }
     List<Nodo> RetracePath(Nodo comienzo, Nodo objetivo)
