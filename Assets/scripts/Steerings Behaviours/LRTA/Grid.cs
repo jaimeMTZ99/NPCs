@@ -22,6 +22,7 @@ public class Grid : MonoBehaviour
     int tamGridX, tamGridY; //Tamaño del grid en relacion a los nodos
 
     public InfluenceMapControl mapaInfluencia;
+    public visibilityMapControl mapaVisibilidad;
     public Transform abajoIzq;
     public Transform arribaDcha;
     private void Awake()
@@ -76,6 +77,7 @@ public class Grid : MonoBehaviour
             int x = Mathf.RoundToInt((maxX - minX) / radioNodo * 2) + 1;
             int z = Mathf.RoundToInt((maxZ - minZ) / radioNodo * 2) + 1;
             mapaInfluencia.Initialize(x, z);
+            mapaVisibilidad.Initialize();
         }
     }
 
@@ -252,6 +254,8 @@ public class Grid : MonoBehaviour
         }
         return 1;
     }
+
+
     //Obtiene la matriz de costes del grids
     public int[,] ObtenerMatrizCostes()
     {

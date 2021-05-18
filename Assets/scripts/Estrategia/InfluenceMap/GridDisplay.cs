@@ -64,7 +64,6 @@ public class GridDisplay : MonoBehaviour
 		{
 			for (int xIdx = 0; xIdx < data.Width; ++xIdx)
 			{
-				//int idx = (yIdx * data.Width) + xIdx;
 				
 				Vector3 bl = new Vector3(staX + (xIdx * gridSize), objectHeight, staZ + (yIdx * gridSize));
 				Vector3 br = new Vector3(staX + ((xIdx+1) * gridSize), objectHeight, staZ + (yIdx * gridSize));

@@ -11,18 +11,16 @@ public class GameManager : MonoBehaviour {
 
     public WaypointManager waypointManager;
     [SerializeField]
-   // private StrategyInputManager strategyInputManager;
 
     private float minDistance = 5;
 
-    [SerializeField]
-    // Set the minimum speed of movement required for capture the enemy checkpoint
-    private float speedForCapturing;
 
     //GUI de ganar o restear el juego
     [SerializeField] private GameObject espanaGana;
     [SerializeField] private GameObject franciaGana;
 
+    [SerializeField] private GameObject mapaInf;
+    [SerializeField] private GameObject mapaVis;
     // Start is called before the first frame update
     void Start()
     {
@@ -150,7 +148,15 @@ public class GameManager : MonoBehaviour {
     public void Restart() {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
-
+    public void cambiarVista() {
+        if(mapaInf.activeSelf){
+            mapaInf.SetActive(false);
+            mapaVis.SetActive(true);
+        } else {
+            mapaVis.SetActive(false);
+            mapaInf.SetActive(true);
+        }
+    }
     public void Musica() {
         AudioSource audio = GetComponent<AudioSource>();
 

@@ -90,7 +90,7 @@ public class InterfazEstrategia : MonoBehaviour
     }
 
 
-        public void TotalWarMode() {
+    public void TotalWarMode() {
         if (totalWar)
             return;
         totalWar = true;
@@ -109,5 +109,10 @@ public class InterfazEstrategia : MonoBehaviour
     public void Restart() {
         
         gameManager.Restart();
+    }
+
+    public void CambiarVista() {
+        
+        gameManager.cambiarVista();
     }
 }

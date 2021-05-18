@@ -77,4 +77,29 @@ public class Nodo{
         return 2;
     }
 
+    public float costeNodoVisibilidad()
+    {
+        switch (this.terrainType)
+        {
+            case Nodo.TerrainType.Forest:
+                return 8;
+                break;
+            case Nodo.TerrainType.Grassland:
+                return 24;
+                break;
+            case Nodo.TerrainType.Road:
+                return 48;
+                break;
+            case Nodo.TerrainType.BluBase:
+                return 48;
+                break;
+            case Nodo.TerrainType.RedBase:
+                return 48;
+                break;
+            case Nodo.TerrainType.NotWalkable:
+                return 0;
+        }
+        return 1;
+    }
+
 }
