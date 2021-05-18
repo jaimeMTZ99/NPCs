@@ -10,8 +10,8 @@ public class Nodo{
         Forest,
         RedCapturePoint,
         BluCapturePoint,
-        BluBase,
-        RedBase,
+        CurarEsp,
+        CurarFra,
         Undefined,
         NotWalkable
     }
@@ -79,6 +79,8 @@ public class Nodo{
 
     public float costeNodoVisibilidad()
     {
+        if (! this.walkable)
+            return 0; 
         switch (this.terrainType)
         {
             case Nodo.TerrainType.Forest:
@@ -90,14 +92,18 @@ public class Nodo{
             case Nodo.TerrainType.Road:
                 return 48;
                 break;
-            case Nodo.TerrainType.BluBase:
+            case Nodo.TerrainType.BluCapturePoint:
                 return 8;
                 break;
-            case Nodo.TerrainType.RedBase:
+            case Nodo.TerrainType.RedCapturePoint:
                 return 8;
                 break;
-            case Nodo.TerrainType.NotWalkable:
-                return 0;
+            case Nodo.TerrainType.CurarEsp:
+                return 8;
+                break;
+            case Nodo.TerrainType.CurarFra:
+                return 8;
+                break;
         }
         return 1;
     }

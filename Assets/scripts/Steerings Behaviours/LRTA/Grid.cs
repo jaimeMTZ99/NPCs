@@ -231,7 +231,7 @@ public class Grid : MonoBehaviour
 
                 }
                 break;
-            case Nodo.TerrainType.BluBase:
+            case Nodo.TerrainType.BluCapturePoint:
                 switch (team) {
                     case NPC.Equipo.Spain:
                         return 1000;
@@ -239,7 +239,7 @@ public class Grid : MonoBehaviour
                         return 1;
                 }
                 break;
-            case Nodo.TerrainType.RedBase:
+            case Nodo.TerrainType.RedCapturePoint:
                 switch (team) {
                     case NPC.Equipo.Spain:
                         return 1;
@@ -306,6 +306,10 @@ public class Grid : MonoBehaviour
                     return Nodo.TerrainType.NotWalkable;
                 case "Agua":
                     return Nodo.TerrainType.NotWalkable;
+                case "Zona Curacion Esp":
+                    return Nodo.TerrainType.CurarEsp;
+                case "Zona Curacion Fra":
+                    return Nodo.TerrainType.CurarFra;
 
             }
         }
