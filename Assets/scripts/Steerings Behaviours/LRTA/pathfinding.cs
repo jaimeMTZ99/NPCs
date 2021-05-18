@@ -20,6 +20,7 @@ public class PathFinding : MonoBehaviour
     public float multiplicadorTerreno;
     public float multiplicadorInfluencia;
     public float multiplicadorVisibilidad;
+    public bool pintar;
     private void Start()
     {
         grid = grid.GetComponent<Grid>();
@@ -139,7 +140,7 @@ public class PathFinding : MonoBehaviour
         {
             path.nuevoNodo(keyPoints[i]);
         }
-        pintarCamino(keyPoints);
+            //pintarCamino(keyPoints);
     }
 
 
@@ -162,7 +163,6 @@ public class PathFinding : MonoBehaviour
                 aux = GameObject.CreatePrimitive(PrimitiveType.Cube);
                 aux.transform.localScale = new Vector3(1, this.grid.radioNodo, 1);
                 aux.transform.position = v.transform.position;
-                //aux.GetComponent<Renderer>().material.color = new Color(0, 0, 0);
                 camino.Add(aux);
             }
 

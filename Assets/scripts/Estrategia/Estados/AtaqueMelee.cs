@@ -17,7 +17,14 @@ public class AtaqueMelee : Estado  {
     }
 
     public override void Accion(NPC npc) {
-        
+        Face f = npc.GetComponent<Face>();
+        if (f == null){
+            npc.gameObject.AddComponent<Face>();
+            npc.gameObject.GetComponent<Face>().target = npcObjetivo.gameObject.GetComponent<AgentNPC>();
+        }
+        else{
+            f.target = npcObjetivo.gameObject.GetComponent<AgentNPC>();
+        }
         // To melee attack an enemy, he must be within my range
         float distance = Vector3.Distance(npc.agentNPC.Position, npcObjetivo.agentNPC.Position);
         Path camino = npc.GetComponent<Path>();
@@ -72,12 +79,18 @@ public class AtaqueMelee : Estado  {
     }
 
     public override void ComprobarEstado(NPC npc) {
-        
+        Face f = npc.GetComponent<Face>();  
         // If the unit is dead, change to that state
-        if (ComprobarMuerto(npc))
+        if (ComprobarMuerto(npc)){
             return;
-        if (!pointless && ComprobarAtaqueRangoMelee(npc))
+            f.target = null;
+            f.aux = null;
+            }
+        if (!pointless && ComprobarAtaqueRangoMelee(npc)){
             return;
+            f.target = null;
+            f.aux = null;
+            }
         npc.CambiarEstado(npc.estadoAsignado);
     }
 

@@ -24,6 +24,8 @@ public abstract class Estado
     
     protected bool ComprobarMuerto(NPC npc) {
         // Self-explanatory
+        if(npc.user)
+            return false;
         if (npc.health <= 0) {
             npc.CambiarEstado(npc.estadoMuerto);
             return true;
@@ -32,6 +34,8 @@ public abstract class Estado
     }
 
     protected bool ComprobarDefensa(GameManager gameManager, NPC npc) {
+        if(npc.user)
+            return false;
         if (gameManager.EnemigosCheckpoint(npc) > 0 && 
         (npc.health > npc.menosVida || gameManager.totalWarMode) 
         && !gameManager.NPCInWaypoint(npc, gameManager.waypointManager.GetEquipo(npc))) {
@@ -43,6 +47,8 @@ public abstract class Estado
     }
 
     protected bool ComprobarCaptura(GameManager gameManager, NPC npc) {
+        if(npc.user)
+            return false;
         if ((!npc.patrol || npc.patrol && gameManager.totalWarMode) && 
         UnitsManager.EnemigosCerca(npc) == 0 && npc.health > npc.menosVida) {
             // If I'm not supposed to patrol or it's total war mode and there are no nearby enemies and I have enough health
@@ -56,6 +62,8 @@ public abstract class Estado
     }
 
     protected bool ComprobarEscapar(NPC npc) {
+        if(npc.user)
+            return false;
         // There is no running away in total war mode
         if (npc.gameManager.totalWarMode)
             return false;
@@ -70,6 +78,8 @@ public abstract class Estado
     }
 
     protected bool ComprobarAtaqueRangoMedico(NPC npc) {
+        if(npc.user)
+            return false;
         if (npc.tipo == NPC.TipoUnidad.Medic) {
             // If I am medic
             NPC allyChoosen = UnitsManager.ElegirAliado(npc);
@@ -87,6 +97,8 @@ public abstract class Estado
 
     // Check whether to switch to melee or ranged attack
     protected bool ComprobarAtaqueRangoMelee(NPC npc) {
+        if(npc.user)
+            return false;
         List<NPC> enemies = UnitsManager.EnemigosEnRango(npc);
         if (enemies != null && enemies.Count > 0) {
             // There are close enemies
@@ -116,6 +128,14 @@ public abstract class Estado
         return false;
     }
     
+    protected bool ComprobarUser(NPC npc) {
+        if(npc.user){
+            npc.CambiarEstado(npc.estadoUsuario);
+            return true;
+        }   
+        return false;
+    }
+
     // Get the name of the current state
     public override string ToString() {
         return GetType().Name;

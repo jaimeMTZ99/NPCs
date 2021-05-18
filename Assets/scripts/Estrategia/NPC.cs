@@ -17,6 +17,8 @@ public class NPC : MonoBehaviour
         France
     }
 
+    public bool user;
+
     //######REFERENCIAS A OBJETOS#########
     public Grid gridMap;
     public GameManager gameManager;
@@ -78,6 +80,7 @@ public class NPC : MonoBehaviour
     public AtaqueRango estadoAtaqueRango;
     public Muerto estadoMuerto;
     public Vagar estadoVagar;
+    public User estadoUsuario;
     public bool IsDead => currentState == estadoMuerto;
     //Función que sirve para cambiar el estado del NPC
     void Start()
@@ -102,7 +105,8 @@ public class NPC : MonoBehaviour
         estadoPatrullar = new Patrullar();
         estadoAtaqueRango = new AtaqueRango();
         estadoMuerto = new Muerto();
-        //_userState = new User();
+
+        estadoUsuario = new User();
         estadoVagar = new Vagar();
         health = maxVida;
         //_currentHealthAnimation = _maxHealth;

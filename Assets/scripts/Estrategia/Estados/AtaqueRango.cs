@@ -14,6 +14,16 @@ public class AtaqueRango : Estado  {
     }
 
     public override void Accion(NPC npc) {
+
+        
+        Face f = npc.GetComponent<Face>();
+        if (f == null){
+            npc.gameObject.AddComponent<Face>();
+            npc.gameObject.GetComponent<Face>().target = npcObjetivo.gameObject.GetComponent<AgentNPC>();
+        }
+        else{
+            f.target = npcObjetivo.gameObject.GetComponent<AgentNPC>();
+        }
         // To make a ranged attack on an enemy, I need to have a straight shooting line and the target must be within my range
         // Also, if I am low health and I am not in total war, I should not commit to shooting
         if (!UnitsManager.DirectLine(npc, npcObjetivo)
@@ -39,12 +49,18 @@ public class AtaqueRango : Estado  {
     }
 
     public override void ComprobarEstado(NPC npc) {
-        if (ComprobarMuerto(npc))
+        Face f = npc.GetComponent<Face>();
+        f.target = null;
+        if (ComprobarMuerto(npc)){
+            f.target = null;
+            f.aux = null;
             return;
-
-        if (!pointless && (ComprobarAtaqueRangoMedico(npc) || ComprobarAtaqueRangoMelee(npc)))
+        }
+        if (!pointless && (ComprobarAtaqueRangoMedico(npc) || ComprobarAtaqueRangoMelee(npc))){
             return;
-        
+        f.target = null;
+        f.aux = null;
+        }
         npc.CambiarEstado(npc.estadoAsignado);
     }
 }

@@ -17,9 +17,7 @@ public class VisibilityMap : GridData
 	
 	public VisibilityMap(Grid grid)
 	{
-        Debug.Log(grid);
 		gridMap = grid;
-        Debug.Log(gridMap);
 	}
 
 

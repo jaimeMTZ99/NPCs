@@ -358,35 +358,8 @@ public class Seleccion : MonoBehaviour
                     for(int i =0 ; i< listPuntos.Count; i ++){
                         path.nuevoNodo(listPuntos[i]);
                     }
-                   // pintarCamino();
                 }
             }
-    }
-    //esta funcion es solo para señalar el camino que seguira el pathfinding
-    void pintarCamino()
-    {
-        if (listPuntos.Count != 0)
-        {
-            if (camino != null)
-            {
-                foreach (GameObject g in camino)
-                {
-                      Destroy(g);
-                }
-            }
-            
-            camino = new List<GameObject>();
-            GameObject aux;
-            foreach(GameObject v in listPuntos)
-            {
-                aux = GameObject.CreatePrimitive(PrimitiveType.Cube);
-                aux.transform.localScale = new Vector3(1, 2, 1);
-                aux.transform.position = v.transform.position;
-                //aux.GetComponent<Renderer>().material.color = new Color(0, 0, 0);
-                camino.Add(aux);
-            }
-            
-        }
     }
 }
 

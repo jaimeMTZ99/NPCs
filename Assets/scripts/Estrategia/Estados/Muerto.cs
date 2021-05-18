@@ -33,7 +33,7 @@ public class Muerto : Estado  {
     }
 
     public override void ComprobarEstado(NPC npc) {
-        // I have returned from the dead, get back to business
+
         if (npc.health > 0)
             npc.CambiarEstado(npc.estadoAsignado);
     }
