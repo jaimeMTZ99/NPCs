@@ -21,7 +21,7 @@ public class Seleccion : MonoBehaviour
     public List<GameObject> camino;     //para establecer el camino en el grid
 
     void Start(){
-        timeRes=tiempoVuelta;           //establecemos el tiempo inicial y las listas vacias
+        timeRes=tiempoVuelta;           //establecemos el tiempo inicial y las listas vacias de los agentes
         agentesReturn = new List<GameObject>();
         agentesRetForms = new List<GameObject>();
     }
@@ -173,7 +173,7 @@ public class Seleccion : MonoBehaviour
                             //si no tenian arrive antes, se les añade, se les apaga el resto de componentes de comporatmiento, sea de arbitro o no, y lo activamos
                             if(d == null){
 
-                                if(l == null)
+                                if(l == null)       //se comprueba los steerings del arbitro ponderado y se eliminan temporalmente
 
                                 {
                                 foreach (SteeringBehaviour i in npc.GetComponents<SteeringBehaviour>())
@@ -199,7 +199,6 @@ public class Seleccion : MonoBehaviour
                             {
                                 d.target = t;
                             }
-
 
                             if(!n.SteeringList.Contains(d) && l == null)
                             {
@@ -238,7 +237,7 @@ public class Seleccion : MonoBehaviour
                             if(e == null){                                                              //si no tiene arrive, se le anade con el nuevo target y se le pone nuevoArrive a true para restablecerlo despues
                                 
 
-                                if(m == null)
+                                if(m == null)       //se comprueba los steerings del arbitro ponderado y se eliminan temporalmente
 
                                 {
                                     foreach (SteeringBehaviour i in selectedUnit.GetComponents<SteeringBehaviour>())
@@ -291,14 +290,14 @@ public class Seleccion : MonoBehaviour
             }
         }
         agentesRetForms.Clear();
-        //de igual manera deovlvemos a aquellos que no tuvieran arrive como componentes, para ello, eliminando arrive y volviendo a activar el resto de comprotamientos
+        //de igual manera devolvemos a aquellos que no tuvieran arrive como componentes, para ello, eliminando arrive y volviendo a activar el resto de comprotamientos
         foreach (GameObject g in agentesReturn)
         {
             BlendedSteering m = g.GetComponent<BlendedSteering>();
             AgentNPC n = g.GetComponent<AgentNPC>();
             ArriveAcceleration e = g.GetComponent<ArriveAcceleration>();
             Debug.Log(g.transform.name);
-            if (m == null){
+            if (m == null){                 //para los que no tuviesen arbitro ponderado
                 if (n.nuevoArrive)
                 {
                     n.SteeringList.Remove(e);
@@ -311,7 +310,7 @@ public class Seleccion : MonoBehaviour
                     }
 
                 }
-            } else{
+            } else{             //para los que tuviesen arbitro ponderado
                 if (n.nuevoArrive)
                 {
                     m.behaviours.Remove(e);
@@ -330,7 +329,7 @@ public class Seleccion : MonoBehaviour
     }
 
     void Pathfinding(){
-        //simplemente ejecutamos la funcion pathfinding para que encuentre el camino mas corto hasta la posicion seleccionada.
+        //simplemente ejecutamos la funcion pathfinding para que encuentre el camino mas corto hasta la posicion seleccionada usando LRTA*
             RaycastHit hit;
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             PathFollowing pf = new PathFollowing() ;
@@ -339,13 +338,13 @@ public class Seleccion : MonoBehaviour
             
             if (Physics.Raycast(ray, out hit, 1000.0f))
             {
-                if (hit.transform != null && hit.transform.tag != "Muro" && hit.transform.tag != "Agua")
+                if (hit.transform != null && hit.transform.tag != "Muro" && hit.transform.tag != "Agua")        //establecemos como punto de destino el seleccionado por el raton, y calculamos camino hasta ese punto
                 {
                     AgentNPC n = selectedUnit.GetComponent<AgentNPC>();
-                    listPuntos = pathFinding.EstablecerNodoFinal(n);
+                    listPuntos = pathFinding.EstablecerNodoFinal(n);            //establecemos el ultimo nodo
                     if (selectedUnit.GetComponent<PathFollowing>() == null){
                         PathFinding pathFinding = selectedUnit.GetComponent<PathFinding>();
-                        pf =  selectedUnit.AddComponent(typeof(PathFollowing)) as PathFollowing;
+                        pf =  selectedUnit.AddComponent(typeof(PathFollowing)) as PathFollowing;        //establecemos todo el camino y asignamos a pathfollowing
                         path = selectedUnit.AddComponent(typeof(Path)) as Path;
                         pf.path = selectedUnit.GetComponent<Path>();
                         pf.path.Radio = pathFinding.grid.radioNodo;

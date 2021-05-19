@@ -3,15 +3,14 @@ using UnityEngine;
 public class AtaqueRango : Estado  {
 
     private float time;
-    private bool pointless;
+    private bool inutil;
     public override void EntrarEstado(NPC npc) {
         time = -1f;
-        pointless = false;
+        inutil = false;
         npc.GetComponent<Path>().ClearPath();
     }
 
-    public override void SalirEstado(NPC npc) {
-    }
+    public override void SalirEstado(NPC npc) {}
 
     public override void Accion(NPC npc) {
 
@@ -24,18 +23,16 @@ public class AtaqueRango : Estado  {
         else{
             f.target = npcObjetivo.gameObject.GetComponent<AgentNPC>();
         }
-        // To make a ranged attack on an enemy, I need to have a straight shooting line and the target must be within my range
-        // Also, if I am low health and I am not in total war, I should not commit to shooting
-        if (!UnitsManager.DirectLine(npc, npcObjetivo)
-            || Vector3.Distance(npc.agentNPC.Position, npcObjetivo.agentNPC.Position) > npc.rangedRange
-            || (!npc.gameManager.totalWarMode && npc.health <= npc.menosVida))
-            pointless = true;
-        if (!pointless) {
-            // Start winding up my attack
+        // Nos aseguramos de que el personaje tiene a rango al objetivo
+        // Si no es GerraTotal el personaje se va
+        if (!UnitsManager.DirectLine(npc, npcObjetivo) || Vector3.Distance(npc.agentNPC.Position, npcObjetivo.agentNPC.Position) > npc.rangedRange || (!npc.gameManager.totalWarMode && npc.health <= npc.menosVida))
+            inutil = true;
+        if (!inutil) {
+            //vamos atacando segun nuestro ratio de ataque
             if (time == -1) {
                 time = Time.time;
             }
-            // Wait patiently
+
             if (Time.time - time >= npc.rangedAttackSpeed) {
                 CombatManager.AtaqueRango(npc, npcObjetivo);
                 time = -1;
@@ -56,7 +53,7 @@ public class AtaqueRango : Estado  {
             f.aux = null;
             return;
         }
-        if (!pointless && (ComprobarAtaqueRangoMedico(npc) || ComprobarAtaqueRangoMelee(npc))){
+        if (!inutil && (ComprobarAtaqueRangoMedico(npc) || ComprobarAtaqueRangoMelee(npc))){
             return;
         f.target = null;
         f.aux = null;

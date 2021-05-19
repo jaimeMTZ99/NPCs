@@ -2,14 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-//Nodos que componen los caminos del pathfinding y del algoritmo LRTA estrella
+//Nodos que componen los caminos del pathfinding y del algoritmo LRTA *
 public class Nodo{
-    public enum TerrainType {
-        Road,
-        Grassland,
-        Forest,
-        RedCapturePoint,
-        BluCapturePoint,
+    public enum TerrainType {           // tipo de terreno para el bloque 2
+        Carretera,
+        Pradera,
+        Bosque,
+        FraCapturar,
+        EspCapturar,
         CurarEsp,
         CurarFra,
         Undefined,
@@ -29,6 +29,7 @@ public class Nodo{
     
     public TerrainType terrainType;
     public float influence;
+
     public Nodo(bool a, Vector3 b, int c, int d, TerrainType terreno) //Constructor
     {
         walkable = a;
@@ -37,9 +38,10 @@ public class Nodo{
         Y = d;
         terrainType = terreno;
     }
-    public float SpeedMultiplier(NPC.TipoUnidad unitType) {
+
+    public float SpeedMultiplier(NPC.TipoUnidad unitType) {         //funcion del bloque 2 que modifica la velocidad dado el personaje
         switch (terrainType) {
-            case TerrainType.Forest:
+            case TerrainType.Bosque:
                 switch (unitType) {
                     case NPC.TipoUnidad.Ranged:
                         return 2.5f; 
@@ -49,7 +51,7 @@ public class Nodo{
                         return 3;
                 }
                 break;
-            case TerrainType.Grassland:
+            case TerrainType.Pradera:
                 switch (unitType) {
                     case NPC.TipoUnidad.Ranged:
                         return 2.75f; 
@@ -60,7 +62,7 @@ public class Nodo{
                     
                 }
                 break;
-            case TerrainType.Road:
+            case TerrainType.Carretera:
                 switch (unitType) {
                     case NPC.TipoUnidad.Ranged:
                         return 2.75f; 
@@ -77,33 +79,33 @@ public class Nodo{
         return 2;
     }
 
-    public float costeNodoVisibilidad()
+    public float costeNodoVisibilidad()                 //funcion del bloque 2 que calcula el coste del nodo dada su visibilidad
     {
         if (! this.walkable)
             return 0; 
         switch (this.terrainType)
         {
-            case Nodo.TerrainType.Forest:
+            case Nodo.TerrainType.Bosque:
                 return 8;
-                break;
-            case Nodo.TerrainType.Grassland:
+
+            case Nodo.TerrainType.Pradera:
                 return 24;
-                break;
-            case Nodo.TerrainType.Road:
+
+            case Nodo.TerrainType.Carretera:
                 return 48;
-                break;
-            case Nodo.TerrainType.BluCapturePoint:
+
+            case Nodo.TerrainType.FraCapturar:
                 return 8;
-                break;
-            case Nodo.TerrainType.RedCapturePoint:
+
+            case Nodo.TerrainType.EspCapturar:
                 return 8;
-                break;
+
             case Nodo.TerrainType.CurarEsp:
                 return 8;
-                break;
+
             case Nodo.TerrainType.CurarFra:
                 return 8;
-                break;
+
         }
         return 1;
     }

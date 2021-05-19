@@ -23,8 +23,6 @@ public class FixedLeaderF : MonoBehaviour
     void Start()
     {
         timeRes=time;
-        //agentes = new List<AgentNPC>();
-        //grid = new Vector3[tamañoGrid];
         invisibles = new GameObject[tamañoGrid];
         puntoDestinoGO = new GameObject("punto destino");
         puntoDestinoGO.AddComponent<Agent>();
@@ -34,7 +32,6 @@ public class FixedLeaderF : MonoBehaviour
         {
             if(i == 0){
                 w = ag.GetComponent<Wander>();
-                //w.target=puntoDestinoGO.GetComponent<Agent>();
                 ag.SteeringList.Remove(w);
             }
             GameObject invisibleGO = new GameObject("FC " + agentes.Count);
@@ -86,7 +83,6 @@ public class FixedLeaderF : MonoBehaviour
             float diffX = Mathf.Abs(Mathf.Abs(agentes[0].transform.position.x) - Mathf.Abs(puntoDestinoInv.transform.position.x));
             float diffZ = Mathf.Abs(Mathf.Abs(agentes[0].transform.position.z) - Mathf.Abs(puntoDestinoInv.transform.position.z));
             if(diffX < agentes[0].intRadius && diffZ < agentes[0].intRadius) {
-                Debug.Log("llegar = false");
                 agentes[0].llegar = false;
             }
         }
@@ -104,7 +100,6 @@ public class FixedLeaderF : MonoBehaviour
                 agentes[i].GetComponent<Face>().aux = invisibleActual;
                 agentes[i].GetComponent<Face>().target = invisibleActual;
             }else if ( i !=0 && agentes[0].llegar){     //la unica diferencia con respecto a las formaciones fijas es que cuando el lider se mueve, rompemos las formaciones para que vayan al lugar establecido por el lider y desues volver a formar
-                Debug.Log("Siguiendo lider");
                 agentes[i].GetComponent<ArriveAcceleration>().target = agentes[0];
                 agentes[i].GetComponent<Face>().aux = agentes[0];
                 agentes[i].GetComponent<Face>().target = agentes[0];

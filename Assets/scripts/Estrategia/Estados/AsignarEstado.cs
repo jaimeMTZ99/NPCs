@@ -3,16 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 public class AsignarEstado : Estado  {
 
-    public override void EntrarEstado(NPC npc) {
-        
-    }
+    public override void EntrarEstado(NPC npc) {}
 
-    public override void SalirEstado(NPC npc) {
-       
-    }
+    public override void SalirEstado(NPC npc) {}
 
-    public override void Accion(NPC npc) {
-    }
+    public override void Accion(NPC npc) {}
 
     public override void Ejecutar(NPC npc) {
         Accion(npc);
@@ -22,55 +17,31 @@ public class AsignarEstado : Estado  {
     public override void ComprobarEstado(NPC npc) {
 
         GameManager gameManager = npc.gameManager;
-        // If the unit is dead, change to that state
+        //comprobamos si esta muerto
         if (ComprobarMuerto(npc))
-        {
-
             return;
-        }
-        // If there are too many enemies, flee
+        //comprobamos si debe escapar
         if (ComprobarEscapar(npc))
-        {
-
             return;
-        }
-        // Otherwise, if I am a medic, check if there are nearby allies to "shoot" (heal) and if so, shoot them
+        //comprobamos si siendo un medico puede hacer curar a alguien
         if (ComprobarAtaqueRangoMedico(npc))
-        {
-
             return;
-        }
-        // Otherwise, check first if I have to defend my capture point
+        //comprobamos si debemos defender
         if (ComprobarDefensa(gameManager, npc))
-        {
-
             return;
-        }
-        // Otherwise, check if I can capture the enemy point
+        //comprobamos si podemos capturar la base contraria
         if (ComprobarCaptura(gameManager, npc))
-        {
-
             return;
-        }
-        // Otherwise, check if I can attack any enemies
-        if (ComprobarAtaqueRangoMelee(npc)){
-        {
-
+        //comprobamos si podemos atacar a distancia larga o corta
+        if (ComprobarAtaqueRangoMelee(npc))
             return;
-        }
-        }
-        // If I cannot do any of these tasks and I have to patrol, then patrol
+        //comprobamos si podemos hacer patrulla
         if (npc.patrol)
-        {
-
             npc.CambiarEstado(npc.estadoPatrullar);
-        }
-
-        else {
-            // Otherwise, roam around our "country"
-
+        else 
+        //si no vagamos por el mapa
             npc.CambiarEstado(npc.estadoVagar);
-        }
+        
     }
 
 }

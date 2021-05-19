@@ -5,10 +5,8 @@ using UnityEngine;
 public class Grid : MonoBehaviour
 {
 
-    public Transform inicio; //Inicio del pathfinding
     public Vector2 tamGrid; //Tamaño del grid (unidades reales)
     public float radioNodo;
-    public float distanciaNodos;
 
     public Nodo[,] Nodos; //Nodos
     Transform[,] mapa;
@@ -17,13 +15,13 @@ public class Grid : MonoBehaviour
     public int mapaColumna;
     private Transform fila;
     private Transform columna;
-    public List<Nodo> camino;
+
     float diametroNodo;
     int tamGridX, tamGridY; //Tamaño del grid en relacion a los nodos
 
-    public InfluenceMapControl mapaInfluencia;
-    public visibilityMapControl mapaVisibilidad;
-    public Transform abajoIzq;
+    public InfluenceMapControl mapaInfluencia;      //mapa de influencias del grid
+    public visibilityMapControl mapaVisibilidad;       //mapa de visibilidad del grid
+    public Transform abajoIzq;                      //sacamos los puntos necesarios para determinar las diemnsiones del grid
     public Transform arribaDcha;
     private void Awake()
     {
@@ -91,23 +89,23 @@ public class Grid : MonoBehaviour
         {
             for (int y = 0; y < tamGridY; y++)
             {
-                Vector3 worldPoint = esquina + Vector3.right * (x * diametroNodo + radioNodo) + Vector3.forward * (y * diametroNodo + radioNodo);
-                bool walkable = !isObjectHere(worldPoint);
-                Nodo.TerrainType terreno = getTerrenoPosition(worldPoint);
-                Nodos[x, y] = new Nodo(walkable, worldPoint, x, y,terreno);//Create a new node in the array.
+                Vector3 pos = esquina + Vector3.right * (x * diametroNodo + radioNodo) + Vector3.forward * (y * diametroNodo + radioNodo);
+                bool walkable = !isObject(pos);
+                Nodo.TerrainType terreno = getTerrenoPosition(pos);
+                Nodos[x, y] = new Nodo(walkable, pos, x, y,terreno);  //Creamos un nuevo nodo con las caracteristicas establecidas y calculadas a partir de lo que conocemos
                 Nodos[x, y].igCost = (float) matrizCostes[x, y];
             }
         }
     }
 
-    //Obtiene los nodos vecinos al dado
+    //Obtiene los nodos vecinos a partir del nodo dado
     public List<Nodo> GetVecinos(Nodo z)
     {
         List<Nodo> vecinos = new List<Nodo>();
         int icheckX;
         int icheckY;
 
-        icheckX = z.X + 1;
+        icheckX = z.X + 1;          //derecho
         icheckY = z.Y;
         if (icheckX >= 0 && icheckX < tamGridX)
         {
@@ -117,7 +115,7 @@ public class Grid : MonoBehaviour
             }
         }
 
-        icheckX = z.X - 1;
+        icheckX = z.X - 1;      //izquierdo
         icheckY = z.Y;
         if (icheckX >= 0 && icheckX < tamGridX)
         {
@@ -127,7 +125,7 @@ public class Grid : MonoBehaviour
             }
         }
 
-        icheckX = z.X;
+        icheckX = z.X;          //arriba
         icheckY = z.Y + 1;
         if (icheckX >= 0 && icheckX < tamGridX)
         {
@@ -137,7 +135,7 @@ public class Grid : MonoBehaviour
             }
         }
 
-        icheckX = z.X;
+        icheckX = z.X;          //abajo
         icheckY = z.Y - 1;
         if (icheckX >= 0 && icheckX < tamGridX)
         {
@@ -152,30 +150,32 @@ public class Grid : MonoBehaviour
 
 
     //Obtiene el nodo correspondiente a las coordenadas reales
-    public Nodo GetNodoPosicionGlobal(Vector3 a_vWorldPos)
+    public Nodo GetNodoPosicionGlobal(Vector3 pos)
     {
-        float ixPos = ((a_vWorldPos.x + tamGrid.x / 2) / tamGrid.x);
-        float iyPos = ((a_vWorldPos.z + tamGrid.y / 2) / tamGrid.y);
+        float x = ((pos.x + tamGrid.x / 2) / tamGrid.x);
+        float y = ((pos.z + tamGrid.y / 2) / tamGrid.y);
 
-        ixPos = Mathf.Clamp01(ixPos);
-        iyPos = Mathf.Clamp01(iyPos);
+        x = Mathf.Clamp01(x);
+        y = Mathf.Clamp01(y);
 
-        int ix = Mathf.RoundToInt((tamGridX - 1) * ixPos);
-        int iy = Mathf.RoundToInt((tamGridY - 1) * iyPos);
+        int ix = Mathf.RoundToInt((tamGridX - 1) * x);
+        int iy = Mathf.RoundToInt((tamGridY - 1) * y);
         if (Nodos != null && ix < mapaFila && ix >= 0 && iy < mapaColumna && iy >= 0)
             return Nodos[ix, iy];
         return null;
     }
-    public Vector3 GetIndicesNodos(Vector3 a_vWorldPos)
+    
+    //devuelve la posicion del nodo en la matriz de nodos
+    public Vector3 GetIndicesNodos(Vector3 pos)
     {
-        float ixPos = ((a_vWorldPos.x + tamGrid.x / 2) / tamGrid.x);
-        float iyPos = ((a_vWorldPos.z + tamGrid.y / 2) / tamGrid.y);
+        float x = ((pos.x + tamGrid.x / 2) / tamGrid.x);
+        float y = ((pos.z + tamGrid.y / 2) / tamGrid.y);
 
-        ixPos = Mathf.Clamp01(ixPos);
-        iyPos = Mathf.Clamp01(iyPos);
+        x = Mathf.Clamp01(x);
+        y = Mathf.Clamp01(y);
 
-        int ix = Mathf.RoundToInt((tamGridX - 1) * ixPos);
-        int iy = Mathf.RoundToInt((tamGridY - 1) * iyPos);
+        int ix = Mathf.RoundToInt((tamGridX - 1) * x);
+        int iy = Mathf.RoundToInt((tamGridY - 1) * y);
         if (Nodos != null && ix < mapaFila && ix >= 0 && iy < mapaColumna && iy >= 0)
             return new Vector3(ix, 0, iy);
         return Vector3.zero;
@@ -184,7 +184,7 @@ public class Grid : MonoBehaviour
     //Obtiene el coste de un nodo
     int costeNodo(Transform nodo)
     {
-        if (isObjectHere(nodo.position))
+        if (isObject(nodo.position))
         {
             return 99999;
         }
@@ -196,7 +196,7 @@ public class Grid : MonoBehaviour
 
         switch (nodo.terrainType)
         {
-            case Nodo.TerrainType.Forest:
+            case Nodo.TerrainType.Bosque:
                 switch (tipoUnidad)
                 {
                     case NPC.TipoUnidad.Ranged:
@@ -207,7 +207,7 @@ public class Grid : MonoBehaviour
                         return 15;
                 }
                 break;
-            case Nodo.TerrainType.Grassland:
+            case Nodo.TerrainType.Pradera:
                 switch (tipoUnidad)
                 {
                     case NPC.TipoUnidad.Ranged:
@@ -219,7 +219,7 @@ public class Grid : MonoBehaviour
 
                 }
                 break;
-            case Nodo.TerrainType.Road:
+            case Nodo.TerrainType.Carretera:
                 switch (tipoUnidad)
                 {
                     case NPC.TipoUnidad.Ranged:
@@ -231,7 +231,7 @@ public class Grid : MonoBehaviour
 
                 }
                 break;
-            case Nodo.TerrainType.BluCapturePoint:
+            case Nodo.TerrainType.FraCapturar:
                 switch (team) {
                     case NPC.Equipo.Spain:
                         return 1000;
@@ -239,7 +239,7 @@ public class Grid : MonoBehaviour
                         return 1;
                 }
                 break;
-            case Nodo.TerrainType.RedCapturePoint:
+            case Nodo.TerrainType.EspCapturar:
                 switch (team) {
                     case NPC.Equipo.Spain:
                         return 1;
@@ -271,19 +271,17 @@ public class Grid : MonoBehaviour
     }
 
     //Comprueba si hay un objeto que impide el paso    
-    bool isObjectHere(Vector3 position)
+    bool isObject(Vector3 position)
     {
         Collider[] intersecting = Physics.OverlapSphere(position, radioNodo);
         foreach (Collider i in intersecting)
         {
             if (i.gameObject.tag == "Muro" || i.gameObject.tag == "Agua")
-            {
-
                 return true;
-            }
         }
         return false;
     }
+
     Nodo.TerrainType getTerrenoPosition(Vector3 position)
     {
         Collider[] intersecting = Physics.OverlapSphere(position, radioNodo);
@@ -291,17 +289,17 @@ public class Grid : MonoBehaviour
         {
             switch(i.tag){
                 case "Carretera":
-                    return Nodo.TerrainType.Road;
+                    return Nodo.TerrainType.Carretera;
                 case "Puente":
-                    return Nodo.TerrainType.Road;
+                    return Nodo.TerrainType.Carretera;
                 case "Bosque":
-                    return Nodo.TerrainType.Forest;
+                    return Nodo.TerrainType.Bosque;
                 case "Pradera":
-                    return Nodo.TerrainType.Grassland;
+                    return Nodo.TerrainType.Pradera;
                 case "Base Fra":
-                    return Nodo.TerrainType.BluCapturePoint;
+                    return Nodo.TerrainType.FraCapturar;
                 case "Base Esp":
-                    return Nodo.TerrainType.RedCapturePoint;
+                    return Nodo.TerrainType.EspCapturar;
                 case "Muro":
                     return Nodo.TerrainType.NotWalkable;
                 case "Agua":

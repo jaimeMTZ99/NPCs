@@ -1,13 +1,14 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class LookWhereYouGoing : Align {
     
-    [Header("LookWhereYouGoing")]
-    // Alternative, used for the strategy scene
+    // prueba de scripts
     [SerializeField]
     private GameObject goLook;
     void Start(){
-         goLook = new GameObject("LookWhereYouGoing");
+         goLook = new GameObject("goLook");
          target = goLook.AddComponent<Agent>() as Agent;
     }
     

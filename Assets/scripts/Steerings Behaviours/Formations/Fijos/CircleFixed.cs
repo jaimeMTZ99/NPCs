@@ -112,12 +112,12 @@ public class CircleFixed : MonoBehaviour
                                             -Mathf.Sin(lider.orientation), -Mathf.Cos(lider.orientation)};
         
         Vector3 pm = productoMatricial(matrizRotacion, grid[numero]);
-        Vector3 resultado = grid[0] + pm;
+        Vector3 resultado = grid[0] + pm;       //se lo sumamos al del lider para que cada uno tenga su posicion
         resultado = lider.transform.position + resultado * distancia;
         return resultado;
     }
 
-    public Vector3 productoMatricial(float[] x,Vector3 posicionGrid ){
+    public Vector3 productoMatricial(float[] x,Vector3 posicionGrid ){          //calculamos el producto matricial para sacar la posicion que le corresponde
         Vector3 resultado = new Vector3(x[0] * posicionGrid.x + x[2] *posicionGrid.z,0, x[1] * posicionGrid.x + x[3]*posicionGrid.z);
         return resultado;
     }

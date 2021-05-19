@@ -1,14 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+//prueba de offset para formacion(Posiblemente no se use)
 public class OffsetPursuit : ArriveAcceleration
 {
 
     public float maxPredict;
-
-    [SerializeField]
-    private Vector3 offset;
 
     public Agent aux;
     private GameObject goOffsetPursuit;

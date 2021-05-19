@@ -4,15 +4,9 @@ using UnityEngine;
 
 public class Alignment : Align {
     [SerializeField]
-    private float threshold = 0f;
+    private float umbral = 0f;
 
-    [SerializeField]
-    private List<Agent> targets;
-
-    public List<Agent> Targets {
-        get => targets;
-        set => targets = value;
-    }
+    public List<Agent> targets;
     private GameObject goAlignment;
     
     void Start(){
@@ -23,20 +17,20 @@ public class Alignment : Align {
     public override Steering GetSteering(AgentNPC agent) {
         Vector3 direction;
         float heading = 0f;
-        float distance = 0f;
-        int count = 0;
+        float distancia = 0f;
+        int i = 0;
 
         foreach (Agent target in targets) {
-            direction = agent.Position - target.Position;
-            distance = Mathf.Abs(direction.magnitude);
+            direction = agent.Position - target.Position;       //calculamos la distancia y direccion
+            distancia = Mathf.Abs(direction.magnitude);
 
-            if (distance < threshold) {
-                heading += target.Orientation;
-                count++;
+            if (distancia < umbral) {
+                heading += target.Orientation;      //de la misma manera que cohesion, vamos sumando las orientacions para despues modificarlo como si fuese un centro de masas
+                i++;
             }
         }
-        if (count > 0) {
-            heading /= count;
+        if (i > 0) {
+            heading /= i;
         }
 
         target.Orientation = heading;

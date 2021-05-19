@@ -4,7 +4,7 @@ using UnityEngine;
 using System.Linq;
 public class LRTA : MonoBehaviour
 {
-    public List<Nodo> EncontrarCaminoLRTAStar(Nodo comienzo, Nodo objetivo, int distancia, Grid grid)
+    public List<Nodo> EncontrarCaminoLRTAStar(Nodo comienzo, Nodo objetivo, int distancia, Grid grid)       //funcion para poder usar LRTA* en el bloque 1
     {
         //Lista de nodos cerrados a.k.a nodos utilizados
         if (grid.Nodos == null)
@@ -22,7 +22,7 @@ public class LRTA : MonoBehaviour
                 coste = Chebychev(actual, objetivo);
                 break;
             case 3:
-                coste = Euclide(actual, objetivo);
+                coste = Euclidea(actual, objetivo);
                 break;
             default:
                 coste = Manhattan(actual, objetivo);
@@ -51,7 +51,7 @@ public class LRTA : MonoBehaviour
                         coste = Chebychev(vecino, objetivo);
                         break;
                     case 3:
-                        coste = Euclide(vecino, objetivo);
+                        coste = Euclidea(vecino, objetivo);
                         break;
                 }
                 vecino.ihCost = coste;
@@ -93,7 +93,7 @@ public class LRTA : MonoBehaviour
     }
 
     //Encuentra un camino dado un nodo por el que comenzar, y un destino
-    //Distancia se usa para especificar que tipo de heuristica utilizar
+    //Distancia se usa para especificar que tipo de heuristica utilizar para el bloque 2
     public List<Nodo> EncontrarCaminoAStar(Nodo comienzo, Nodo objetivo, int distancia, Grid grid, NPC npc, bool tactico, float multiplicadorTerreno, float multiplicadorInfluencia, float multiplicadorVisibilidad)
     {
         //En caso de que el grid no contenga nodos, no se hace nada
@@ -105,130 +105,131 @@ public class LRTA : MonoBehaviour
         openSet.Add(comienzo);
         while (openSet.Count > 0)
         {
-            Nodo currentNode = openSet[0];
+            Nodo actual = openSet[0];
             for (int i = 1; i < openSet.Count; i++)
             {
                 switch (distancia)
                 {
                     case 1:
-                        currentNode.ihCost = Manhattan(currentNode, objetivo);
+                        actual.ihCost = Manhattan(actual, objetivo);
                         openSet[i].ihCost = Manhattan(openSet[i], objetivo);
                         break;
                     case 2:
-                        currentNode.ihCost = Chebychev(currentNode, objetivo);
+                        actual.ihCost = Chebychev(actual, objetivo);
                         openSet[i].ihCost = Chebychev(openSet[i], objetivo);
                         break;
                     case 3:
-                        currentNode.ihCost = Euclide(currentNode, objetivo);
-                        openSet[i].ihCost = Euclide(openSet[i], objetivo);
+                        actual.ihCost = Euclidea(actual, objetivo);
+                        openSet[i].ihCost = Euclidea(openSet[i], objetivo);
                         break;
                     default:
-                        currentNode.ihCost = Manhattan(currentNode, objetivo);
+                        actual.ihCost = Manhattan(actual, objetivo);
                         openSet[i].ihCost = Manhattan(openSet[i], objetivo);
                         break;
                 }
-                if (openSet[i].FCost < currentNode.FCost || openSet[i].FCost == currentNode.FCost && openSet[i].ihCost < currentNode.ihCost)
+                if (openSet[i].FCost < actual.FCost || openSet[i].FCost == actual.FCost && openSet[i].ihCost < actual.ihCost)
                 {
-                    currentNode = openSet[i];
+                    actual = openSet[i];
                 }
             }
-            openSet.Remove(currentNode);
-            closedSet.Add(currentNode);
-            if (currentNode == objetivo)
+            openSet.Remove(actual);
+            closedSet.Add(actual);
+            if (actual == objetivo)
             {
-                return RetracePath(comienzo, objetivo);
+                return RecalcularCamino(comienzo, objetivo);
             }
-            List<Nodo> vecinos = grid.GetVecinos(currentNode);
-            foreach (Nodo neighbour in vecinos)
+            List<Nodo> vecinos = grid.GetVecinos(actual);
+            foreach (Nodo v in vecinos)
             {
-                if (!neighbour.walkable || closedSet.Contains(neighbour)) continue;
+                if (!v.walkable || closedSet.Contains(v)) continue;
                 switch (distancia)
                 {
                     case 1:
-                        coste = Manhattan(currentNode, neighbour);
+                        coste = Manhattan(actual, v);
                         break;
                     case 2:
-                        coste = Chebychev(currentNode, neighbour);
+                        coste = Chebychev(actual, v);
                         break;
                     case 3:
-                        coste = Euclide(currentNode, neighbour);
+                        coste = Euclidea(actual, v);
                         break;
                     default:
-                        coste = Manhattan(currentNode, neighbour);
+                        coste = Manhattan(actual, v);
                         break;
                 }
-                float newMovementCostToNeighbour = 0;
+                float costeVecino = 0;
                 if (tactico)
                 {
-                    newMovementCostToNeighbour = costeVecinoTactico(currentNode, neighbour, multiplicadorTerreno, grid, npc.tipo, npc.team, coste,multiplicadorInfluencia, multiplicadorVisibilidad);
+                    costeVecino = costeVecinoTactico(actual, v, multiplicadorTerreno, grid, npc.tipo, npc.team, coste,multiplicadorInfluencia, multiplicadorVisibilidad);
                 }
                 else
                 {
-                    newMovementCostToNeighbour = currentNode.igCost + coste;
+                    costeVecino = actual.igCost + coste;
                 }
-                if (newMovementCostToNeighbour < neighbour.igCost || !openSet.Contains(neighbour))
+                if (costeVecino < v.igCost || !openSet.Contains(v))
                 {
-                    neighbour.igCost = newMovementCostToNeighbour;
+                    v.igCost = costeVecino;
                     switch (distancia)
                     {
                         case 1:
-                            neighbour.ihCost = Manhattan(currentNode, neighbour);
+                            v.ihCost = Manhattan(actual, v);
                             break;
                         case 2:
-                            neighbour.ihCost = Chebychev(currentNode, neighbour);
+                            v.ihCost = Chebychev(actual, v);
                             break;
                         case 3:
-                            neighbour.ihCost = Euclide(currentNode, neighbour);
+                            v.ihCost = Euclidea(actual, v);
                             break;
                         default:
-                            neighbour.ihCost = Manhattan(currentNode, neighbour);
+                            v.ihCost = Manhattan(actual, v);
                             break;
                     }
-                    neighbour.NodoPadre = currentNode;
-                    Collider[] hitColliders = Physics.OverlapSphere(neighbour.Posicion, 1);
+                    v.NodoPadre = actual;
+                    Collider[] hitColliders = Physics.OverlapSphere(v.Posicion, 1);
                     bool hayPersonaje = false;
                     foreach (Collider c in hitColliders){
                          if (c.tag == "PathFindingAStar"){
-                             hayPersonaje = true;
+                            hayPersonaje = true;
                          }
                      }
-                    if (!openSet.Contains(neighbour) || !hayPersonaje)
-                        openSet.Add(neighbour);
+                    if (!openSet.Contains(v) || !hayPersonaje)
+                        openSet.Add(v);
                 }
             }
         }
-        return RetracePath(comienzo, objetivo);
-    }
-    float costeVecinoTactico(Nodo currentNode, Nodo vecino, float multiplicadorTerreno,
+        return RecalcularCamino(comienzo, objetivo);
+    }   
+
+
+
+    //funcion para ir calculando el coste tactico dado el terreno, la influencia y la visibilidad
+    float costeVecinoTactico(Nodo actual, Nodo vecino, float multiplicadorTerreno,
      Grid grid, NPC.TipoUnidad tipo, NPC.Equipo team, int heuristica, float multiplicadorInfluencia, float multiplicadorVisibilidad)
     {
-        float finalCost = 0;
+        float finalCoste = 0;
         //Puede ser que haya cmabiarlo a (multiplicadorTerreno * (costeNodoTactico + hCost))
-        float terrainCost = multiplicadorTerreno * (grid.costeNodoTactico(currentNode, tipo, team) + grid.costeNodoTactico(vecino, tipo, team)) / 2;
+        float terrainCost = multiplicadorTerreno * (grid.costeNodoTactico(actual, tipo, team) + grid.costeNodoTactico(vecino, tipo, team)) / 2;
         float currentInfluence;
         float adjacentInfluence;
         if (team == NPC.Equipo.Spain)
         {
-            // Ignore friendly influence (positive values)
-            // Avoid enemy influence areas (negative values turned positive)
-            if (currentNode.influence > 0)
+            //Si pertenece a  un equipo especifico no tiene en cuenta las influencias de las zonas controladas por el mismo equipo y se centra en las del contrario
+            if (actual.influence > 0)
                 currentInfluence = 0;
             else
-                currentInfluence = Mathf.Abs(currentNode.influence);
+                currentInfluence = Mathf.Abs(actual.influence);
 
             if (vecino.influence > 0)
                 adjacentInfluence = 0;
             else
-                adjacentInfluence = Mathf.Abs(currentNode.influence);
+                adjacentInfluence = Mathf.Abs(actual.influence);
         }
         else
         {
-            // Ignore friendly influence (negative values)
-            // Avoid enemy influence areas (positive values)
-            if (currentNode.influence < 0)
+            if (actual.influence < 0)
                 currentInfluence = 0;
             else
-                currentInfluence = currentNode.influence;
+                currentInfluence = actual.influence;
 
             if (vecino.influence < 0)
                 adjacentInfluence = 0;
@@ -236,23 +237,25 @@ public class LRTA : MonoBehaviour
                 adjacentInfluence = vecino.influence;
         }
 
-        float influenceCost = multiplicadorInfluencia * (currentInfluence + adjacentInfluence) / 2;
-        float visibilityCost = multiplicadorVisibilidad * (1 / currentNode.costeNodoVisibilidad()) * 10;
-        finalCost += terrainCost + influenceCost + visibilityCost;
-        return finalCost;
+        float influenceCoste = multiplicadorInfluencia * (currentInfluence + adjacentInfluence) / 2;
+        float visibilityCoste = multiplicadorVisibilidad * (1 / actual.costeNodoVisibilidad()) * 10;
+        finalCoste += terrainCost + influenceCoste + visibilityCoste;
+        return finalCoste;
     }
-    List<Nodo> RetracePath(Nodo comienzo, Nodo objetivo)
+
+    List<Nodo> RecalcularCamino(Nodo comienzo, Nodo objetivo)
     {
-        List<Nodo> path = new List<Nodo>();
-        Nodo currentNode = objetivo;
-        while (currentNode != comienzo)
+        List<Nodo> camino = new List<Nodo>();
+        Nodo actual = objetivo;
+        while (actual != comienzo)
         {
-            path.Add(currentNode);
-            currentNode = currentNode.NodoPadre;
+            camino.Add(actual);
+            actual = actual.NodoPadre;
         }
-        path.Reverse();
-        return path;
+        camino.Reverse();
+        return camino;
     }
+
     //Calcula la distancia Manhattan entre dos nodos
     int Manhattan(Nodo a, Nodo b)
     {
@@ -270,7 +273,7 @@ public class LRTA : MonoBehaviour
     }
 
     //Calcula la distancia Euclidea entre dos nodos
-    int Euclide(Nodo a, Nodo b)
+    int Euclidea(Nodo a, Nodo b)
     {
         int ix = (b.X - a.X) * (b.X - a.X);
         int iy = (b.Y - a.Y) * (b.Y - a.Y);

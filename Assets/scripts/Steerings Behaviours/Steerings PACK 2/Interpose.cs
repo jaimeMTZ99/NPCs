@@ -21,12 +21,12 @@ public class Interpose : ArriveAcceleration
         Vector3 middlePoint = (a.transform.position + b.transform.position)/2;
         //calculamos el tiempo
         float time = ((agent.transform.position - middlePoint).magnitude)/ agent.maxSpeed;
-        //calculamos los vectores A y B
+        //calculamos los vectores A y B de prediccion segun el tiempo para ver donde se vana colorcar los objetivos
         Vector3 predictA = a.transform.position + a.Velocity * time;
         Vector3 predictB = b.transform.position + b.Velocity * time;
 
         middlePoint = (predictA + predictB)/2;
-        //la posicion del target invisible sera entre los dos GameObjects
+        //la posicion del target invisible sera entre los dos Vectores de posicion calculados
         target.transform.position = middlePoint;
         return base.GetSteering(agent);
     }

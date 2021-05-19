@@ -56,7 +56,7 @@ public class CollisionAvoidance : SeekAcceleration
         return steering;
     }
 
-    private void OnDrawGizmos() {
+    private void OnDrawGizmos() {           //dibujamos los bigotes para ver como estan dispuestos
         if (gizmos) {
             Vector3 primario = transform.forward;
             Vector3 bigoteIzq = Quaternion.Euler(0, -angulo, 0) * primario;

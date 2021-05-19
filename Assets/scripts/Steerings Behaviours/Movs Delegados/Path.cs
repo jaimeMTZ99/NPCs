@@ -8,7 +8,7 @@ public class Path : MonoBehaviour
     private float radio; 
     [SerializeField] public List<GameObject> nodos = new List<GameObject>();
          
-    public void nuevoNodo(GameObject go) {
+    public void nuevoNodo(GameObject go) {      //metemos un nuevo nodo al camino
             nodos.Add(go);
     }
 
@@ -23,11 +23,9 @@ public class Path : MonoBehaviour
         return nodos.Count;
     }
 
-    public float Radio{
+    public float Radio{         //getter y setter para el radio
         get => radio;
-        set {
-            radio = value;
-        }
+        set {radio = value;}
     }
     public Vector3 GetPosition(int valor) {
         // si el camino esta vacio pues devolvemos la misma posicion
@@ -47,17 +45,17 @@ public class Path : MonoBehaviour
             return nodos[valor].transform.position;
 
     }
-    public bool EndOfThePath(int currentPosition){
-        return currentPosition >= nodos.Count;
+    public bool EndOfThePath(int actualPosicion){
+        return actualPosicion >= nodos.Count;      //para ver si es el ultimo nodo
     }
-    public int GetParam(Vector3 personaje, int currentPosition) {
+    public int GetParam(Vector3 personaje, int actualPosicion) {
 
             // si no hay camino , devuelve la misma posicion
             if (nodos.Count <= 1) {
-                return currentPosition;
+                return actualPosicion;
             }
-            // If current position is somehow outside the path, return the last point
-            if (currentPosition >= nodos.Count) {
+            // si no hay camino , pero nos pasamos, simplemente devolvemos el ultimo para evitar problemas
+            if (actualPosicion >= nodos.Count) {
                 return nodos.Count - 1;
             }
             
@@ -65,35 +63,35 @@ public class Path : MonoBehaviour
             float anterior, actual, siguiente; // a, b, c
 
             // principio, no hay anteriores
-            if (currentPosition == 0) {
+            if (actualPosicion == 0) {
                 anterior = float.MaxValue;
-                siguiente = Vector3.Distance(personaje, nodos[currentPosition + 1].transform.position);
+                siguiente = Vector3.Distance(personaje, nodos[actualPosicion + 1].transform.position);
             }
             // final, no hay posteriores
-            else if (currentPosition == nodos.Count - 1) {
-                anterior = Vector3.Distance(personaje, nodos[currentPosition - 1].transform.position);
+            else if (actualPosicion == nodos.Count - 1) {
+                anterior = Vector3.Distance(personaje, nodos[actualPosicion - 1].transform.position);
                 siguiente = float.MaxValue;
             }
             else {
-                siguiente = Vector3.Distance(personaje, nodos[currentPosition + 1].transform.position);
-                anterior = Vector3.Distance(personaje, nodos[currentPosition - 1].transform.position);
+                siguiente = Vector3.Distance(personaje, nodos[actualPosicion + 1].transform.position);
+                anterior = Vector3.Distance(personaje, nodos[actualPosicion - 1].transform.position);
             }
 
-            actual = Vector3.Distance(personaje, nodos[currentPosition].transform.position);
-            
+            actual = Vector3.Distance(personaje, nodos[actualPosicion].transform.position);
+            //en funcion de la distancia entre nodos devolvemos la posicion que seguira
 
             if (actual <= anterior && actual <= siguiente){
-                return currentPosition;
+                return actualPosicion;
             }
 
             if (siguiente <= anterior && siguiente < radio){
-                return currentPosition + 1;
+                return actualPosicion + 1;
             }
             if (anterior <= siguiente && anterior < radio)
-                return currentPosition - 1;
+                return actualPosicion - 1;
 
 
-            return currentPosition;
+            return actualPosicion;
         }
 }
 

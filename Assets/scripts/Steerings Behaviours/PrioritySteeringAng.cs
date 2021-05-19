@@ -14,7 +14,7 @@ public class PrioritySteeringAng : SteeringBehaviour
         foreach (BlendedSteering group in groups)
         {
             steering = group.GetSteering(character);
-            if(Mathf.Abs(steering.angular) > epsilon)   //si el angular cumple el umbral realiza el steering
+            if(Mathf.Abs(steering.angular) > epsilon)   //si el angular cumple el umbral realiza el primero steering en si y despues realizara el resto con menos prioridad
             {
                 return steering;
             }

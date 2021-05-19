@@ -32,8 +32,6 @@ public class FixedPathfinding : MonoBehaviour
     {
         nodoEnd = new GameObject("Esfera");
         timeRes = time;
-        //agentes = new List<AgentNPC>();
-        //grid = new Vector3[tamañoGrid];
         pathsAgentes = new Path[tamañoGrid];
         invisibles = new GameObject[tamañoGrid];
         esferasAgentes = new GameObject[tamañoGrid];
@@ -46,7 +44,6 @@ public class FixedPathfinding : MonoBehaviour
             if (i == 0)
             {
                 w = ag.GetComponent<Wander>();
-                //w.target=puntoDestinoGO.GetComponent<Agent>();
                 ag.SteeringList.Remove(w);
             }
             GameObject invisibleGO = new GameObject("FC " + agentes.Count);
@@ -184,7 +181,6 @@ public class FixedPathfinding : MonoBehaviour
                 aux = GameObject.CreatePrimitive(PrimitiveType.Cube);
                 aux.transform.localScale = new Vector3(1, 2, 1);
                 aux.transform.position = v.transform.position;
-                //aux.GetComponent<Renderer>().material.color = new Color(0, 0, 0);
                 camino.Add(aux);
             }
 

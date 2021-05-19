@@ -26,7 +26,7 @@ public class Evade : FleeAcceleration
         // Obtenemos la velocidad que lleva
         float speed = agent.Velocity.magnitude;
         
-        // Comprobamos la velocidad en funcion de la prediccion que hemos hecho
+        // Comprobamos la velocidad en funcion de la prediccion que hemos hecho sobre su velocidad/posicion
         
         float prediction;
         

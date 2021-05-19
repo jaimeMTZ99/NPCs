@@ -5,7 +5,7 @@ using UnityEngine;
 public class Bodi : MonoBehaviour
 {
     public bool form;       //para indicar si forma parte de una formacion
-    public bool llegar;     
+    public bool llegar;     //booleano usado para el movimeinto de las formaciones
     public bool nuevoArrive;    //si se le añadio un nuevo arrive
     public float speed;         //velocidad que tiene
     public float mass;          //masa del agente
@@ -19,24 +19,18 @@ public class Bodi : MonoBehaviour
     public Vector3 velocity;           //Vector de volcidad del agente
     public Vector3 acceleration;        //vector de aceleracion del agente
 
-    public float Orientation
+    public float Orientation        //getter y setter de la orientacion
     {
         get => orientation;
-        set
-        {
-            orientation = value;
-        }
+        set{ orientation = value;}
     }
 
-    public Vector3 Velocity
+    public Vector3 Velocity         //getter y setter de la velocidad
     {
         get
         {
             if (velocity.magnitude > maxSpeed)
-            {
                 velocity = velocity.normalized * maxSpeed;
-            }
-
             if (velocity.magnitude < 0.1)
                 velocity = Vector3.zero;
             return velocity;
@@ -45,33 +39,28 @@ public class Bodi : MonoBehaviour
         {
             velocity = value;
             if (velocity.magnitude > maxSpeed)
-            {
                 velocity = velocity.normalized * maxSpeed;
-            }
             if (velocity.magnitude < 0.1)
                 velocity = Vector3.zero;
         }
     }
-    public float Rotation
+    public float Rotation           //getter y setter de la rotacion
     {
         get
         {
             if (Mathf.Abs(rotation) < 0.1)
-            {
                 rotation = 0f;
-            }
+            
             return rotation;
         }
         set
         {
             if (Mathf.Abs(rotation) < 0.1)
-            {
                 rotation = 0f;
-            }
             rotation = value;
         }
     }
-    public Vector3 Position
+    public Vector3 Position         //getter y setter de la posicion
     {
         get => transform.position;
         set => transform.position = value;
@@ -100,10 +89,9 @@ public class Bodi : MonoBehaviour
     //para sacar el angulo dado el vector direccion
     public float Heading(Vector3 pos)
     {
-
         return PositionToAngle(directionToTarget(pos));
     }
-
+    //funcion establecida para el kinematic que no se ha usado
     public float nuevaOrientacion(float orientacion, Vector3 velocidad)
     {
         if (velocidad != Vector3.zero)

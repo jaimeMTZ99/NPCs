@@ -7,15 +7,12 @@ public class CollisionAvoidancePredict : SeekAcceleration
 {
     [SerializeField]
     public float Radius = 0.5f;
-    private GameObject goCollision;
     [SerializeField]
     private List<Agent> targets;
 
     public void Start(){
-        goCollision = new GameObject("CollisionPredict");
-        Agent invisible = goCollision.AddComponent<Agent>() as Agent;
-        GameObject[] gs =  GameObject.FindGameObjectsWithTag("NPC");
 
+        GameObject[] gs =  GameObject.FindGameObjectsWithTag("NPC");        //buscamos los diversos gameObjects que seran los que intentemos evitar
         foreach (GameObject g in gs)
         {
             targets.Add(g.GetComponent<Agent>());
@@ -27,6 +24,7 @@ public class CollisionAvoidancePredict : SeekAcceleration
     public override Steering GetSteering(AgentNPC agent) {
         Steering steering = this.gameObject.GetComponent<Steering>();
         float shortestTime = Mathf.Infinity;
+
         //establecemos el target final, velocidad, distancia y separacion iniciales
         Agent firstTarget = null;
         float firstMinSeparation = 0;
@@ -47,7 +45,7 @@ public class CollisionAvoidancePredict : SeekAcceleration
 
             float distancia = relativePos.magnitude;
             float minSeparation = distancia - relativeSpeed * timeToCollision;
-            if (minSeparation > 2* Radius){
+            if (minSeparation > 2* Radius){     //calculamos la distancia de seguridad y si se ve comprometida sacamos los datos del agnete que colisionara 
                 continue;
             }
             if(timeToCollision > 0 && timeToCollision< shortestTime){

@@ -21,14 +21,14 @@ public class VelocityMatching : SteeringBehaviour
 
             //establecemos el steer.linear en la misma direccion y velocidad que nuestro target
 
-            steer.linear = target.velocity-agent.velocity;
-            steer.linear /= TimeToTarget;
+        steer.linear = target.velocity-agent.velocity;
+        steer.linear /= TimeToTarget;
 
-            if (distancia > agent.maxAcceleration)  //si la distancia es mayor que la aceleracion maxima, entonces lo multiplicamos por la misma.
-            {
-                steer.linear.Normalize();
-                steer.linear *= agent.maxAcceleration;
-            }
+        if (distancia > agent.maxAcceleration)  //si la distancia es mayor que la aceleracion maxima, entonces lo multiplicamos por la misma.
+        {
+            steer.linear.Normalize();
+            steer.linear *= agent.maxAcceleration;
+        }
             
 
         return steer;

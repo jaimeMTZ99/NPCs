@@ -1,8 +1,8 @@
 using UnityEngine;
 
 public class Curar : Estado {
-    private bool healed;
-    private bool pointless;
+    private bool curar;
+    private bool inutil;
     private float timer;
     private float healingRate = 1;
 
@@ -12,13 +12,13 @@ public class Curar : Estado {
     }
 
     public override void SalirEstado(NPC npc) {
-        healed = false;
-        pointless = false;
+        curar = false;
+        inutil = false;
     }
 
     public override void Accion(NPC npc) {
         
-        // If the NPC is at base, start healing until max hp
+        // Si nuestro personaje esta en la zona de curacion entocnes que se vaya curando
         if (npc.gameManager.InCuracion(npc)) {
             if (timer == -1)
                 timer = Time.time;
@@ -28,20 +28,18 @@ public class Curar : Estado {
                 if (npc.health < npc.maxVida)
                     npc.health += 10;
                 else {
-                    healed = true;
+                    curar = true;
                 }
             }
 
-        } else {
-            // Otherwise, get healed until it is acceptable by the medic
+        } else {            //si no buscamos al medico para que nos cure
             if (npc.health <= npc.healthy) {
-                // If the medic has died, abort
-                NPC closestMedic = UnitsManager.MedicoCerca(npc);
-                if (closestMedic == null || Vector3.Distance(npc.agentNPC.Position, closestMedic.agentNPC.Position) > closestMedic.rangedRange) {
-                    pointless = true;
+                NPC medico = UnitsManager.MedicoCerca(npc);
+                if (medico == null || Vector3.Distance(npc.agentNPC.Position, medico.agentNPC.Position) > medico.rangedRange) {
+                    inutil = true;
                 }
             } else
-                healed = true;
+                curar = true;
         }
     }
 
@@ -54,11 +52,10 @@ public class Curar : Estado {
         if (ComprobarMuerto(npc))
             return;
         
-        // Medic is dead, run to base
-        if (pointless)
+        if (inutil)
             npc.CambiarEstado(npc.estadoAsignado);
         
-        if (healed) {
+        if (curar) {
             npc.CambiarEstado(npc.estadoAsignado);
         }
 

@@ -5,15 +5,9 @@ using UnityEngine;
 public class Cohesion : SeekAcceleration {
 
     [SerializeField]
-    private float thresholdCohesion = 0f;
+    private float umbral = 0f;
 
-    [SerializeField]
-    private List<Agent> targets;
-
-    public List<Agent> Targets {
-        get => targets;
-        set => targets = value;
-    }
+    public List<Agent> targets;
     private GameObject goCohesion;
     void Start(){
         goCohesion = new GameObject("Cohesion");
@@ -23,24 +17,24 @@ public class Cohesion : SeekAcceleration {
     public override Steering GetSteering(AgentNPC agent) {
         Vector3 direction;
         Vector3 centro = Vector3.zero;
-        float distance = 0f;
-        int count = 0;
+        float distancia = 0f;
+        int i = 0;
 
         //vamos calculando el centro de masas en funcion de lo cerca que estan los personajes unos de otros y segun se vaya moviendo
         foreach (Agent target in targets) {
-            direction = agent.Position - target.Position;
-            distance = Mathf.Abs(direction.magnitude);
+            direction = agent.Position - target.Position;           //calculamos su direccion y distancia
+            distancia = Mathf.Abs(direction.magnitude);
 
-            if (distance < thresholdCohesion) {
+            if (distancia < umbral) {               //si es menor que la distancia de seguridad, se le añade al centro de masas para despues modificarlo
                 centro += target.Position;
-                count++;
+                i++;
             }
         }
-        if (count == 0) {
+        if (i == 0) {
             Steering steering = new Steering();
             return steering;
         }
-        centro /= count;
+        centro /= i;
         target.transform.position = centro;
         return base.GetSteering(agent);
     }

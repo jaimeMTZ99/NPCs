@@ -28,7 +28,7 @@ public class Wander : Face
     {
         aux = target;
         //Calcular el ángulo random para hacer face
-        wanderOrientation += wanderRate * RandomBinomial(); // Random.Range(-1.0f, 1.0f);
+        wanderOrientation += wanderRate * RandomBinomial(); 
         //Orientación futura del agente.
         target.Orientation = wanderOrientation + agent.Orientation;
         //Colocar target invisible en posición adelantada del agente.

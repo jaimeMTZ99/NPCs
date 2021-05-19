@@ -5,12 +5,11 @@ using UnityEngine;
 
 public class PathFollowingPredict : SeekAcceleration
 {
-    public Path path;
+    public Path path;           //el camino a seguir
     public int targetParam;
-    public int currentPos;
-    public Vector3 futurePos;
+    public int currentPos;          //posicion actual
+    public Vector3 futurePos;       //posicion futura basada en el predict
     public int currentParam;
-    public Agent aux;
     public float predictTime = 0.1f;
     public GameObject goPathFoll;
     void Start(){
@@ -26,7 +25,7 @@ public class PathFollowingPredict : SeekAcceleration
     public override Steering GetSteering(AgentNPC agent){
         //calculamos la posicion futura dada la pos del agente 
         futurePos = agent.transform.position+agent.Velocity*predictTime;
-        //Actual posición en el camino
+        //Actual posición en el camino dada la posiicon futura
         currentParam = path.GetParam(futurePos, currentPos);
         //Actualizamos la posición actual
         currentPos = currentParam;

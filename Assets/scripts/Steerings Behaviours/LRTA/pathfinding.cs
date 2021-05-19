@@ -11,23 +11,21 @@ public class PathFinding : MonoBehaviour
     public LRTA lrta =  new LRTA();
     [SerializeField]
     public Grid grid;
-    float[,] mapaCostes;
     List<GameObject> camino;
     public NPC npc;
-    public NPC.TipoUnidad type;
     public bool tactico;
-    public NPC.Equipo team;
+
     public float multiplicadorTerreno;
     public float multiplicadorInfluencia;
     public float multiplicadorVisibilidad;
-    public bool pintar;
+    //public bool pintar;
     private void Start()
     {
         grid = grid.GetComponent<Grid>();
         lrta = new LRTA();
     }
 
-    //Establece el objetivo
+    //Establece el objetivo de un agente del pathfinding
     public List<GameObject> EstablecerNodoFinal(AgentNPC agent)
     {
 
@@ -85,7 +83,8 @@ public class PathFinding : MonoBehaviour
         {
             nodoFinal = grid.GetNodoPosicionGlobal(esferaDestino.transform.position);
             if (agent.tag == "PathFinding"){
-                nodos = lrta.EncontrarCaminoLRTAStar(nodoActual, nodoFinal, heuristica, grid);
+                if (nodoActual != null && nodoFinal != null)
+                    nodos = lrta.EncontrarCaminoLRTAStar(nodoActual, nodoFinal, heuristica, grid);
             }
             else if (agent.tag == "PathFindingAStar")
                 nodos = lrta.EncontrarCaminoAStar(nodoActual, nodoFinal, heuristica, grid, npc, tactico, multiplicadorTerreno, multiplicadorInfluencia, multiplicadorVisibilidad);
@@ -105,6 +104,7 @@ public class PathFinding : MonoBehaviour
         }
         return null;
     }
+
     public void EncontrarCaminoJuego(Vector3 posicionInicial, Vector3 posicionFinal)
     {
         Nodo actual = grid.GetNodoPosicionGlobal(posicionInicial);
@@ -144,7 +144,7 @@ public class PathFinding : MonoBehaviour
     }
 
 
-    void pintarCamino(List<GameObject> listPuntos)
+    void pintarCamino(List<GameObject> listPuntos)      //podemos dibujar el camino que seguiras los agente pathfinding si activamos el booleano
     {
         if (listPuntos.Count != 0)
         {

@@ -117,7 +117,7 @@ public class seleccionEstrategia : MonoBehaviour
     public void DirigirLugar(){
         bool sameTeam = false;
         bool sameTeam1 = false;
-        //si seleccionamos un lugar y el elegido tiene pathfindig, lo realiza
+        //si seleccionamos un lugar y el elegido tiene pathfinding, lo realiza
         if (selectedUnit != null && (selectedUnit.tag == "PathFinding" || selectedUnit.tag == "PathFindingAStar") ){
             Pathfinding();
         }

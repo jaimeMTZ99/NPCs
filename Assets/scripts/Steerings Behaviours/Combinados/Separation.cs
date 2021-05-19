@@ -4,22 +4,16 @@ using UnityEngine;
 
 public class Separation : SteeringBehaviour {
     [SerializeField]
-    private float threshold = 0f;
+    private float umbral = 0f;          //distancia de seguridad
 
-    [SerializeField]
-    private List<Agent> targets;
-
-    public List<Agent> Targets {
-        get => targets;
-        set => targets = value;
-    }
+    public List<Agent> targets;         //lista de objetivos
 
     [SerializeField]
     private float coef = 1f;
 
     [SerializeField]
-    private float fuerza;
-    private GameObject goSeparation;  
+    private float fuerza;               //fuerza que se aplica
+    private GameObject goSeparation;    
     void Start(){
         goSeparation = new GameObject("Separation");
         Agent invisible = goSeparation.AddComponent<Agent>() as Agent;
@@ -29,13 +23,13 @@ public class Separation : SteeringBehaviour {
     public override Steering GetSteering(AgentNPC agent) {
         Steering steering = new Steering();
         Vector3 direction;
-        float distance = 0f;
+        float distancia = 0f;
         foreach (Agent target in targets) {
-            direction = agent.Position - target.Position;
-            distance = Mathf.Abs(direction.magnitude);
+            direction = agent.Position - target.Position; //calculamos la distacnia
+            distancia = Mathf.Abs(direction.magnitude);
 
-            if (distance < threshold) {
-                float f = coef/(distance*distance);
+            if (distancia < umbral) {       //si es menor qeu el umbral establecido o distancia de seguridad, calculamos la fuerza que le vamos a aplicar para separarlos
+                float f = coef/(distancia*distancia);
                 fuerza = Mathf.Min(f, agent.maxAcceleration);
                 steering.linear += direction.normalized * fuerza;
             }

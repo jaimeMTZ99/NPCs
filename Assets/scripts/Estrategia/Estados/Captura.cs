@@ -2,10 +2,10 @@
 
 public class Captura : Estado {
 
-    private bool pointless;
+    private bool inutil;
     public override void EntrarEstado(NPC npc) {
         move = false;
-        pointless = false;
+        inutil = false;
     }
 
     public override void SalirEstado(NPC npc) {
@@ -16,34 +16,31 @@ public class Captura : Estado {
 
         GameManager gameManager = npc.gameManager;
         
-        // If the unit is already at the enemy capture point, stop moving
+        //si ya esta en la base enemiga, que se quede quieto
         if (gameManager.NPCInWaypoint(npc, gameManager.waypointManager.GetRival(npc))) {
             if (move) {
                 move = false;
                 npc.GetComponent<Path>().ClearPath();
             }
 
-            // If there are no enemies defending their capture point, increment the capture bar
+            // mientras que no haya enemigos, seguira capturano la base
             if (!gameManager.EnemigosDefendiendo(npc)){}
                 gameManager.waypointManager.Captura(npc);
         } 
-        // Otherwise, start moving towards the enemy capture point
         else if (!move) {
-            // The target position is one of the random available positions within the enemy capture point
+            //establecemos como objetivo uno de los waypoints de la base contraria
             npc.pf.EncontrarCaminoJuego(npc.nodoActual.Posicion, gameManager.waypointManager.GetNodoAleatorio(gameManager.waypointManager.GetRival(npc)).Posicion);
             move = true;
         } else {
-            // If I am on my way to the enemy capture point but it happens that there are enemies attacking our point
+            //si ya estaban atacando la base, compruebo si merece la pena seguir yendo a capturar o no
             if (gameManager.EnemigosCheckpoint(npc) > 0) {
-                var alliedCapturePoint = gameManager.waypointManager.GetEquipo(npc).posicion;
-                var enemyCapturePoint = gameManager.waypointManager.GetRival(npc).posicion;
-                var currentPosition = npc.nodoActual.Posicion;
-                var distanceToEnemyCapturePoint = Vector3.Distance(alliedCapturePoint, currentPosition);
-                var distanceToAlliedCapturePoint = Vector3.Distance(enemyCapturePoint, currentPosition);
-                if (distanceToAlliedCapturePoint <= distanceToEnemyCapturePoint) {
-                    // If I am closer to our capture point, go defend
-                    // Otherwise, commit to capture
-                    pointless = true;
+                var baseAliada = gameManager.waypointManager.GetEquipo(npc).posicion;
+                var baseEnemiga = gameManager.waypointManager.GetRival(npc).posicion;
+                var posicion = npc.nodoActual.Posicion;
+                var distanciaBaseEnemiga = Vector3.Distance(baseAliada, posicion);
+                var distanciaBaseAliada = Vector3.Distance(baseEnemiga, posicion);
+                if (distanciaBaseAliada <= distanciaBaseEnemiga) {
+                    inutil = true;
                 }
 
             }
@@ -58,13 +55,12 @@ public class Captura : Estado {
     public override void ComprobarEstado(NPC npc) {
 
         GameManager gameManager = npc.gameManager;
-        // If the unit is dead, change to that state
+
         if (ComprobarMuerto(npc))
             return;
         if (ComprobarAtaqueRangoMedico(npc))
             return;
-        // Otherwise, check if I can continue capturing
-        if (!pointless && ComprobarCaptura(gameManager, npc))
+        if (!inutil && ComprobarCaptura(gameManager, npc))
             return;
         npc.CambiarEstado(npc.estadoAsignado);
     }

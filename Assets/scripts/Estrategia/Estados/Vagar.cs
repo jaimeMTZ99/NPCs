@@ -23,7 +23,6 @@ public class Vagar : Estado {
         }
         Path pathNPC = npc.agentNPC.GetComponent<Path>();
         if (npc.GetComponent<PathFollowing>().EndOfThePath() || Vector3.Distance(npc.agentNPC.Position,pathNPC.nodos[pathNPC.nodos.Count-1].gameObject.transform.position) < 4){
-            Debug.Log("Terminando vagar");
             move = false;
         }
     }
@@ -37,22 +36,16 @@ public class Vagar : Estado {
 
         GameManager gameManager = npc.gameManager;
         
-        // If the unit is dead, change to that state
         if (ComprobarMuerto(npc))
             return;
-        // If there are too many enemies, flee
         if (ComprobarEscapar(npc))
             return;
-        // Otherwise, if I am a medic, check if there are nearby allies to "shoot" (heal) and if so, shoot them
         if (ComprobarAtaqueRangoMedico(npc))
             return;
-        // Otherwise, check first if I have to defend my capture point
         if (ComprobarDefensa(gameManager, npc))
             return;
-        // Otherwise, check if I can capture the enemy point
         if (ComprobarCaptura(gameManager, npc))
             return;
-        // Otherwise, check if I can attack any enemies
         if (ComprobarAtaqueRangoMelee(npc))
             return;        
     }

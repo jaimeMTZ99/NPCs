@@ -3,12 +3,12 @@ using UnityEngine;
 public class AtaqueMelee : Estado  {
 
     private float time;
-    private bool iTried;
-    private bool pointless;
+    private bool intento;
+    private bool inutil;
     public override void EntrarEstado(NPC npc) {
         move = false;
-        iTried = false;
-        pointless = false;
+        intento = false;
+        inutil = false;
         time = -0.5f;
     }
 
@@ -25,50 +25,48 @@ public class AtaqueMelee : Estado  {
         else{
             f.target = npcObjetivo.gameObject.GetComponent<AgentNPC>();
         }
-        // To melee attack an enemy, he must be within my range
         float distance = Vector3.Distance(npc.agentNPC.Position, npcObjetivo.agentNPC.Position);
         Path camino = npc.GetComponent<Path>();
         int posicionActualCamino = npc.GetComponent<PathFollowing>().currentPos;
         bool isFinalCamino = camino.EndOfThePath(posicionActualCamino);
         if (distance <= npc.rangoMelee) {
 
-            // He is within my range, stop moving
+            //que deje de moverse el personaje si esta a rango
             if (move) {
                 move = false;
                 npc.GetComponent<Path>().ClearPath();
             }
-            // I can start winding up my attack
+            
             if (time == -0.5f) {
+                //comprobamos que no se suicide si no estamos en Guerra Total
                 if (!npc.gameManager.totalWarMode && npc.health <= npc.menosVida) {
-                    // But I am on low HP and I am not in total war, so I should leave
-                    pointless = true;
+                    
+                    inutil = true;
                     return;
                 }
                 time = Time.time;
             }
             
-            // Wait patiently
+            //atacamos segun su ratio de ataque 
             if (Time.time - time >= npc.meleeAttackSpeed) {
                 CombatManager.AtaqueMelee(npc, npcObjetivo);
                 time = -0.5f;
-                iTried = false;
+                intento = false;
             }
         } else {
-            // He is not within my range
             if (!npc.gameManager.totalWarMode && npc.health <= npc.menosVida) {
-                // I happen to be low health and I am not in total war, so it's not worth commiting
-                pointless = true;
+                inutil = true;
                 return;
             }
             
-            if (!move && !iTried && time == -1) {
-                // I'm not moving and I haven't tried chasing him
+            if (!move && !intento && time == -1) {
+
                 npc.pf.EncontrarCaminoJuego(npc.nodoActual.Posicion, npcObjetivo.nodoActual.Posicion);
                 move = true;
-                iTried = true;
+                intento = true;
             }
-            else if (isFinalCamino && iTried) {
-                pointless = true;
+            else if (isFinalCamino && intento) {
+                inutil = true;
             }
         }
     }
@@ -80,13 +78,12 @@ public class AtaqueMelee : Estado  {
 
     public override void ComprobarEstado(NPC npc) {
         Face f = npc.GetComponent<Face>();  
-        // If the unit is dead, change to that state
         if (ComprobarMuerto(npc)){
             return;
             f.target = null;
             f.aux = null;
             }
-        if (!pointless && ComprobarAtaqueRangoMelee(npc)){
+        if (!inutil && ComprobarAtaqueRangoMelee(npc)){
             return;
             f.target = null;
             f.aux = null;
