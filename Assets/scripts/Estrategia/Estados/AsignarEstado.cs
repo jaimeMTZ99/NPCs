@@ -1,21 +1,28 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-public class AsignarEstado : Estado  {
+public class AsignarEstado : Estado
+{
 
-    public override void EntrarEstado(NPC npc) {}
+    public override void EntrarEstado(NPC npc) { }
 
-    public override void SalirEstado(NPC npc) {}
+    public override void SalirEstado(NPC npc) { }
 
-    public override void Accion(NPC npc) {}
+    public override void Accion(NPC npc) { }
 
-    public override void Ejecutar(NPC npc) {
+    public override void Ejecutar(NPC npc)
+    {
         Accion(npc);
         ComprobarEstado(npc);
     }
 
-    public override void ComprobarEstado(NPC npc) {
-
+    public override void ComprobarEstado(NPC npc)
+    {
+        if (npc.GetComponent<Face>() != null)
+        {
+            npc.GetComponent<Face>().target = null;
+            npc.GetComponent<Face>().aux = null;
+        }
         GameManager gameManager = npc.gameManager;
         //comprobamos si esta muerto
         if (ComprobarMuerto(npc))
@@ -38,10 +45,10 @@ public class AsignarEstado : Estado  {
         //comprobamos si podemos hacer patrulla
         if (npc.patrol)
             npc.CambiarEstado(npc.estadoPatrullar);
-        else 
-        //si no vagamos por el mapa
+        else
+            //si no vagamos por el mapa
             npc.CambiarEstado(npc.estadoVagar);
-        
+
     }
 
 }

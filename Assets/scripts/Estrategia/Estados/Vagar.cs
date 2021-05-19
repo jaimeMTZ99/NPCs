@@ -22,7 +22,7 @@ public class Vagar : Estado {
             move = true;
         }
         Path pathNPC = npc.agentNPC.GetComponent<Path>();
-        if (npc.GetComponent<PathFollowing>().EndOfThePath() || Vector3.Distance(npc.agentNPC.Position,pathNPC.nodos[pathNPC.nodos.Count-1].gameObject.transform.position) < 4){
+        if (pathNPC.nodos.Count > 0 && (npc.GetComponent<PathFollowing>().EndOfThePath() || Vector3.Distance(npc.agentNPC.Position,pathNPC.nodos[pathNPC.nodos.Count-1].gameObject.transform.position) < 4)){
             move = false;
         }
     }

@@ -90,18 +90,16 @@ public abstract class Estado
         List<NPC> enemigos = UnitsManager.EnemigosEnRango(npc);
         if (enemigos != null && enemigos.Count > 0) {
             if (npc.tipo == NPC.TipoUnidad.Brawler || npc.tipo == NPC.TipoUnidad.Medic) {
-                if (UnitsManager.EnemigosCerca(npc) - UnitsManager.AliadosCerca(npc) <= npc.maxEnemigosMelee - npc.minAliadosMelee) {
-                    if (!npc.gameManager.InBase(npc) && !npc.gameManager.InBase(enemigos[0])) {
-
+                    if (!npc.gameManager.InCuracion(npc) && !npc.gameManager.InCuracion(enemigos[0])) {
+                        Debug.Log("Entrando en estado ataque melee" + npc.name);
                         npc.CambiarEstado(npc.estadoAtaqueMelee, enemigos[0]);
                         return true;
                     }
-                }
             } else if (npc.tipo == NPC.TipoUnidad.Ranged) {
 
                 foreach (NPC en in enemigos) {
                     float distancia = Vector3.Distance(npc.agentNPC.Position, en.agentNPC.Position);
-                    if (distancia <= npc.rangedRange && !npc.gameManager.InBase(npc) && !npc.gameManager.InBase(en)) {
+                    if (distancia <= npc.rangedRange && !npc.gameManager.InCuracion(npc) && !npc.gameManager.InCuracion(en)) {
 
                         npc.CambiarEstado(npc.estadoAtaqueRango, en);
                         return true;

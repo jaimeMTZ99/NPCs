@@ -185,14 +185,14 @@ public class LRTA : MonoBehaviour
                             break;
                     }
                     v.NodoPadre = actual;
-                    Collider[] hitColliders = Physics.OverlapSphere(v.Posicion, 1);
+                   /* Collider[] hitColliders = Physics.OverlapSphere(v.Posicion, 1);
                     bool hayPersonaje = false;
                     foreach (Collider c in hitColliders){
                          if (c.tag == "PathFindingAStar"){
                             hayPersonaje = true;
                          }
-                     }
-                    if (!openSet.Contains(v) || !hayPersonaje)
+                     }*/
+                    if (!openSet.Contains(v))
                         openSet.Add(v);
                 }
             }

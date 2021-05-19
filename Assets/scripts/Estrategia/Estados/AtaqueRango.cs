@@ -19,9 +19,11 @@ public class AtaqueRango : Estado  {
         if (f == null){
             npc.gameObject.AddComponent<Face>();
             npc.gameObject.GetComponent<Face>().target = npcObjetivo.gameObject.GetComponent<AgentNPC>();
+            npc.gameObject.GetComponent<Face>().aux = npcObjetivo.gameObject.GetComponent<AgentNPC>();
         }
         else{
             f.target = npcObjetivo.gameObject.GetComponent<AgentNPC>();
+            f.aux = npcObjetivo.gameObject.GetComponent<AgentNPC>();
         }
         // Nos aseguramos de que el personaje tiene a rango al objetivo
         // Si no es GerraTotal el personaje se va
@@ -46,17 +48,14 @@ public class AtaqueRango : Estado  {
     }
 
     public override void ComprobarEstado(NPC npc) {
-        Face f = npc.GetComponent<Face>();
-        f.target = null;
         if (ComprobarMuerto(npc)){
+            Face f = npc.GetComponent<Face>();
             f.target = null;
             f.aux = null;
             return;
         }
         if (!inutil && (ComprobarAtaqueRangoMedico(npc) || ComprobarAtaqueRangoMelee(npc))){
             return;
-        f.target = null;
-        f.aux = null;
         }
         npc.CambiarEstado(npc.estadoAsignado);
     }

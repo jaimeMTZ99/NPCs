@@ -9,7 +9,7 @@ public static class UnitsManager {
 
     // Defines the range for each of the OverlapShere calls used in this script
     // Essentially, it is the distance at which a unit can "see"
-    private static int sphereRange = 50;
+    private static int sphereRange = 25;
 
     // Returns the number of enemies near that the unit can see
     public static int EnemigosCerca(NPC npc) {
