@@ -380,6 +380,11 @@ PrefabInstance:
       propertyPath: extRadius
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 8485057914146819239, guid: 7fc812e63650ce843b4c44ce2aaa8984,
+        type: 3}
+      propertyPath: maxSpeed
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 8485057914146819243, guid: 7fc812e63650ce843b4c44ce2aaa8984,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -923,7 +928,6 @@ MonoBehaviour:
   currentPos: 0
   futurePos: {x: 0, y: 0, z: 0}
   currentParam: 0
-  aux: {fileID: 0}
   predictTime: 1
   goPathFoll: {fileID: 0}
 --- !u!1 &1059798681

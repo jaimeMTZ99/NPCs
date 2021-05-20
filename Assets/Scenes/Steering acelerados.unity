@@ -616,6 +616,11 @@ PrefabInstance:
       propertyPath: gizmosExtRadius
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5569721151619804545, guid: dfd33ffc561461142b6ba0d0caa5831e,
+        type: 3}
+      propertyPath: maxSpeed
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 5569721151619804547, guid: dfd33ffc561461142b6ba0d0caa5831e,
         type: 3}
       propertyPath: m_Materials.Array.data[0]

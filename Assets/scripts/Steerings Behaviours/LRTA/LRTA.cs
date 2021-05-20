@@ -238,7 +238,7 @@ public class LRTA : MonoBehaviour
         }
 
         float influenceCoste = multiplicadorInfluencia * (currentInfluence + adjacentInfluence) / 2;
-        float visibilityCoste = multiplicadorVisibilidad * (1 / actual.costeNodoVisibilidad()) * 10;
+        float visibilityCoste = multiplicadorVisibilidad * actual.visibilidad;
         finalCoste += terrainCost + influenceCoste + visibilityCoste;
         return finalCoste;
     }

@@ -17,7 +17,7 @@ public class NPC : MonoBehaviour
         France
     }
 
-    public bool user;
+    public bool user;       // para saber si tiene que entrar a estado user
 
     //######REFERENCIAS A OBJETOS#########
     public Grid gridMap;
@@ -85,16 +85,11 @@ public class NPC : MonoBehaviour
     //Función que sirve para cambiar el estado del NPC
     void Start()
     {
-        /*if (pathfinding)
-        {
-            pathfinding.Type = _unitType;
-            pathfinding.Team = _team;
-        }*/
         agentNPC = GetComponent<AgentNPC>();
         simplePropagator = GetComponent<SimplePropagator>();
         Initialize();
     }
-    protected void Initialize() {
+    protected void Initialize() {       //inicializamos los estados 
         currentState = null;
         estadoCaptura = new Captura();
         estadoDefensa = new Defender();
@@ -109,8 +104,7 @@ public class NPC : MonoBehaviour
         estadoUsuario = new User();
         estadoVagar = new Vagar();
         health = maxVida;
-        //_currentHealthAnimation = _maxHealth;
-        //_groupSpeed = _speed;
+
         startPosition = agentNPC.Position;
         CambiarEstado(estadoAsignado);
     }
@@ -122,10 +116,8 @@ public class NPC : MonoBehaviour
             Debug.Log(currentState + this.name);
             currentState.Ejecutar(this);
         }
-
-        // Most likely not the best way to do this
         agentNPC.maxSpeed =  gridMap.GetNodoPosicionGlobal(agentNPC.Position).SpeedMultiplier(tipo);
-         nodoActual = gridMap.GetNodoPosicionGlobal(agentNPC.Position);
+        nodoActual = gridMap.GetNodoPosicionGlobal(agentNPC.Position);
 
         if (nodoActual.walkable)
             anteriorNodo = nodoActual;
@@ -140,12 +132,11 @@ public class NPC : MonoBehaviour
         if (currentState == null || currentState != newState)
         {
             currentState = newState;
-            //GUIManager.TriggerAnimation(statusAnimator);
             currentState.EntrarEstado(this);
         }
     }
 
-    public void DispararModoOfensivo()
+    public void DispararModoOfensivo()       //establecer los cambios de las caracteristicas en modo ofensivo
     {
        numEnemigosEscape = enemigosEscapeBase + 1;
         menosVida = menosVidaBase - 50;
@@ -155,7 +146,7 @@ public class NPC : MonoBehaviour
             minAliadosMelee = minAliadosMeleeBase - 1;
     }
 
-    public void DispararModoDefensivo()
+    public void DispararModoDefensivo()     //establecer los cambios de las caracteristicas en modo defensivo
     {
         numEnemigosEscape = enemigosEscapeBase - 1;
         menosVida = menosVidaBase - 50;
@@ -165,7 +156,7 @@ public class NPC : MonoBehaviour
         minAliadosMelee = minAliadosMeleeBase + 1;
     }
 
-    public void DispararGuerraTotal()
+    public void DispararGuerraTotal()       //establecer los cambios de las caracteristicas en modo Guerra Total
     {
         numEnemigosEscape = enemigosEscapeBase + 2;
         menosVida = menosVidaBase - 50;
@@ -175,32 +166,10 @@ public class NPC : MonoBehaviour
             minAliadosMelee = minAliadosMeleeBase - 1;
         }
     }
-    public void ActualizarIconoEstado()
-    {
-        //GUIManager.UpdateStateIcon(_status, _currentState);
-    }
-    public void AñadirAlGrupo(float speed, TipoUnidad type)
-    {
-        /*groupSpeed = speed;
-        pathfinding.Type = type;*/
-    }
-
-    public void QuitarDelGrupo()
-    {
-        /*groupSpeed = speed;
-        pathfinding.Type = unitType;*/
-    }
     public virtual float GetDropOff()
     {
         return influencia;
     }
-    public void Restart()
-    {
-        health = maxVida;
-        QuitarDelGrupo();
-        this.GetComponent<Path>().ClearPath();
-        agentNPC.Position = startPosition;
-        CambiarEstado(estadoAsignado);
-    }
+
 
 }

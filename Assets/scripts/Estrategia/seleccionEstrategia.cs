@@ -8,17 +8,10 @@ public class seleccionEstrategia : MonoBehaviour
     public GameObject selectedUnit;     //gameobject del unico que se escoge
     private bool mult = false;  //booleano para establecer cuando coger grupo de agentes
 
-    private List<GameObject> agentesReturn; //lista con los gameObject que vuelven a la normalidad
-
     public List<GameObject> listPuntos = new List<GameObject>();    //variables para pathfinding
     public PathFinding pathFinding;     //Pathfinding para poder mover aquellos que vayan por grid
     public List<GameObject> camino;     //para establecer el camino en el grid
 
-    void Start(){
-
-        agentesReturn = new List<GameObject>();
-
-    }
     // Update is called once per frame
     void Update()
     {
@@ -130,13 +123,9 @@ public class seleccionEstrategia : MonoBehaviour
                     sameTeam1 = true;
                 }
             }
-            if((sameTeam) && (sameTeam1)){
-                Debug.Log("distinto equipo");
-            }else {
-                Debug.Log("mismo equipo");
-                foreach (GameObject d in selectedUnits){
-                    Pathfinding();
-                }
+            if((sameTeam) && (sameTeam1)){}
+            else {
+                Pathfinding();
             }
         }
     }

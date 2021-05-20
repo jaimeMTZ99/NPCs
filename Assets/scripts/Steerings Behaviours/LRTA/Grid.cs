@@ -94,6 +94,8 @@ public class Grid : MonoBehaviour
                 Nodo.TerrainType terreno = getTerrenoPosition(pos);
                 Nodos[x, y] = new Nodo(walkable, pos, x, y,terreno);  //Creamos un nuevo nodo con las caracteristicas establecidas y calculadas a partir de lo que conocemos
                 Nodos[x, y].igCost = (float) matrizCostes[x, y];
+                Nodos[x, y].calculoVisibilidad();
+
             }
         }
     }

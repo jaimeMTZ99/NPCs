@@ -21,6 +21,7 @@ TagManager:
   - Base Fra
   - Pradera
   - PathFindingAStar
+  - Zona
   layers:
   - Default
   - TransparentFX

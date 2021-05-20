@@ -60,15 +60,15 @@ public class GridDisplay : MonoBehaviour
 		
 		// create squares starting at bottomLeftPos
 		List<Vector3> verts = new List<Vector3>();
-		for (int yIdx = 0; yIdx < data.Height; ++yIdx)
+		for (int y = 0; y < data.Height; ++y)
 		{
-			for (int xIdx = 0; xIdx < data.Width; ++xIdx)
+			for (int x = 0; x < data.Width; ++x)
 			{
 				
-				Vector3 bl = new Vector3(staX + (xIdx * gridSize), objectHeight, staZ + (yIdx * gridSize));
-				Vector3 br = new Vector3(staX + ((xIdx+1) * gridSize), objectHeight, staZ + (yIdx * gridSize));
-				Vector3 tl = new Vector3(staX + (xIdx * gridSize), objectHeight, staZ + ((yIdx+1) * gridSize));
-				Vector3 tr = new Vector3(staX + ((xIdx+1) * gridSize), objectHeight, staZ + ((yIdx+1) * gridSize));
+				Vector3 bl = new Vector3(staX + (x * gridSize), objectHeight, staZ + (y * gridSize));
+				Vector3 br = new Vector3(staX + ((x+1) * gridSize), objectHeight, staZ + (y * gridSize));
+				Vector3 tl = new Vector3(staX + (x * gridSize), objectHeight, staZ + ((y+1) * gridSize));
+				Vector3 tr = new Vector3(staX + ((x+1) * gridSize), objectHeight, staZ + ((y+1) * gridSize));
 				
 				
 				verts.Add(bl);
@@ -79,9 +79,9 @@ public class GridDisplay : MonoBehaviour
 		}
 		
 		List<Color> colors = new List<Color>();
-		for (int yIdx = 0; yIdx < data.Height; ++yIdx)
+		for (int y = 0; y < data.Height; ++y)
 		{
-			for (int xIdx = 0; xIdx < data.Width; ++xIdx)
+			for (int x = 0; x < data.Width; ++x)
 			{
 				colors.Add(Color.white);
 				colors.Add(Color.white);
@@ -92,9 +92,9 @@ public class GridDisplay : MonoBehaviour
 		colorsArray = colors.ToArray();
 		
 		List<Vector3> norms = new List<Vector3>();
-		for (int yIdx = 0; yIdx < data.Height; ++yIdx)
+		for (int y = 0; y < data.Height; ++y)
 		{
-			for (int xIdx = 0; xIdx < data.Width; ++xIdx)
+			for (int x = 0; x < data.Width; ++x)
 			{
 				norms.Add(Vector3.up);
 				norms.Add(Vector3.up);
@@ -104,9 +104,9 @@ public class GridDisplay : MonoBehaviour
 		}
 		
 		List<Vector2> uvs = new List<Vector2>();
-		for (int yIdx = 0; yIdx < data.Height; ++yIdx)
+		for (int y = 0; y < data.Height; ++y)
 		{
-			for (int xIdx = 0; xIdx < data.Width; ++xIdx)
+			for (int x = 0; x < data.Width; ++x)
 			{
 				uvs.Add(new Vector2(0, 0));
 				uvs.Add(new Vector2(1, 0));
@@ -116,12 +116,12 @@ public class GridDisplay : MonoBehaviour
 		}
 		
 		List<int> tris = new List<int>();
-		for (int idx = 0; idx < verts.Count; idx+=4) {
+		for (int x = 0; x < verts.Count; x+=4) {
 
-			int bl = idx;
-			int br = idx+1;
-			int tl = idx+2;
-			int tr = idx+3;
+			int bl = x;
+			int br = x+1;
+			int tl = x+2;
+			int tr = x+3;
 
 			
 			tris.Add(bl);
@@ -142,20 +142,20 @@ public class GridDisplay : MonoBehaviour
 	
 	void SetColor(int x, int y, Color c)
 	{
-		int idx = ((y * data.Width) + x) * 4;
-		colorsArray[idx] = c;
-		colorsArray[idx+1] = c;
-		colorsArray[idx+2] = c;
-		colorsArray[idx+3] = c;
+		int ix = ((y * data.Width) + x) * 4;
+		colorsArray[ix] = c;
+		colorsArray[ix+1] = c;
+		colorsArray[ix+2] = c;
+		colorsArray[ix+3] = c;
 	}
 
 	void Update()
 	{
-		for (int yIdx = 0; yIdx < data.Height; ++yIdx)
+		for (int y = 0; y < data.Height; ++y)
 		{
-			for (int xIdx = 0; xIdx < data.Width; ++xIdx)
+			for (int x = 0; x < data.Width; ++x)
 			{
-				Nodo nodo = data.GetValue(xIdx, yIdx);
+				Nodo nodo = data.GetValue(x, y);
 				Color c = neutralColor;
 				if (nodo.influence < -0.5f)
 					c = Color.Lerp(negativeColor, negative2Color, -(nodo.influence+0.5f)/0.5f);
@@ -166,7 +166,7 @@ public class GridDisplay : MonoBehaviour
 				else 
 					c = Color.Lerp(neutralColor, positiveColor, nodo.influence/0.5f);
 				
-				SetColor(xIdx, yIdx, c);
+				SetColor(x, y, c);
 			}
 		}
 		

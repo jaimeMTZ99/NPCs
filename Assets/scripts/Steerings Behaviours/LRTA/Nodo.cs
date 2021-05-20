@@ -27,6 +27,9 @@ public class Nodo{
     public float ihCost;  //coste destino
     public float FCost { get { return igCost + ihCost; } } //Suma de costes
     
+    public int radio = 25;
+    public float visibilidad =0;
+
     public TerrainType terrainType;
     public float influence;
 
@@ -79,35 +82,40 @@ public class Nodo{
         return 2;
     }
 
-    public float costeNodoVisibilidad()                 //funcion del bloque 2 que calcula el coste del nodo dada su visibilidad
-    {
-        if (! this.walkable)
-            return 0; 
-        switch (this.terrainType)
-        {
-            case Nodo.TerrainType.Bosque:
-                return 8;
-
-            case Nodo.TerrainType.Pradera:
-                return 24;
-
-            case Nodo.TerrainType.Carretera:
-                return 48;
-
-            case Nodo.TerrainType.FraCapturar:
-                return 8;
-
-            case Nodo.TerrainType.EspCapturar:
-                return 8;
-
-            case Nodo.TerrainType.CurarEsp:
-                return 8;
-
-            case Nodo.TerrainType.CurarFra:
-                return 8;
+    public void calculoVisibilidad() {
+        if (!walkable) {
+            visibilidad = 1;
+            return;
+        }
+        float vis= 0;
+        int rayos = 10;
+        float angulo = 0;
+        for (int i = 0; i < rayos; i++) {
+            float x = Mathf.Sin(angulo);
+            float y = Mathf.Cos(angulo);
+            angulo += 2 * Mathf.PI / rayos;
+                    
+            Vector3 dir = new Vector3 (Posicion.x + x, 2.5f, Posicion.z + y);
+            Vector3 pos =Posicion;
+            RaycastHit hit;
+            if(Physics.Raycast(pos, dir,out hit, radio))
+            {
+                if(hit.collider == null)
+                    vis = vis + radio;
+                else{
+                    vis = vis + hit.distance;
+                }
+            }
 
         }
-        return 1;
+        vis /= rayos;
+        vis /= radio;
+
+        visibilidad=vis;
+        Debug.Log(visibilidad);
+            
     }
+
+
 
 }
