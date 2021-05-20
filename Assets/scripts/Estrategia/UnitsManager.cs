@@ -58,9 +58,6 @@ public static class UnitsManager {
             }
             i++;
         }
-        if (enemigos.Count > 0) {
-            enemigos = enemigos.OrderBy(e => Vector3.Distance(e.agentNPC.Position, npc.agentNPC.Position)).ToList();
-        }
         return enemigos;
     }
 
@@ -68,20 +65,16 @@ public static class UnitsManager {
     public static NPC MedicoCerca(NPC npc) {
         Collider[] hitColliders = Physics.OverlapSphere(npc.agentNPC.Position, rango);
         int i = 0;
-        float minDistancia = float.MaxValue;
-        NPC seleccionados = null;
+
+        NPC seleccionado = null;
         while (i < hitColliders.Length) {
             NPC actualNPC = hitColliders[i].GetComponent<NPC>();
             if (actualNPC != null && actualNPC.team == npc.team && actualNPC.tipo == NPC.TipoUnidad.Medic && !actualNPC.IsDead) {
-                float distancia = Vector3.Distance(actualNPC.agentNPC.Position, npc.agentNPC.Position);
-                if (distancia < minDistancia) {
-                    minDistancia = distancia;
-                    seleccionados = actualNPC;
-                }
+                seleccionado = actualNPC;       
             }
             i++;
         }
-        return seleccionados;
+        return seleccionado;
     }
     
     // devuelve al aliado mas cercano de un NPC

@@ -18,8 +18,6 @@ public class GridDisplayV : MonoBehaviour
 	[SerializeField]
 	Color positiveColor = Color.red;
 	[SerializeField]
-	Color positive2Color = Color.red;
-	[SerializeField]
 	Color negativeColor = Color.blue;
 	[SerializeField]
 	Color negative2Color = Color.blue;
@@ -150,21 +148,18 @@ public class GridDisplayV : MonoBehaviour
 			{
 				Nodo nodo = data.GetValue(x, y);
 				Color c = neutralColor;
-                switch(nodo.costeNodoVisibilidad()){
-                    case 8:
-                        c = Color.Lerp(positiveColor, positive2Color, 0.5f);		//color del bosque y bases
-                        break;
-                    case 24:
-                        c = Color.Lerp(negativeColor, negative2Color,0.5f);			//color de praderas
-                        break;
-                    case 48:
-                        c = Color.Lerp(negative3Color, negative4Color,0.5f);		//color del carreteras y puente
-                        break;
-                    case 0:
-                        c = Color.Lerp(neutralColor, neutralColor,0.5f);			//color de caminos que no se pueden hacer o muros y agua
-                        break;
-                        }
-				
+                if(nodo.visibilidad == 0)				//totalmente visible
+					c = Color.Lerp(negative4Color, negative4Color,0.5f);			
+				else if (nodo.visibilidad > 0 && nodo.visibilidad <= 0.19)			//muy visible
+                    c = Color.Lerp(negative3Color, negative3Color, 0.5f);		
+				else if (nodo.visibilidad > 0.19 && nodo.visibilidad <= 0.39)		//bien visible
+                    c = Color.Lerp(negative2Color, negative2Color,0.5f);			
+				else if (nodo.visibilidad > 0.39 && nodo.visibilidad <= 0.59)		//mal visible
+                    c = Color.Lerp(negativeColor, negativeColor,0.5f);		
+				else if (nodo.visibilidad > 0.59 && nodo.visibilidad <= 0.79)		//muy mal visible
+					c = Color.Lerp(positiveColor, positiveColor,0.5f);
+				else
+					c = Color.Lerp(neutralColor, neutralColor,0.5f);				//no se puede ver
 				SetColor(x, y, c);
 			}
 		}
