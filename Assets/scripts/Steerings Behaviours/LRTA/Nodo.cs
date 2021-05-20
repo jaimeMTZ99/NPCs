@@ -112,7 +112,6 @@ public class Nodo{
         vis /= radio;
 
         visibilidad=vis;
-        Debug.Log(visibilidad);
             
     }
 

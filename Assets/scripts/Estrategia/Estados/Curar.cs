@@ -25,7 +25,8 @@ public class Curar : Estado {
 
             if (Time.time - timer >= 1) {
                 timer = -1;
-                if (npc.health < npc.maxVida)
+                if (npc.maxVida - npc.health >= 100)
+            
                     npc.health += 100;
                 else {
                     curar = true;

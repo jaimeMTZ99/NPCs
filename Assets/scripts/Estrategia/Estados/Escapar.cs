@@ -15,15 +15,7 @@ public class Escapar : Estado {
     private NPC closesMedic;
     private bool pointless;
     
-  /*  public override void EntrarEstado(NPC npc) {
-        lowHealth = npc.health <= npc.menosVida;
-        alliedBase = npc.gameManager.waypointManager.GetNodoAleatorio(npc.gameManager.waypointManager.GetCuracion(npc));
-        distanceToBase = Vector3.Distance(npc.nodoActual.Posicion, alliedBase.Posicion);
-        move = false;
-        goHeal = false;
-        inutil = false;
-    }
-*/
+
     public override void SalirEstado(NPC npc) {
         npc.GetComponent<Path>().ClearPath();
     }
@@ -68,6 +60,7 @@ public override void Accion(NPC npc) {
                 move = true;
                 if (distanceToMedic < distanceToBase && npc.tipo != NPC.TipoUnidad.Medic) {
                     // If I am closer to the medic, go to the medic
+                    Debug.Log("yendo a por el medico cercano la primera vez "  + npc.name);
                     npc.pf.EncontrarCaminoJuego(npc.nodoActual.Posicion, closestMedic.nodoActual.Posicion);
                     return;
                 }
@@ -76,7 +69,7 @@ public override void Accion(NPC npc) {
             } else {
                 if (distanceToMedic < distanceToBase && npc.tipo != NPC.TipoUnidad.Medic) {
                     // I was headed towards my medic
-                    if (npc.nodoActual == startingMedicNodo) {
+                    if (Vector3.Distance(npc.agentNPC.Position, startingMedicNodo.Posicion) < 5) {
                         // I have reached where my medic is supposed to be
                         NPC currentClosestMedic = UnitsManager.MedicoCerca(npc);
                         if (currentClosestMedic == null || Vector3.Distance(npc.agentNPC.Position, currentClosestMedic.agentNPC.Position) > currentClosestMedic.rangedRange) {
@@ -114,7 +107,7 @@ public override void Accion(NPC npc) {
             } else {
                 if (distanceToAlly < distanceToBase) {
                     // I was headed to an ally
-                    if (npc.nodoActual == startingAllyNodo) {
+                    if (Vector3.Distance(npc.agentNPC.Position, startingAllyNodo.Posicion) < 5) {
                         // I have reached my destination
                         if (UnitsManager.EnemigosCerca(npc) > 0) {
                             // There are enemies at the position of my ally, escape to base 
@@ -123,7 +116,7 @@ public override void Accion(NPC npc) {
                             npc.pf.EncontrarCaminoJuego(npc.nodoActual.Posicion, alliedBase.Posicion);
                         }
                         else {
-                            if (startingAllyNodo == alliedBase) {
+                            if (Vector3.Distance(startingAllyNodo.Posicion,alliedBase.Posicion) < 5) {
                                 // The first attempt to escape failed, we are now at base, so might as well heal
                                 goHeal = true;
                             }
@@ -135,7 +128,7 @@ public override void Accion(NPC npc) {
                 }
                 else {
                     // I was headed to base
-                    if (npc.nodoActual == alliedBase) {
+                    if (Vector3.Distance(npc.nodoActual.Posicion,alliedBase.Posicion) < 5) {
                         // I have reached my destination, might as well heal
                         goHeal = true;
                     }
@@ -143,31 +136,6 @@ public override void Accion(NPC npc) {
             } 
         }
     }
-    /*public override void Accion(NPC npc) {
-       if (lowHealth) {
-            if (!move) {
-                move = true;
-                npc.pf.EncontrarCaminoJuego(npc.nodoActual.Posicion, alliedBase.Posicion);
-            } else {
-                if (npc.health <= npc.maxVida)
-                    goHeal = true;
-                else 
-                    inutil = true;
-            }
-        }
-        else {
-            if (!move) {
-                move = true;
-                npc.pf.EncontrarCaminoJuego(npc.nodoActual.Posicion, alliedBase.Posicion);
-            } else{
-                if (npc.health <= npc.maxVida/2 ){
-                    goHeal = true;
-                }
-                else
-                    inutil = true;
-            }
-        }
-    }*/
     public override void Ejecutar(NPC npc) {
         Accion(npc);
         ComprobarEstado(npc);

@@ -185,13 +185,6 @@ public class LRTA : MonoBehaviour
                             break;
                     }
                     v.NodoPadre = actual;
-                   /* Collider[] hitColliders = Physics.OverlapSphere(v.Posicion, 1);
-                    bool hayPersonaje = false;
-                    foreach (Collider c in hitColliders){
-                         if (c.tag == "PathFindingAStar"){
-                            hayPersonaje = true;
-                         }
-                     }*/
                     if (!openSet.Contains(v))
                         openSet.Add(v);
                 }
@@ -250,7 +243,10 @@ public class LRTA : MonoBehaviour
         while (actual != comienzo)
         {
             camino.Add(actual);
-            actual = actual.NodoPadre;
+            if (actual.NodoPadre != null)
+                actual = actual.NodoPadre;
+            else 
+                break;
         }
         camino.Reverse();
         return camino;

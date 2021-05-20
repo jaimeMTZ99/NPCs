@@ -6,7 +6,7 @@ using System.Linq;
 
 public static class UnitsManager {
 
-    private static int rango = 25;        //rango que se establece para detectar colisiones
+    private static int rango = 30;        //rango que se establece para detectar colisiones
 
     // enemigos cerca que puede ver
     public static int EnemigosCerca(NPC npc) {
@@ -17,13 +17,11 @@ public static class UnitsManager {
         while (i < hitColliders.Length) {
             NPC actualNPC = hitColliders[i].GetComponent<NPC>();
             if (actualNPC != null && !nombresEnemigos.Contains(actualNPC.name) && actualNPC.team != npc.team && !actualNPC.IsDead && DirectLine(npc, actualNPC)){
-                Debug.Log(npc.name + " detectó a " + actualNPC.name);
                 nombresEnemigos.Add(actualNPC.name);
                 result++;
             }
             i++;
         }
-        Debug.Log("Enemigos cerca " + result + npc.name);
         return result;
     }
 
@@ -77,7 +75,7 @@ public static class UnitsManager {
         NPC aliado = null;
         while (i < hitColliders.Length) {
             NPC actualNPC = hitColliders[i].GetComponent<NPC>();
-            if (actualNPC != null && actualNPC.team == npc.team && !actualNPC.IsDead) {
+            if (actualNPC != null && actualNPC.team == npc.team && !actualNPC.IsDead && npc.name != actualNPC.name) {
                 float distancia = Vector3.Distance(actualNPC.agentNPC.Position, npc.agentNPC.Position);
                 if (distancia < minDistancia) {
                     minDistancia = distancia;
