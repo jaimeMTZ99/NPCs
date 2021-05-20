@@ -119,6 +119,7 @@ public class NPC : MonoBehaviour
     void Update()
     {
         if (currentState != null){
+            Debug.Log(currentState + this.name);
             currentState.Ejecutar(this);
         }
 

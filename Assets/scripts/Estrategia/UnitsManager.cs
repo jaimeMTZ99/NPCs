@@ -9,19 +9,24 @@ public static class UnitsManager {
 
     // Defines the range for each of the OverlapShere calls used in this script
     // Essentially, it is the distance at which a unit can "see"
-    private static int sphereRange = 25;
+    private static int sphereRange = 30;
 
     // Returns the number of enemies near that the unit can see
     public static int EnemigosCerca(NPC npc) {
         int result = 0;
-        Collider[] hitColliders = Physics.OverlapSphere(npc.agentNPC.Position, 5);
+        List<string> nombresEnemigos= new List<string>();
+        Collider[] hitColliders = Physics.OverlapSphere(npc.agentNPC.Position, 9);
         int i = 0;
         while (i < hitColliders.Length) {
             NPC actualNPC = hitColliders[i].GetComponent<NPC>();
-            if (actualNPC != null && actualNPC.team != npc.team && !actualNPC.IsDead && DirectLine(npc, actualNPC))
+            if (actualNPC != null && !nombresEnemigos.Contains(actualNPC.name) && actualNPC.team != npc.team && !actualNPC.IsDead && DirectLine(npc, actualNPC)){
+                Debug.Log(npc.name + " detectó a " + actualNPC.name);
+                nombresEnemigos.Add(actualNPC.name);
                 result++;
+            }
             i++;
         }
+        Debug.Log("Enemigos cerca " + result + npc.name);
         return result;
     }
 
@@ -54,9 +59,6 @@ public static class UnitsManager {
         if (enemies.Count > 0) {
             enemies = enemies.OrderBy(e => Vector3.Distance(e.agentNPC.Position, npc.agentNPC.Position)).ToList();
         }
-        if (npc.name == "MeleeFra 1" || npc.name == "MeleeEsp 2"){
-            Debug.Log("Enemigos detectados del npc " + npc.name + " " + enemies.Count);
-        }
         return enemies;
     }
 
@@ -88,7 +90,7 @@ public static class UnitsManager {
         NPC allySelected = null;
         while (i < hitColliders.Length) {
             NPC actualNPC = hitColliders[i].GetComponent<NPC>();
-            if (actualNPC != null && actualNPC.team == npc.team && !actualNPC.IsDead) {
+            if (actualNPC != null && actualNPC.team == npc.team && !actualNPC.IsDead && actualNPC.name != npc.name) {
                 float distance = Vector3.Distance(actualNPC.agentNPC.Position, npc.agentNPC.Position);
                 if (distance < minimalDistance) {
                     minimalDistance = distance;
@@ -111,7 +113,7 @@ public static class UnitsManager {
         while (i < hitColliders.Length) {
             NPC actualNPC = hitColliders[i].GetComponent<NPC>();
             if (actualNPC != null && actualNPC.team == npc.team && DirectLine(npc, actualNPC) && !actualNPC.IsDead) {
-                if (actualNPC.health <= actualNPC.maxVida/2)
+                if (actualNPC.health <= actualNPC.healthy)
                     lowHealth.Add(actualNPC);
             }
             i++;

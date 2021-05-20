@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour {
     public WaypointManager waypointManager;
     [SerializeField]
 
-    private float minDistance = 5;
+    private float minDistance = 3.5f;
 
 
     //GUI de ganar o restear el juego
@@ -101,8 +101,9 @@ public class GameManager : MonoBehaviour {
     // Return true if the NPC is on base
     public bool InCuracion(NPC npc) {
         foreach (Transform position in waypointManager.GetCuracion(npc).posiciones) {
-            if (Vector3.Distance(npc.agentNPC.Position, position.position) <= minDistance)
+            if (Vector3.Distance(npc.agentNPC.Position, position.position) <= minDistance){
                 return true;
+            }
         }
         return false;
     }

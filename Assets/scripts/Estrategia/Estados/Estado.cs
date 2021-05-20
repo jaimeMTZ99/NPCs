@@ -64,7 +64,7 @@ public abstract class Estado
         if (npc.gameManager.totalWarMode)
             return false;
         
-        if (npc.health <= npc.menosVida || UnitsManager.EnemigosCerca(npc) > npc.numEnemigosEscape) {
+        if (npc.health <= npc.menosVida || UnitsManager.EnemigosCerca(npc) >= npc.numEnemigosEscape) {
             npc.CambiarEstado(npc.estadoEscapar);
             return true;
         }
@@ -91,7 +91,6 @@ public abstract class Estado
         if (enemigos != null && enemigos.Count > 0) {
             if (npc.tipo == NPC.TipoUnidad.Brawler || npc.tipo == NPC.TipoUnidad.Medic) {
                     if (!npc.gameManager.InCuracion(npc) && !npc.gameManager.InCuracion(enemigos[0])) {
-                        Debug.Log("Entrando en estado ataque melee" + npc.name);
                         npc.CambiarEstado(npc.estadoAtaqueMelee, enemigos[0]);
                         return true;
                     }
