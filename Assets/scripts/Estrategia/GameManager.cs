@@ -15,28 +15,27 @@ public class GameManager : MonoBehaviour {
     private float minDistance = 5;
 
 
-    //GUI de ganar o restear el juego
+    //GUI de ganar o resetear el juego
     [SerializeField] private GameObject espanaGana;
     [SerializeField] private GameObject franciaGana;
 
     [SerializeField] private GameObject mapaInf;
     [SerializeField] private GameObject mapaVis;
-    // Start is called before the first frame update
-    void Start()
+
+    void Start()        //inicializamos el gameManager
     {
         foreach (NPC npc in npcs) {
             npc.gameManager = this;
             npc.gridMap = gridMap;
         }
         waypointManager.gm = this;
-        waypointManager.grid = gridMap;
-       // strategyInputManager.GameManager = this;
+
     }
     
     void Update() {
         bool capturaFrancia = false;
         bool capturaEspana = false;
-        foreach (NPC npc in npcs) {
+        foreach (NPC npc in npcs) {             //vamos estableciendo quien va ganando puntos por capturar
             if (!npc.IsDead && NPCInWaypoint(npc, waypointManager.GetRival(npc))) {
                 if (npc.team == NPC.Equipo.Spain)
                     capturaEspana = true;
@@ -52,33 +51,33 @@ public class GameManager : MonoBehaviour {
         }
     }
     
-    public int EnemigosCheckpoint(NPC npc) {
-        int enemiesAtCheckpoint = 0;
+    public int EnemigosCheckpoint(NPC npc) {            //para saber cuantos enemigos hay
+        int enemigos = 0;
         foreach (NPC npc2 in npcs) {
             if (npc2.team != npc.team && !npc2.IsDead) {
                 foreach (Transform position in waypointManager.GetEquipo(npc).posiciones) {
                     if (Vector3.Distance(npc2.agentNPC.Position, position.position) <= minDistance)
-                        enemiesAtCheckpoint++;
+                        enemigos++;
                 }
             }
         }
-        return enemiesAtCheckpoint;
+        return enemigos;
     }
 
-    public int AliadosCapturando(NPC npc) {
-        int alliesCapturing = 0;
+    public int AliadosCapturando(NPC npc) {     //para indicar cuantos aliados estan capturando la base enemiga en ese momento
+        int capturando = 0;
         foreach (NPC npc2 in npcs) {
             if (npc2.team == npc.team && !npc2.IsDead) {
                 foreach (Transform position in waypointManager.GetRival(npc).posiciones) {
                     if (Vector3.Distance(npc2.agentNPC.Position, position.position) <= minDistance)
-                        alliesCapturing++;
+                        capturando++;
                 }
             }
         }
-        return alliesCapturing;
+        return capturando;
     }
 
-    public bool EnemigosDefendiendo(NPC npc) {
+    public bool EnemigosDefendiendo(NPC npc) {      //para indicar si hay enemigos defendiendo la base enemiga
         Waypoint enemyCheckpoint = waypointManager.GetRival(npc);
         foreach (NPC npc2 in npcs) {
             if(npc2.team != npc.team && !npc2.IsDead) {
@@ -89,7 +88,7 @@ public class GameManager : MonoBehaviour {
         return false;
     }
 
-    // Return true if the NPC is on base
+    // Para saber si un npc esta en una base
     public bool InBase(NPC npc) {
         foreach (Transform position in waypointManager.GetBase(npc).posiciones) {
             if (Vector3.Distance(npc.agentNPC.Position, position.position) <= minDistance)
@@ -98,7 +97,7 @@ public class GameManager : MonoBehaviour {
         return false;
     }
 
-    // Return true if the NPC is on base
+    // Para saber si un npc esta en una zona de curacion
     public bool InCuracion(NPC npc) {
         foreach (Transform position in waypointManager.GetCuracion(npc).posiciones) {
             if (Vector3.Distance(npc.agentNPC.Position, position.position) <= minDistance)
@@ -115,7 +114,7 @@ public class GameManager : MonoBehaviour {
         return false;
     }
 
-    public void CambiarModoOfensivo(NPC.Equipo team) {
+    public void CambiarModoOfensivo(NPC.Equipo team) { 
         foreach (NPC npc in npcs)
             if (npc.team == team)
                 npc.DispararModoOfensivo();
@@ -148,7 +147,7 @@ public class GameManager : MonoBehaviour {
     public void Restart() {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
-    public void cambiarVista() {
+    public void cambiarVista() {        //para cambiar entre los modos del minimapa
         if(mapaInf.activeSelf){
             mapaInf.SetActive(false);
             mapaVis.SetActive(true);

@@ -55,9 +55,8 @@ public class Curar : Estado {
         if (inutil)
             npc.CambiarEstado(npc.estadoAsignado);
         
-        if (curar) {
+        if (curar) 
             npc.CambiarEstado(npc.estadoAsignado);
-        }
 
     }
 

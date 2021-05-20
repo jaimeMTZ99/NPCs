@@ -151,11 +151,11 @@ public class GridDisplay : MonoBehaviour
 
 	void Update()
 	{
-		for (int yIdx = 0; yIdx < data.Height; ++yIdx)
+		for (int y = 0; y < data.Height; ++y)
 		{
-			for (int xIdx = 0; xIdx < data.Width; ++xIdx)
+			for (int x = 0; x < data.Width; ++x)
 			{
-				Nodo nodo = data.GetValue(xIdx, yIdx);
+				Nodo nodo = data.GetValue(x, y);
 				Color c = neutralColor;
 				if (nodo.influence < -0.5f)
 					c = Color.Lerp(negativeColor, negative2Color, -(nodo.influence+0.5f)/0.5f);
@@ -166,7 +166,7 @@ public class GridDisplay : MonoBehaviour
 				else 
 					c = Color.Lerp(neutralColor, positiveColor, nodo.influence/0.5f);
 				
-				SetColor(xIdx, yIdx, c);
+				SetColor(x, y, c);
 			}
 		}
 		

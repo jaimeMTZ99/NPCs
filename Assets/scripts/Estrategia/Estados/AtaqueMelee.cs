@@ -94,9 +94,7 @@ public class AtaqueMelee : Estado
             return;
         }
         if (!inutil && ComprobarAtaqueRangoMelee(npc))
-        {
             return;
-        }
         npc.CambiarEstado(npc.estadoAsignado);
     }
 

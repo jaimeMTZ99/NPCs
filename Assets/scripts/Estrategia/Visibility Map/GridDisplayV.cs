@@ -2,9 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 
-// takes care of creating the mesh that will display the influence map
-
-
 public class GridDisplayV : MonoBehaviour
 {
 	MeshRenderer meshRenderer;
@@ -18,22 +15,16 @@ public class GridDisplayV : MonoBehaviour
 	
 	[SerializeField]
 	Color neutralColor = Color.black;
-	
 	[SerializeField]
 	Color positiveColor = Color.red;
-	
 	[SerializeField]
 	Color positive2Color = Color.red;
-	
 	[SerializeField]
 	Color negativeColor = Color.blue;
-	
 	[SerializeField]
 	Color negative2Color = Color.blue;
-
 	[SerializeField]
 	Color negative3Color = Color.blue;
-	
 	[SerializeField]
 	Color negative4Color = Color.blue;
 	
@@ -50,7 +41,6 @@ public class GridDisplayV : MonoBehaviour
 		mesh.name = name;
 		meshFilter = gameObject.AddComponent(typeof(MeshFilter)) as MeshFilter;
 		meshRenderer = gameObject.AddComponent(typeof(MeshRenderer)) as MeshRenderer;
-		
 		meshFilter.mesh = mesh;
 		meshRenderer.material = material;
 		
@@ -58,17 +48,16 @@ public class GridDisplayV : MonoBehaviour
 		float staX = 0;
 		float staZ = 0;
 		
-		// create squares starting at bottomLeftPos
 		List<Vector3> verts = new List<Vector3>();
-		for (int yIdx = 0; yIdx < data.Height; ++yIdx)
+		for (int y = 0; y < data.Height; ++y)
 		{
-			for (int xIdx = 0; xIdx < data.Width; ++xIdx)
+			for (int x = 0; x < data.Width; ++x)
 			{
 				
-				Vector3 bl = new Vector3(staX + (xIdx * gridSize), objectHeight, staZ + (yIdx * gridSize));
-				Vector3 br = new Vector3(staX + ((xIdx+1) * gridSize), objectHeight, staZ + (yIdx * gridSize));
-				Vector3 tl = new Vector3(staX + (xIdx * gridSize), objectHeight, staZ + ((yIdx+1) * gridSize));
-				Vector3 tr = new Vector3(staX + ((xIdx+1) * gridSize), objectHeight, staZ + ((yIdx+1) * gridSize));
+				Vector3 bl = new Vector3(staX + (x * gridSize), objectHeight, staZ + (y * gridSize));
+				Vector3 br = new Vector3(staX + ((x+1) * gridSize), objectHeight, staZ + (y * gridSize));
+				Vector3 tl = new Vector3(staX + (x * gridSize), objectHeight, staZ + ((y+1) * gridSize));
+				Vector3 tr = new Vector3(staX + ((x+1) * gridSize), objectHeight, staZ + ((y+1) * gridSize));
 				
 				
 				verts.Add(bl);
@@ -79,9 +68,9 @@ public class GridDisplayV : MonoBehaviour
 		}
 		
 		List<Color> colors = new List<Color>();
-		for (int yIdx = 0; yIdx < data.Height; ++yIdx)
+		for (int y = 0; y < data.Height; ++y)
 		{
-			for (int xIdx = 0; xIdx < data.Width; ++xIdx)
+			for (int x = 0; x < data.Width; ++x)
 			{
 				colors.Add(Color.white);
 				colors.Add(Color.white);
@@ -92,9 +81,9 @@ public class GridDisplayV : MonoBehaviour
 		colorsArray = colors.ToArray();
 		
 		List<Vector3> norms = new List<Vector3>();
-		for (int yIdx = 0; yIdx < data.Height; ++yIdx)
+		for (int y = 0; y < data.Height; ++y)
 		{
-			for (int xIdx = 0; xIdx < data.Width; ++xIdx)
+			for (int x = 0; x < data.Width; ++x)
 			{
 				norms.Add(Vector3.up);
 				norms.Add(Vector3.up);
@@ -104,9 +93,9 @@ public class GridDisplayV : MonoBehaviour
 		}
 		
 		List<Vector2> uvs = new List<Vector2>();
-		for (int yIdx = 0; yIdx < data.Height; ++yIdx)
+		for (int y = 0; y < data.Height; ++y)
 		{
-			for (int xIdx = 0; xIdx < data.Width; ++xIdx)
+			for (int x = 0; x < data.Width; ++x)
 			{
 				uvs.Add(new Vector2(0, 0));
 				uvs.Add(new Vector2(1, 0));
@@ -142,11 +131,11 @@ public class GridDisplayV : MonoBehaviour
 	
 	void SetColor(int x, int y, Color c)
 	{
-		int idx = ((y * data.Width) + x) * 4;
-		colorsArray[idx] = c;
-		colorsArray[idx+1] = c;
-		colorsArray[idx+2] = c;
-		colorsArray[idx+3] = c;
+		int i = ((y * data.Width) + x) * 4;
+		colorsArray[i] = c;
+		colorsArray[i+1] = c;
+		colorsArray[i+2] = c;
+		colorsArray[i+3] = c;
 	}
 
 	void Update()
@@ -155,28 +144,28 @@ public class GridDisplayV : MonoBehaviour
 
 	}
 	else{
-		for (int yIdx = 0; yIdx < data.Height; ++yIdx)
+		for (int y = 0; y < data.Height; ++y)
 		{
-			for (int xIdx = 0; xIdx < data.Width; ++xIdx)
+			for (int x = 0; x < data.Width; ++x)
 			{
-				Nodo nodo = data.GetValue(xIdx, yIdx);
+				Nodo nodo = data.GetValue(x, y);
 				Color c = neutralColor;
                 switch(nodo.costeNodoVisibilidad()){
                     case 8:
-                        c = Color.Lerp(positiveColor, positive2Color, 0.5f);
+                        c = Color.Lerp(positiveColor, positive2Color, 0.5f);		//color del bosque y bases
                         break;
                     case 24:
-                        c = Color.Lerp(negativeColor, negative2Color,0.5f);
+                        c = Color.Lerp(negativeColor, negative2Color,0.5f);			//color de praderas
                         break;
                     case 48:
-                        c = Color.Lerp(negative3Color, negative4Color,0.5f);
+                        c = Color.Lerp(negative3Color, negative4Color,0.5f);		//color del carreteras y puente
                         break;
                     case 0:
-                        c = Color.Lerp(neutralColor, neutralColor,0.5f);
+                        c = Color.Lerp(neutralColor, neutralColor,0.5f);			//color de caminos que no se pueden hacer o muros y agua
                         break;
                         }
 				
-				SetColor(xIdx, yIdx, c);
+				SetColor(x, y, c);
 			}
 		}
 		

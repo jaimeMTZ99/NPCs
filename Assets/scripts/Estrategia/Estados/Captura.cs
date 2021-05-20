@@ -39,10 +39,9 @@ public class Captura : Estado {
                 var posicion = npc.nodoActual.Posicion;
                 var distanciaBaseEnemiga = Vector3.Distance(baseAliada, posicion);
                 var distanciaBaseAliada = Vector3.Distance(baseEnemiga, posicion);
-                if (distanciaBaseAliada <= distanciaBaseEnemiga) {
+                if (distanciaBaseAliada <= distanciaBaseEnemiga) 
                     inutil = true;
-                }
-
+            
             }
         }
     }

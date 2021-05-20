@@ -21,92 +21,76 @@ public class InterfazEstrategia : MonoBehaviour
 
 
 
-    public void CambiarModoSpa(bool offensive) {
+    public void CambiarModoSpa(bool offensive) {            //cambiar el modo de actuar del equipo Spain
         if (totalWar) {
-
             totalWar = false;
-
-            if (FraAttack) {
+            if (FraAttack) 
                 gameManager.CambiarModoOfensivo(NPC.Equipo.France);
-                
-            } else {
+            else 
                 gameManager.CambiarModoOfensivo(NPC.Equipo.France);
-            }
-
+        
             SpaAttack = offensive;
 
-            if (SpaAttack) {
-
-                gameManager.CambiarModoOfensivo(NPC.Equipo.Spain);
-                
-            } else {
+            if (SpaAttack) 
+                gameManager.CambiarModoOfensivo(NPC.Equipo.Spain);  
+             else 
                 gameManager.CambiarModoDefensivo(NPC.Equipo.Spain);
-                
-            }
             
         } else if (SpaAttack != offensive) {
             SpaAttack = offensive;
 
-            if (SpaAttack) {
+            if (SpaAttack) 
                 gameManager.CambiarModoOfensivo(NPC.Equipo.Spain);
-            } else {
+            else 
                 gameManager.CambiarModoDefensivo(NPC.Equipo.Spain);
-                
-            }
                 
         }
     }
     
-    public void CambiarModoFra(bool offensive) {
+    public void CambiarModoFra(bool offensive) {        //cambiar el modo de actuar del equipo France
         if (totalWar) {
 
             totalWar = false;
-            if (SpaAttack) {
+            if (SpaAttack) 
                 gameManager.CambiarModoOfensivo(NPC.Equipo.Spain);
-            } else {
+            else 
                 gameManager.CambiarModoDefensivo(NPC.Equipo.Spain);          
-            }
-
+            
             FraAttack = offensive;
 
-            if (FraAttack) {
+            if (FraAttack) 
                 gameManager.CambiarModoOfensivo(NPC.Equipo.France);    
-            } else {
+            else 
                 gameManager.CambiarModoDefensivo(NPC.Equipo.France);
-            }
+            
 
         } else if (FraAttack != offensive) {
             FraAttack = offensive;
 
-            if (FraAttack) {
+            if (FraAttack)
                 gameManager.CambiarModoOfensivo(NPC.Equipo.France);
-                
-            } else {
+            else 
                 gameManager.CambiarModoDefensivo(NPC.Equipo.France);
-                
-            }
                 
         }
     }
 
 
-    public void TotalWarMode() {
+    public void TotalWarMode() {            //ambos equipos entran en modo Guerra total
         if (totalWar)
             return;
         totalWar = true;
 
-        if (SpaAttack){
+        if (SpaAttack)
             SpaAttack = false;
-        }
 
-        if (FraAttack){
+        if (FraAttack)
             FraAttack = false;
-        }
 
         gameManager.ModoGuerraTotal();
     }
 
-    public void Restart() {
+    public void Restart() {             //resetear partida
         
         gameManager.Restart();
     }

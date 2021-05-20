@@ -10,15 +10,15 @@ public interface IPropagator
 public class SimplePropagator : MonoBehaviour, IPropagator
 {
 	[SerializeField]
-	float _value;
+	float valor;			//valor del propagador
 	public float Value {
-		get => _value;
-		set => _value = value;
+		get => valor;
+		set => valor = value;
 	}
 
 	[SerializeField]
-	InfluenceMapControl _map;
+	InfluenceMapControl map;
 
-	public Vector2I GridPosition => _map.GetGridPosition(transform.position);
+	public Vector2I GridPosition => map.GetGridPosition(transform.position);
 	
 }

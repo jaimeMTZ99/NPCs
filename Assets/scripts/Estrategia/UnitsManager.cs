@@ -6,104 +6,108 @@ using System.Linq;
 
 public static class UnitsManager {
 
+    private static int rango = 25;        //rango que se establece para detectar colisiones
 
-    // Defines the range for each of the OverlapShere calls used in this script
-    // Essentially, it is the distance at which a unit can "see"
-    private static int sphereRange = 25;
 
-    // Returns the number of enemies near that the unit can see
-    public static int EnemigosCerca(NPC npc) {
-        int result = 0;
-        Collider[] hitColliders = Physics.OverlapSphere(npc.agentNPC.Position, 5);
-        int i = 0;
-        while (i < hitColliders.Length) {
-            NPC actualNPC = hitColliders[i].GetComponent<NPC>();
-            if (actualNPC != null && actualNPC.team != npc.team && !actualNPC.IsDead && DirectLine(npc, actualNPC))
-                result++;
-            i++;
-        }
-        return result;
-    }
-
-    // Returns the number of allies near that the unit can see
+    // numero de aliados cerca de un npc
     public static int AliadosCerca(NPC npc) {
-        int result = 0;
+        int resultado = 0;
         Collider[] hitColliders = Physics.OverlapSphere(npc.agentNPC.Position, 5);
         int i = 0;
         while (i < hitColliders.Length) {
             NPC actualNPC = hitColliders[i].GetComponent<NPC>();
             if (actualNPC != null && actualNPC.team == npc.team && !actualNPC.IsDead && DirectLine(npc, actualNPC))
-                result++;
+                resultado++;
             i++;
         }
-        return result;
+        return resultado;
     }
-    
-    // Returns all enemies within the visible range ordered by distance
+
+    // comprobamos si hay algo en medio entre el atacante y el atacado
+    public static bool DirectLine(NPC atacante, NPC atacado) {
+        RaycastHit hit;
+        var direction = atacado.agentNPC.Position - atacante.agentNPC.Position;
+        if (Physics.Raycast(atacante.agentNPC.Position, direction, out hit))
+            return hit.collider.GetComponent<NPC>() == atacado;
+        return false;
+    }
+
+    // numero de enemigos que un NPC puede ver
+    public static int EnemigosCerca(NPC npc) {
+        int resultado = 0;
+        Collider[] hitColliders = Physics.OverlapSphere(npc.agentNPC.Position, 5);
+        int i = 0;
+        while (i < hitColliders.Length) {
+            NPC actualNPC = hitColliders[i].GetComponent<NPC>();
+            if (actualNPC != null && actualNPC.team != npc.team && !actualNPC.IsDead && DirectLine(npc, actualNPC))
+                resultado++;
+            i++;
+        }
+        return resultado;
+    }
+
+    // enemigos dentro del rango de un NPC
     public static List<NPC> EnemigosEnRango(NPC npc) {
-        List<NPC> enemies = new List<NPC>();
+        List<NPC> enemigos = new List<NPC>();
         Collider[] hitColliders = Physics.OverlapSphere(npc.agentNPC.Position, npc.rangedRange);
         int i = 0;
         while (i < hitColliders.Length) {
             NPC actualNPC = hitColliders[i].GetComponent<NPC>();
             if (actualNPC != null && actualNPC.team != npc.team && DirectLine(npc, actualNPC) && !actualNPC.IsDead) {
-                enemies.Add(actualNPC);
+                enemigos.Add(actualNPC);
             }
             i++;
         }
-        if (enemies.Count > 0) {
-            enemies = enemies.OrderBy(e => Vector3.Distance(e.agentNPC.Position, npc.agentNPC.Position)).ToList();
+        if (enemigos.Count > 0) {
+            enemigos = enemigos.OrderBy(e => Vector3.Distance(e.agentNPC.Position, npc.agentNPC.Position)).ToList();
         }
-        if (npc.name == "MeleeFra 1" || npc.name == "MeleeEsp 2"){
-            Debug.Log("Enemigos detectados del npc " + npc.name + " " + enemies.Count);
-        }
-        return enemies;
+        return enemigos;
     }
 
-    // Returns the closest medic alive to the unit
+    // devuelve quien es el agente medico mas cercano (posiblemente metamos mas medicos)
     public static NPC MedicoCerca(NPC npc) {
-        Collider[] hitColliders = Physics.OverlapSphere(npc.agentNPC.Position, sphereRange);
+        Collider[] hitColliders = Physics.OverlapSphere(npc.agentNPC.Position, rango);
         int i = 0;
-        float minimalDistance = float.MaxValue;
-        NPC selected = null;
+        float minDistancia = float.MaxValue;
+        NPC seleccionados = null;
         while (i < hitColliders.Length) {
             NPC actualNPC = hitColliders[i].GetComponent<NPC>();
             if (actualNPC != null && actualNPC.team == npc.team && actualNPC.tipo == NPC.TipoUnidad.Medic && !actualNPC.IsDead) {
-                float distance = Vector3.Distance(actualNPC.agentNPC.Position, npc.agentNPC.Position);
-                if (distance < minimalDistance) {
-                    minimalDistance = distance;
-                    selected = actualNPC;
+                float distancia = Vector3.Distance(actualNPC.agentNPC.Position, npc.agentNPC.Position);
+                if (distancia < minDistancia) {
+                    minDistancia = distancia;
+                    seleccionados = actualNPC;
                 }
             }
             i++;
         }
-        return selected;
+        return seleccionados;
     }
     
-    // Returns the closes ally, if any
+    // devuelve al aliado mas cercano de un NPC
     public static NPC AliadoCercano(NPC npc) {
-        Collider[] hitColliders = Physics.OverlapSphere(npc.agentNPC.Position, sphereRange);
+        Collider[] hitColliders = Physics.OverlapSphere(npc.agentNPC.Position, rango);
         int i = 0;
-        float minimalDistance = float.MaxValue;
-        NPC allySelected = null;
+        float minDistancia = float.MaxValue;
+        NPC aliado = null;
         while (i < hitColliders.Length) {
             NPC actualNPC = hitColliders[i].GetComponent<NPC>();
             if (actualNPC != null && actualNPC.team == npc.team && !actualNPC.IsDead) {
-                float distance = Vector3.Distance(actualNPC.agentNPC.Position, npc.agentNPC.Position);
-                if (distance < minimalDistance) {
-                    minimalDistance = distance;
-                    allySelected = actualNPC;
+                float distancia = Vector3.Distance(actualNPC.agentNPC.Position, npc.agentNPC.Position);
+                if (distancia < minDistancia) {
+                    minDistancia = distancia;
+                    aliado = actualNPC;
                 }  
             }
             i++;
         }
 
-        if (allySelected != null)
-            return allySelected;
+        if (aliado != null)
+            return aliado;
         return null;
     }
     
-    // Find the ally with the lowest health between all close units that are "LowHealth"
+    //devuelve el aliado con menos vida
     public static NPC ElegirAliado(NPC npc) {
         List<NPC> lowHealth = new List<NPC>();
         Collider[] hitColliders = Physics.OverlapSphere(npc.agentNPC.Position, npc.rangedRange);
@@ -121,15 +125,6 @@ public static class UnitsManager {
             return lowHealth[0];
         }
         return null;
-    }
-
-    // Are there any obstacles between the attacker and the target?
-    public static bool DirectLine(NPC attacker, NPC attacked) {
-        RaycastHit hit;
-        var direction = attacked.agentNPC.Position - attacker.agentNPC.Position;
-        if (Physics.Raycast(attacker.agentNPC.Position, direction, out hit))
-            return hit.collider.GetComponent<NPC>() == attacked;
-        return false;
     }
 
 }

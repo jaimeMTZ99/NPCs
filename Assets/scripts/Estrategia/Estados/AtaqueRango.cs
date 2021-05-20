@@ -54,9 +54,9 @@ public class AtaqueRango : Estado  {
             f.aux = null;
             return;
         }
-        if (!inutil && (ComprobarAtaqueRangoMedico(npc) || ComprobarAtaqueRangoMelee(npc))){
+        if (!inutil && (ComprobarAtaqueRangoMedico(npc) || ComprobarAtaqueRangoMelee(npc)))
             return;
-        }
+        
         npc.CambiarEstado(npc.estadoAsignado);
     }
 }

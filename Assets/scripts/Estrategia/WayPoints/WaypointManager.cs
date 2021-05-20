@@ -6,8 +6,6 @@ using UnityEngine;
 
 public class WaypointManager : MonoBehaviour
 {
-
-
     public Grid grid;
 
     public GameManager gm;
@@ -76,9 +74,8 @@ public class WaypointManager : MonoBehaviour
         }
         return grid.GetNodoPosicionGlobal(coberturaCercana);
     }
-
+    //Establecemos que se esta capturando una base 
     public void Captura(NPC npc) {
-        Debug.Log(npc.name + " capturando base enemiga");
         if (npc.team == NPC.Equipo.France) {
             zonaESP.porcentajeCaptura += 0.25f;
             if (zonaESP.porcentajeCaptura >= 500)
@@ -90,7 +87,7 @@ public class WaypointManager : MonoBehaviour
                 gm.EspanaGana();
         }
     }
-
+                //si el equipo contrario esta capturando se le bajan puntos al otro equipo
     public void EspCapturando() {
         if (zonaFRA.porcentajeCaptura > 0)
             zonaFRA.porcentajeCaptura -= 2f;

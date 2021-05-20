@@ -26,9 +26,4 @@ public class Waypoint : MonoBehaviour
         if (wpClase == WayPointClase.zonaESP || wpClase == WayPointClase.zonaFRA)
             porcentajeCaptura = 0;
     }
-
-    void Update() {
-        /*if (_healthBar != null)
-            _healthBar.UpdateBar(_capturePercentage, 100);*/
-    }
 }

@@ -3,14 +3,9 @@ using UnityEngine;
 public class Escapar : Estado {
 
     private bool goHeal;
-    private bool pointless;
+    private bool inutil;
     private bool lowHealth;
-    private NPC closestMedic;
     private Nodo alliedBase;
-    private Nodo startingAllyNodo;
-    private Nodo startingMedicNodo;
-    private float distanceToMedic;
-    private float distanceToAlly;
     private float distanceToBase;
     
     public override void EntrarEstado(NPC npc) {
@@ -19,7 +14,7 @@ public class Escapar : Estado {
         distanceToBase = Vector3.Distance(npc.nodoActual.Posicion, alliedBase.Posicion);
         move = false;
         goHeal = false;
-        pointless = false;
+        inutil = false;
     }
 
     public override void SalirEstado(NPC npc) {
@@ -32,12 +27,10 @@ public class Escapar : Estado {
                 move = true;
                 npc.pf.EncontrarCaminoJuego(npc.nodoActual.Posicion, alliedBase.Posicion);
             } else {
-                if (npc.health <= npc.maxVida){
+                if (npc.health <= npc.maxVida)
                     goHeal = true;
-                }
-                else {
-                    pointless = true;
-                }
+                else 
+                    inutil = true;
             }
         }
         else {
@@ -49,7 +42,7 @@ public class Escapar : Estado {
                     goHeal = true;
                 }
                 else
-                    pointless = true;
+                    inutil = true;
             }
         }
     }
@@ -62,14 +55,10 @@ public class Escapar : Estado {
     public override void ComprobarEstado(NPC npc) {
         if (ComprobarMuerto(npc))
             return;
-        if (goHeal){
+        if (goHeal)
             npc.CambiarEstado(npc.estadoCuracion);
-        }
-        if (pointless) {
+        if (inutil) 
             npc.CambiarEstado(npc.estadoAsignado);
-        }
-        
-        
     }
 
 }
