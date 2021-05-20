@@ -113,7 +113,6 @@ public class NPC : MonoBehaviour
     void Update()
     {
         if (currentState != null){
-            Debug.Log(currentState + this.name);
             currentState.Ejecutar(this);
         }
         agentNPC.maxSpeed =  gridMap.GetNodoPosicionGlobal(agentNPC.Position).SpeedMultiplier(tipo);
