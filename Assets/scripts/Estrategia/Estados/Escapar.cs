@@ -5,8 +5,15 @@ public class Escapar : Estado {
     private bool goHeal;
     private bool inutil;
     private bool lowHealth;
+    private NPC closestMedic;
     private Nodo alliedBase;
+    private Nodo startingAllyNodo;
+    private Nodo startingMedicNodo;
+    private float distanceToMedic;
+    private float distanceToAlly;
     private float distanceToBase;
+    private NPC closesMedic;
+    private bool pointless;
     
   /*  public override void EntrarEstado(NPC npc) {
         lowHealth = npc.health <= npc.menosVida;
@@ -176,5 +183,4 @@ public override void Accion(NPC npc) {
             npc.CambiarEstado(npc.estadoAsignado);
         }
     }
-
 }

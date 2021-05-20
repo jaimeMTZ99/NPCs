@@ -8,7 +8,7 @@ public static class UnitsManager {
 
     private static int rango = 25;        //rango que se establece para detectar colisiones
 
-    // Returns the number of enemies near that the unit can see
+    // enemigos cerca que puede ver
     public static int EnemigosCerca(NPC npc) {
         int result = 0;
         List<string> nombresEnemigos= new List<string>();
@@ -35,21 +35,6 @@ public static class UnitsManager {
             return hit.collider.GetComponent<NPC>() == atacado;
         return false;
     }
-
-    // numero de enemigos que un NPC puede ver
-    public static int EnemigosCerca(NPC npc) {
-        int resultado = 0;
-        Collider[] hitColliders = Physics.OverlapSphere(npc.agentNPC.Position, 5);
-        int i = 0;
-        while (i < hitColliders.Length) {
-            NPC actualNPC = hitColliders[i].GetComponent<NPC>();
-            if (actualNPC != null && actualNPC.team != npc.team && !actualNPC.IsDead && DirectLine(npc, actualNPC))
-                resultado++;
-            i++;
-        }
-        return resultado;
-    }
-
     // enemigos dentro del rango de un NPC
     public static List<NPC> EnemigosEnRango(NPC npc) {
         List<NPC> enemigos = new List<NPC>();
@@ -62,10 +47,10 @@ public static class UnitsManager {
             }
             i++;
         }
-        if (enemies.Count > 0) {
-            enemies = enemies.OrderBy(e => Vector3.Distance(e.agentNPC.Position, npc.agentNPC.Position)).ToList();
+        if (enemigos.Count > 0) {
+            enemigos = enemigos.OrderBy(e => Vector3.Distance(e.agentNPC.Position, npc.agentNPC.Position)).ToList();
         }
-        return enemies;
+        return enemigos;
     }
 
     // devuelve quien es el agente medico mas cercano (posiblemente metamos mas medicos)
