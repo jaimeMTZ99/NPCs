@@ -27,7 +27,7 @@ public class Nodo{
     public float ihCost;  //coste destino
     public float FCost { get { return igCost + ihCost; } } //Suma de costes
     
-    public int radio = 25;
+    public int radio = 10;
     public float visibilidad =0;
 
     public TerrainType terrainType;
@@ -91,17 +91,22 @@ public class Nodo{
         int rayos = 10;
         float angulo = 0;
         for (int i = 0; i < rayos; i++) {
-            float x = Mathf.Sin(angulo);
-            float y = Mathf.Cos(angulo);
+            float x = Mathf.Cos(angulo);
+            float y = Mathf.Sin(angulo);
             angulo += 2 * Mathf.PI / rayos;
                     
-            Vector3 dir = new Vector3 (Posicion.x + x, 2.5f, Posicion.z + y);
-            Vector3 pos =Posicion;
+            //Vector3 dir = new Vector3 (Posicion.x + x, 2.5f, Posicion.z + y);
+            //Vector3 pos =Posicion;
+            Vector3 dir = new Vector3 (x, 0f, y);
+            Vector3 pos =Posicion + new Vector3 (0, 2.5f, 0); 
+
             RaycastHit hit;
             if(Physics.Raycast(pos, dir,out hit, radio))
             {
-                if(hit.collider == null)
+                if(hit.collider == null){
+
                     vis = vis + radio;
+                }
                 else{
                     vis = vis + hit.distance;
                 }

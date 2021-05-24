@@ -282,6 +282,11 @@ MonoBehaviour:
   heuristica: 1
   lrta: {fileID: 0}
   grid: {fileID: 1102059025}
+  npc: {fileID: 0}
+  tactico: 0
+  multiplicadorTerreno: 0
+  multiplicadorInfluencia: 0
+  multiplicadorVisibilidad: 0
 --- !u!114 &103421142 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8011497864124624601, guid: 790e441b2f4b5324a96b38908003269f,
@@ -1161,6 +1166,11 @@ MonoBehaviour:
   heuristica: 1
   lrta: {fileID: 0}
   grid: {fileID: 1102059025}
+  npc: {fileID: 0}
+  tactico: 0
+  multiplicadorTerreno: 0
+  multiplicadorInfluencia: 0
+  multiplicadorVisibilidad: 0
 --- !u!114 &292984025
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1242,6 +1252,11 @@ MonoBehaviour:
   heuristica: 1
   lrta: {fileID: 0}
   grid: {fileID: 1102059025}
+  npc: {fileID: 0}
+  tactico: 0
+  multiplicadorTerreno: 0
+  multiplicadorInfluencia: 0
+  multiplicadorVisibilidad: 0
 --- !u!114 &413574189
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1494,6 +1509,11 @@ MonoBehaviour:
   heuristica: 1
   lrta: {fileID: 0}
   grid: {fileID: 1102059025}
+  npc: {fileID: 0}
+  tactico: 0
+  multiplicadorTerreno: 0
+  multiplicadorInfluencia: 0
+  multiplicadorVisibilidad: 0
 --- !u!114 &588026739
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1589,6 +1609,11 @@ MonoBehaviour:
   heuristica: 1
   lrta: {fileID: 0}
   grid: {fileID: 1102059025}
+  npc: {fileID: 0}
+  tactico: 0
+  multiplicadorTerreno: 0
+  multiplicadorInfluencia: 0
+  multiplicadorVisibilidad: 0
 --- !u!114 &665558745 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4363339353918755134, guid: b7c740f605c0a8645bdda128c400e3cb,
@@ -1668,6 +1693,11 @@ MonoBehaviour:
   heuristica: 1
   lrta: {fileID: 0}
   grid: {fileID: 1102059025}
+  npc: {fileID: 0}
+  tactico: 0
+  multiplicadorTerreno: 0
+  multiplicadorInfluencia: 0
+  multiplicadorVisibilidad: 0
 --- !u!114 &671911529
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1969,6 +1999,54 @@ MonoBehaviour:
   heuristica: 1
   lrta: {fileID: 0}
   grid: {fileID: 1102059025}
+  npc: {fileID: 0}
+  tactico: 0
+  multiplicadorTerreno: 0
+  multiplicadorInfluencia: 0
+  multiplicadorVisibilidad: 0
+--- !u!1 &838051382
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 838051384}
+  - component: {fileID: 838051383}
+  m_Layer: 0
+  m_Name: Nextlevel
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &838051383
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 838051382}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36376f650cc0f5642b3c2e3f96be9127, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &838051384
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 838051382}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -54.74475, y: 17.034302, z: -52.558975}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 12
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -2098,13 +2176,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7005be0c841fd94ba60ec2a9fd4bb89, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inicio: {fileID: 0}
   tamGrid: {x: 80, y: 80}
   radioNodo: 2
-  distanciaNodos: 0
   cubos: {fileID: 1273862674}
   mapaFila: 20
   mapaColumna: 20
+  mapaInfluencia: {fileID: 0}
+  mapaVisibilidad: {fileID: 0}
+  abajoIzq: {fileID: 0}
+  arribaDcha: {fileID: 0}
 --- !u!65 &1102059026
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2230,6 +2310,11 @@ MonoBehaviour:
   heuristica: 1
   lrta: {fileID: 0}
   grid: {fileID: 1102059025}
+  npc: {fileID: 0}
+  tactico: 0
+  multiplicadorTerreno: 0
+  multiplicadorInfluencia: 0
+  multiplicadorVisibilidad: 0
 --- !u!114 &1695367397
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2311,6 +2396,11 @@ MonoBehaviour:
   heuristica: 1
   lrta: {fileID: 0}
   grid: {fileID: 1102059025}
+  npc: {fileID: 0}
+  tactico: 0
+  multiplicadorTerreno: 0
+  multiplicadorInfluencia: 0
+  multiplicadorVisibilidad: 0
 --- !u!114 &1729393821
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2520,6 +2610,11 @@ MonoBehaviour:
   heuristica: 1
   lrta: {fileID: 0}
   grid: {fileID: 1102059025}
+  npc: {fileID: 0}
+  tactico: 0
+  multiplicadorTerreno: 0
+  multiplicadorInfluencia: 0
+  multiplicadorVisibilidad: 0
 --- !u!1 &1812508297 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4363339353823934270, guid: b7c740f605c0a8645bdda128c400e3cb,
@@ -2565,6 +2660,11 @@ MonoBehaviour:
   heuristica: 1
   lrta: {fileID: 0}
   grid: {fileID: 1102059025}
+  npc: {fileID: 0}
+  tactico: 0
+  multiplicadorTerreno: 0
+  multiplicadorInfluencia: 0
+  multiplicadorVisibilidad: 0
 --- !u!114 &1812508301
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2739,6 +2839,11 @@ MonoBehaviour:
   heuristica: 1
   lrta: {fileID: 0}
   grid: {fileID: 1102059025}
+  npc: {fileID: 0}
+  tactico: 0
+  multiplicadorTerreno: 0
+  multiplicadorInfluencia: 0
+  multiplicadorVisibilidad: 0
 --- !u!114 &1944771180
 MonoBehaviour:
   m_ObjectHideFlags: 0
